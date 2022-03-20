@@ -87,7 +87,7 @@ QVariant ServiceModel::data(const QModelIndex& index, int role  ) const
 		case Host: return srv[index.row()]->hostName();
 		case Port: return srv[index.row()]->port();
 	    }
-	case ServicePtrRole: QVariant ret;
+	case static_cast<int>(ServicePtrRole): QVariant ret;
 			     ret.setValue(srv[index.row()]);
 			    return ret;
     }
