@@ -20,7 +20,6 @@
 #include "kfilemetadataprovider_p.h"
 
 #include <kfileitem.h>
-#include <kfilemetadatareader_p.h>
 #include "knfotranslator_p.h"
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -36,6 +35,7 @@
     #include "resourcemanager.h"
 
     #include "kcommentwidget_p.h"
+    #include <kfilemetadatareader_p.h>
 #else
     namespace Nepomuk
     {
@@ -389,10 +389,10 @@ void KFileMetaDataProvider::setItems(const KFileItemList& items)
 {
     d->m_fileItems = items;
 
-#ifndef KIO_NO_NEPOMUK
     if (items.isEmpty()) {
         return;
     }
+#ifndef KIO_NO_NEPOMUK
     Q_PRIVATE_SLOT(d,void slotDataChangeStarted())
     Q_PRIVATE_SLOT(d,void slotDataChangeFinished())
     QList<KUrl> urls;
@@ -408,6 +408,8 @@ void KFileMetaDataProvider::setItems(const KFileItemList& items)
     connect(d->m_latestMetaDataReader, SIGNAL(finished()), this, SLOT(slotLoadingFinished()));
     d->m_metaDataReaders.append(d->m_latestMetaDataReader);
     d->m_latestMetaDataReader->start();
+#else
+    emit loadingFinished();
 #endif
 }
 

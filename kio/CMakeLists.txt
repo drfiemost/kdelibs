@@ -223,6 +223,7 @@ set(kfile_STAT_SRCS
   kfile/kfile.cpp
   kfile/kfiledialog.cpp
   kfile/kfilemetadataconfigurationwidget.cpp
+  kfile/kfilemetadataprovider.cpp
   kfile/kfilemetadatawidget.cpp
   kfile/kfilemetainfowidget.cpp
   kfile/kfilemetapreview.cpp
@@ -255,7 +256,6 @@ if(NOT KIO_NO_NEPOMUK)
     ${kfile_STAT_SRCS}
     kfile/kcommentwidget.cpp
     kfile/kfilemetadatareader.cpp
-    kfile/kfilemetadataprovider.cpp
     )
 endif(NOT KIO_NO_NEPOMUK)
 
