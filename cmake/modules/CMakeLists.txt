@@ -35,7 +35,6 @@ set(cmakeFiles
                FindDBusMenuQt.cmake
                FindDNSSD.cmake
                FindENCHANT.cmake
-               FindEigen.cmake
                FindEigen2.cmake
                FindExiv2.cmake
                FindFAM.cmake
