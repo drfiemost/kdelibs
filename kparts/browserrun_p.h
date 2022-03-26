@@ -24,8 +24,6 @@
 #include <kio/copyjob.h>
 #include <kdebug.h>
 
-#include "config-nepomuk.h"
-
 #include <QtCore/QDateTime>
 
 #ifdef HAVE_NEPOMUK
