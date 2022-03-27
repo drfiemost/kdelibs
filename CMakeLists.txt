@@ -81,7 +81,7 @@ set_package_properties(ZLIB PROPERTIES DESCRIPTION "Support for gzip compressed 
 find_package(LibAttica 0.4.2)
 set_package_properties(LibAttica PROPERTIES DESCRIPTION "Support for Get Hot New Stuff"
                        URL "https://projects.kde.org/attica"
-                       TYPE REQUIRED
+                       TYPE OPTIONAL
                       )
 
 #optional features
@@ -299,7 +299,9 @@ if(NOT WINCE)
 add_subdirectory( kdoctools  )
 endif(NOT WINCE)
 add_subdirectory( kioslave   )
+if(LIBATTICA_FOUND)
 add_subdirectory( knewstuff  )
+endif(LIBATTICA_FOUND)
 add_subdirectory( kparts     )
 add_subdirectory( kutils     )
 add_subdirectory( licenses   )

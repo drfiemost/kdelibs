@@ -1,6 +1,9 @@
 # strange conversion error in pushbutton.cpp
 kde4_no_enable_final(plasma)
 
+if(NOT LIBATTICA_FOUND)
+    set(PLASMA_NO_KNEWSTUFF TRUE)
+endif(LIBATTICA_FOUND)
 if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
     set(PLASMA_NO_KDEWEBKIT TRUE)
     set(PLASMA_NO_KNEWSTUFF TRUE)
