@@ -596,6 +596,7 @@ macro (KDE4_HANDLE_RPATH_FOR_EXECUTABLE _target_NAME)
       else (APPLE)
          set(_ld_library_path "${LIBRARY_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/:${LIB_INSTALL_DIR}:${KDE4_LIB_DIR}:${QT_LIBRARY_DIR}")
       endif (APPLE)
+      # TODO remove when requiring cmake 3.0
       if (NOT POLICY CMP0026)
         get_target_property(_executable ${_target_NAME} LOCATION )
       else()
@@ -628,6 +629,7 @@ macro (KDE4_HANDLE_RPATH_FOR_EXECUTABLE _target_NAME)
    else (UNIX)
       # under windows, set the property WRAPPER_SCRIPT just to the name of the executable
       # maybe later this will change to a generated batch file (for setting the PATH so that the Qt libs are found)
+      # TODO remove when requiring cmake 3.0
       if (NOT POLICY CMP0026)
         get_target_property(_executable ${_target_NAME} LOCATION )
       else()
@@ -736,6 +738,7 @@ endmacro (KDE4_ADD_PLUGIN _target_NAME _with_PREFIX)
 # (which evaluates to FALSE in cmake)
 macro(KDE4_CHECK_EXECUTABLE_PARAMS _output_LIST _nogui _test)
 
+   # TODO remove when requiring cmake 3.1
    if(POLICY CMP0054)
       cmake_policy(PUSH)
       cmake_policy(SET CMP0054 NEW)
@@ -788,6 +791,7 @@ macro(KDE4_CHECK_EXECUTABLE_PARAMS _output_LIST _nogui _test)
       list(REMOVE_AT ${_output_LIST} ${remove})
    endif (NOT "${remove}" STREQUAL "NOTFOUND")
 
+    # TODO remove when requiring cmake 3.1
    if(POLICY CMP0054)
       cmake_policy(POP)
    endif()
@@ -901,6 +905,7 @@ macro (KDE4_ADD_UNIT_TEST _test_NAME)
     endforeach(_filename)
 
     if(WIN32)
+      # TODO remove when requiring cmake 3.0
       if (NOT POLICY CMP0026)
         get_target_property( loc ${_test_NAME} LOCATION )
         if(MSVC_IDE)
@@ -915,6 +920,7 @@ macro (KDE4_ADD_UNIT_TEST _test_NAME)
       if (Q_WS_MAC AND NOT _nogui)
         set(_executable ${EXECUTABLE_OUTPUT_PATH}/${_test_NAME}.app/Contents/MacOS/${_test_NAME})
       else (Q_WS_MAC AND NOT _nogui)
+        # TODO remove when requiring cmake 3.0
         if (NOT POLICY CMP0026)
           get_target_property( loc ${_test_NAME} LOCATION )
           # .shell because of rpath handling
@@ -967,6 +973,7 @@ endmacro (KDE4_ADD_UNIT_TEST)
 # This macro is an internal macro only used by kde4_add_executable
 #
 macro (_KDE4_ADD_MANIFEST _target_NAME)
+    # TODO remove when requiring cmake 3.0
     if (NOT POLICY CMP0026)
       set(x ${_target_NAME}_OUTPUT_NAME)
       if (${x})
