@@ -78,13 +78,6 @@ set_package_properties(ZLIB PROPERTIES DESCRIPTION "Support for gzip compressed 
                        PURPOSE "Required by the core KDE libraries and some critical kioslaves"
                       )
 
-find_package(Strigi 0.6.3)
-set_package_properties(Strigi PROPERTIES DESCRIPTION "Desktop indexing and search support"
-                       URL "http://strigi.sourceforge.net"
-                       TYPE OPTIONAL
-                       PURPOSE "Required by some kioslaves for metadata support"
-                      )
-
 find_package(LibAttica 0.4.2)
 set_package_properties(LibAttica PROPERTIES DESCRIPTION "Support for Get Hot New Stuff"
                        URL "https://projects.kde.org/attica"

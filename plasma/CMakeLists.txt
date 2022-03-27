@@ -250,13 +250,6 @@ kde4_add_kcfg_files(plasma_LIB_SRCS data/kconfigxt/libplasma-theme-global.kcfgc)
 kde4_add_ui_files(plasma_LIB_SRCS
                   private/pinpairing.ui
                   private/publish.ui)
-#NEPOMUK_GENERATE_FROM_ONTOLOGY(
-#   nwc.nrl
-#   ${metadata_test_BINARY_DIR}
-#   TEST_HEADERS
-#   TEST_SOURCES
-#   TEST_INCLUDES
-#)
 
 if (QT_QTOPENGL_FOUND)
     message(STATUS "Adding support for OpenGL applets to libplasma")

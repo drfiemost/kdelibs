@@ -69,7 +69,6 @@
 #  KDE4_KNOTIFYCONFIG_LIBRARY- the knotifyconfig library
 #  KDE4_KROSSCORE_LIBRARY   - the krosscore library
 #  KDE4_KTEXTEDITOR_LIBRARY - the ktexteditor library
-#  KDE4_NEPOMUK_LIBRARY     - the nepomuk library
 #  KDE4_PLASMA_LIBRARY      - the plasma library
 #  KDE4_KUNITCONVERSION_LIBRARY - the kunitconversion library
 #  KDE4_KDEWEBKIT_LIBRARY   - the kdewebkit library
@@ -106,7 +105,6 @@
 #  KDE4_KROSSCORE_LIBS        - the kross core library and all depending libraries
 #  KDE4_KROSSUI_LIBS          - the kross ui library which includes core and all depending libraries
 #  KDE4_KTEXTEDITOR_LIBS      - the ktexteditor library and all depending libraries
-#  KDE4_NEPOMUK_LIBS          - the nepomuk library and all depending libraries
 #  KDE4_PLASMA_LIBS           - the plasma library and all depending librairies
 #  KDE4_KUNITCONVERSION_LIBS  - the kunitconversion library and all depending libraries
 #  KDE4_KDEWEBKIT_LIBS        - the kdewebkit library and all depending libraries
@@ -659,12 +657,6 @@ if (UNIX)
    _kde4_set_lib_variables(KDESU kdesu       "${KDE4_TARGET_PREFIX}")
    _kde4_set_lib_variables(KPTY kpty         "${KDE4_TARGET_PREFIX}")
 endif (UNIX)
-
-# The nepomuk target does not always exist, since is is built conditionally. When bootstrapping
-# we set it always anyways.
-if(_kdeBootStrapping  OR  TARGET ${KDE4_TARGET_PREFIX}nepomuk)
-   _kde4_set_lib_variables(NEPOMUK nepomuk "${KDE4_TARGET_PREFIX}")
-endif(_kdeBootStrapping  OR  TARGET ${KDE4_TARGET_PREFIX}nepomuk)
 
 
 ################### try to find Phonon ############################################

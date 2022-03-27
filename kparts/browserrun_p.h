@@ -26,10 +26,6 @@
 
 #include <QtCore/QDateTime>
 
-#ifdef HAVE_NEPOMUK
-#include "../nepomuk/utils/utils.h"
-#endif
-
 namespace KParts {
 
 /**

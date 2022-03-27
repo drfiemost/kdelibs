@@ -33,14 +33,6 @@
 #include <QTimer>
 
 #include <config-kio.h>
-#ifndef KIO_NO_NEPOMUK
-    #define DISABLE_NEPOMUK_LEGACY
-
-    #include <property.h>
-    #include <tag.h>
-
-    #include <QSpacerItem>
-#endif
 
 #include "kfilemetadataprovider_p.h"
 
@@ -76,16 +68,6 @@ public:
     void slotLinkActivated(const QString& link);
     void slotDataChangeStarted();
     void slotDataChangeFinished();
-
-#ifndef KIO_NO_NEPOMUK
-    QList<KUrl> sortedKeys(const QHash<KUrl, Nepomuk::Variant>& data) const;
-
-    /**
-     * @return True, if at least one of the file items \a m_fileItems has
-     *         a valid Nepomuk URI.
-     */
-    bool hasNepomukUris() const;
-#endif
 
     QList<Row> m_rows;
     KFileMetaDataProvider* m_provider;
@@ -182,7 +164,7 @@ void KFileMetaDataWidget::Private::deleteRows()
 
 void KFileMetaDataWidget::Private::slotLoadingFinished()
 {
-#ifndef KIO_NO_NEPOMUK
+#if 0
     deleteRows();
 
     if (!hasNepomukUris()) {
@@ -272,7 +254,7 @@ void KFileMetaDataWidget::Private::slotDataChangeFinished()
     q->setEnabled(true);
 }
 
-#ifndef KIO_NO_NEPOMUK
+#if 0
 QList<KUrl> KFileMetaDataWidget::Private::sortedKeys(const QHash<KUrl, Nepomuk::Variant>& data) const
 {
     // Create a map, where the translated label prefixed with the

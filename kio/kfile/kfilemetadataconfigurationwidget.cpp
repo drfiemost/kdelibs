@@ -27,15 +27,6 @@
 #include <klocale.h>
 
 #include <config-kio.h>
-#ifndef KIO_NO_NEPOMUK
-    #define DISABLE_NEPOMUK_LEGACY
-    #include <resource.h>
-    #include <resourcemanager.h>
-    #include <property.h>
-    #include <variant.h>
-
-    #include "kfilemetadataprovider_p.h"
-#endif
 
 #include <QEvent>
 #include <QListWidget>
@@ -60,7 +51,7 @@ public:
 
     int m_visibleDataTypes;
     KFileItemList m_fileItems;
-#ifndef KIO_NO_NEPOMUK
+#if 0
     KFileMetaDataProvider* m_provider;
 #endif
     QListWidget* m_metaDataList;
@@ -72,7 +63,7 @@ private:
 KFileMetaDataConfigurationWidget::Private::Private(KFileMetaDataConfigurationWidget* parent) :
     m_visibleDataTypes(0),
     m_fileItems(),
-#ifndef KIO_NO_NEPOMUK
+#if 0
     m_provider(0),
 #endif
     m_metaDataList(0),
@@ -85,7 +76,7 @@ KFileMetaDataConfigurationWidget::Private::Private(KFileMetaDataConfigurationWid
     QVBoxLayout* layout = new QVBoxLayout(q);
     layout->addWidget(m_metaDataList);
 
-#ifndef KIO_NO_NEPOMUK
+#if 0
     m_provider = new KFileMetaDataProvider(q);
 #endif
 }
@@ -96,7 +87,7 @@ KFileMetaDataConfigurationWidget::Private::~Private()
 
 void KFileMetaDataConfigurationWidget::Private::loadMetaData()
 {
-#ifndef KIO_NO_NEPOMUK
+#if 0
     m_provider->setItems(m_fileItems);
     connect(m_provider, SIGNAL(loadingFinished()),
             q, SLOT(slotLoadingFinished()));
@@ -133,7 +124,7 @@ void KFileMetaDataConfigurationWidget::Private::addItem(const KUrl& uri)
     KConfig config("kmetainformationrc", KConfig::NoGlobals);
     KConfigGroup settings = config.group("Show");
 
-#ifndef KIO_NO_NEPOMUK
+#if 0
     const QString label = (m_provider == 0)
                           ? KNfoTranslator::instance().translation(uri)
                           : m_provider->label(uri);
@@ -149,7 +140,7 @@ void KFileMetaDataConfigurationWidget::Private::addItem(const KUrl& uri)
 
 void KFileMetaDataConfigurationWidget::Private::slotLoadingFinished()
 {
-#ifndef KIO_NO_NEPOMUK
+#if 0
     // Get all meta information labels that are available for
     // the currently shown file item and add them to the list.
     Q_ASSERT(m_provider != 0);

@@ -123,8 +123,6 @@ set(cmakeFiles
                MacroOptionalFindPackage.cmake
                MacroPushRequiredVars.cmake
                MacroWriteBasicCMakeVersionFile.cmake
-               NepomukMacros.cmake
-               NepomukAddOntologyClasses.cmake
                PythonMacros.cmake
                SIPMacros.cmake
                Win32Macros.cmake

@@ -182,8 +182,6 @@
 5256        akonadiresource (openchange)
 5257        akonadiresource (vcard)
 5258        akonadiagent (mailthreader)
-5259        akonadiagent (nepomukfeeder)
-5260        akonadiagent (strigifeeder)
 5261        akonadiserializer (addressee)
 5262        akonadiserializer (bookmark)
 5263        akonadiserializer (calendar)
@@ -738,16 +736,3 @@
 200003       rosegarden (sequencer)
 200004       rosegarden (sequence manager)
 
-
-# Nepomuk-KDE (aka. Semantic KDE)
-
-300000       nepomuk (library)
-300001       nepomuk (server)
-300100       nepomuk (services)
-300101       nepomuk (filewatch service)
-300102       nepomuk (migration service)
-300103       nepomuk (ontologyloader service)
-300104       nepomuk (query service)
-300105       nepomuk (storage service)
-300106       nepomuk (strigi service)
-300200       nepomuk (ioslave)
