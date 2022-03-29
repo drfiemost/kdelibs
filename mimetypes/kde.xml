@@ -7,7 +7,7 @@ COPYING.
 -->
 <!--
 Notes:
-- the mime types in this file are valid with the version 0.30 of the
+- the mime types in this file are valid with the version 2.2 of the
   shared-mime-info package.
 - the "fdo #xxxxx" are the wish in the freedesktop.org bug database to include
   the mime type there.
@@ -661,66 +661,6 @@ Notes:
     <comment xml:lang="zh_TW">MIME 封裝網頁歸檔</comment>
     <glob pattern="*.mhtml"/>
     <glob pattern="*.mht"/>
-  </mime-type>
-  <mime-type type="application/x-nzb"> <!-- fdo #10029 -->
-    <comment>NewzBin usenet index</comment>
-    <comment xml:lang="ar">فهرس يوزنت NewzBin</comment>
-    <comment xml:lang="ast">Índiz usenet de NewzBin</comment>
-    <comment xml:lang="bs">NewzBinov indeks Useneta</comment>
-    <comment xml:lang="ca">índex usenet NewzBin</comment>
-    <comment xml:lang="ca@valencia">índex usenet NewzBin</comment>
-    <comment xml:lang="cs">Index NewzBin usenet</comment>
-    <comment xml:lang="da">NewzBin usenet-indeks</comment>
-    <comment xml:lang="de">NewzBin-Usenet-Index</comment>
-    <comment xml:lang="el">Ευρετήριο νέων NewzBin</comment>
-    <comment xml:lang="en_GB">NewzBin usenet index</comment>
-    <comment xml:lang="es">Índice usenet de NewzBin</comment>
-    <comment xml:lang="et">NewzBini useneti indeks</comment>
-    <comment xml:lang="eu">NewzBin usenet indizea</comment>
-    <comment xml:lang="fi">NewzBin-keskusteluryhmäindeksi</comment>
-    <comment xml:lang="fr">Index Usenet de NewzBin</comment>
-    <comment xml:lang="ga">Innéacs usenet NewzBin</comment>
-    <comment xml:lang="gl">Índice da usenet de NewsBin</comment>
-    <comment xml:lang="hr">NewzBin usenet indeks</comment>
-    <comment xml:lang="hu">NewzBin Usenet-index</comment>
-    <comment xml:lang="ia">Indice usenet de NewzBiz</comment>
-    <comment xml:lang="is">NewzBin usenet yfirlit</comment>
-    <comment xml:lang="it">indice Usenet di NewzBin</comment>
-    <comment xml:lang="ja">NewzBin usenet インデックス</comment>
-    <comment xml:lang="kk">NewzBin usenet индексі</comment>
-    <comment xml:lang="km">លិបិក្រម​​បណ្ដាញ​ប្រើ​របស់ NewzBin</comment>
-    <comment xml:lang="ko">NewzBin 유즈넷 인덱스</comment>
-    <comment xml:lang="lt">NewzBin usenet indeksas</comment>
-    <comment xml:lang="lv">NewzBin usenet indekss</comment>
-    <comment xml:lang="ml">ന്യൂസ്ബിന്‍ യൂസ്നെറ്റ് സൂചിക</comment>
-    <comment xml:lang="mr">न्युझबिन युजनेट अनुक्रमणिका </comment>
-    <comment xml:lang="nb">NewzBin usenet index</comment>
-    <comment xml:lang="nds">NewzBin-Usenet-Index</comment>
-    <comment xml:lang="nl">NewzBin-usenet-index</comment>
-    <comment xml:lang="nn">NewzBin-temagruppeindeks</comment>
-    <comment xml:lang="pl">Indeks grup dyskusyjnych NewzBin</comment>
-    <comment xml:lang="pt">Índice de notícias do NewzBin</comment>
-    <comment xml:lang="pt_BR">Índice de notícias do NewzBin</comment>
-    <comment xml:lang="ro">index usenet NewzBin</comment>
-    <comment xml:lang="ru">индекс Usenet для NewzBin</comment>
-    <comment xml:lang="se">NewzBin usenetindeaksa</comment>
-    <comment xml:lang="sk">NewzBin usenet index</comment>
-    <comment xml:lang="sl">Kazalo novičarskih skupin NewzBin</comment>
-    <comment xml:lang="sr">Њузбинов индекс јузнета</comment>
-    <comment xml:lang="sr@ijekavian">Њузбинов индекс јузнета</comment>
-    <comment xml:lang="sr@ijekavianlatin">NewzBinov indeks Useneta</comment>
-    <comment xml:lang="sr@latin">NewzBinov indeks Useneta</comment>
-    <comment xml:lang="sv">Newzbin-diskussionsgruppindex</comment>
-    <comment xml:lang="tr">NewzBin usenet dizini</comment>
-    <comment xml:lang="ug">NewzBin usenet ئىندېكس</comment>
-    <comment xml:lang="uk">покажчик usenet NewzBin</comment>
-    <comment xml:lang="zh_CN">NewzBin usenet 索引</comment>
-    <comment xml:lang="zh_TW">NewzBin usenet 索引</comment>
-    <sub-class-of type="application/xml"/>
-    <magic priority="80">
-      <match type="string" value="&lt;nzb" offset="0:256"/>
-    </magic>
-    <glob pattern="*.nzb"/>
   </mime-type>
   <mime-type type="application/x-plasma">
     <sub-class-of type="application/zip"/>
@@ -3692,67 +3632,6 @@ Notes:
     <glob pattern="*.kexic"/>
   </mime-type>
 
-  <!-- http://www4.wiwiss.fu-berlin.de/bizer/TriG/ -->
-  <!-- Used in Nepomuk to encode almost all ontologies -->
-  <mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="application/x-trig"> <!-- fdo #18089 -->
-    <comment>TriG RDF document</comment>
-    <comment xml:lang="ar">وثيقة TriG RDF</comment>
-    <comment xml:lang="ast">Documentu RDF TriG</comment>
-    <comment xml:lang="bs">TriG RDF dokument</comment>
-    <comment xml:lang="ca">document TriG RDF</comment>
-    <comment xml:lang="ca@valencia">document TriG RDF</comment>
-    <comment xml:lang="cs">Dokument TriG RDF</comment>
-    <comment xml:lang="da">TriG RDF-dokument</comment>
-    <comment xml:lang="de">TriG-RDF-Dokument</comment>
-    <comment xml:lang="el">Έγγραφο TriG RDF</comment>
-    <comment xml:lang="en_GB">TriG RDF document</comment>
-    <comment xml:lang="es">Documento RDF TriG</comment>
-    <comment xml:lang="et">TriG RDF-dokument</comment>
-    <comment xml:lang="eu">TriG RDF dokumentua</comment>
-    <comment xml:lang="fi">TriG RDF -tiedosto</comment>
-    <comment xml:lang="fr">Document « RDF TriG »</comment>
-    <comment xml:lang="ga">Cáipéis RDF TriG</comment>
-    <comment xml:lang="gl">Documento RDF de TriG</comment>
-    <comment xml:lang="hr">TriG RDF dokument</comment>
-    <comment xml:lang="hu">TriG RDF-dokumentum</comment>
-    <comment xml:lang="ia">Documento RDF de TRiG</comment>
-    <comment xml:lang="is">TriG RDF skjal</comment>
-    <comment xml:lang="it">documento TriG RDF</comment>
-    <comment xml:lang="ja">TriG RDF 文書</comment>
-    <comment xml:lang="kk">TriG RDF құжаты</comment>
-    <comment xml:lang="km">ឯកសារ TriG RDF</comment>
-    <comment xml:lang="ko">TriG RDF 문서</comment>
-    <comment xml:lang="lt">TriG RDF dokumentas</comment>
-    <comment xml:lang="lv">TriG RDF dokuments</comment>
-    <comment xml:lang="ml">ട്രിഗ് ആര്‍ ഡി എഫ് രേഖ</comment>
-    <comment xml:lang="mr">ट्रीग RDF दस्तऐवज</comment>
-    <comment xml:lang="nb">TriG RDF-dokument</comment>
-    <comment xml:lang="nds">RDF-Dokment för TriG</comment>
-    <comment xml:lang="nl">TriG RDF-document</comment>
-    <comment xml:lang="nn">TriG RDF-dokument</comment>
-    <comment xml:lang="pa">TriG RDF ਡੌਕੂਮੈਂਟ</comment>
-    <comment xml:lang="pl">Dokument TriG RDF</comment>
-    <comment xml:lang="pt">Documento RDF do TriG</comment>
-    <comment xml:lang="pt_BR">Documento RDF do TriG</comment>
-    <comment xml:lang="ro">Document RDF TriG</comment>
-    <comment xml:lang="ru">документ TriG RDF</comment>
-    <comment xml:lang="se">TriG RDF-dokumeanta</comment>
-    <comment xml:lang="sk">Dokument TriG RDF</comment>
-    <comment xml:lang="sl">Dokument TriG RDF</comment>
-    <comment xml:lang="sq">TriG RDF dokument</comment>
-    <comment xml:lang="sr">три‑Г РДФ документ</comment>
-    <comment xml:lang="sr@ijekavian">три‑Г РДФ документ</comment>
-    <comment xml:lang="sr@ijekavianlatin">TriG RDF dokument</comment>
-    <comment xml:lang="sr@latin">TriG RDF dokument</comment>
-    <comment xml:lang="sv">Trig RDF-dokument</comment>
-    <comment xml:lang="tr">TriG RDF belgesi</comment>
-    <comment xml:lang="ug">TriG RDF پۈتۈك</comment>
-    <comment xml:lang="uk">документ RDF TriG</comment>
-    <comment xml:lang="zh_CN">TriG RDF 文档</comment>
-    <comment xml:lang="zh_TW">TriG RDF 文件</comment>
-    <sub-class-of type="text/plain" />
-    <glob pattern="*.trig" />
-  </mime-type>
   <!-- http://www.dajobe.org/2004/01/turtle/#sec-mime -->
   <!-- Important: the SPARQL RDF query lanaguge uses turtle encoding for graph patterns. -->
   <mime-type xmlns="http://www.freedesktop.org/standards/shared-mime-info" type="application/x-turtle"> <!-- fdo #18089 -->
@@ -3812,121 +3691,6 @@ Notes:
     <comment xml:lang="zh_CN">Turtle RDF 文档</comment>
     <comment xml:lang="zh_TW">Turtle RDF 文件</comment>
     <sub-class-of type="text/plain" />
-  </mime-type>
-  <mime-type type="image/x-pic"> <!-- fdo #26038 -->
-    <comment>Softimage PIC image</comment>
-    <comment xml:lang="ar">صورة PIC</comment>
-    <comment xml:lang="bs">Softimidžova PIC slika</comment>
-    <comment xml:lang="ca">imatge PIC de Softimage</comment>
-    <comment xml:lang="ca@valencia">imatge PIC de Softimage</comment>
-    <comment xml:lang="cs">Obrázek Softimage PIC</comment>
-    <comment xml:lang="da">Softimage PIC-billede</comment>
-    <comment xml:lang="de">Softimage-PIC-Bild</comment>
-    <comment xml:lang="el">Εικόνα Softimage PIC</comment>
-    <comment xml:lang="en_GB">Softimage PIC image</comment>
-    <comment xml:lang="es">Imagen PIC de Softimage</comment>
-    <comment xml:lang="et">Softimage PIC pilt</comment>
-    <comment xml:lang="eu">Softimage PIC irudia</comment>
-    <comment xml:lang="fi">Softimage PIC -kuva</comment>
-    <comment xml:lang="fr">Image PIC de Softimage</comment>
-    <comment xml:lang="ga">Íomhá PIC Softimage</comment>
-    <comment xml:lang="gl">Imaxe PIC de Softimage</comment>
-    <comment xml:lang="hr">Softimage PIC slika</comment>
-    <comment xml:lang="hu">Softimage PIC-kép</comment>
-    <comment xml:lang="ia">Imagine PIC de SoftImage</comment>
-    <comment xml:lang="is">Softimage PIC mynd</comment>
-    <comment xml:lang="it">immagine Softimage PIC</comment>
-    <comment xml:lang="ja">Softimage PIC 画像</comment>
-    <comment xml:lang="kk">Softimage PIC кескіні</comment>
-    <comment xml:lang="km">រូបភាព Softimage PIC</comment>
-    <comment xml:lang="ko">Softimage PIC 그림</comment>
-    <comment xml:lang="lt">Softimage PIC paveikslėlis</comment>
-    <comment xml:lang="lv">Softimage PIC attēls</comment>
-    <comment xml:lang="ml">സോഫ്റ്റ്‌ഇമേജ് പിക്ക് ചിത്രം</comment>
-    <comment xml:lang="mr">सोफ्टइमेज PIC प्रतिमा</comment>
-    <comment xml:lang="nb">Softimage PIC-bilde</comment>
-    <comment xml:lang="nds">PIC-Bild vun Softimage</comment>
-    <comment xml:lang="nl">Softimage PIC-image</comment>
-    <comment xml:lang="nn">Softimage PIC-bilete</comment>
-    <comment xml:lang="pl">Plik obrazu Softimage PIC</comment>
-    <comment xml:lang="pt">Imagem PIC da Softimage</comment>
-    <comment xml:lang="pt_BR">Imagem PIC da Softimage</comment>
-    <comment xml:lang="ro">imagine Softimage PIC</comment>
-    <comment xml:lang="ru">изображение Softimage PIC</comment>
-    <comment xml:lang="se">Softimage PIC-govva</comment>
-    <comment xml:lang="sk">Softimage PIC obrázok</comment>
-    <comment xml:lang="sl">Slika Softimage PIC</comment>
-    <comment xml:lang="sr">Софтимиџова ПИЦ слика</comment>
-    <comment xml:lang="sr@ijekavian">Софтимиџова ПИЦ слика</comment>
-    <comment xml:lang="sr@ijekavianlatin">Softimidžova PIC slika</comment>
-    <comment xml:lang="sr@latin">Softimidžova PIC slika</comment>
-    <comment xml:lang="sv">Softimage PIC-bild</comment>
-    <comment xml:lang="th">ภาพรูปแบบ Softimage PIC</comment>
-    <comment xml:lang="tr">Softimage PIC resmi</comment>
-    <comment xml:lang="ug">Softimage PIC سۈرەت</comment>
-    <comment xml:lang="uk">зображення PIC Softimage</comment>
-    <comment xml:lang="zh_CN">Softimage PIC 图像</comment>
-    <comment xml:lang="zh_TW">Softimage PIC 影像</comment>
-    <magic priority="80">
-      <match value="0x5380f634" type="big32" offset="0"/>
-    </magic>
-    <glob pattern="*.pic"/>
-  </mime-type>
-  <mime-type type="text/x-qml"> <!-- in fdo smi > 0.90 -->
-    <comment>Qt Markup Language file</comment>
-    <comment xml:lang="ar">ملف لغة الوصف Qt</comment>
-    <comment xml:lang="bs">Datoteka Qt jezika za označavanje</comment>
-    <comment xml:lang="ca">fitxer de llenguatge de marques de Qt</comment>
-    <comment xml:lang="ca@valencia">fitxer de llenguatge de marques de Qt</comment>
-    <comment xml:lang="cs">Soubor Qt Markup Language</comment>
-    <comment xml:lang="da">Qt Markup Language-fil</comment>
-    <comment xml:lang="de">Qt-Markup-Language-Datei</comment>
-    <comment xml:lang="el">Αρχείο γλώσσας σήμανσης Qt</comment>
-    <comment xml:lang="en_GB">Qt Markup Language file</comment>
-    <comment xml:lang="es">Archivo de lenguaje de marcas de Qt</comment>
-    <comment xml:lang="et">Qt märkekeele fail</comment>
-    <comment xml:lang="eu">Qt markatzeko lengoaia fitxategia</comment>
-    <comment xml:lang="fi">Qt-merkintäkielitiedosto</comment>
-    <comment xml:lang="fr">Fichier de langage à balises Qt</comment>
-    <comment xml:lang="ga">Comhad Teanga Mharcála Qt</comment>
-    <comment xml:lang="gl">Ficheiro na lingua de etiquetas de Qt</comment>
-    <comment xml:lang="hr">Datoteka Qt-ovog označnog jezika</comment>
-    <comment xml:lang="hu">Qt Markup Language fájl</comment>
-    <comment xml:lang="ia">Le de linguage de marcation de QT</comment>
-    <comment xml:lang="is">Qt Markup tungumálsskrá</comment>
-    <comment xml:lang="it">File di linguaggio a marcatori di Qt</comment>
-    <comment xml:lang="kk">Qt белгілеу тіліндегі файл</comment>
-    <comment xml:lang="km">ឯកសារ​ភាសា​សម្គាល់ ​Qt </comment>
-    <comment xml:lang="ko">Qt 마크업 언어 파일</comment>
-    <comment xml:lang="lt">Qt ženklinimo kalba</comment>
-    <comment xml:lang="lv">Qt Markup Language fails</comment>
-    <comment xml:lang="mr">क्यूटी मार्कअप भाषा फाईल</comment>
-    <comment xml:lang="nb">FIl for Qt oppmerkingsspråk</comment>
-    <comment xml:lang="nds">Qt-Schriftsatzspraakdatei</comment>
-    <comment xml:lang="nl">Qt Markup Language-bestand</comment>
-    <comment xml:lang="nn">Fil for Qt-oppmerkingsspråk</comment>
-    <comment xml:lang="pl">Plik języka znaczników dla Qt</comment>
-    <comment xml:lang="pt">Ficheiro na Qt Markup Language</comment>
-    <comment xml:lang="pt_BR">Arquivo da Qt Markup Language</comment>
-    <comment xml:lang="ro">Fișier limbaj de marcare Qt</comment>
-    <comment xml:lang="ru">исходный код QML</comment>
-    <comment xml:lang="se">Qt Markup Language-fiila</comment>
-    <comment xml:lang="sk">Súbor značkovacieho jazyka Qt</comment>
-    <comment xml:lang="sl">Datoteka označevalnega jezika Qt (QML)</comment>
-    <comment xml:lang="sr">фајл КуТ‑овог обележивачког језика</comment>
-    <comment xml:lang="sr@ijekavian">фајл КуТ‑овог обележивачког језика</comment>
-    <comment xml:lang="sr@ijekavianlatin">fajl Qt‑ovog obeleživačkog jezika</comment>
-    <comment xml:lang="sr@latin">fajl Qt‑ovog obeleživačkog jezika</comment>
-    <comment xml:lang="sv">Qt-taggspråkfil</comment>
-    <comment xml:lang="tr">Qt İşaretleme Dili dosyası</comment>
-    <comment xml:lang="ug">Qt بەلگە تىل ھۆججىتى</comment>
-    <comment xml:lang="uk">файл мови розмітки Qt</comment>
-    <comment xml:lang="zh_CN">Qt 标记语言文件</comment>
-    <comment xml:lang="zh_TW">Qt 標示語言檔</comment>
-    <magic priority="80">
-      <match type="string" value="import Qt " offset="0:256"/>
-    </magic>
-    <glob pattern="*.qml"/>
   </mime-type>
   <mime-type type="application/x-mobipocket-ebook">
     <comment>Mobipocket e-book</comment>
