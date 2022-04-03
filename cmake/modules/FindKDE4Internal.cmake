@@ -55,7 +55,6 @@
 #  KDE4_KIDLETIME_LIBRARY   - the kidletime library
 #  KDE4_KCMUTILS_LIBRARY    - the kcmutils library
 #  KDE4_KPRINTUTILS_LIBRARY - the kprintutils library
-#  KDE4_KDE3SUPPORT_LIBRARY - the kde3support library
 #  KDE4_KFILE_LIBRARY       - the kfile library
 #  KDE4_KHTML_LIBRARY       - the khtml library
 #  KDE4_KJS_LIBRARY         - the kjs library
@@ -88,7 +87,6 @@
 #  KDE4_KIDLETIME_LIBS        - the kidletime library and all depending libraries
 #  KDE4_KCMUTILS_LIBS         - the kcmutils library and all depending libraries
 #  KDE4_KPRINTUTILS_LIBS      - the kprintutils library and all depending libraries
-#  KDE4_KDE3SUPPORT_LIBS      - the kde3support library and all depending libraries
 #  KDE4_KFILE_LIBS            - the kfile library and all depending libraries
 #  KDE4_KHTML_LIBS            - the khtml library and all depending libraries
 #  KDE4_KJS_LIBS              - the kjs library and all depending libraries
@@ -626,7 +624,6 @@ endif (_kdeBootStrapping)
 
 # Sorted by names:
 _kde4_set_lib_variables(KCMUTILS      kcmutils      "${KDE4_TARGET_PREFIX}")
-_kde4_set_lib_variables(KDE3SUPPORT   kde3support   "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDECORE       kdecore       "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDEUI         kdeui         "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDEWEBKIT     kdewebkit     "${KDE4_TARGET_PREFIX}")
