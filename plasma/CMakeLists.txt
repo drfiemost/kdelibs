@@ -76,11 +76,19 @@ set(plasmagik_SRCS
     package.cpp
     )
 
+if(QT_QTWEBKIT_FOUND)
+    set(plasmawebkit_SRCS
+        private/animablegraphicswebview.cpp
+        widgets/webview.cpp
+        )
+endif(QT_QTWEBKIT_FOUND)
+
 #to make the Temporary solution to not link to libkdeclarative work, disable the exports of libkdeclarative  
 add_definitions(-DKDECLARATIVE_EXPORT=)
 
 set(plasma_LIB_SRCS
     ${plasmagik_SRCS}
+    ${plasmawebkit_SRCS}
     abstractrunner.cpp
     abstracttoolbox.cpp
     animator.cpp
@@ -124,7 +132,6 @@ set(plasma_LIB_SRCS
     framesvg.cpp
     plasma.cpp
     popupapplet.cpp
-    private/animablegraphicswebview.cpp
     private/applethandle.cpp
     private/associatedapplicationmanager.cpp
     private/componentinstaller.cpp
@@ -214,7 +221,6 @@ set(plasma_LIB_SRCS
     widgets/textbrowser.cpp
     widgets/treeview.cpp
     widgets/textedit.cpp
-    widgets/webview.cpp
 
     #Temporary QtJolie branch
     private/qtjolie-branch/qtjolie/abstractadaptor.cpp
@@ -411,8 +417,13 @@ install(FILES
     widgets/textbrowser.h
     widgets/treeview.h
     widgets/textedit.h
-    widgets/webview.h
     DESTINATION ${INCLUDE_INSTALL_DIR}/plasma/widgets COMPONENT Devel)
+
+if(QT_QTWEBKIT_FOUND)
+    install(FILES
+        widgets/webview.h
+        DESTINATION ${INCLUDE_INSTALL_DIR}/plasma/widgets COMPONENT Devel)
+endif(QT_QTWEBKIT_FOUND)
 
 install(FILES
     scripting/appletscript.h
