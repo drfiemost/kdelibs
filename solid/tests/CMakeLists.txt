@@ -16,20 +16,6 @@ target_link_libraries(fakehardwaretest solid_static ${QT_QTCORE_LIBRARY} ${QT_QT
 add_definitions(-DTEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/../solid/backends/fakehw/fakecomputer.xml")
 
 
-########### halbasictest ###############
-
-if(NOT WIN32 AND NOT APPLE)
-set(halbasictest_SRCS halbasictest.cpp )
-
-kde4_add_executable(halbasictest ${halbasictest_SRCS})
-
-if(WIN32)
-  set_target_properties(halbasictest PROPERTIES COMPILE_FLAGS -DSOLID_EXPORT=)
-endif(WIN32)
-
-target_link_libraries(halbasictest solid_static ${KDEWIN_LIBRARIES} ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTTEST_LIBRARY} )
-endif(NOT WIN32 AND NOT APPLE)
-
 ########### solidhwtest ###############
 
 set(solidhwtest_SRCS 
