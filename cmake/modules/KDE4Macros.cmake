@@ -1371,7 +1371,7 @@ function(KDE4_INSTALL_AUTH_ACTIONS HELPER_ID ACTIONS_FILE)
                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                        COMMENT "Generating ${HELPER_ID}.policy"
                        DEPENDS ${_KDE4_KAUTH_POLICY_GEN_EXECUTABLE_DEP})
-    add_custom_target("actions for ${HELPER_ID}" ALL DEPENDS ${_output})
+    add_custom_target("actions_for_${HELPER_ID}" ALL DEPENDS ${_output})
 
     install(FILES ${_output} DESTINATION ${KDE4_AUTH_POLICY_FILES_INSTALL_DIR})
   endif()
