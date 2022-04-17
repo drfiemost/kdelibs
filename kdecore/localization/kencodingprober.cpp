@@ -101,8 +101,8 @@ public:
             {
                 case '\xEF':
                     if (('\xBB' == aBuf[1]) && ('\xBF' == aBuf[2]))
-                    // EF BB BF  UTF-8 encoded BOM
-                    proberState = KEncodingProber::FoundIt;
+                        // EF BB BF  UTF-8 encoded BOM
+                        proberState = KEncodingProber::FoundIt;
                     break;
                 case '\xFE':
                     if (('\xFF' == aBuf[1]) && ('\x00' == aBuf[2]) && ('\x00' == aBuf[3]))
@@ -111,7 +111,7 @@ public:
                     else if ('\xFF' == aBuf[1])
                         // FE FF  UTF-16, big endian BOM
                         proberState = KEncodingProber::FoundIt;
-                        break;
+                    break;
                 case '\x00':
                     if (('\x00' == aBuf[1]) && ('\xFE' == aBuf[2]) && ('\xFF' == aBuf[3]))
                         // 00 00 FE FF  UTF-32, big-endian BOM
@@ -119,7 +119,7 @@ public:
                     else if (('\x00' == aBuf[1]) && ('\xFF' == aBuf[2]) && ('\xFE' == aBuf[3]))
                         // 00 00 FF FE  UCS-4, unusual octet order BOM (2143)
                         proberState = KEncodingProber::FoundIt;
-                        break;
+                    break;
                 case '\xFF':
                     if (('\xFE' == aBuf[1]) && ('\x00' == aBuf[2]) && ('\x00' == aBuf[3]))
                         // FF FE 00 00  UTF-32, little-endian BOM
@@ -127,7 +127,7 @@ public:
                     else if ('\xFE' == aBuf[1])
                         // FF FE  UTF-16, little endian BOM
                         proberState = KEncodingProber::FoundIt;
-                        break;
+                    break;
             }  // switch
 
         }

@@ -253,18 +253,18 @@ bool KStringHandler::isUtf8( const char *buf )
     } else {                           /* 11xxxxxx begins UTF-8 */
       int following;
 
-    if ((c & 0x20) == 0) {             /* 110xxxxx */
-      following = 1;
-    } else if ((c & 0x10) == 0) {      /* 1110xxxx */
-      following = 2;
-    } else if ((c & 0x08) == 0) {      /* 11110xxx */
-      following = 3;
-    } else if ((c & 0x04) == 0) {      /* 111110xx */
-      following = 4;
-    } else if ((c & 0x02) == 0) {      /* 1111110x */
-      following = 5;
-    } else
-      return false;
+      if ((c & 0x20) == 0) {             /* 110xxxxx */
+        following = 1;
+      } else if ((c & 0x10) == 0) {      /* 1110xxxx */
+        following = 2;
+      } else if ((c & 0x08) == 0) {      /* 11110xxx */
+        following = 3;
+      } else if ((c & 0x04) == 0) {      /* 111110xx */
+        following = 4;
+      } else if ((c & 0x02) == 0) {      /* 1111110x */
+        following = 5;
+      } else
+        return false;
 
       for (n = 0; n < following; ++n) {
         i++;

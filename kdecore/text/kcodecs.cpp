@@ -144,10 +144,18 @@ static int rikFindChar(register const char * _s, const char c)
 
   while (true)
   {
-    if ((0 == *s) || (c == *s)) break; ++s;
-    if ((0 == *s) || (c == *s)) break; ++s;
-    if ((0 == *s) || (c == *s)) break; ++s;
-    if ((0 == *s) || (c == *s)) break; ++s;
+    if ((0 == *s) || (c == *s))
+        break;
+    ++s;
+    if ((0 == *s) || (c == *s))
+        break;
+    ++s;
+    if ((0 == *s) || (c == *s))
+        break;
+    ++s;
+    if ((0 == *s) || (c == *s))
+        break;
+    ++s;
   }
 
   return s - _s;
