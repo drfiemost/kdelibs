@@ -30,7 +30,7 @@ EventLoggerRegister::~EventLoggerRegister()
 }
 
 EventLoggerRegister* EventLoggerRegister::s_instance = 0;
-std::auto_ptr<EventLoggerRegister> EventLoggerRegister::s_destroyer;
+std::unique_ptr<EventLoggerRegister> EventLoggerRegister::s_destroyer;
 
 EventLoggerRegister* EventLoggerRegister::instance(Behaviour behaviour)
 {

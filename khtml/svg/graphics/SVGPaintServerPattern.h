@@ -55,7 +55,7 @@ namespace WebCore {
         FloatRect patternBoundaries() const;
 
         ImageBuffer* tile() const;
-        void setTile(std::auto_ptr<ImageBuffer>);
+        void setTile(std::unique_ptr<ImageBuffer>);
 
         AffineTransform patternTransform() const;
         void setPatternTransform(const AffineTransform&);
