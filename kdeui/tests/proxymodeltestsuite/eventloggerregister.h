@@ -50,9 +50,9 @@ private:
   QVector<ModelEventLogger*> m_loggers;
 
   static EventLoggerRegister *s_instance;
-  friend class std::auto_ptr<EventLoggerRegister>;
+  friend std::unique_ptr<EventLoggerRegister>::deleter_type;
 
-  static std::auto_ptr<EventLoggerRegister> s_destroyer;
+  static std::unique_ptr<EventLoggerRegister> s_destroyer;
   Q_DISABLE_COPY(EventLoggerRegister)
 };
 
