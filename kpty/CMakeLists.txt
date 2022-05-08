@@ -12,7 +12,7 @@ set(kpty_LIB_SRCS
 kde4_add_library(kpty ${LIBRARY_TYPE} ${kpty_LIB_SRCS})
 
 target_link_libraries(kpty LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${UTIL_LIBRARY} ${UTEMPTER_LIBRARY})
-target_link_libraries(kpty LINK_PUBLIC kdecore ${QT_QTCORE_LIBRARY} )
+target_link_libraries(kpty LINK_PUBLIC kdecore Qt4::QtCore)
 
 set_target_properties(kpty PROPERTIES
    VERSION ${GENERIC_LIB_VERSION}

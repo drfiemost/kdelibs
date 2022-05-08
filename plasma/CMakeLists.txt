@@ -56,7 +56,7 @@ endif(NOT PLASMA_NO_SOLID)
 
 if(NOT PLASMA_NO_PACKAGEKIT)
     add_definitions(-DPLASMA_ENABLE_PACKAGEKIT_SUPPORT=1)
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${QT_QTDBUS_LIBRARY})
+    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} Qt4::QtDBus)
 endif(NOT PLASMA_NO_PACKAGEKIT)
 
 if (NOT PLASMA_NO_KUTILS)
@@ -282,9 +282,13 @@ endif(PHONON_FOUND)
 
 kde4_add_library(plasma ${LIBRARY_TYPE} ${plasma_LIB_SRCS})
 
-target_link_libraries(plasma LINK_PRIVATE ${QT_QTUITOOLS_LIBRARY} ${QT_QTWEBKIT_LIBRARY}
-                             ${QT_QTSCRIPT_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTSQL_LIBRARY} ${QT_QTDECLARATIVE_LIBRARY}
-                             ${KDE4_KDEUI_LIBS} ${KDE4_KDNSSD_LIBS} ${KDE4_THREADWEAVER_LIBS} ${PLASMA_EXTRA_LIBS})
+target_link_libraries(plasma LINK_PRIVATE Qt4::QtUiTools Qt4::QtScript
+                            Qt4::QtNetwork Qt4::QtXml Qt4::QtSql Qt4::QtDeclarative
+                            ${KDE4_KDEUI_LIBS} ${KDE4_KDNSSD_LIBS} ${KDE4_THREADWEAVER_LIBS} ${PLASMA_EXTRA_LIBS})
+
+if(QT_QTWEBKIT_FOUND)
+   target_link_libraries(plasma LINK_PRIVATE Qt4::QtWebKit)
+endif(QT_QTWEBKIT_FOUND)
 
 if(QCA2_FOUND)
    target_link_libraries(plasma LINK_PRIVATE ${QCA2_LIBRARIES})
@@ -303,10 +307,10 @@ if(DL_LIBRARY)
 endif(DL_LIBRARY)
 
 if(QT_QTOPENGL_FOUND)
-    target_link_libraries(plasma LINK_PRIVATE ${QT_QTOPENGL_LIBRARY})
+    target_link_libraries(plasma LINK_PRIVATE Qt4::QtOpenGL)
 endif(QT_QTOPENGL_FOUND)
 
-target_link_libraries(plasma LINK_PUBLIC kdeui kdecore ${QT_QTGUI_LIBRARY})
+target_link_libraries(plasma LINK_PUBLIC kdeui kdecore Qt4::QtGui)
 
 #do NOT use GENERIC versioning -- the plasma team will take care of versioning
 set_target_properties(plasma PROPERTIES

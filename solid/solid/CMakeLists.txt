@@ -1,7 +1,6 @@
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 add_subdirectory( ifaces )
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
-include_directories( ${QT_QTDBUS_INCLUDE_DIR} )
 
 if(WIN32)
    include_directories( ${KDEWIN_INCLUDES} )
@@ -383,7 +382,7 @@ qt4_add_dbus_interface(solid_LIB_SRCS org.kde.Solid.Networking.Client.xml
 set(solid_OPTIONAL_LIBS)
 
 if(WIN32)
-   set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${KDEWIN_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+   set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${KDEWIN_LIBRARY} Qt4::QtNetwork)
    if(WITH_SOLID_WMI)
       set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${WBEM_LIBRARIES})
    else()
@@ -405,8 +404,8 @@ if ( UDEV_FOUND )
    set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${UDEV_LIBS})
 endif ( UDEV_FOUND )
 
-target_link_libraries(solid LINK_PRIVATE ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTGUI_LIBRARY} ${solid_OPTIONAL_LIBS} )
-target_link_libraries(solid LINK_PUBLIC ${QT_CORE_LIBRARY} )
+target_link_libraries(solid LINK_PRIVATE Qt4::QtCore Qt4::QtDBus Qt4::QtXml Qt4::QtGui ${solid_OPTIONAL_LIBS} )
+target_link_libraries(solid LINK_PUBLIC Qt4::QtCore)
 
 if (WINCE)
    target_link_libraries(solid LINK_PRIVATE ${WCECOMPAT_LIBRARIES})
@@ -427,7 +426,7 @@ install(FILES org.freedesktop.PowerManagement.Inhibit.xml DESTINATION ${DBUS_INT
 
 kde4_add_library(solid_static STATIC ${solid_LIB_SRCS})
 
-target_link_libraries(solid_static ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTGUI_LIBRARY} ${solid_OPTIONAL_LIBS})
+target_link_libraries(solid_static Qt4::QtCore Qt4::QtDBus Qt4::QtXml Qt4::QtGui ${solid_OPTIONAL_LIBS})
 
 if(WIN32)
    set_target_properties(solid_static PROPERTIES COMPILE_FLAGS -DSOLID_EXPORT=)

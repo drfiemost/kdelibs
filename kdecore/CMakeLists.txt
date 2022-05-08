@@ -410,7 +410,7 @@ endif (NOT Q_WS_X11 AND NOT Q_WS_QWS)
 
 kde4_add_library(kdecore ${LIBRARY_TYPE} ${kdecore_LIB_SRCS})
 
-target_link_libraries(kdecore LINK_PRIVATE ${QT_QTCORE_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${ZLIB_LIBRARY} ${kdecore_OPTIONAL_LIBS})
+target_link_libraries(kdecore LINK_PRIVATE Qt4::QtCore Qt4::QtNetwork Qt4::QtDBus Qt4::QtXml ${ZLIB_LIBRARY} ${kdecore_OPTIONAL_LIBS})
 
 if(WINCE)
   target_link_libraries(kdecore LINK_PRIVATE ${WCECOMPAT_LIBRARIES} Ceshell.lib)
@@ -437,12 +437,12 @@ if(FAM_FOUND)
 endif(FAM_FOUND)
 
 if(WIN32)
-  set(kdecore_LINK_INTERFACE_LIBRARIES  ${QT_QTDBUS_LIBRARY} ${QT_QTCORE_LIBRARY} ${KDEWIN_LIBRARIES})
+  set(kdecore_LINK_INTERFACE_LIBRARIES  Qt4::QtDBus Qt4::QtCore ${KDEWIN_LIBRARIES})
 else(WIN32)
   if(APPLE)
-    set(kdecore_LINK_INTERFACE_LIBRARIES ${QT_QTDBUS_LIBRARY} ${QT_QTCORE_LIBRARY} ${CARBON_LIBRARY})
+    set(kdecore_LINK_INTERFACE_LIBRARIES Qt4::QtDBus Qt4::QtCore ${CARBON_LIBRARY})
   else(APPLE)
-    set(kdecore_LINK_INTERFACE_LIBRARIES ${QT_QTDBUS_LIBRARY} ${QT_QTCORE_LIBRARY} )
+    set(kdecore_LINK_INTERFACE_LIBRARIES Qt4::QtDBus Qt4::QtCore )
   endif(APPLE)
 endif(WIN32)
 
@@ -536,7 +536,7 @@ if(NOT WINCE)
 
     kde4_add_plugin( ktranscript ${ktranscript_LIB_SRCS} )
 
-    target_link_libraries( ktranscript kjs ${QT_QTCORE_LIBRARY} )
+    target_link_libraries( ktranscript kjs Qt4::QtCore )
 
 
     if(KDE4_ENABLE_FINAL)

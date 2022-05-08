@@ -282,8 +282,8 @@ install(FILES kssl/ksslcertificatemanager.upd
 
 kde4_add_library(kio ${LIBRARY_TYPE} ${kio_LIB_SRCS})
 
-target_link_libraries(kio LINK_PRIVATE ${KDE4_KDEUI_LIBS} ${ZLIB_LIBRARY} ${QT_QTNETWORK_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTSVG_LIBRARY} ${X11_LIBRARIES} ${KIO_EXTRA_LIBS})
-target_link_libraries(kio LINK_PUBLIC kdeui kdecore ${QT_QTNETWORK_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTGUI_LIBRARY} )
+target_link_libraries(kio LINK_PRIVATE ${KDE4_KDEUI_LIBS} ${ZLIB_LIBRARY} Qt4::QtNetwork Qt4::QtXml Qt4::QtSvg ${X11_LIBRARIES} ${KIO_EXTRA_LIBS})
+target_link_libraries(kio LINK_PUBLIC kdeui kdecore Qt4::QtNetwork Qt4::QtXml Qt4::QtGui)
 
 if(ACL_FOUND)
    target_link_libraries(kio LINK_PRIVATE ${ACL_LIBS})

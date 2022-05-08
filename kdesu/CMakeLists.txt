@@ -27,7 +27,7 @@ set(kdesu_LIB_SRCS
 kde4_add_library(kdesu ${LIBRARY_TYPE} ${kdesu_LIB_SRCS})
 
 target_link_libraries(kdesu LINK_PRIVATE ${KDE4_KPTY_LIBS} )
-target_link_libraries(kdesu LINK_PUBLIC ${QT_QTCORE_LIBRARY} )
+target_link_libraries(kdesu LINK_PUBLIC Qt4::QtCore)
 
 if(KDESU_USE_SUDO_DEFAULT)
    set_source_files_properties(su.cpp PROPERTIES 

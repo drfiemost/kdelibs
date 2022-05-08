@@ -427,11 +427,11 @@ qt4_add_dbus_interface(kdeui_LIB_SRCS ${knotify_xml} knotify_interface)
 
 kde4_add_library(kdeui ${LIBRARY_TYPE} ${kdeui_LIB_SRCS})
 
-target_link_libraries(kdeui LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${X11_LIBRARIES} ${QT_QTGUI_LIBRARY}
-                            ${QT_QTXML_LIBRARY} ${KDEUI_EXTRA_LIBS} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(kdeui LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${X11_LIBRARIES} Qt4::QtGui
+                            Qt4::QtXml ${KDEUI_EXTRA_LIBS} Qt4::QtNetwork)
 
 if(NOT WINCE)
-target_link_libraries(kdeui  LINK_PRIVATE ${QT_QTSVG_LIBRARY} ${DBUSMENUQT_LIBRARIES})
+target_link_libraries(kdeui  LINK_PRIVATE Qt4::QtSvg ${DBUSMENUQT_LIBRARIES})
 endif(NOT WINCE)
 
 if(MINGW)
@@ -461,10 +461,10 @@ if (X11_Xrender_FOUND)
    target_link_libraries(kdeui LINK_PRIVATE ${X11_Xrender_LIB})
 endif(X11_Xrender_FOUND)
 
-target_link_libraries(kdeui LINK_PUBLIC kdecore ${QT_QTGUI_LIBRARY})
+target_link_libraries(kdeui LINK_PUBLIC kdecore Qt4::QtGui)
 
 if(NOT WINCE)
-target_link_libraries(kdeui LINK_PUBLIC ${QT_QTSVG_LIBRARY})
+target_link_libraries(kdeui LINK_PUBLIC Qt4::QtSvg)
 endif(NOT WINCE)
 
 set_target_properties(kdeui PROPERTIES VERSION ${KDE_NON_GENERIC_LIB_VERSION}

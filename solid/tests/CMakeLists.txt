@@ -12,7 +12,7 @@ if(WIN32)
   set_target_properties(fakehardwaretest PROPERTIES COMPILE_FLAGS -DSOLID_EXPORT=)
 endif(WIN32)
 
-target_link_libraries(fakehardwaretest solid_static ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTTEST_LIBRARY} )
+target_link_libraries(fakehardwaretest solid_static ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} Qt4::QtXml Qt4::QtTest )
 add_definitions(-DTEST_DATA="${CMAKE_CURRENT_SOURCE_DIR}/../solid/backends/fakehw/fakecomputer.xml")
 
 
@@ -32,7 +32,7 @@ if(WIN32)
   set (LIBS ${KDEWIN_LIBRARIES})
 endif(WIN32)
 
-target_link_libraries(solidhwtest ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTTEST_LIBRARY} ${LIBS} solid_static)
+target_link_libraries(solidhwtest Qt4::QtCore Qt4::QtDBus Qt4::QtXml Qt4::QtTest ${LIBS} solid_static)
 
 ########### solidmttest ###############
 
@@ -50,7 +50,7 @@ if(WIN32)
   set (LIBS ${KDEWIN_LIBRARIES})
 endif(WIN32)
 
-target_link_libraries(solidmttest ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTTEST_LIBRARY} ${LIBS} solid_static)
+target_link_libraries(solidmttest Qt4::QtCore Qt4::QtDBus Qt4::QtXml Qt4::QtTest ${LIBS} solid_static)
 
 ########### solidnettestdbusservice ###############
 
@@ -63,7 +63,7 @@ target_link_libraries(solidmttest ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT
 
 #kde4_add_executable(solidnettestdbusservice TEST ${solidnettestdbusservice_SRCS})
 
-#target_link_libraries(solidnettestdbusservice ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} ${QT_QTXML_LIBRARY} ${QT_QTTEST_LIBRARY})
+#target_link_libraries(solidnettestdbusservice ${QT_QTCORE_LIBRARY} ${QT_QTDBUS_LIBRARY} Qt4::QtXml Qt4::QtTest)
 
 ########### networkingclient ###############
 

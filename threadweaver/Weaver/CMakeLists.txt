@@ -1,4 +1,4 @@
-include_directories(${QT_INCLUDE_DIR} ${QT_QTCORE_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 
 if(WIN32)
    include_directories(${KDEWIN_INCLUDES})
@@ -31,8 +31,8 @@ set(ThreadWeaver_LIB_SRCS
 
 
 kde4_add_library(threadweaver ${LIBRARY_TYPE} ${ThreadWeaver_LIB_SRCS})
-target_link_libraries(threadweaver LINK_PRIVATE ${QT_QTCORE_LIBRARY})
-target_link_libraries(threadweaver LINK_PUBLIC ${QT_QTCORE_LIBRARY} )
+target_link_libraries(threadweaver LINK_PRIVATE Qt4::QtCore)
+target_link_libraries(threadweaver LINK_PUBLIC Qt4::QtCore)
 
 set_target_properties(threadweaver PROPERTIES
     VERSION ${GENERIC_LIB_VERSION}

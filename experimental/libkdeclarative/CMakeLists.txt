@@ -30,7 +30,8 @@ kde4_add_library(kdeclarative SHARED ${kdeclarative_LIB_SRCS})
 
 set_target_properties(kdeclarative PROPERTIES VERSION ${KDE_NON_GENERIC_LIB_VERSION} SOVERSION ${KDE_NON_GENERIC_LIB_SOVERSION})
 
-target_link_libraries(kdeclarative LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTSCRIPT_LIBRARY} ${QT_QTDECLARATIVE_LIBRARY})
+target_link_libraries(kdeclarative LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} Qt4::QtScript
+ Qt4::QtDeclarative)
 
 
 ## test
@@ -39,7 +40,7 @@ set(kdeclarative_TEST_SRCS
 
 kde4_add_executable(kdeclarativetest ${kdeclarative_TEST_SRCS})
 
-target_link_libraries(kdeclarativetest kdeclarative ${KDE4_KDECORE_LIBS} ${QT_QTGUI_LIBRARY} ${QT_QTSCRIPT_LIBRARY} ${QT_QTDECLARATIVE_LIBRARY})
+target_link_libraries(kdeclarativetest kdeclarative ${KDE4_KDECORE_LIBS} Qt4::QtGui Qt4::QtScript Qt4::QtDeclarative)
 
 ## install
 
