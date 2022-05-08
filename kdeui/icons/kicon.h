@@ -84,6 +84,8 @@ public:
 
     KIcon& operator=( const KIcon &other );
 
+    KIcon(const KIcon&) = default;
+
 private:
     class Private;
     Private* const d;
