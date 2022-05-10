@@ -46,8 +46,8 @@ public:
     /**
     * Executes the callback for this method.
     */
-    KJS::JSValue *callAsFunction( KJS::ExecState *exec, KJS::JSObject *self, const KJS::List &args );
-    bool implementsConstruct() const { return false; }
+    KJS::JSValue *callAsFunction( KJS::ExecState *exec, KJS::JSObject *self, const KJS::List &args ) override;
+    bool implementsConstruct() const override { return false; }
 
     /**
     * Publishes an array of Methods to an object.  You should only ever need this method
@@ -83,19 +83,20 @@ public:
     void addStaticMethods( KJS::ExecState *exec, const Method *methods );
 
 
-    bool implementsConstruct() const { return true; }
+    bool implementsConstruct() const override { return true; }
     /**
     * Calls the callback that will in turn create a new instance of this object with
     * the arguments passed in with args.
     */
-    KJS::JSObject *construct( KJS::ExecState *exec, const KJS::List &args );
+    KJS::JSObject *construct( KJS::ExecState *exec, const KJS::List &args ) override;
+    using KJS::JSObject::construct;
 
-    KJS::JSValue *callAsFunction( KJS::ExecState *exec, KJS::JSObject * /*self*/, const KJS::List &args ) {
+    KJS::JSValue *callAsFunction( KJS::ExecState *exec, KJS::JSObject * /*self*/, const KJS::List &args ) override {
         return construct(exec, args);
     }
 
     void setDefaultValue( KJS::JSValue *value );
-    KJS::JSValue *defaultValue( KJS::ExecState *exec, KJS::JSType hint ) const;
+    KJS::JSValue *defaultValue( KJS::ExecState *exec, KJS::JSType hint ) const override;
 
     /**
     * Add the constructor to an object.  This is usually the global scope.
