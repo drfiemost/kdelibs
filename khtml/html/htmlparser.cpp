@@ -61,11 +61,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 
-// Turn off inlining to avoid warning with newer gcc.
-#undef __inline
-#define __inline
 #include "doctypes.cpp"
-#undef __inline
 
 using namespace DOM;
 using namespace khtml;
@@ -360,7 +356,7 @@ void KHTMLParser::parseDoctypeToken(DoctypeToken* t)
             QByteArray pubIDStr = lowerPubID.toLocal8Bit();
 
             // Look up the entry in our gperf-generated table.
-            const PubIDInfo* doctypeEntry = findDoctypeEntry(pubIDStr.constData(), t->publicID.length());
+            const PubIDInfo* doctypeEntry = Perfect_Hash::findDoctypeEntry(pubIDStr.constData(), t->publicID.length());
             if (!doctypeEntry) {
                 // The DOCTYPE is not in the list.  Assume strict mode.
                 // ### Doesn't make any sense, but it's what Mozilla does.
