@@ -56,15 +56,15 @@ using namespace DOM;
 #undef __inline
 #define __inline
 
-#include "cssproperties.c"
-#include "cssvalues.c"
+#include "cssproperties.cpp"
+#include "cssvalues.cpp"
 
 #undef __inline
 
 int DOM::getPropertyID(const char *tagStr, int len)
 {
     { // HTML CSS Properties
-        const struct css_prop *prop = findProp(tagStr, len);
+        const struct css_prop *prop = PropertyHash::find(tagStr, len);
         if (!prop)
             return 0;
 
@@ -75,7 +75,7 @@ int DOM::getPropertyID(const char *tagStr, int len)
 int DOM::getValueID(const char *tagStr, int len)
 {
     { // HTML CSS Values
-        const struct css_value *val = findValue(tagStr, len);
+        const struct css_value *val = ValueHash::find(tagStr, len);
         if (!val)
             return 0;
 
