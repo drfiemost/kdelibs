@@ -30,8 +30,8 @@
     #include <X11/Xutil.h>
     #include <QX11Info>
 
-    #define DASHBOARD_WIN_NAME "dashboard"
-    #define DASHBOARD_WIN_CLASS "dashboard"
+    constexpr const char* DASHBOARD_WIN_NAME = "dashboard";
+    constexpr const char* DASHBOARD_WIN_CLASS = "dashboard";
 #endif
 
 namespace Plasma
@@ -332,8 +332,8 @@ void markAsDashboard(WId window)
 {
 #ifdef Q_WS_X11
     XClassHint classHint;
-    classHint.res_name = DASHBOARD_WIN_NAME;
-    classHint.res_class = DASHBOARD_WIN_CLASS;
+    classHint.res_name = const_cast<char*>(DASHBOARD_WIN_NAME);
+    classHint.res_class = const_cast<char*>(DASHBOARD_WIN_CLASS);
     XSetClassHint(QX11Info::display(), window, &classHint);
 #endif
 }
