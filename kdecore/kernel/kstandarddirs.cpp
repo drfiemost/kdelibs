@@ -99,6 +99,7 @@ public:
 
     QStringList xdgdata_prefixes;
     QStringList xdgconf_prefixes;
+    QStringList xdgcache_prefixes;
     QStringList m_prefixes;
 
     // Directory dictionaries
@@ -350,6 +351,21 @@ void KStandardDirs::addXdgConfigPrefix( const QString& _dir, bool priority )
 
     if (!d->xdgconf_prefixes.contains(dir, cs)) {
         priorityAdd(d->xdgconf_prefixes, dir, priority);
+        d->m_dircache.clear();
+    }
+}
+
+void KStandardDirs::addXdgCachePrefix( const QString& _dir )
+{
+    if (_dir.isEmpty())
+        return;
+
+    QString dir = _dir;
+    if (dir.at(dir.length() - 1) != QLatin1Char('/'))
+        dir += QLatin1Char('/');
+
+    if (!d->xdgcache_prefixes.contains(dir, cs)) {
+        priorityAdd(d->xdgcache_prefixes, dir, false);
         d->m_dircache.clear();
     }
 }
@@ -1799,6 +1815,19 @@ void KStandardDirs::addKDEDefaults()
     }
     // end XDG_CONFIG_XXX
 
+    // begin XDG_CACHE_HOME
+    QString localXdgDir = readEnvPath("XDG_CACHE_HOME");
+    if (!localXdgDir.isEmpty()) {
+        if (!localXdgDir.endsWith(QLatin1Char('/')))
+            localXdgDir += QLatin1Char('/');
+    } else {
+        localXdgDir = QDir::homePath() + QString::fromLatin1("/.cache/");
+    }
+
+    localXdgDir = KShell::tildeExpand(localXdgDir);
+    addXdgCachePrefix(localXdgDir);
+    // end XDG_CACHE_HOME
+
     // begin XDG_DATA_XXX
     QStringList kdedirDataDirs;
     for (QStringList::ConstIterator it = kdedirList.constBegin();
@@ -2078,6 +2107,12 @@ QString KStandardDirs::localxdgconfdir() const
 {
     // Return the prefix to use for saving
     return d->xdgconf_prefixes.first();
+}
+
+QString KStandardDirs::localxdgcachedir() const
+{
+    // Return the prefix to use for saving
+    return d->xdgcache_prefixes.first();
 }
 
 

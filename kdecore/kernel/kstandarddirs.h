@@ -689,6 +689,12 @@ public:
     QString localxdgconfdir() const;
 
     /**
+     * @return @c $XDG_CACHE_HOME
+     * See also http://www.freedesktop.org/standards/basedir/draft/basedir-spec/basedir-spec.html
+     */
+    QString localxdgcachedir() const;
+
+    /**
      * @return the path where type was installed to by kdelibs. This is an absolute path and only
      * one out of many search paths
      */
@@ -799,6 +805,7 @@ private:
     // $KDEHOME/$XDG_DATA_HOME/$XDG_CONFIG_HOME
     void addPrefix( const QString& dir, bool priority );
     void addXdgConfigPrefix( const QString& dir, bool priority );
+    void addXdgCachePrefix( const QString& dir, bool priority );
     void addXdgDataPrefix( const QString& dir, bool priority );
     void addKDEDefaults();
 

@@ -151,7 +151,8 @@ PreviewJob::PreviewJob( const KFileItemList &items, int width, int height,
     d->bScale = scale;
     d->bSave = save && scale;
     d->succeeded = false;
-    d->thumbRoot = QDir::homePath() + QLatin1String("/.thumbnails/");
+    //d->thumbRoot = QDir::homePath() + QLatin1String("/.thumbnails/");
+    d->thumbRoot = KGlobal::dirs()->localxdgcachedir() + QLatin1String("thumbnails/");
     d->ignoreMaximumSize = false;
     d->sequenceIndex = 0;
     d->maximumLocalSize = 0;
@@ -190,7 +191,8 @@ PreviewJob::PreviewJob(const KFileItemList &items,
     d->bScale = true;
     d->bSave = true;
     d->succeeded = false;
-    d->thumbRoot = QDir::homePath() + QLatin1String("/.thumbnails/");
+    //d->thumbRoot = QDir::homePath() + QLatin1String("/.thumbnails/");
+    d->thumbRoot = KGlobal::dirs()->localxdgcachedir() + QLatin1String("thumbnails/");
     d->ignoreMaximumSize = false;
     d->sequenceIndex = 0;
     d->maximumLocalSize = 0;
