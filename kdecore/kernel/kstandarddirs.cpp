@@ -357,6 +357,11 @@ void KStandardDirs::addXdgConfigPrefix( const QString& _dir, bool priority )
 
 void KStandardDirs::addXdgCachePrefix( const QString& _dir )
 {
+	addXdgCachePrefix(_dir, false);
+}
+
+void KStandardDirs::addXdgCachePrefix( const QString& _dir, bool priority )
+{
     if (_dir.isEmpty())
         return;
 
@@ -365,7 +370,7 @@ void KStandardDirs::addXdgCachePrefix( const QString& _dir )
         dir += QLatin1Char('/');
 
     if (!d->xdgcache_prefixes.contains(dir, cs)) {
-        priorityAdd(d->xdgcache_prefixes, dir, false);
+        priorityAdd(d->xdgcache_prefixes, dir, priority);
         d->m_dircache.clear();
     }
 }
@@ -1816,7 +1821,7 @@ void KStandardDirs::addKDEDefaults()
     // end XDG_CONFIG_XXX
 
     // begin XDG_CACHE_HOME
-    QString localXdgDir = readEnvPath("XDG_CACHE_HOME");
+    localXdgDir = readEnvPath("XDG_CACHE_HOME");
     if (!localXdgDir.isEmpty()) {
         if (!localXdgDir.endsWith(QLatin1Char('/')))
             localXdgDir += QLatin1Char('/');

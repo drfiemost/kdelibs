@@ -218,6 +218,8 @@ public:
      */
     void addXdgConfigPrefix( const QString& dir );
 
+    void addXdgCachePrefix( const QString& dir );
+
     /**
      * Adds another search dir to front of the @c XDG_DATA_XXX list
      * of prefixes.
