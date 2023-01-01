@@ -415,11 +415,11 @@ int TCPSlaveBase::connectToHost(const QString& host, quint16 port, QString* erro
                     continue;
                 }
 
-                if (!(alreadyTriedSslVersions & KTcpSocket::TlsV1)) {
+                /*if (!(alreadyTriedSslVersions & KTcpSocket::TlsV1)) {
                     trySslVersion = KTcpSocket::TlsV1;
                     alreadyTriedSslVersions |= trySslVersion;
                     continue;
-                }
+                }*/
 
                 if (!(alreadyTriedSslVersions & KTcpSocket::SslV3)) {
                     trySslVersion = KTcpSocket::SslV3;
@@ -499,7 +499,7 @@ bool TCPSlaveBase::startSsl()
 {
     if (d->usingSSL)
         return false;
-    return d->startTLSInternal(KTcpSocket::TlsV1) & ResultOk;
+    return d->startTLSInternal(KTcpSocket::SecureProtocols) & ResultOk;
 }
 
 TCPSlaveBase::SslResult TCPSlaveBase::TcpSlaveBasePrivate::startTLSInternal (KTcpSocket::SslVersion version,
