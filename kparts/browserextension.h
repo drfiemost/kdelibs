@@ -29,7 +29,6 @@
 #include <QtCore/QSharedDataPointer>
 
 template <class T1, class T2> struct QPair;
-template<typename T> class Q3PtrList;
 template <class Key, class T> class QMap;
 template<typename T> class QList;
 
