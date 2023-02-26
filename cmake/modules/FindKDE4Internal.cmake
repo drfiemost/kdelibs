@@ -70,7 +70,6 @@
 #  KDE4_KTEXTEDITOR_LIBRARY - the ktexteditor library
 #  KDE4_PLASMA_LIBRARY      - the plasma library
 #  KDE4_KUNITCONVERSION_LIBRARY - the kunitconversion library
-#  KDE4_KDEWEBKIT_LIBRARY   - the kdewebkit library
 #
 #  KDE4_PLASMA_OPENGL_FOUND  - TRUE if the OpenGL support of Plasma has been found, NOTFOUND otherwise
 #
@@ -105,7 +104,6 @@
 #  KDE4_KTEXTEDITOR_LIBS      - the ktexteditor library and all depending libraries
 #  KDE4_PLASMA_LIBS           - the plasma library and all depending librairies
 #  KDE4_KUNITCONVERSION_LIBS  - the kunitconversion library and all depending libraries
-#  KDE4_KDEWEBKIT_LIBS        - the kdewebkit library and all depending libraries
 #
 # This module defines also a bunch of variables used as locations for install directories
 # for files of the package which is using this module. These variables don't say
@@ -626,7 +624,6 @@ endif (_kdeBootStrapping)
 _kde4_set_lib_variables(KCMUTILS      kcmutils      "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDECORE       kdecore       "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDEUI         kdeui         "${KDE4_TARGET_PREFIX}")
-_kde4_set_lib_variables(KDEWEBKIT     kdewebkit     "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KDNSSD        kdnssd        "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KEMOTICONS    kemoticons    "${KDE4_TARGET_PREFIX}")
 _kde4_set_lib_variables(KFILE         kfile         "${KDE4_TARGET_PREFIX}")

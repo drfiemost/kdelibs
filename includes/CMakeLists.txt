@@ -446,16 +446,6 @@ install( FILES
   KPixmapSequenceOverlayPainter
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE COMPONENT Devel)
 
-if(QT_QTWEBKIT_FOUND)
-install( FILES
-  KGraphicsWebView
-  KWebPage
-  KWebView
-  KWebPluginFactory
-  KWebWallet
-DESTINATION ${INCLUDE_INSTALL_DIR}/KDE COMPONENT Devel)
-endif(QT_QTWEBKIT_FOUND)
-
 if(NOT KDE_NO_DEPRECATED)
 install( FILES
   KArrowButton
@@ -1006,12 +996,6 @@ install(FILES
   Plasma/WebView
   Plasma/WindowEffects
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/Plasma COMPONENT Devel)
-
-if(QT_QTWEBKIT_FOUND)
-install(FILES
-  Plasma/WebView
-DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/Plasma COMPONENT Devel)
-endif(QT_QTWEBKIT_FOUND)
 
 if(QT_QTOPENGL_FOUND)
    install(FILES

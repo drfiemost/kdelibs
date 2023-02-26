@@ -47,7 +47,6 @@
 #                    QT_USE_QTSCRIPT
 #                    QT_USE_QTASSISTANTCLIENT
 #                    QT_USE_QTHELP
-#                    QT_USE_QTWEBKIT
 #                    QT_USE_QTXMLPATTERNS
 #                    QT_USE_PHONON
 #                    QT_USE_QTSCRIPTTOOLS
@@ -195,7 +194,6 @@
 #  QT_QTSCRIPTTOOLS_FOUND   True if QtScriptTools was found.
 #  QT_QTTEST_FOUND          True if QtTest was found.
 #  QT_QTUITOOLS_FOUND       True if QtUiTools was found.
-#  QT_QTWEBKIT_FOUND        True if QtWebKit was found.
 #  QT_QTXML_FOUND           True if QtXml was found.
 #  QT_QTXMLPATTERNS_FOUND   True if QtXmlPatterns was found.
 #  QT_PHONON_FOUND          True if phonon was found.
@@ -244,7 +242,6 @@
 #  QT_QTSQL_INCLUDE_DIR        Path to "include/QtSql" 
 #  QT_QTSVG_INCLUDE_DIR        Path to "include/QtSvg"
 #  QT_QTTEST_INCLUDE_DIR       Path to "include/QtTest"
-#  QT_QTWEBKIT_INCLUDE_DIR     Path to "include/QtWebKit"
 #  QT_QTXML_INCLUDE_DIR        Path to "include/QtXml" 
 #  QT_QTXMLPATTERNS_INCLUDE_DIR  Path to "include/QtXmlPatterns"
 #  QT_PHONON_INCLUDE_DIR       Path to "include/phonon"
@@ -306,8 +303,6 @@
 # The QtTest library:         QT_QTTEST_LIBRARY
 #
 # The QtUiTools library:      QT_QTUITOOLS_LIBRARY
-#
-# The QtWebKit library:       QT_QTWEBKIT_LIBRARY
 #
 # The QtXml library:          QT_QTXML_LIBRARY
 #
@@ -703,7 +698,7 @@ IF (QT4_QMAKE_FOUND)
   ########################################
 
   SET(QT_MODULES QtCore QtGui Qt3Support QtSvg QtScript QtTest QtUiTools 
-                 QtHelp QtWebKit QtXmlPatterns QtNetwork QtMultimedia
+                 QtHelp QtXmlPatterns QtNetwork QtMultimedia
                  QtNsPlugin QtOpenGL QtSql QtXml QtDesigner QtDBus QtScriptTools
                  QtDeclarative)
   
@@ -1044,7 +1039,6 @@ IF (QT4_QMAKE_FOUND)
   _QT4_ADJUST_LIB_VARS(QtSvg)
   _QT4_ADJUST_LIB_VARS(QtTest)
   _QT4_ADJUST_LIB_VARS(QtUiTools)
-  _QT4_ADJUST_LIB_VARS(QtWebKit)
   _QT4_ADJUST_LIB_VARS(QtXml)
   _QT4_ADJUST_LIB_VARS(QtXmlPatterns)
   _QT4_ADJUST_LIB_VARS(phonon)

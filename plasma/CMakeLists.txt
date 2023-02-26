@@ -5,12 +5,7 @@ if(NOT LIBATTICA_FOUND)
     set(PLASMA_NO_KNEWSTUFF TRUE)
 endif(LIBATTICA_FOUND)
 
-if(NOT QT_QTWEBKIT_FOUND)
-    set(PLASMA_NO_KDEWEBKIT TRUE)
-endif(NOT QT_QTWEBKIT_FOUND)
-
 if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
-    set(PLASMA_NO_KDEWEBKIT TRUE)
     set(PLASMA_NO_KNEWSTUFF TRUE)
     set(PLASMA_NO_SOLID TRUE)
     set(PLASMA_NO_KIO TRUE)
@@ -37,11 +32,6 @@ if(NOT PLASMA_NO_KIO)
    include_directories(${KDE4_KIO_INCLUDES})
    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${KDE4_KIO_LIBS})
 endif(NOT PLASMA_NO_KIO)
-
-if(NOT PLASMA_NO_KDEWEBKIT)
-    include_directories(${CMAKE_SOURCE_DIR}/kdewebkit/)
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} kdewebkit)
-endif(NOT PLASMA_NO_KDEWEBKIT)
 
 if(NOT PLASMA_NO_KNEWSTUFF)
     include_directories(${CMAKE_SOURCE_DIR}/knewstuff/)
@@ -81,19 +71,11 @@ set(plasmagik_SRCS
     package.cpp
     )
 
-if(QT_QTWEBKIT_FOUND)
-    set(plasmawebkit_SRCS
-        private/animablegraphicswebview.cpp
-        widgets/webview.cpp
-        )
-endif(QT_QTWEBKIT_FOUND)
-
 #to make the Temporary solution to not link to libkdeclarative work, disable the exports of libkdeclarative  
 add_definitions(-DKDECLARATIVE_EXPORT=)
 
 set(plasma_LIB_SRCS
     ${plasmagik_SRCS}
-    ${plasmawebkit_SRCS}
     abstractrunner.cpp
     abstracttoolbox.cpp
     animator.cpp
@@ -286,10 +268,6 @@ target_link_libraries(plasma LINK_PRIVATE Qt4::QtUiTools Qt4::QtScript
                             Qt4::QtNetwork Qt4::QtXml Qt4::QtSql Qt4::QtDeclarative
                             ${KDE4_KDEUI_LIBS} ${KDE4_KDNSSD_LIBS} ${KDE4_THREADWEAVER_LIBS} ${PLASMA_EXTRA_LIBS})
 
-if(QT_QTWEBKIT_FOUND)
-   target_link_libraries(plasma LINK_PRIVATE Qt4::QtWebKit)
-endif(QT_QTWEBKIT_FOUND)
-
 if(QCA2_FOUND)
    target_link_libraries(plasma LINK_PRIVATE ${QCA2_LIBRARIES})
 endif(QCA2_FOUND)
@@ -427,12 +405,6 @@ install(FILES
     widgets/treeview.h
     widgets/textedit.h
     DESTINATION ${INCLUDE_INSTALL_DIR}/plasma/widgets COMPONENT Devel)
-
-if(QT_QTWEBKIT_FOUND)
-    install(FILES
-        widgets/webview.h
-        DESTINATION ${INCLUDE_INSTALL_DIR}/plasma/widgets COMPONENT Devel)
-endif(QT_QTWEBKIT_FOUND)
 
 install(FILES
     scripting/appletscript.h
