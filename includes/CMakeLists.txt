@@ -993,7 +993,6 @@ install(FILES
   Plasma/View
   Plasma/Wallpaper
   Plasma/WallpaperScript
-  Plasma/WebView
   Plasma/WindowEffects
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/Plasma COMPONENT Devel)
 
