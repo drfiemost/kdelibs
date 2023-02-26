@@ -138,9 +138,9 @@ static const unsigned int maxQPLineLength = 70;
 
 /******************************** KCodecs ********************************/
 // strchr(3) for broken systems.
-static int rikFindChar(register const char * _s, const char c)
+static int rikFindChar(const char * _s, const char c)
 {
-  register const char * s = _s;
+  const char * s = _s;
 
   while (true)
   {

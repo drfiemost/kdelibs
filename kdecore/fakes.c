@@ -457,8 +457,8 @@ KDECORE_EXPORT char *strcasestr (phaystack, pneedle)
      const char *phaystack;
      const char *pneedle;
 {
-  register const unsigned char *haystack, *needle;
-  register unsigned b, c;
+  const unsigned char *haystack, *needle;
+  unsigned b, c;
 
   haystack = (const unsigned char *) phaystack;
   needle = (const unsigned char *) pneedle;
