@@ -76,7 +76,7 @@ public:
 
     void setFileName(const QString &name, const KComponentData &data = KGlobal::mainComponent());
 
-    bool unload() { return false; } //this is only temporary. i will remove it as soon as I have removed all dangerous users of it
+    KDE_DEPRECATED bool unload() { return false; } //this is only temporary. i will remove it as soon as I have removed all dangerous users of it
 private:
     KLibraryPrivate *d_ptr;
 };
