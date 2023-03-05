@@ -157,5 +157,24 @@ QString KLibLoader::errorString( int componentLoadingError )
     }
 }
 
+KPluginFactory* KLibLoader::factory(const QString &libname, int *error)
+{
+    KLibrary *library = KLibLoader::self()->library( libname );
+    if ( !library )
+    {
+        if ( error )
+            *error = ErrNoLibrary;
+        return nullptr;
+    }
+    KPluginFactory *factory = library->factory();
+    if ( !factory )
+    {
+        if ( error )
+            *error = ErrNoFactory;
+        return nullptr;
+    }
+    return factory;
+}
+
 #include "klibloader.moc"
 // vim: sw=4 sts=4 et

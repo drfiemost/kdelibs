@@ -199,31 +199,20 @@ public:
      * @deprecated Use KService::createInstance() or KPluginLoader instead
      */
     template <typename T>
-    static KDE_DEPRECATED T *createInstance(const QString &keyword, const QString &libname, QObject *parent = 0,
+    static KDE_DEPRECATED T *createInstance(const QString &keyword, const QString &libname, QObject *parent = nullptr,
                               const QVariantList &args = QVariantList(),
-                              int *error = 0 )
+                              int *error = nullptr )
     {
-        KLibrary *library = KLibLoader::self()->library( libname );
-        if ( !library )
-        {
-            if ( error )
-                *error = ErrNoLibrary;
-            return 0;
-        }
-        KPluginFactory *factory = library->factory();
+        KPluginFactory *factory = KLibLoader::factory(libname, error);
         if ( !factory )
         {
-            library->unload();
-            if ( error )
-                *error = ErrNoFactory;
-            return 0;
+            return nullptr;
         }
         QObject *object = factory->template create<T>(keyword, parent, args);
         T *res = qobject_cast<T *>( object );
         if ( !res )
         {
             delete object;
-            library->unload();
             if ( error )
                 *error = ErrNoComponent;
         }
@@ -245,9 +234,9 @@ public:
      * @deprecated Use KService::createInstance() or KPluginLoader instead
      */
     template <typename T>
-    static KDE_DEPRECATED T *createInstance( const QString &libname, QObject *parent = 0,
+    static KDE_DEPRECATED T *createInstance( const QString &libname, QObject *parent = nullptr,
                               const QVariantList &args = QVariantList(),
-                              int *error = 0 )
+                              int *error = nullptr )
     {
         return createInstance<T>(QString(), libname, parent, args, error);
     }
@@ -259,29 +248,18 @@ public:
     template <typename T>
     static KDE_DEPRECATED T *createInstance( const QString &libname, QObject *parent,
                               const QStringList &args,
-                              int *error = 0 )
+                              int *error = nullptr )
     {
-        KLibrary *library = KLibLoader::self()->library( libname );
-        if ( !library )
-        {
-            if ( error )
-                *error = ErrNoLibrary;
-            return 0;
-        }
-        KPluginFactory *factory = library->factory();
+        KPluginFactory *factory = KLibLoader::factory(libname, error);
         if ( !factory )
         {
-            library->unload();
-            if ( error )
-                *error = ErrNoFactory;
-            return 0;
+            return nullptr;
         }
         QObject *object = factory->template create<T>(parent, args);
         T *res = qobject_cast<T *>( object );
         if ( !res )
         {
             delete object;
-            library->unload();
             if ( error )
                 *error = ErrNoComponent;
         }
@@ -292,6 +270,9 @@ private:
     ~KLibLoader();
 
     KLibLoader();
+
+    //static KLibLoader* private_self();
+    static KPluginFactory* factory(const QString &libname, int *error);
 };
 
 #endif
