@@ -963,7 +963,6 @@ void KLocalizedStringPrivate::loadTranscript ()
 
     InitFunc initf = (InitFunc) lib.resolveFunction("load_transcript");
     if (!initf) {
-        lib.unload();
         kDebug(173) << "Cannot find function load_transcript in transcript plugin.";
         return;
     }

@@ -36,7 +36,6 @@ namespace khtml {
         ~ThaiCache() {
             free(wbrpos);
             free(isbreakable);
-            if (library) library->unload();
             delete library;
         }
         const QChar *string;
@@ -75,8 +74,6 @@ namespace khtml {
                 // indication that loading failed and we shouldn't try to load again
 		printf("Error, can't load libthai...\n");
                 thaiCodec = 0;
-                if (lib->isLoaded())
-                    lib->unload();
             }
         }
 
