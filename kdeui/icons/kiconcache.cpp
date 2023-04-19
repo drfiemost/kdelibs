@@ -103,7 +103,7 @@ public:
 KIconCache::KIconCache()
     : KPixmapCache(KDE_ICONCACHE_NAME), d(new Private(this))
 {
-    d->mUpdatesFile  = KGlobal::dirs()->locateLocal("cache", "kpc/"KDE_ICONCACHE_NAME".updated");
+    d->mUpdatesFile  = KGlobal::dirs()->locateLocal("cache", "kpc/" KDE_ICONCACHE_NAME ".updated");
     // Set limit to 10 MB
     setCacheLimit(10 * 1024);
 }
