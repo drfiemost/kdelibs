@@ -87,7 +87,7 @@ private:
     DOMString m_string;
 
     static DOMStringImpl* add(const char*);
-    static DOMStringImpl* add(const QChar*, int length);
+    static DOMStringImpl* add(const QChar*, unsigned int length);
     static DOMStringImpl* add(const QChar*);
     static DOMStringImpl* add(DOMStringImpl*);
     //static PassRefPtr<DOMStringImpl> add(const KJS::UString&);

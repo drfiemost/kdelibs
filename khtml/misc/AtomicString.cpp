@@ -151,7 +151,7 @@ struct HashAndCharactersTranslator {
     }
 };
 
-DOMStringImpl* AtomicString::add(const QChar* s, int length)
+DOMStringImpl* AtomicString::add(const QChar* s, unsigned int length)
 {
     if (!s)
         return 0;
@@ -172,7 +172,7 @@ DOMStringImpl* AtomicString::add(const QChar* s)
     if (!s)
         return 0;
 
-    int length = 0;
+    unsigned int length = 0;
     while (s[length] != QChar(0))
         length++;
 
