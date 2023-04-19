@@ -353,12 +353,12 @@ void RenderListMarker::paint(PaintInfo& paintInfo, int _tx, int _ty)
     default:
         if (!m_item.isEmpty()) {
             if(listPositionInside()) {
+#ifdef TEST_HACK
                 //BEGIN HACK
-#ifdef __GNUC__
-  #warning "KDE4: hack for testregression, remove when main branch"
-#endif
+                // hack for testregression, remove when main branch
                 _tx += qMax(-fm.minLeftBearing(), 0);
                 //END HACK
+#endif
             	if( style()->direction() == LTR) {
                     p->drawText(_tx, _ty, 0, 0, Qt::AlignLeft|Qt::TextDontClip, m_item);
                     p->drawText(_tx + fm.width(m_item), _ty, 0, 0, Qt::AlignLeft|Qt::TextDontClip,
@@ -378,13 +378,12 @@ void RenderListMarker::paint(PaintInfo& paintInfo, int _tx, int _ty)
                     p->drawText(_tx-offset/2-punctWidth-itemWidth, _ty, 0, 0, Qt::AlignLeft|Qt::TextDontClip, m_item);
                 }
             	else {
+#ifdef TEST_HACK
                 //BEGIN HACK
-#ifdef __GNUC__
-  #warning "KDE4: hack for testregression, remove when main branch"
-#endif
+                // hack for testregression, remove when main branch
                 _tx += qMax(-fm.minLeftBearing(), 0);
                 //END HACK
-
+#endif
                     const QString& punct(QLatin1String(" ."));
             	    p->drawText(_tx+offset/2, _ty, 0, 0, Qt::AlignLeft|Qt::TextDontClip, punct);
                     p->drawText(_tx+offset/2+fm.width(punct), _ty, 0, 0, Qt::AlignLeft|Qt::TextDontClip, m_item);
