@@ -1,12 +1,7 @@
 # strange conversion error in pushbutton.cpp
 kde4_no_enable_final(plasma)
 
-if(NOT LIBATTICA_FOUND)
-    set(PLASMA_NO_KNEWSTUFF TRUE)
-endif(LIBATTICA_FOUND)
-
 if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
-    set(PLASMA_NO_KNEWSTUFF TRUE)
     set(PLASMA_NO_SOLID TRUE)
     set(PLASMA_NO_KIO TRUE)
     set(PLASMA_NO_KUTILS TRUE)
@@ -32,11 +27,6 @@ if(NOT PLASMA_NO_KIO)
    include_directories(${KDE4_KIO_INCLUDES})
    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${KDE4_KIO_LIBS})
 endif(NOT PLASMA_NO_KIO)
-
-if(NOT PLASMA_NO_KNEWSTUFF)
-    include_directories(${CMAKE_SOURCE_DIR}/knewstuff/)
-    set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} knewstuff3)
-endif(NOT PLASMA_NO_KNEWSTUFF)
 
 if(NOT PLASMA_NO_SOLID)
     include_directories(${CMAKE_BINARY_DIR}/solid/)

@@ -2,8 +2,7 @@
 
 The \b KNewStuff3 library adds data sharing capabilities to %KDE
 applications. 
-It uses libattica to access Open Collaboration Services providers.
-In addition the static xml from <a href="http://ghns.freedesktop.org/">GHNS</a> is supported.
+The static xml from <a href="http://ghns.freedesktop.org/">GHNS</a> is supported.
 
 Application authors should use KNS3::DownloadDialog for downloading with get hot new stuff.
 For the upload KNS3::UploadDialog is used.

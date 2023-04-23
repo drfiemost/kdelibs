@@ -1,14 +1,5 @@
 project(kdeui)
 
-if(LIBATTICA_FOUND)
-    set(KDEUI_NO_ATTICA FALSE)
-else()
-    set(KDEUI_NO_ATTICA TRUE)
-endif(LIBATTICA_FOUND)
-if(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
-    set(KDEUI_NO_ATTICA TRUE)
-endif(KDE_PLATFORM_FEATURE_BINARY_COMPATIBLE_FEATURE_REDUCTION)
-
 include_directories(
  ${CMAKE_SOURCE_DIR}/interfaces
  ${CMAKE_SOURCE_DIR}/interfaces/kregexpeditor
@@ -43,19 +34,6 @@ if(QCA2_FOUND)
   )
   set(KDEUI_EXTRA_LIBS ${KDEUI_EXTRA_LIBS} ${QCA2_LIBRARIES} )
 endif(QCA2_FOUND)
-
-if(NOT KDEUI_NO_ATTICA)
-   include_directories( ${LIBATTICA_INCLUDE_DIR} )
-   set(KDEUI_EXTRA_LIBS ${KDEUI_EXTRA_LIBS} ${LIBATTICA_LIBRARIES} )
-   set(HAVE_ATTICA TRUE)
-endif(NOT KDEUI_NO_ATTICA)
-
-macro_bool_to_01(HAVE_ATTICA)
-
-configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/dialogs/kaboutapplicationconfigattica_p.h.cmake
-    ${CMAKE_CURRENT_BINARY_DIR}/dialogs/kaboutapplicationconfigattica_p.h
-)
 
 set(HAVE_KSECRETSSERVICE 0)
 configure_file(

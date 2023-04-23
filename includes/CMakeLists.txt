@@ -686,15 +686,6 @@ install( FILES
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/KNS COMPONENT Devel)
 endif(NOT KDE_NO_DEPRECATED)
 
-if(LIBATTICA_FOUND)
-install( FILES
-  KNS3/DownloadDialog
-  KNS3/Entry
-  KNS3/KNewStuffAction
-  KNS3/KNewStuffButton
-DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/KNS3 COMPONENT Devel)
-endif(LIBATTICA_FOUND)
-
 install( FILES
   KNetwork/KActiveSocketBase
   KNetwork/KBufferedSocket

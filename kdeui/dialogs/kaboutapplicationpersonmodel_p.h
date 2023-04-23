@@ -19,12 +19,6 @@
 #define KABOUT_APPLICATION_PERSON_MODEL_H
 
 #include "kdeui/icons/kicon.h"
-#include "dialogs/kaboutapplicationconfigattica_p.h"
-
-#ifdef HAVE_ATTICA
-#include <attica/providermanager.h>
-#include <attica/provider.h>
-#endif //HAVE_ATTICA
 
 #include <kaboutdata.h>
 #include <kurl.h>
@@ -79,10 +73,6 @@ private:
 
     bool m_hasAvatarPixmaps;
 
-#ifdef HAVE_ATTICA
-    Attica::ProviderManager m_providerManager;
-    Attica::Provider m_provider;
-#endif //HAVE_ATTICA
     QString m_providerUrl;
     QString m_providerName;
 

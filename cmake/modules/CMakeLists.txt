@@ -64,7 +64,6 @@ set(cmakeFiles
                FindKorundum.cmake
                FindLCMS.cmake
                FindLibArt.cmake
-               FindLibAttica.cmake
                FindLibKonq.cmake
                FindLibLZMA.cmake
                FindLibXslt.cmake
