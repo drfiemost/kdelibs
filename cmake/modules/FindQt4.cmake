@@ -34,7 +34,6 @@
 #                    QT_USE_QTDESIGNER
 #                    QT_USE_QTMOTIF
 #                    QT_USE_QTMAIN
-#                    QT_USE_QTMULTIMEDIA
 #                    QT_USE_QTNETWORK
 #                    QT_USE_QTNSPLUGIN
 #                    QT_USE_QTOPENGL
@@ -48,7 +47,6 @@
 #                    QT_USE_QTASSISTANTCLIENT
 #                    QT_USE_QTHELP
 #                    QT_USE_QTXMLPATTERNS
-#                    QT_USE_PHONON
 #                    QT_USE_QTSCRIPTTOOLS
 #                    QT_USE_QTDECLARATIVE
 #
@@ -184,7 +182,6 @@
 #  QT_QTDESIGNERCOMPONENTS  True if QtDesignerComponents was found.
 #  QT_QTHELP_FOUND          True if QtHelp was found.
 #  QT_QTMOTIF_FOUND         True if QtMotif was found.
-#  QT_QTMULTIMEDIA_FOUND    True if QtMultimedia was found (since Qt 4.6.0).
 #  QT_QTNETWORK_FOUND       True if QtNetwork was found.
 #  QT_QTNSPLUGIN_FOUND      True if QtNsPlugin was found.
 #  QT_QTOPENGL_FOUND        True if QtOpenGL was found.
@@ -196,7 +193,6 @@
 #  QT_QTUITOOLS_FOUND       True if QtUiTools was found.
 #  QT_QTXML_FOUND           True if QtXml was found.
 #  QT_QTXMLPATTERNS_FOUND   True if QtXmlPatterns was found.
-#  QT_PHONON_FOUND          True if phonon was found.
 #  QT_QTDECLARATIVE_FOUND   True if QtDeclarative was found.
 #
 #  QT_MAC_USE_COCOA    For Mac OS X, its whether Cocoa or Carbon is used.
@@ -234,7 +230,6 @@
 #  QT_QTGUI_INCLUDE_DIR        Path to "include/QtGui" 
 #  QT_QTHELP_INCLUDE_DIR       Path to "include/QtHelp"
 #  QT_QTMOTIF_INCLUDE_DIR      Path to "include/QtMotif" 
-#  QT_QTMULTIMEDIA_INCLUDE_DIR Path to "include/QtMultimedia" 
 #  QT_QTNETWORK_INCLUDE_DIR    Path to "include/QtNetwork" 
 #  QT_QTNSPLUGIN_INCLUDE_DIR   Path to "include/QtNsPlugin" 
 #  QT_QTOPENGL_INCLUDE_DIR     Path to "include/QtOpenGL" 
@@ -244,7 +239,6 @@
 #  QT_QTTEST_INCLUDE_DIR       Path to "include/QtTest"
 #  QT_QTXML_INCLUDE_DIR        Path to "include/QtXml" 
 #  QT_QTXMLPATTERNS_INCLUDE_DIR  Path to "include/QtXmlPatterns"
-#  QT_PHONON_INCLUDE_DIR       Path to "include/phonon"
 #  QT_QTSCRIPTTOOLS_INCLUDE_DIR       Path to "include/QtScriptTools"
 #  QT_QTDECLARATIVE_INCLUDE_DIR       Path to "include/QtDeclarative"
 #
@@ -284,8 +278,6 @@
 #
 # The QtMotif library:        QT_QTMOTIF_LIBRARY
 #
-# The QtMultimedia library:   QT_QTMULTIMEDIA_LIBRARY
-#
 # The QtNetwork library:      QT_QTNETWORK_LIBRARY
 #
 # The QtNsPLugin library:     QT_QTNSPLUGIN_LIBRARY
@@ -310,8 +302,6 @@
 #
 # The qtmain library for Windows QT_QTMAIN_LIBRARY
 #
-# The Phonon library:             QT_PHONON_LIBRARY
-#  
 # The QtDeclarative library:             QT_QTDECLARATIVE_LIBRARY
 #
 # also defined, but NOT for general use are
@@ -698,7 +688,7 @@ IF (QT4_QMAKE_FOUND)
   ########################################
 
   SET(QT_MODULES QtCore QtGui Qt3Support QtSvg QtScript QtTest QtUiTools 
-                 QtHelp QtXmlPatterns QtNetwork QtMultimedia
+                 QtHelp QtXmlPatterns QtNetwork
                  QtNsPlugin QtOpenGL QtSql QtXml QtDesigner QtDBus QtScriptTools
                  QtDeclarative)
   
@@ -734,7 +724,6 @@ IF (QT4_QMAKE_FOUND)
       SET(QT_QTMAIN_LIBRARY_DEBUG NOTFOUND)
       SET(QT_QTMAIN_LIBRARY_RELEASE NOTFOUND)
     ENDIF(WIN32)
-    SET(QT_PHONON_INCLUDE_DIR NOTFOUND)
   ENDIF(QT_QMAKE_CHANGED)
 
   FOREACH(QT_MODULE ${QT_MODULES})
@@ -793,16 +782,6 @@ IF (QT4_QMAKE_FOUND)
     ${QT_LIBRARY_DIR}/QtCore.framework/Headers
     NO_DEFAULT_PATH
     )
-
-  # Set QT_PHONON_INCLUDE_DIR
-  # Qt >= 4.5.3 (or kde-qt-4.5.2 which has the fix too) : Phonon/ClassName is inside include/phonon
-  # With previous versions of Qt, this could not work; upgrade Qt or use a standalone phonon
-  FIND_PATH(QT_PHONON_INCLUDE_DIR Phonon
-    PATHS
-    ${QT_HEADERS_DIR}/phonon
-    NO_DEFAULT_PATH
-    )
-  SET(QT_MODULES ${QT_MODULES} phonon)
 
   # Set QT_INCLUDE_DIR by removine "/QtCore" in the string ${QT_QTCORE_INCLUDE_DIR}
   IF( QT_QTCORE_INCLUDE_DIR AND NOT QT_INCLUDE_DIR)
@@ -1029,7 +1008,6 @@ IF (QT4_QMAKE_FOUND)
   _QT4_ADJUST_LIB_VARS(QtDesigner)
   _QT4_ADJUST_LIB_VARS(QtDesignerComponents)
   _QT4_ADJUST_LIB_VARS(QtHelp)
-  _QT4_ADJUST_LIB_VARS(QtMultimedia)
   _QT4_ADJUST_LIB_VARS(QtNetwork)
   _QT4_ADJUST_LIB_VARS(QtNsPlugin)
   _QT4_ADJUST_LIB_VARS(QtOpenGL)
@@ -1041,7 +1019,6 @@ IF (QT4_QMAKE_FOUND)
   _QT4_ADJUST_LIB_VARS(QtUiTools)
   _QT4_ADJUST_LIB_VARS(QtXml)
   _QT4_ADJUST_LIB_VARS(QtXmlPatterns)
-  _QT4_ADJUST_LIB_VARS(phonon)
 
   # platform dependent libraries
   IF(Q_WS_X11)
