@@ -62,9 +62,11 @@ else (KEXIV2_INCLUDE_DIR AND KEXIV2_LIBRARIES AND KEXIV2_DEFINITIONS)
 
       # use pkg-config to get the directories and then use these values
       # in the FIND_PATH() and FIND_LIBRARY() calls
-      include(FindPkgConfig)
-    
-      pkg_check_modules(_pc_KEXIV2 libkexiv2>=0.2.0)
+      find_package(PkgConfig QUIET)
+
+      if(PKG_CONFIG_FOUND)
+        pkg_check_modules(_pc_KEXIV2 libkexiv2>=0.2.0)
+      endif(PKG_CONFIG_FOUND)
     
     else(NOT WIN32)
       set(_pc_KEXIV2_FOUND TRUE)
