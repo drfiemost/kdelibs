@@ -30,7 +30,7 @@
 #include <qwidget.h>
 #include <q3multilineedit.h>
 #include <qpixmap.h>
-#include <q3ptrlist.h>
+#include <QList>
 #include <QtCore/QStack>
 #include <qcheckbox.h>
 #include <kdialog.h>
@@ -112,7 +112,7 @@ namespace KJS {
     bool m_debugSelected;
   };
 
-  class EvalMultiLineEdit : public Q3MultiLineEdit {
+  class EvalMultiLineEdit : public Q3MultiLineEdit { // FIXME port to QTextEdit
     Q_OBJECT
   public:
       EvalMultiLineEdit(QWidget *parent);
@@ -123,7 +123,7 @@ namespace KJS {
       QString m_code;
   };
 
-  class SourceDisplay : public Q3ScrollView {
+  class SourceDisplay : public Q3ScrollView { // FIXME port to QScrollArea
     Q_OBJECT
   public:
     SourceDisplay(KJSDebugWin *debugWin, QWidget *parent, const char *name = 0);
@@ -259,7 +259,7 @@ namespace KJS {
 
     QMap<QString,SourceFile*> m_sourceFiles; /* maps url->SourceFile */
     QMap<int,SourceFragment*> m_sourceFragments; /* maps SourceId->SourceFragment */
-    Q3PtrList<SourceFile> m_sourceSelFiles; /* maps combobox index->SourceFile */
+    QList<SourceFile> m_sourceSelFiles; /* maps combobox index->SourceFile */
 
     QPixmap m_stopIcon;
     QPixmap m_emptyIcon;
