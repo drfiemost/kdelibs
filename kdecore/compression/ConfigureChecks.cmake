@@ -4,6 +4,7 @@ set_package_properties(BZip2 PROPERTIES DESCRIPTION "Support for BZip2 compresse
                        TYPE RECOMMENDED
                       )
 
+set(FPHSA_NAME_MISMATCHED TRUE)
 macro_optional_find_package(LibLZMA)
 set_package_properties(LibLZMA PROPERTIES DESCRIPTION "Support for xz compressed files and data streams"
                        URL "http://tukaani.org/xz/"
