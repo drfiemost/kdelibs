@@ -215,7 +215,6 @@ set(kfile_STAT_SRCS
 if(NOT KIO_NO_SOLID)
   set(kfile_STAT_SRCS
     ${kfile_STAT_SRCS}
-    kfile/kdiskfreespace.cpp
     kfile/kdevicelistitem.cpp
     kfile/kdevicelistmodel.cpp
     )
@@ -436,7 +435,6 @@ install( FILES
 if(NOT KDE_NO_DEPRECATED)
 install( FILES
   bookmarks/kbookmarkimporter_crash.h
-  kfile/kdiskfreespace.h
   kio/kmimetyperesolver.h
   DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
