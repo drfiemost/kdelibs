@@ -282,7 +282,6 @@ set(kdeui_LIB_SRCS
 if(NOT KDE_NO_DEPRECATED)
 set(kdeui_LIB_SRCS
  ${kdeui_LIB_SRCS}
- widgets/karrowbutton.cpp
  widgets/keditlistbox.cpp
 )
 endif(NOT KDE_NO_DEPRECATED)
@@ -683,7 +682,6 @@ install( FILES
 
 if(NOT KDE_NO_DEPRECATED)
 install(FILES
- widgets/karrowbutton.h
  widgets/keditlistbox.h
  DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
 endif(NOT KDE_NO_DEPRECATED)

@@ -448,7 +448,6 @@ DESTINATION ${INCLUDE_INSTALL_DIR}/KDE COMPONENT Devel)
 
 if(NOT KDE_NO_DEPRECATED)
 install( FILES
-  KArrowButton
   KEditListBox
   KDiskFreeSpace
   KMimeTypeResolver
