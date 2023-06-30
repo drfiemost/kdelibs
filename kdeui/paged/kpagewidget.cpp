@@ -31,13 +31,13 @@ KPageWidgetPrivate::KPageWidgetPrivate(KPageWidget *q)
 
 void KPageWidgetPrivate::_k_slotCurrentPageChanged(const QModelIndex &current, const QModelIndex &before)
 {
-  KPageWidgetItem *currentItem = 0;
-  if ( current.isValid() )
-    currentItem = model()->item( current );
+    KPageWidgetItem *currentItem = 0;
+    if ( current.isValid() )
+        currentItem = model()->item( current );
 
-  KPageWidgetItem *beforeItem = 0;
-  if ( before.isValid() )
-    beforeItem = model()->item( before );
+    KPageWidgetItem *beforeItem = 0;
+    if ( before.isValid() )
+        beforeItem = model()->item( before );
 
     Q_Q(KPageWidget);
     emit q->currentPageChanged(currentItem, beforeItem);
@@ -116,18 +116,18 @@ void KPageWidget::removePage( KPageWidgetItem *item )
 void KPageWidget::setCurrentPage( KPageWidgetItem *item )
 {
     const QModelIndex index = d_func()->model()->index(item);
-  if ( !index.isValid() )
-    return;
+    if ( !index.isValid() )
+        return;
 
-  KPageView::setCurrentPage( index );
+    KPageView::setCurrentPage( index );
 }
 
 KPageWidgetItem* KPageWidget::currentPage() const
 {
-  const QModelIndex index = KPageView::currentPage();
+    const QModelIndex index = KPageView::currentPage();
 
-  if ( !index.isValid() )
-    return 0;
+    if ( !index.isValid() )
+        return 0;
 
     return d_func()->model()->item(index);
 }
