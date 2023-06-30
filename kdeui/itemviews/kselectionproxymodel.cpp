@@ -2144,10 +2144,10 @@ QModelIndex KSelectionProxyModel::mapToSource(const QModelIndex &proxyIndex) con
     if (!proxyIndex.isValid() || !sourceModel() || d->m_rootIndexList.isEmpty())
         return QModelIndex();
 
-    Q_ASSERT(proxyIndex.internalPointer() >= 0);
+    Q_ASSERT(proxyIndex.internalPointer() != nullptr);
     Q_ASSERT(proxyIndex.model() == this);
 
-    if (proxyIndex.internalPointer() == 0)
+    if (proxyIndex.internalPointer() == nullptr)
         return d->mapTopLevelToSource(proxyIndex.row(), proxyIndex.column());
 
     const QModelIndex proxyParent = d->parentForId(proxyIndex.internalPointer());
