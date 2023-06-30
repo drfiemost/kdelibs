@@ -105,9 +105,6 @@ bool KAr::openArchive( QIODevice::OpenMode mode )
     while (! dev->atEnd()) {
         QByteArray ar_header;
         ar_header.resize(61);
-        QByteArray name;
-        int date, uid, gid, mode;
-        qint64 size;
 
         dev->seek( dev->pos() + (2 - (dev->pos() % 2)) % 2 ); // Ar headers are padded to byte boundary
 
@@ -124,12 +121,12 @@ bool KAr::openArchive( QIODevice::OpenMode mode )
             return false;
         }
 
-        name = ar_header.mid( 0, 16 ); // Process header
-        date = ar_header.mid( 16, 12 ).toInt();
-        uid = ar_header.mid( 28, 6 ).toInt();
-        gid = ar_header.mid( 34, 6 ).toInt();
-        mode = ar_header.mid( 40, 8 ).toInt();
-        size = ar_header.mid( 48, 10 ).toInt();
+        QByteArray name = ar_header.mid( 0, 16 ); // Process header
+        int date = ar_header.mid( 16, 12 ).toInt();
+        [[maybe_unused]] int uid = ar_header.mid( 28, 6 ).toInt();
+        [[maybe_unused]] int gid = ar_header.mid( 34, 6 ).toInt();
+        int mode = ar_header.mid( 40, 8 ).toInt();
+        qint64 size = ar_header.mid( 48, 10 ).toInt();
 
         bool skip_entry = false; // Deal with special entries
         if (name.mid(0, 1) == "/") {
