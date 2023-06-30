@@ -30,6 +30,7 @@
 # define XK_XKB_KEYS
 # include <X11/X.h>
 # include <X11/Xlib.h>
+# include <X11/XKBlib.h>
 # include <X11/Xutil.h>
 # include <X11/keysymdef.h>
 # define X11_ONLY(arg) arg, //allows to omit an argument
@@ -527,7 +528,7 @@ bool initializeMods()
 
             for( int k = 0; k < keysyms_per_keycode; ++k ) {
 
-                keySymX = XKeycodeToKeysym( QX11Info::display(), xmk->modifiermap[xmk->max_keypermod * i + j], k );
+                keySymX = XkbKeycodeToKeysym( QX11Info::display(), xmk->modifiermap[xmk->max_keypermod * i + j], 0, k );
 
                 switch( keySymX ) {
                     case XK_Alt_L:
@@ -671,13 +672,13 @@ uint getModsRequired(uint sym)
         // need to check index 0 before the others, so that a null-mod
         //  can take precedence over the others, in case the modified
         //  key produces the same symbol.
-        if( sym == XKeycodeToKeysym( QX11Info::display(), code, 0 ) )
+        if( sym == XkbKeycodeToKeysym( QX11Info::display(), code, 0, 0 ) )
             ;
-        else if( sym == XKeycodeToKeysym( QX11Info::display(), code, 1 ) )
+        else if( sym == XkbKeycodeToKeysym( QX11Info::display(), code, 0, 1 ) )
             mod = Qt::SHIFT;
-        else if( sym == XKeycodeToKeysym( QX11Info::display(), code, 2 ) )
+        else if( sym == XkbKeycodeToKeysym( QX11Info::display(), code, 0, 2 ) )
             mod = MODE_SWITCH;
-        else if( sym == XKeycodeToKeysym( QX11Info::display(), code, 3 ) )
+        else if( sym == XkbKeycodeToKeysym( QX11Info::display(), code, 0, 3 ) )
             mod = Qt::SHIFT | MODE_SWITCH;
     }
     return mod;
@@ -829,7 +830,7 @@ bool xEventToQt( XEvent* e, int* keyQt )
     // If numlock is active and a keypad key is pressed, XOR the SHIFT state.
     //  e.g., KP_4 => Shift+KP_Left, and Shift+KP_4 => KP_Left.
     if( e->xkey.state & modXNumLock() ) {
-        uint sym = XKeycodeToKeysym( QX11Info::display(), keyCodeX, 0 );
+        uint sym = XkbKeycodeToKeysym( QX11Info::display(), keyCodeX, 0, 0 );
         // TODO: what's the xor operator in c++?
         // If this is a keypad key,
         if( sym >= XK_KP_Space && sym <= XK_KP_9 ) {
