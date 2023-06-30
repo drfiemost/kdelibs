@@ -161,7 +161,7 @@ void KDateTime::Spec::setType(SpecType type, int utcOffset)
     {
         case KDateTime::OffsetFromUTC:
             d->utcOffset = utcOffset;
-            // fall through to UTC
+            [[fallthrough]];
         case KDateTime::UTC:
         case KDateTime::ClockTime:
             d->type = type;
@@ -1268,7 +1268,7 @@ KDateTime KDateTime::currentDateTime(const Spec &spec)
         case TimeZone:
             if (spec.timeZone() != KSystemTimeZones::local())
                 break;
-            // fall through to LocalZone
+            [[fallthrough]];
         case LocalZone:
             return currentLocalDateTime();
         default:
@@ -1487,7 +1487,7 @@ QString KDateTime::toString(const QString &format) const
                     break;
                 case 'd':     // day of month, 01 - 31
                     numLength = 2;
-                    // fall through to 'e'
+                    [[fallthrough]];
                 case 'e':     // day of month, 1 - 31
                     num = d->date().day();
                     break;
@@ -1499,13 +1499,13 @@ QString KDateTime::toString(const QString &format) const
                     break;
                 case 'H':     // hour, 00 - 23
                     numLength = 2;
-                    // fall through to 'k'
+                    [[fallthrough]];
                 case 'k':     // hour, 0 - 23
                     num = d->dt().time().hour();
                     break;
                 case 'I':     // hour, 01 - 12
                     numLength = 2;
-                    // fall through to 'l'
+                    [[fallthrough]];
                 case 'l':     // hour, 1 - 12
                     num = (d->dt().time().hour() + 11) % 12 + 1;
                     break;
@@ -1632,7 +1632,7 @@ QString KDateTime::toString(const QString &format) const
                 case UTC:
                 case TimeZone:
                     tz = (d->specType == TimeZone) ? d->specZone : KTimeZone::utc();
-                    // fall through to OffsetFromUTC
+                    [[fallthrough]];
                 case OffsetFromUTC:
                     offset = (d->specType == TimeZone) ? d->timeZoneOffset()
                            : (d->specType == OffsetFromUTC) ? d->specUtcOffset : 0;
@@ -1690,7 +1690,7 @@ QString KDateTime::toString(TimeFormat format) const
         case RFCDateDay:
             result += QString::fromLatin1(shortDay[d->date().dayOfWeek() - 1]);
             result += QLatin1String(", ");
-            // fall through to RFCDate
+            [[fallthrough]];
         case RFCDate:
         {
             char seconds[8] = { 0 };
