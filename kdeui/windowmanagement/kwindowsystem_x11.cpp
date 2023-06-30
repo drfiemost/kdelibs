@@ -864,7 +864,7 @@ QRect KWindowSystem::workArea( const QList<WId>& exclude, int desktop )
 // windows are cached here.
         NETStrut strut;
         QList< KWindowSystemPrivate::StrutData >::Iterator it2 = s_d->strutWindows.begin();
-        for( ; it2 != s_d->strutWindows.end(); ++it2 )
+        for( ; it2 != s_d->strutWindows.end(); ++it2 ) {
             if( (*it2).window == *it1 )
                 break;
 
@@ -884,6 +884,7 @@ QRect KWindowSystem::workArea( const QList<WId>& exclude, int desktop )
                     continue;
             } else
                 continue; // not a strut window
+        }
 
         QRect r = all;
         if ( strut.left > 0 )
