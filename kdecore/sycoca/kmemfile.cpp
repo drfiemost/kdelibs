@@ -36,8 +36,10 @@ public:
     int  shmCounter;
     qint64 shmDataSize;
 
+    void clear() { shmCounter = 0; shmDataSize = 0; }
+
     sharedInfoData() {
-      memset ( this, 0, sizeof ( *this ) );
+      clear();
     }
   };
   Private ( KMemFile *_parent ) : readWritePos ( 0 ), shmDataSize ( 0 ), parent ( _parent ) {}
@@ -172,7 +174,7 @@ bool KMemFile::open ( OpenMode mode )
     d->shmInfo.lock();
     // no -> create it
     infoPtr = static_cast<Private::sharedInfoData*> ( d->shmInfo.data() );
-    memset ( infoPtr, 0, sizeof ( Private::sharedInfoData ) );
+    infoPtr->clear();
     infoPtr->shmCounter = 1;
     if ( !d->loadContentsFromFile() ) {
       d->shmInfo.unlock();
