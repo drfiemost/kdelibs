@@ -94,8 +94,8 @@ static unsigned int MurmurHashAligned(const void *key, int len, unsigned int see
 
         switch(align)
         {
-            case 1: t |= data[2] << 16;
-            case 2: t |= data[1] << 8;
+            case 1: t |= data[2] << 16; [[fallthrough]];
+            case 2: t |= data[1] << 8;  [[fallthrough]];
             case 3: t |= data[0];
         }
 
@@ -130,9 +130,9 @@ static unsigned int MurmurHashAligned(const void *key, int len, unsigned int see
 
         switch(pack)
         {
-        case 3: d |= data[2] << 16;
-        case 2: d |= data[1] << 8;
-        case 1: d |= data[0];
+        case 3: d |= data[2] << 16; [[fallthrough]];
+        case 2: d |= data[1] << 8;  [[fallthrough]];
+        case 1: d |= data[0];       [[fallthrough]];
         case 0: h += (t >> sr) | (d << sl);
                 h *= m;
                 h ^= h >> r;
@@ -159,8 +159,8 @@ static unsigned int MurmurHashAligned(const void *key, int len, unsigned int see
 
     switch(len)
     {
-    case 3: h += data[2] << 16;
-    case 2: h += data[1] << 8;
+    case 3: h += data[2] << 16; [[fallthrough]];
+    case 2: h += data[1] << 8;  [[fallthrough]];
     case 1: h += data[0];
             h *= m;
             h ^= h >> r;
