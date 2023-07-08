@@ -979,7 +979,7 @@ void FuncDeclNode::processFuncDecl(ExecState *exec)
       // so that NonLocalResolver stops skipping the local scope
       exec->variableObject()->setLocalInjected();
 
-      // fallthrough intentional
+      [[fallthrough]];
     case GlobalCode:
       exec->variableObject()->put(exec, ident, makeFunctionObject(exec), flags);
   };
