@@ -219,6 +219,8 @@ namespace KJS {
 
     UString(const Vector<UChar>& buffer);
 
+    UString& operator=(const UString&) = default;
+
     /**
      * Convenience declaration only ! You'll be on your own to write the
      * implementation for a construction from QString.
