@@ -499,7 +499,7 @@ void CopyJobPrivate::slotReport()
     switch (state) {
         case STATE_RENAMING:
             q->setTotalAmount(KJob::Files, m_srcList.count());
-            // fall-through intended
+            [[fallthrough]];
         case STATE_COPYING_FILES:
             q->setProcessedAmount( KJob::Files, m_processedFiles );
             if (m_bURLDirty)
