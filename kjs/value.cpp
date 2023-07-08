@@ -224,7 +224,7 @@ JSValue* JSValue::getByIndex(ExecState* exec, unsigned propertyName) const
         if (propertyName < static_cast<unsigned>(s.size())) {
             return jsString(s.substr(propertyName, 1));
         }
-        // fall through
+        [[fallthrough]];
     }
     default: {
         JSObject* obj = toObject(exec);

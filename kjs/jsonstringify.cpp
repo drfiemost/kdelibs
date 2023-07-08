@@ -378,7 +378,7 @@ UString JSONStringify::stringifyValue(KJS::ExecState* exec, KJS::JSValue* object
             double val = object->getNumber();
             if (isInf(val) || isNaN(val)) // !isfinite
                 return UString("null");
-            // fall through
+            [[fallthrough]];
         }
         case BooleanType:
             return object->toString(exec);
