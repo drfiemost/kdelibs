@@ -343,13 +343,15 @@ void QObjectBinding::put(KJS::ExecState *exec, const KJS::Identifier &propertyNa
             {
                     propSet = obj->setProperty( propertyName.ascii(), val );
             }
-            /*
+
             if( !propSet )
             {
-                    KJSEmbed::throwError(exec,
-                            i18n("Setting property %1 failed: property invalid, read-only or does not exist").arg(propertyName.ascii()));
+                    KJS::throwError(exec, KJS::GeneralError,
+                                    i18n("Setting property %1 failed: property invalid, read-only or does not exist",
+                                         propertyName.ascii()));
+                    //KJSEmbed::throwError(exec,
+                    //        i18n("Setting property %1 failed: property invalid, read-only or does not //exist").arg(propertyName.ascii()));
             }
-            */
 
         }
 
