@@ -381,7 +381,7 @@ void KDateTable::paintCell( QPainter *painter, int row, int col, const KColorSch
     QFont cellFont = KGlobalSettings::generalFont();
     bool workingDay = false;
     int cellWeekDay, pos;
-    BackgroundMode cellBackgroundMode = RectangleMode;
+    //BackgroundMode cellBackgroundMode = RectangleMode;
 
     //Calculate the position of the cell in the grid
     pos = d->m_numDayColumns * ( row - 1 ) + col;
@@ -494,7 +494,7 @@ void KDateTable::paintCell( QPainter *painter, int row, int col, const KColorSch
             if ( customDay ) {
                 KDateTablePrivate::DatePaintingMode mode = d->m_customPaintingModes[cellDate.toJulianDay()];
                 if ( mode.bgMode != NoBgMode ) {
-                        cellBackgroundMode = mode.bgMode;
+                        //cellBackgroundMode = mode.bgMode;
                         if (!selectedDay) cellBackgroundColor = mode.bgColor;
                 }
                 cellTextColor = mode.fgColor;
@@ -707,10 +707,9 @@ void KDateTable::mousePressEvent( QMouseEvent *e )
         return;
     }
 
-    int row, col, pos, temp;
-
     QPoint mouseCoord = e->pos();
-    row = mouseCoord.y() * d->m_numWeekRows / height();
+    int row = mouseCoord.y() * d->m_numWeekRows / height();
+    int col;
     if ( layoutDirection() == Qt::RightToLeft ) {
         col = d->m_numDayColumns - ( mouseCoord.x() * d->m_numDayColumns / width() ) - 1;
     } else {
@@ -725,10 +724,10 @@ void KDateTable::mousePressEvent( QMouseEvent *e )
     // the row with the days of the week in the calculation.
 
     // old selected date:
-    temp = posFromDate( date() );
+    //int temp = posFromDate( date() );
 
     // new position and date
-    pos = ( d->m_numDayColumns * ( row - 1 ) ) + col;
+    int pos = ( d->m_numDayColumns * ( row - 1 ) ) + col;
     QDate clickedDate = dateFromPos( pos );
 
     // set the new date. If it is in the previous or next month, the month will
