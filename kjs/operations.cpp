@@ -82,7 +82,7 @@ bool isPosInf(double d)
 #if PLATFORM(WIN_OS)
     return _FPCLASS_PINF == _fpclass(d);
 #elif HAVE(FUNC_ISINF) && !PLATFORM(SOLARIS_OS)
-    return (isinf(d) == 1);
+    return (isinf(d) && !signbit(d));
 #elif HAVE(FUNC_FINITE)
     return !finite(d) && d == d; // ### can we distinguish between + and - ?
 #elif HAVE(FUNC__FINITE)
@@ -98,7 +98,7 @@ bool isNegInf(double d)
 #if PLATFORM(WIN_OS)
     return _FPCLASS_NINF == _fpclass(d);
 #elif HAVE(FUNC_ISINF) && !PLATFORM(SOLARIS_OS)
-    return (isinf(d) == -1);
+    return (isinf(d) && signbit(d));
 #elif HAVE(FUNC_FINITE)
     return finite(d) == 0 && d == d; // ###
 #elif HAVE(FUNC__FINITE)
