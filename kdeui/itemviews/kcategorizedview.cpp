@@ -1143,7 +1143,7 @@ QModelIndex KCategorizedView::moveCursor(CursorAction cursorAction,
                     return previous;
                 }
 
-                return QModelIndex();
+                break;
             }
         case MoveRight: {
                 if (current.row() == d->proxyModel->rowCount() - 1) {
@@ -1155,7 +1155,7 @@ QModelIndex KCategorizedView::moveCursor(CursorAction cursorAction,
                     return next;
                 }
 
-                return QModelIndex();
+                break;
             }
         case MoveDown: {
                 if (d->hasGrid() || uniformItemSizes()) {
@@ -1187,9 +1187,9 @@ QModelIndex KCategorizedView::moveCursor(CursorAction cursorAction,
                     if (currentRelativePos < (block.items.count() % maxItemsPerRow)) {
                         return d->proxyModel->index(nextBlock.firstIndex.row() + currentRelativePos, modelColumn(), rootIndex());
                     }
-
-                    return QModelIndex();
                 }
+
+                break;
             }
         case MoveUp: {
                 if (d->hasGrid() || uniformItemSizes()) {
@@ -1221,9 +1221,9 @@ QModelIndex KCategorizedView::moveCursor(CursorAction cursorAction,
                     if (currentRelativePos < remainder) {
                         return d->proxyModel->index(prevBlock.firstIndex.row() + prevBlock.items.count() - remainder + currentRelativePos, modelColumn(), rootIndex());
                     }
-
-                    return QModelIndex();
                 }
+
+                break;
             }
         default:
             break;
