@@ -50,6 +50,8 @@ namespace Sonnet
               end( other.end )
             {}
 
+        Word& operator=(const Word&) = default;
+
         QString word;
         int    start;
         bool    end;
