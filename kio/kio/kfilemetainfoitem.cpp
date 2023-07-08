@@ -32,10 +32,6 @@ KFileMetaInfoItem::KFileMetaInfoItem(const QString& pp,
     : d(new KFileMetaInfoItemPrivate()) {
 #ifndef KDE_NO_DEPRECATED
     d->pp = pp;
-#else
-#ifndef KIO_NO_NEPOMUK
-    d->pp = QUrl(pp);
-#endif
 #endif
     d->value = v;
     d->writer = w;
@@ -54,12 +50,8 @@ KFileMetaInfoItem::name() const {
 #ifndef KDE_NO_DEPRECATED
     return d->pp.name();
 #else
-    #ifndef KIO_NO_NEPOMUK
-        return d->pp.name();
-    #else
-        return QString::null;
-    #endif
-#endif	
+    return QString::null;
+#endif
 }
 const QVariant&
 KFileMetaInfoItem::value() const {
