@@ -497,8 +497,8 @@ void KPageWidgetModel::removePage( KPageWidgetItem *item )
 
   emit layoutAboutToBeChanged();
 
-    disconnect(item, SIGNAL(changed()), this, SLOT(_k_itemChanged()));
-    disconnect(item, SIGNAL(toggled(bool)), this, SLOT(_k_itemToggled(bool)));
+  disconnect(item, SIGNAL(changed()), this, SLOT(_k_itemChanged()));
+  disconnect(item, SIGNAL(toggled(bool)), this, SLOT(_k_itemToggled(bool)));
 
   PageItem *parentPageItem = pageItem->parent();
   int row = parentPageItem->row();
@@ -507,7 +507,7 @@ void KPageWidgetModel::removePage( KPageWidgetItem *item )
   if ( parentPageItem != d->rootItem )
     index = createIndex( row, 0, parentPageItem );
 
-    beginRemoveRows(index, pageItem->row(), pageItem->row());
+  beginRemoveRows(index, pageItem->row(), pageItem->row());
 
   parentPageItem->removeChild( pageItem->row() );
   delete pageItem;
@@ -534,7 +534,7 @@ QModelIndex KPageWidgetModel::index( const KPageWidgetItem *item ) const
   if ( !item )
     return QModelIndex();
 
-    const PageItem *pageItem = d_func()->rootItem->findChild(item);
+  const PageItem *pageItem = d_func()->rootItem->findChild(item);
   if ( !pageItem ) {
     return QModelIndex();
   }
