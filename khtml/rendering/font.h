@@ -141,6 +141,7 @@ public:
         {}
     Font(const Font& o)
         : fontDef(o.fontDef), cfi(o.cfi), scFont(o.scFont), letterSpacing(o.letterSpacing), wordSpacing(o.wordSpacing) { if (o.scFont) scFont = new QFont(*o.scFont); }
+    Font& operator=(const Font&) = default;
     ~Font() { delete scFont; }
 
     bool operator == ( const Font &other ) const {
