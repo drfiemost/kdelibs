@@ -475,9 +475,9 @@ void KBuildSycoca::save(QDataStream* str)
    str->device()->seek(0);
 
    (*str) << (qint32) KSycoca::version();
-   KSycocaFactory * servicetypeFactory = 0;
-   KBuildMimeTypeFactory * mimeTypeFactory = 0;
-   KBuildServiceFactory * serviceFactory = 0;
+   [[maybe_unused]] KSycocaFactory * servicetypeFactory = nullptr;
+   [[maybe_unused]] KBuildMimeTypeFactory * mimeTypeFactory = nullptr;
+   KBuildServiceFactory * serviceFactory = nullptr;
    for(KSycocaFactoryList::Iterator factory = factories()->begin();
        factory != factories()->end();
        ++factory)
