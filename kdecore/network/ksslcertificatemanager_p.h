@@ -52,6 +52,7 @@ struct KSslCaCertificate
         isBlacklisted = other.isBlacklisted;
         return *this;
     }
+    KSslCaCertificate(const KSslCaCertificate&) = default;
 };
 
 class OrgKdeKSSLDInterface; // aka org::kde::KSSLDInterface
