@@ -165,13 +165,13 @@ namespace khtml {
         }
         virtual void setStyleSheet(const DOM::DOMString&, const DOM::DOMString &sheet, const DOM::DOMString &, const DOM::DOMString &/*mimetype*/)
         {
-          if ( m_part )
-            m_part->setUserStyleSheet( sheet.string() );
+            if ( m_part )
+                m_part->setUserStyleSheet( sheet.string() );
 
             delete this;
         }
         virtual void error( int, const QString& ) {
-          delete this;
+            delete this;
         }
         QPointer<KHTMLPart> m_part;
         khtml::CachedCSSStyleSheet *m_cachedSheet;
@@ -181,7 +181,7 @@ namespace khtml {
 KHTMLPart::KHTMLPart( QWidget *parentWidget, QObject *parent, GUIProfile prof )
 : KParts::ReadOnlyPart( parent )
 {
-    d = 0;
+    d = nullptr;
     KHTMLGlobal::registerPart( this );
     setComponentData( KHTMLGlobal::componentData(), false );
     init( new KHTMLView( this, parentWidget ), prof );
@@ -190,7 +190,7 @@ KHTMLPart::KHTMLPart( QWidget *parentWidget, QObject *parent, GUIProfile prof )
 KHTMLPart::KHTMLPart( KHTMLView *view, QObject *parent, GUIProfile prof )
 : KParts::ReadOnlyPart( parent )
 {
-    d = 0;
+    d = nullptr;
     KHTMLGlobal::registerPart( this );
     setComponentData( KHTMLGlobal::componentData(), false );
     assert( view );

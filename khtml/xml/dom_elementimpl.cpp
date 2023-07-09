@@ -1610,7 +1610,7 @@ void NamedAttrMapImpl::setValue(NodeImpl::Id id, DOMStringImpl *value, const Pre
     int exceptioncode = 0;
     if (!value) {
         removeNamedItem(id, prefix, nsAware, exceptioncode);
-	return;
+        return;
     }
     int index = find(id, prefix, nsAware);
     if (index >= 0) {
@@ -1618,10 +1618,10 @@ void NamedAttrMapImpl::setValue(NodeImpl::Id id, DOMStringImpl *value, const Pre
             m_attrs[index].attr()->setPrefix(prefix.toString(), exceptioncode);
         else
             m_attrs[index].m_prefix = prefix;
-	    m_attrs[index].setValue(value,m_element);
-	    // ### dispatch mutation events
-	    return;
-	}
+        m_attrs[index].setValue(value,m_element);
+        // ### dispatch mutation events
+        return;
+    }
 
     AttributeImpl attr;
     attr.m_localName = LocalName::fromId(localNamePart(id));
