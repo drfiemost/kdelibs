@@ -376,37 +376,21 @@ KDEDModule *Kded::loadModule(const KService::Ptr& s, bool onDemand)
             if (p.isValid() && (p.toBool() == false))
             {
                 noDemandLoad(s->desktopEntryName());
-                return 0;
+                return nullptr;
             }
         }
 
-        KDEDModule *module = 0;
+        KDEDModule *module = nullptr;
         QString libname = "kded_"+s->library();
         KPluginLoader loader(libname);
 
         KPluginFactory *factory = loader.factory();
-        if (!factory) {
-            // kde3 compat
-            QString factoryName = s->property("X-KDE-FactoryName", QVariant::String).toString();
-            if (factoryName.isEmpty())
-                factoryName = s->library();
-            factoryName = "create_" + factoryName;
-#ifndef KDE_NO_DEPRECATED
-            KLibrary* lib = KLibLoader::self()->library(libname);
-            KDEDModule* (*create)();
-            if (lib) {
-                create = (KDEDModule* (*)())lib->resolveFunction(QFile::encodeName(factoryName));
-                if (create)
-                    module = create();
-            }
-#endif
-            if (!module) {
-                kWarning() << "Could not load library" << libname << ". ["
-                           << loader.errorString() << "]";
-            }
-        } else {
+        if (factory) {
             // create the module
             module = factory->create<KDEDModule>(this);
+        } else {
+            kWarning() << "Could not load library" << libname << ". ["
+                        << loader.errorString() << "]";
         }
         if (module) {
             module->setModuleName(obj);
