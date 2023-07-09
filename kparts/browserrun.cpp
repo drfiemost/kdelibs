@@ -376,7 +376,7 @@ BrowserRun::AskSaveResult BrowserRun::askEmbedOrSave( const KUrl & url, const QS
     question.setSuggestedFileName(suggestedFileName);
     const BrowserOpenOrSaveQuestion::Result result = question.askEmbedOrSave(flags);
     return result == BrowserOpenOrSaveQuestion::Save ? Save
-        : BrowserOpenOrSaveQuestion::Embed ? Open
+        : result == BrowserOpenOrSaveQuestion::Embed ? Open
         : Cancel;
 }
 #endif
