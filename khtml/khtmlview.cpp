@@ -2080,7 +2080,7 @@ bool KHTMLView::eventFilter(QObject *o, QEvent *e)
             }
             case QEvent::UpdateLater:
                 isUpdate = true;
-                // no break;
+                [[fallthrough]];
 	    case QEvent::Paint:
 		if (!allowWidgetPaintEvents) {
 		    // eat the event. Like this we can control exactly when the widget
