@@ -115,7 +115,6 @@ KCModule* KCModuleLoader::loadModule(const KCModuleInfo& mod, ErrorReporting rep
                 } else {
                     kWarning(1208) << "This module has no valid entry symbol at all. The reason could be that it's still using K_EXPORT_COMPONENT_FACTORY with a custom X-KDE-FactoryName which is not supported anymore";
                 }
-                lib.unload();
             }
         }
 //#endif // NDEBUG
