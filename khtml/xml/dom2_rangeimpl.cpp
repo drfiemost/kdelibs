@@ -1139,6 +1139,7 @@ DOMString RangeImpl::toHTML( int &exceptioncode )
 		case ID_OL:
 		    if(!in_li) break;
 		    in_li = false;
+		    [[fallthrough]];
 		case ID_B:
 		case ID_I:
 		case ID_U:
