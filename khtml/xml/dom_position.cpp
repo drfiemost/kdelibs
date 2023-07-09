@@ -56,32 +56,34 @@ using khtml::RenderPosition;
 
 namespace DOM {
 
+[[maybe_unused]]
 static NodeImpl *nextRenderedEditable(NodeImpl *node)
 {
     while (1) {
         node = node->nextEditable();
         if (!node)
-            return 0;
+            return nullptr;
         if (!node->renderer())
             continue;
         if (node->renderer()->inlineBox(0))
             return node;
     }
-    return 0;
+    return nullptr;
 }
 
+[[maybe_unused]]
 static NodeImpl *previousRenderedEditable(NodeImpl *node)
 {
     while (1) {
         node = node->previousEditable();
         if (!node)
-            return 0;
+            return nullptr;
         if (!node->renderer())
             continue;
         if (node->renderer()->inlineBox(0))
             return node;
     }
-    return 0;
+    return nullptr;
 }
 
 /*static*/ NodeImpl *rootNavigableElement(NodeImpl *node)
