@@ -117,6 +117,8 @@ class KFILE_EXPORT KFileTreeView : public QTreeView  // KDE5: remove KFILE_EXPOR
     protected:
         virtual void contextMenuEvent( QContextMenuEvent* );
 
+        using QTreeView::currentChanged;
+
     private:
       class Private;
       Private* const d;
