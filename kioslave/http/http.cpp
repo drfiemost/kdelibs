@@ -1699,6 +1699,7 @@ QString HTTPProtocol::davError( int code /* = -1 */, const QString &_url )
         errorString += QLatin1String("<li>") + error + QLatin1String("</li>");
 
       errorString += QLatin1String("</ul>");
+      break;
     }
     case 403:
     case 500: // hack: Apache mod_dav returns this instead of 403 (!)
