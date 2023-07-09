@@ -117,7 +117,8 @@ public:
                                                 m_currentString(o.m_currentString), m_substrings(o.m_substrings),
                                                 m_lines(o.m_lines), m_composite(o.m_composite) { 
         m_currentChar = m_pushedChar1.isNull() ? m_currentString.m_current : &m_pushedChar1; 
-    } 
+    }
+    TokenizerString& operator=(const TokenizerString&) = default;
 
     void clear();
 
