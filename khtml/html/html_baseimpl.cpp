@@ -89,7 +89,7 @@ void HTMLBodyElementImpl::parseAttribute(AttributeImpl *attr)
 	    w->setMarginWidth( -1 ); // unset this, so it doesn't override the setting here
         addCSSLength(CSS_PROP_MARGIN_RIGHT, attr->value() );
     }
-        /* nobreak; */
+        [[fallthrough]];
     case ATTR_LEFTMARGIN:
         addCSSLength(CSS_PROP_MARGIN_LEFT, attr->value() );
         break;
@@ -99,7 +99,7 @@ void HTMLBodyElementImpl::parseAttribute(AttributeImpl *attr)
 	    w->setMarginHeight( -1 ); // unset this, so it doesn't override the setting here
         addCSSLength(CSS_PROP_MARGIN_BOTTOM, attr->value());
     }
-        /* nobreak */
+        [[fallthrough]];
     case ATTR_TOPMARGIN:
         addCSSLength(CSS_PROP_MARGIN_TOP, attr->value());
         break;

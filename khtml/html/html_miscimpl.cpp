@@ -443,7 +443,7 @@ bool HTMLMappedNameCollectionImpl::matchesName( ElementImpl* el, int type, const
         //Under document. these require non-empty name to see the element
         if (type == DOCUMENT_NAMED_ITEMS && el->getAttribute(ATTR_NAME).isNull())
             return false;
-        //Otherwise, fallthrough
+        [[fallthrough]];
     case ID_OBJECT:
     case ID_EMBED:
     case ID_APPLET:

@@ -764,7 +764,7 @@ void HTMLFormElementImpl::parseAttribute(AttributeImpl *attr)
             document()->underDocNamedCache().add   (attr->value(), this);
         }
         m_name = attr->value();
-        //Fallthrough intentional
+        [[fallthrough]];
     default:
         HTMLElementImpl::parseAttribute(attr);
     }
@@ -1411,7 +1411,7 @@ QString HTMLInputElementImpl::state( )
     case TEXT:
         if (autoComplete() && value() != getAttribute(ATTR_VALUE) && document()->view())
             document()->view()->addFormCompletionItem(name().string(), value().string());
-        /* nobreak */
+        [[fallthrough]];
     default:
         return value().string() + (m_unsubmittedFormChange ? 'M' : '.') + (value().isNull() ? 'N' : '.');
     }
@@ -1738,7 +1738,7 @@ bool HTMLInputElementImpl::encoding(const QTextCodec* codec, khtml::encodingList
                 encoding += filearray;
                 return true;
             }
-            // else fall through
+            [[fallthrough]];
         }
         case HIDDEN:
         case TEXT:

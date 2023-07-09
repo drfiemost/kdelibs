@@ -757,12 +757,13 @@ void RenderBlock::computeHorizontalPositionsForLine(InlineFlowBox* lineBox, Bidi
         case JUSTIFY:
             if (numSpaces != 0 && !bidi.current.atEnd() && !bidi.current.obj->isBR() )
                 break;
-            // fall through
+            [[fallthrough]];
         case TAAUTO:
             numSpaces = 0;
             // for right to left fall through to right aligned
             if (bidi.context->basicDir == QChar::DirL)
                 break;
+            [[fallthrough]];
         case RIGHT:
         case KHTML_RIGHT:
             if (style()->direction() == RTL || totWidth < availableWidth)
@@ -1100,7 +1101,7 @@ void RenderBlock::bidiReorderLine(const BidiIterator &start, const BidiIterator 
                             dir = QChar::DirEN;
                             bidi.status.eor = QChar::DirEN;
 			}
-			// fall through
+			[[fallthrough]];
                     case QChar::DirEN:
                     case QChar::DirL:
                         bidi.eor = bidi.current;

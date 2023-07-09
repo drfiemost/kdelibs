@@ -454,7 +454,7 @@ void HTMLMapElementImpl::parseAttribute(AttributeImpl *attr)
         if(document()->isHTMLDocument())
             static_cast<HTMLDocumentImpl*>(document())->mapMap[name] = this;
 
-        //fallthrough
+        [[fallthrough]];
     }
     default:
         HTMLElementImpl::parseAttribute(attr);

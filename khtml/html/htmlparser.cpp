@@ -491,6 +491,7 @@ bool KHTMLParser::insertNode(NodeImpl *n, bool flat)
         case ID_COMMENT:
             if( head )
                 break;
+            [[fallthrough]];
         case ID_META:
         case ID_LINK:
         case ID_ISINDEX:
@@ -592,7 +593,7 @@ bool KHTMLParser::insertNode(NodeImpl *n, bool flat)
 
             if ( strcasecmp( type, "hidden" ) != 0 )
                 break;
-            // Fall through!
+            [[fallthrough]];
         }
         case ID_TEXT:
         {
@@ -606,8 +607,7 @@ bool KHTMLParser::insertNode(NodeImpl *n, bool flat)
             case ID_SELECT:
                 return false;
             default:
-                ;
-                // fall through!!
+                break;
             };
             break;
         }
@@ -682,7 +682,7 @@ bool KHTMLParser::insertNode(NodeImpl *n, bool flat)
                 TextImpl *t = static_cast<TextImpl *>(n);
                 if (t->containsOnlyWhitespace())
                     return false;
-                /* Fall through to default */
+                [[fallthrough]];
             }
             default:
                 if ( haveFrameSet ) break;
@@ -1227,6 +1227,7 @@ NodeImpl *KHTMLParser::getElement(Token* t)
     case ID_NOBR:
         if ( t->tid == ID_NOBR || t->tid == ID_WBR )
             popOptionalBlock( t->tid );
+        [[fallthrough]];
     case ID_BDO:
         n = new HTMLGenericElementImpl(document, t->tid);
         break;
