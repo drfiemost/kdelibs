@@ -88,7 +88,7 @@ InlineBox* RenderPosition::getInlineBoxAndOffset(int& offset) const
     int domOffset = m_position.offset();
 
     /*const*/ RenderText* renderText = static_cast<RenderText*>(renderObject);
-    int renderOffset = renderText->convertToRenderedPosition(domOffset);
+    unsigned renderOffset = renderText->convertToRenderedPosition(domOffset);
     InlineTextBox* textBox;
     for (textBox = renderText->firstTextBox(); textBox; textBox = textBox->nextTextBox()) {
         if (renderOffset >= textBox->start() && renderOffset <= textBox->end()) {
