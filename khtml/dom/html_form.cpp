@@ -454,7 +454,7 @@ void HTMLInputElement::setMaxLength( long _maxLength )
 DOMString HTMLInputElement::name() const
 {
     if(!impl) return DOMString();
-    return static_cast<HTMLInputElementImpl* const>(impl)->name();
+    return static_cast<HTMLInputElementImpl*>(impl)->name();
 }
 
 void HTMLInputElement::setName( const DOMString &value )
@@ -882,7 +882,7 @@ void HTMLSelectElement::setMultiple( bool _multiple )
 DOMString HTMLSelectElement::name() const
 {
     if(!impl) return DOMString();
-    return static_cast<HTMLSelectElementImpl* const>(impl)->name();
+    return static_cast<HTMLSelectElementImpl*>(impl)->name();
 }
 
 void HTMLSelectElement::setName( const DOMString &value )
@@ -1033,7 +1033,7 @@ void HTMLTextAreaElement::setDisabled( bool _disabled )
 DOMString HTMLTextAreaElement::name() const
 {
     if(!impl) return DOMString();
-    return static_cast<HTMLTextAreaElementImpl* const>(impl)->name();
+    return static_cast<HTMLTextAreaElementImpl*>(impl)->name();
 }
 
 void HTMLTextAreaElement::setName( const DOMString &value )
