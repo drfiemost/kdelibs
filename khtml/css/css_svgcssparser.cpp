@@ -169,7 +169,7 @@ bool CSSParser::parseSVGValue(int propId, bool important)
             valid_primitive = true;
             break;
         }
-        /* fallthrough intentional */
+        [[fallthrough]];
     case CSS_PROP_GLYPH_ORIENTATION_HORIZONTAL: // <angle> (restricted to _deg_ per SVG 1.1 spec) | inherit
         if (value->unit == CSSPrimitiveValue::CSS_DEG || value->unit == CSSPrimitiveValue::CSS_NUMBER) {
             parsedValue = new CSSPrimitiveValueImpl(value->fValue, CSSPrimitiveValue::CSS_DEG);

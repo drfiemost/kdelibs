@@ -1423,7 +1423,7 @@ bool CSSStyleSelector::checkSimpleSelector(DOM::CSSSelector *sel, DOM::ElementIm
             // treat id selectors as case-sensitive in HTML strict
             // for compatibility reasons
             caseSensitive = (e->document()->htmlMode() == DocumentImpl::XHtml) || strictParsing;
-            // no break
+            [[fallthrough]];
         case CSSSelector::Exact:
             return caseSensitive ?
                 !strcmp(sel->value.impl(), value) :
@@ -3000,6 +3000,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
         // it is treated as 'color:inherit' at parse time
         if (primitiveValue && primitiveValue->getIdent() == CSS_VAL_CURRENTCOLOR)
             isInherit = true;      
+        [[fallthrough]];
     case CSS_PROP_BACKGROUND_COLOR:
     case CSS_PROP_BORDER_TOP_COLOR:
     case CSS_PROP_BORDER_RIGHT_COLOR:
@@ -3234,6 +3235,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
             apply = true;
             l = Length(UNDEFINED, Fixed);
         }
+        [[fallthrough]];
     case CSS_PROP_TOP:
     case CSS_PROP_LEFT:
     case CSS_PROP_RIGHT:
@@ -3251,6 +3253,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
             //kDebug( 6080 ) << "found value=auto";
             apply = true;
         }
+        [[fallthrough]];
     case CSS_PROP_PADDING_TOP:
     case CSS_PROP_PADDING_RIGHT:
     case CSS_PROP_PADDING_BOTTOM:
@@ -3356,6 +3359,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
             apply = true;
             l = Length(UNDEFINED, Fixed);
         }
+        [[fallthrough]];
     case CSS_PROP_HEIGHT:
     case CSS_PROP_MIN_HEIGHT:
         if(id != CSS_PROP_MAX_HEIGHT && primitiveValue &&

@@ -781,14 +781,14 @@ bool CSSParser::parseValue( int propId, bool important )
     case CSS_PROP_SCROLLBAR_BASE_COLOR:         // IE5.5
         if ( strict )
             break;
-        /* nobreak */
+        [[fallthrough]];
     case CSS_PROP_OUTLINE_COLOR:        // <color> | invert | inherit
         // outline has "invert" as additional keyword.
         if ( propId == CSS_PROP_OUTLINE_COLOR && id == CSS_VAL_INVERT ) {
             valid_primitive = true;
             break;
         }
-        /* nobreak */
+        [[fallthrough]];
     case CSS_PROP_BACKGROUND_COLOR:     // <color> | inherit
     case CSS_PROP_BORDER_TOP_COLOR:     // <color> | inherit
     case CSS_PROP_BORDER_RIGHT_COLOR:   // <color> | inherit
@@ -895,7 +895,7 @@ bool CSSParser::parseValue( int propId, bool important )
             valid_primitive = true;
             break;
         }
-        /* nobreak */
+        [[fallthrough]];
     case CSS_PROP_MIN_HEIGHT:           // <length> | <percentage> | inherit
     case CSS_PROP_MIN_WIDTH:            // <length> | <percentage> | inherit
             valid_primitive = ( !id && validUnit( value, FLength|FPercent|FNonNeg, strict ) );
@@ -959,7 +959,7 @@ bool CSSParser::parseValue( int propId, bool important )
             valid_primitive = true;
             break;
         }
-        /* nobreak */
+        [[fallthrough]];
     case CSS_PROP_ORPHANS:              // <integer> | inherit
     case CSS_PROP_WIDOWS:               // <integer> | inherit
         // ### not supported later on
@@ -2839,7 +2839,7 @@ bool CSSParser::parseCounter(int propId, bool increment, bool important)
                     valueList->next();
                     continue;
                 }
-                // no break
+                [[fallthrough]];
             case ID:
                 if (val && val->unit == CSSPrimitiveValue::CSS_IDENT) {
                     c = qString(val->string);
@@ -2943,15 +2943,18 @@ int DOM::CSSParser::lex( void *_yylval )
 
     case QEMS:
         length--;
+        [[fallthrough]];
     case GRADS:
     case DPCM:
         length--;
+        [[fallthrough]];
     case DEGS:
     case RADS:
     case KHERZ:
     case DPI:
     case REMS:
         length--;
+        [[fallthrough]];
     case MSECS:
     case HERZ:
     case EMS:
@@ -2964,9 +2967,11 @@ int DOM::CSSParser::lex( void *_yylval )
     case PTS:
     case PCS:
         length--;
+        [[fallthrough]];
     case SECS:
     case PERCENTAGE:
         length--;
+        [[fallthrough]];
     case FLOAT:
     case INTEGER:
         yylval->val = qMin(QString((QChar *)t, length).toDouble(), dIntMax);
@@ -2997,7 +3002,7 @@ unsigned short *DOM::CSSParser::text(int *length)
     switch( yyTok ) {
     case STRING:
         l--;
-        /* nobreak */
+        [[fallthrough]];
     case HASH:
     case HEXCOLOR:
         start++;
