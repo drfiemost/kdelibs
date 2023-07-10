@@ -1497,6 +1497,8 @@ bool CSSStyleSelector::checkSimpleSelector(DOM::CSSSelector *sel, DOM::ElementIm
         case CSSSelector::PseudoElement:
         case CSSSelector::None:
             break;
+        case CSSSelector::Class:
+            Q_UNREACHABLE();
         }
     }
 
