@@ -421,15 +421,19 @@ bool Element::khtmlMalformedQualifiedName(const DOMString &name)
 
     // ### does this disctinction make sense?
     if (name.isNull())
-	return true;
+        return true;
     if (name.isEmpty())
-	return false;
+        return false;
 
     // a prefix is optional but both prefix as well as local part
     // cannot be empty
     int colonpos = name.find(':');
-    if (colonpos == 0 || colonpos == name.length() - 1)
-	return true;
+    if (colonpos >= 0)
+    {
+        uint pos = static_cast<uint>(colonpos);
+        if (pos == 0 || pos == name.length() - 1)
+            return true;
+    }
 
     return false;
 }
