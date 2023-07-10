@@ -1009,6 +1009,7 @@ void LineEditWidget::slotCreateWebShortcut()
                         if ( !inputNode->checked() ) {
                             break;
                         }
+                        [[fallthrough]];
                     case HTMLInputElementImpl::TEXT:
                     case HTMLInputElementImpl::PASSWORD:
                     case HTMLInputElementImpl::HIDDEN:

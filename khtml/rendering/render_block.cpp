@@ -1306,11 +1306,13 @@ bool RenderBlock::canClear(RenderObject *child, PageBreakLevel level)
             if (!style()->pageBreakInside())
                 // we cannot, but can our parent?
                 if(!parent()->canClear(this, level)) return false;
+            [[fallthrough]];
         case PageBreakHarder:
             // check page-break-after/before: avoid
             if (m_avoidPageBreak)
                 // we cannot, but can our parent?
                 if(!parent()->canClear(this, level)) return false;
+            [[fallthrough]];
         case PageBreakForced:
             // child is larger than page-height and is forced to break
             if(child->height() > canvas()->pageHeight()) return false;

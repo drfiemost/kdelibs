@@ -165,6 +165,7 @@ void RenderBox::setStyle(RenderStyle *_style)
     case RUN_IN:
         if (isInline() && parent() && parent()->childrenInline())
             break;
+        [[fallthrough]];
     default:
         setInline(false);
     }
@@ -822,7 +823,7 @@ QPainterPath RenderBox::borderRadiusClipPath(const BackgroundLayer *bgLayer, int
                 adjustLeft += paddingLeft;
                 adjustRight += paddingRight;
                 adjustBottom += paddingBottom;
-                // No break
+                [[fallthrough]];
             case BGPADDING:
                 adjustTop += borderTop;
                 adjustLeft += borderLeft;
@@ -1537,7 +1538,7 @@ int RenderBox::calcReplacedHeightUsing(HeightType heightType) const
         int th = calcPercentageHeight(h);
         if (th != -1)
             return calcContentHeight(th);
-        // fall through
+        [[fallthrough]];
       }
     default:
         return intrinsicHeight();

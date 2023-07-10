@@ -78,7 +78,7 @@ void RenderContainer::addChild(RenderObject *newChild, RenderObject *beforeChild
         case TABLE_COLUMN:
             if ( isTableCol() )
                 break;
-            // nobreak
+            [[fallthrough]];
         case TABLE_COLUMN_GROUP:
         case TABLE_CAPTION:
         case TABLE_ROW_GROUP:

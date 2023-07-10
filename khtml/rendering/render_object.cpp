@@ -1224,7 +1224,7 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
     case OUTSET:
         calc3DColor(c, (style == OUTSET && (s == BSBottom || s == BSRight)) ||
              (style == INSET && ( s == BSTop || s == BSLeft ) ) );
-        /* nobreak; */
+        [[fallthrough]];
     case SOLID:
         p->setPen(Qt::NoPen);
         p->setBrush(c);
