@@ -64,9 +64,10 @@ static void closeGif(GifFileType* file)
 
 namespace khtmlImLoad {
 
+#if GIFLIB_MAJOR < 5
 static int INTERLACED_OFFSET[] = { 0, 4, 2, 1 };
 static int INTERLACED_JUMP  [] = { 8, 8, 4, 2 };
-
+#endif
 
 enum GIFConstants
 {
