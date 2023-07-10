@@ -636,7 +636,7 @@ JSValue* DOMCSSStyleSheet::getValueProperty(ExecState *exec, int token)
       return getDOMCSSRule(exec,cssStyleSheet.ownerRule());
     case CssRules:
         omitCharsetRules = false;
-        // nobreak
+        [[fallthrough]];
     case Rules: {
         return getDOMCSSRuleList(exec, cssStyleSheet.cssRules(omitCharsetRules));
     }

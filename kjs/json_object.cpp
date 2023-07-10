@@ -178,6 +178,7 @@ JSValue *JSONFuncImp::callAsFunction(ExecState* exec, JSObject* /*thisObj*/, con
                     return jsUndefined();
             }
         }
+        [[fallthrough]];
         default:
             ASSERT_NOT_REACHED();
     }
