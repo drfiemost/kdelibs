@@ -255,6 +255,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
         {
             case 'm':
                 relative = true;
+                [[fallthrough]];
             case 'M':
             {
                 if (!parseNumber(ptr, end, tox) || !parseNumber(ptr, end, toy))
@@ -272,6 +273,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 'l':
                 relative = true;
+                [[fallthrough]];
             case 'L':
             {
                 if (!parseNumber(ptr, end, tox) || !parseNumber(ptr, end, toy))
@@ -349,6 +351,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 'c':
                 relative = true;
+                [[fallthrough]];
             case 'C':
             {
                 if (!parseNumber(ptr, end, x1)  || !parseNumber(ptr, end, y1) ||
@@ -380,6 +383,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 's':
                 relative = true;
+                [[fallthrough]];
             case 'S':
             {
                 if (!parseNumber(ptr, end, x2)  || !parseNumber(ptr, end, y2) ||
@@ -415,6 +419,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 'q':
                 relative = true;
+                [[fallthrough]];
             case 'Q':
             {
                 if (!parseNumber(ptr, end, x1)  || !parseNumber(ptr, end, y1) ||
@@ -444,6 +449,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 't':
                 relative = true;
+                [[fallthrough]];
             case 'T':
             {
                 if (!parseNumber(ptr, end, tox) || !parseNumber(ptr, end, toy))
@@ -479,6 +485,7 @@ bool SVGPathParser::parseSVG(const String& s, bool process)
             }
             case 'a':
                 relative = true;
+                [[fallthrough]];
             case 'A':
             {
                 bool largeArc, sweep;
