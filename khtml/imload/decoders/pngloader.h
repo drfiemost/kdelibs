@@ -10,9 +10,9 @@ class ImageLoader;
 class PNGLoaderProvider: public ImageLoaderProvider
 {
 public:
-    virtual Type type();
+    Type type() override;
 
-    virtual ImageLoader* loaderFor(const QByteArray& prefix);
+    ImageLoader* loaderFor(const QByteArray& prefix) override;
 };
 
 }

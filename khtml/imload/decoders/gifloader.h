@@ -11,9 +11,9 @@ class GIFLoaderProvider: public ImageLoaderProvider
 {
 public:
 	virtual ~GIFLoaderProvider(){}
-    virtual Type type();
+    Type type() override;
 
-    virtual ImageLoader* loaderFor(const QByteArray& prefix);
+    ImageLoader* loaderFor(const QByteArray& prefix) override;
 };
 
 }
