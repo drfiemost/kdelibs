@@ -266,7 +266,7 @@ AtomicString::operator UString() const
 #define DEFINE_GLOBAL(type, name, ...) \
     const type name;
 
-DEFINE_GLOBAL(AtomicString, nullAtom)
+DEFINE_GLOBAL(AtomicString, nullAtom, nullptr)
 DEFINE_GLOBAL(AtomicString, emptyAtom, "")
 DEFINE_GLOBAL(AtomicString, textAtom, "#text")
 DEFINE_GLOBAL(AtomicString, commentAtom, "#comment")
