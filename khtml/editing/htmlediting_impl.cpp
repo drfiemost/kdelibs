@@ -150,6 +150,7 @@ static bool shouldPruneNode(NodeImpl *node)
     return true;
 }
 
+[[maybe_unused]]
 static Position leadingWhitespacePosition(const Position &pos)
 {
     assert(pos.notEmpty());
@@ -165,6 +166,7 @@ static Position leadingWhitespacePosition(const Position &pos)
     return Position();
 }
 
+[[maybe_unused]]
 static Position trailingWhitespacePosition(const Position &pos)
 {
     assert(pos.notEmpty());
