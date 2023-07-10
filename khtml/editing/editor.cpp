@@ -537,7 +537,7 @@ bool Editor::handleKeyEvent(QKeyEvent *_ke)
           m_part->d->editor_context.m_selection
                                = Selection(pos, pos.nextCharacterPosition());
       }
-      // fall through
+      [[fallthrough]];
     }
     case Qt::Key_Backspace:
       TypingCommandImpl::deleteKeyPressed0(m_part->xmlDocImpl());
