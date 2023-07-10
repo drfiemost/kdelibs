@@ -66,7 +66,7 @@ CSSFontFaceRuleImpl::CSSFontFaceRuleImpl(StyleBaseImpl *parent)
     : CSSRuleImpl(parent)
 {
     m_type = CSSRule::FONT_FACE_RULE;
-    m_style = 0;
+    m_style = nullptr;
 }
 
 CSSFontFaceRuleImpl::~CSSFontFaceRuleImpl()
@@ -78,7 +78,8 @@ CSSFontFaceRuleImpl::~CSSFontFaceRuleImpl()
 void CSSFontFaceRuleImpl::setDeclaration( CSSStyleDeclarationImpl* decl)
 {
     assert(!m_style);
-    if (m_style = decl)
+    m_style = decl;
+    if (m_style)
         m_style->ref();
 }
 
