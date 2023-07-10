@@ -90,6 +90,8 @@ unsigned short IDTableBase::grabId(DOMStringImpl* origName, CaseNormalizeMode cn
     case IDS_NormalizeLower:
         name = origName->lower();
         break;
+    default:
+        Q_UNREACHABLE();
     }
     
     name->ref();
