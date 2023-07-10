@@ -1445,7 +1445,8 @@ void RectImpl::setLeft( CSSPrimitiveValueImpl *left )
 
 PairImpl::~PairImpl()
 {
-    if (m_first) m_first->deref(); if (m_second) m_second->deref();
+    if (m_first) m_first->deref();
+    if (m_second) m_second->deref();
 }
 
 void PairImpl::setFirst(CSSPrimitiveValueImpl* first)
