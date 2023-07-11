@@ -105,6 +105,8 @@ public:
 
     Value& operator=(const Value&);
 
+    constexpr Value(const Value&) = default;
+
 private:
     class Private;
     Private* const d;
