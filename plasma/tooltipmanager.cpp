@@ -475,8 +475,9 @@ bool ToolTipManager::eventFilter(QObject *watched, QEvent *event)
                 //FIXME: seems that wheel events generate hovermoves as well, with 0 delta
                 if (!d->currentWidget || (me->pos() == me->lastPos())) {
                     break;
+                }
             }
-            }
+            [[fallthrough]];
 
         case QEvent::GraphicsSceneHoverEnter:
         {
