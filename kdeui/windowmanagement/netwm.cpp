@@ -184,10 +184,11 @@ static char *nstrndup(const char *s1, int l) {
 
 
 static Window *nwindup(const Window *w1, int n) {
-    if (! w1 || n == 0) return (Window *) 0;
+    if (! w1 || n == 0) return (Window *) nullptr;
 
     Window *w2 = new Window[n];
-    while (n--)	w2[n] = w1[n];
+    for (int i=0; i<n; i++)
+        w2[i] = w1[i];
     return w2;
 }
 
