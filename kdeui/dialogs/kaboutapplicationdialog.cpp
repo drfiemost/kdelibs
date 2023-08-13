@@ -144,9 +144,10 @@ void KAboutApplicationDialog::Private::init( const KAboutData *ad, Options opt )
     aboutLayout->addStretch();
     aboutLayout->addWidget(aboutLabel);
 
-    const int licenseCount = aboutData->licenses().count();
+    auto licenses = aboutData->licenses();
+    const int licenseCount = licenses.count();
     for (int i = 0; i < licenseCount; ++i) {
-        const KAboutLicense &license = aboutData->licenses().at(i);
+        const KAboutLicense &license = licenses.at(i);
 
         QLabel *showLicenseLabel = new QLabel;
         showLicenseLabel->setText(QString("<a href=\"%1\">%2</a>").arg(QString::number(i),
