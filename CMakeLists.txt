@@ -48,9 +48,6 @@ if(KDE_PLATFORM_FEATURE_DISABLE_DEPRECATED)
    set(KDE_NO_DEPRECATED TRUE)
 endif(KDE_PLATFORM_FEATURE_DISABLE_DEPRECATED)
 
-############### Give the user the option to build the deprecated WMI solid backend instead of the new win backend ###############
-option(WITH_SOLID_WMI "Enables the deprecated WMI backend on Windows")
-
 ############### Load the CTest options ###############
 # CTestCustom.cmake has to be in the CTEST_BINARY_DIR.
 # in the KDE build system, this is the same as CMAKE_BINARY_DIR.

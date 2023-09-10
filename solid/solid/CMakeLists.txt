@@ -307,65 +307,22 @@ if(APPLE)
 endif(APPLE)
 
 if(WIN32)
-    if(WITH_SOLID_WMI)
-       include(CheckIncludeFileCXX)
-       check_include_file_cxx(wbemidl.h HAVE_WBEM)
-       FIND_LIBRARY(WBEM_LIBRARIES NAMES wbemuuid wbemuuidd)
-       if(HAVE_WBEM AND WBEM_LIBRARIES)
-          set(HAVE_WBEM True)
-          message(STATUS "Found wbemuuid library: ${WBEM_LIBRARIES}")
-       else(HAVE_WBEM AND WBEM_LIBRARIES)
-          set(HAVE_WBEM False)
-          set(WITH_SOLID_WMI False)
-      endif(HAVE_WBEM AND WBEM_LIBRARIES)
-   endif(WITH_SOLID_WMI)
-   if(WITH_SOLID_WMI)
-       add_definitions(-DWITH_SOLID_WMI)
-       message(STATUS "-- Building Solid WMI backend." )
-
-       set(solid_LIB_SRCS ${solid_LIB_SRCS}
-       backends/wmi/wmiacadapter.cpp
-       backends/wmi/wmiaudiointerface.cpp
-       backends/wmi/wmibattery.cpp
-       backends/wmi/wmiblock.cpp
-       backends/wmi/wmibutton.cpp
-       backends/wmi/wmicamera.cpp
-       backends/wmi/wmicdrom.cpp
-       backends/wmi/wmideviceinterface.cpp
-       backends/wmi/wmidvbinterface.cpp
-       backends/wmi/wmigenericinterface.cpp
-       backends/wmi/wmidevice.cpp
-       backends/wmi/wmimanager.cpp
-       backends/wmi/wminetworkinterface.cpp
-       backends/wmi/wmiopticaldisc.cpp
-       backends/wmi/wmiportablemediaplayer.cpp
-       backends/wmi/wmiprocessor.cpp
-       backends/wmi/wmiquery.cpp
-       backends/wmi/wmistorageaccess.cpp
-       backends/wmi/wmistorage.cpp
-       backends/wmi/wmivideo.cpp
-       backends/wmi/wmivolume.cpp
-
-       )
-    else(WITH_SOLID_WMI)
-       message(STATUS "-- Building Solid Windows backend." )
-       set(solid_LIB_SRCS ${solid_LIB_SRCS}
-       backends/win/winblock.cpp
-       backends/win/winopticaldrive.cpp
-       backends/win/wininterface.cpp
-       backends/win/wingenericinterface.cpp
-       backends/win/windevice.cpp
-       backends/win/windevicemanager.cpp
-       backends/win/winopticaldisc.cpp
-       backends/win/winprocessor.cpp
-       #backends/win/wmiportablemediaplayer.cpp
-       backends/win/winstorageaccess.cpp
-       backends/win/winstoragedrive.cpp
-       backends/win/winstoragevolume.cpp
-       backends/win/winbattery.cpp
-       backends/win/winacadapter.cpp
-       )
-    endif(WITH_SOLID_WMI)
+    message(STATUS "-- Building Solid Windows backend." )
+    set(solid_LIB_SRCS ${solid_LIB_SRCS}
+    backends/win/winblock.cpp
+    backends/win/winopticaldrive.cpp
+    backends/win/wininterface.cpp
+    backends/win/wingenericinterface.cpp
+    backends/win/windevice.cpp
+    backends/win/windevicemanager.cpp
+    backends/win/winopticaldisc.cpp
+    backends/win/winprocessor.cpp
+    backends/win/winstorageaccess.cpp
+    backends/win/winstoragedrive.cpp
+    backends/win/winstoragevolume.cpp
+    backends/win/winbattery.cpp
+    backends/win/winacadapter.cpp
+    )
 endif(WIN32)
 
 set_source_files_properties( org.freedesktop.PowerManagement.xml
@@ -384,11 +341,7 @@ set(solid_OPTIONAL_LIBS)
 
 if(WIN32)
    set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${KDEWIN_LIBRARY} Qt4::QtNetwork)
-   if(WITH_SOLID_WMI)
-      set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${WBEM_LIBRARIES})
-   else()
-      set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} setupapi)
-   endif()
+   set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} setupapi)
 endif()
 
 if(APPLE)
