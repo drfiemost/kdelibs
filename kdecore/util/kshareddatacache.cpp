@@ -405,7 +405,7 @@ struct SharedMemory
     // Returns pageSize in unsigned format.
     unsigned cachePageSize() const
     {
-        unsigned _pageSize = static_cast<unsigned>(pageSize);
+        unsigned _pageSize = static_cast<unsigned>(pageSize.load());
         // bits 9-18 may be set.
         static const unsigned validSizeMask = 0x7FE00u;
 
