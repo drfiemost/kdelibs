@@ -39,6 +39,7 @@
 #include <QtGui/QFont>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QApplication>
+#include <QtGui/QPalette>
 
 #include "dom/dom_misc.h"
 #include "dom/dom_string.h"
