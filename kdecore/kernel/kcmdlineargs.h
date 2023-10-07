@@ -20,7 +20,6 @@
 #define KCMDLINEARGS_H
 
 #include <kdecore_export.h>
-#include <QtCore/QBool>
 
 #include <klocale.h>
 

@@ -22,7 +22,6 @@
 #define SOLID_IFACES_DEVICEINTERFACE_H
 
 #include <QObject>
-#include <QBool>
 
 namespace Solid
 {

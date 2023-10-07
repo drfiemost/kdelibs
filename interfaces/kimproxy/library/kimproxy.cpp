@@ -23,7 +23,6 @@
 
 #include "kimproxy.h"
 
-#include <QtCore/QBool>
 #include <QtGui/QPixmapCache>
 
 #include <kapplication.h>

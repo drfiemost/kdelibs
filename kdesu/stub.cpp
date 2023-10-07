@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <QtCore/QBool>
-
 #include <kdebug.h>
 
 extern int kdesuDebugArea();

@@ -27,7 +27,6 @@
 #include <sys/un.h>
 #include <sys/stat.h>
 
-#include <QtCore/QBool>
 #include <QtCore/QFile>
 #include <QtCore/QRegExp>
 

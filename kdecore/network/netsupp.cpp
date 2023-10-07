@@ -28,8 +28,6 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#include <QtCore/QBool>
-
 #include <kdebug.h>
 
 // This is so that, if addrinfo is defined, it doesn't clobber our definition
