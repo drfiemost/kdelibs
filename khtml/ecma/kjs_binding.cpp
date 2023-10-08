@@ -292,11 +292,11 @@ void setDOMException(ExecState *exec, int internalCode)
   if (internalCode == 0 || exec->hadException())
     return;
 
-  const char* type = 0;
+  const char* type = nullptr;
 
   DOMString name;
-  DOMString exceptionString;
-  JSObject* errorObject = 0;
+  //DOMString exceptionString;
+  JSObject* errorObject = nullptr;
   int code = -1; // this will get the public exception code,
                  // as opposed to the internal one
 
