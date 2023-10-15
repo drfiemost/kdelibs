@@ -156,9 +156,7 @@ Kded::~Kded()
   delete m_pTimer;
   delete m_pDirWatch;
 
-  for (QHash<QByteArray,KDEDModule*>::iterator
-           it(m_modules.begin()), itEnd(m_modules.end());
-       it != itEnd; ++it)
+  for (auto it = m_modules.begin(); it != m_modules.end(); ++it);
   {
       KDEDModule* module(it.value());
 
