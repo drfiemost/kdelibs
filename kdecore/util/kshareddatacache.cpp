@@ -1149,7 +1149,7 @@ class KSharedDataCache::Private
         //         1 means "in progress of initing"
         //         2 means "ready"
         uint usecSleepTime = 8; // Start by sleeping for 8 microseconds
-        while (shm->ready != 2) {
+        while (shm->ready.load() != 2) {
             if (KDE_ISUNLIKELY(usecSleepTime >= (1 << 21))) {
                 // Didn't acquire within ~8 seconds?  Assume an issue exists
                 kError(ksdcArea()) << "Unable to acquire shared lock, is the cache corrupt?";
