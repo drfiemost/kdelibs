@@ -414,18 +414,19 @@ int TCPSlaveBase::connectToHost(const QString& host, quint16 port, QString* erro
                     alreadyTriedSslVersions |= trySslVersion;
                     continue;
                 }
-
-                /*if (!(alreadyTriedSslVersions & KTcpSocket::TlsV1)) {
+#if 0
+                if (!(alreadyTriedSslVersions & KTcpSocket::TlsV1)) {
                     trySslVersion = KTcpSocket::TlsV1;
                     alreadyTriedSslVersions |= trySslVersion;
                     continue;
-                }*/
+                }
 
                 if (!(alreadyTriedSslVersions & KTcpSocket::SslV3)) {
                     trySslVersion = KTcpSocket::SslV3;
                     alreadyTriedSslVersions |= trySslVersion;
                     continue;
                 }
+#endif
             }
 
             //### SSL 2.0 is (close to) dead and it's a good thing, too.
