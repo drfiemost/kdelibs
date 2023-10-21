@@ -98,8 +98,8 @@ struct SelectionTiles
 
 // ----------------------------------------------------------------------------
 
-static const QStyle::StyleHint SH_KCustomStyleElement = (QStyle::StyleHint)0xff000001;
-static const int X_KdeBase = 0xff000000;
+static constexpr QStyle::StyleHint SH_KCustomStyleElement = (QStyle::StyleHint)0xff000001;
+static constexpr int X_KdeBase = 0xff000000;
 
 class KStylePrivate
 {
@@ -2445,6 +2445,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
                                     option, r, pal, flags, p, widget);
                 return;
             }
+            // return or fallthrough???
         }
 
         case CE_HeaderLabel:
@@ -2503,7 +2504,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
 
 int KStyle::styleHint (StyleHint hint, const QStyleOption* option, const QWidget* widget, QStyleHintReturn* returnData) const
 {
-    switch (hint)
+    switch (static_cast<unsigned int>(hint))
     {
         case SH_ComboBox_ListMouseTracking:
             return true;
@@ -2543,6 +2544,7 @@ int KStyle::styleHint (StyleHint hint, const QStyleOption* option, const QWidget
 
         case SH_ItemView_ActivateItemOnSingleClick:
             return d->m_componentData.config()->group("KDE").readEntry("SingleClick", KDE_DEFAULT_SINGLECLICK );
+
         case SH_KCustomStyleElement:
             if (!widget)
                 return 0;
@@ -2654,7 +2656,7 @@ int KStyle::pixelMetric(PixelMetric metric, const QStyleOption* option, const QW
         case PM_ExclusiveIndicatorWidth:
         case PM_ExclusiveIndicatorHeight:
             return widgetLayoutProp(WT_RadioButton, RadioButton::Size, option, widget);
-
+#if 0
         case PM_CheckListControllerSize:
         case PM_CheckListButtonSize:
         {
@@ -2662,7 +2664,7 @@ int KStyle::pixelMetric(PixelMetric metric, const QStyleOption* option, const QW
             int radioButtonSize = widgetLayoutProp(WT_RadioButton, RadioButton::Size, option, widget);
             return qMax(checkBoxSize, radioButtonSize);
         }
-
+#endif
         case PM_DockWidgetFrameWidth:
             return widgetLayoutProp(WT_DockWidget, DockWidget::FrameWidth, option, widget);
 
@@ -3103,6 +3105,7 @@ QRect KStyle::subElementRect(SubElement sr, const QStyleOption* option, const QW
                 case QTabBar::TriangularWest:
                     return pane.adjusted(top,right, -bot,-left);
             }
+            // unreachable???
         }
 
         case SE_TabBarTabText:
@@ -3165,7 +3168,7 @@ void  KStyle::drawComplexControl (ComplexControl cc, const QStyleOptionComplex* 
             //Note: we falldown to the base intentionally
         }
         break;
-
+#if 0
         case CC_Q3ListView:
         {
             const QStyleOptionQ3ListView* lvOpt = qstyleoption_cast<const QStyleOptionQ3ListView*>(opt);
@@ -3269,7 +3272,7 @@ void  KStyle::drawComplexControl (ComplexControl cc, const QStyleOptionComplex* 
             } //if have branch or expander
         } //CC_Q3ListView
         break;
-
+#endif
         case CC_Slider:
         {
             if (const QStyleOptionSlider *slider = qstyleoption_cast<const QStyleOptionSlider *>(opt))
@@ -3373,6 +3376,7 @@ void  KStyle::drawComplexControl (ComplexControl cc, const QStyleOptionComplex* 
 
                 return;
             } //option OK
+            // break or fallthrough???
         } //CC_SpinBox
 
         case CC_ComboBox:

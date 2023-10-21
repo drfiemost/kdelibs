@@ -31,6 +31,7 @@
 #include <kfilemetainfo.h>
 #include <kdatetime.h>
 #include <QtCore/QList>
+#include <QtCore/QHash>
 
 class KFileItemPrivate;
 
@@ -664,7 +665,6 @@ private:
 
 Q_DECLARE_METATYPE(KFileItem)
 
-Q_CORE_EXPORT uint qHash(const QString &key);
 inline uint qHash(const KFileItem& item){ return qHash(item.url().url()); }
 
 /**
