@@ -1187,6 +1187,6 @@ KDECORE_EXPORT_DEPRECATED bool urlcmp( const QString& _url1, const QString& _url
 KDECORE_EXPORT_DEPRECATED bool urlcmp( const QString& _url1, const QString& _url2, const KUrl::EqualsOptions& options ); // KDE5: remove, KUrl::equals is better API
 #endif
 
-KDECORE_EXPORT uint qHash(const KUrl& kurl);
+KDECORE_EXPORT uint qHash(const KUrl& kurl, uint seed = 0);
 
 #endif

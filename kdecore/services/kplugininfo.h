@@ -351,10 +351,10 @@ class KDECORE_EXPORT KPluginInfo
         bool operator>(const KPluginInfo &rhs) const;
 
     private:
-        friend KDECORE_EXPORT uint qHash(const KPluginInfo &);
+        friend KDECORE_EXPORT uint qHash(const KPluginInfo &, uint seed);
         QExplicitlySharedDataPointer<KPluginInfoPrivate> d;
 };
 
-KDECORE_EXPORT uint qHash(const KPluginInfo &);
+KDECORE_EXPORT uint qHash(const KPluginInfo &, uint seed = 0);
 
 #endif // KDECORE_KPLUGININFO_H

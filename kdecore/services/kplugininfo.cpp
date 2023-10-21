@@ -408,9 +408,9 @@ void KPluginInfo::defaults()
     setPluginEnabled( isPluginEnabledByDefault() );
 }
 
-uint qHash(const KPluginInfo &p)
+uint qHash(const KPluginInfo &p, uint seed)
 {
-    return qHash(reinterpret_cast<quint64>(p.d.data()));
+    return qHash(reinterpret_cast<quint64>(p.d.data()), seed);
 }
 
 #undef KPLUGININFO_ISVALID_ASSERTION

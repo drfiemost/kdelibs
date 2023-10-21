@@ -21,6 +21,7 @@
 #include "scriptableextension_p.h"
 #include <kglobal.h>
 #include <kdebug.h>
+#include <QtCore/QHash>
 
 namespace KParts {
 
@@ -433,14 +434,14 @@ void ScriptableLiveConnectExtension::liveConnectEvent(const unsigned long, const
 // hash functions
 // ----------------------------------------------------------------------------
 
-unsigned int qHash(const KParts::ScriptableExtension::Object& o)
+unsigned int qHash(const KParts::ScriptableExtension::Object& o, uint seed)
 {
-    return qHash(qMakePair(o.owner, o.objId));
+    return qHash(qMakePair(o.owner, o.objId), seed);
 }
 
 unsigned int qHash(const KParts::ScriptableExtension::FunctionRef& f)
 {
-    return qHash(qMakePair(f.base, f.field));
+    return qHash(qMakePair(f.base, f.field), seed);
 }
 
 } // namespace KParts

@@ -22,6 +22,7 @@
 
 #include <kdeui_export.h>
 
+#include <QtCore/QHash>
 #include <QtCore/QString>
 #include <QtGui/QPolygon>
 
@@ -141,10 +142,10 @@ private:
     KShapeGesturePrivate * const d;
 };
 
-uint qHash(int);
-inline uint qHash(const KShapeGesture &key)
+uint qHash(int, uint);
+inline uint qHash(const KShapeGesture &key, uint seed = 0)
 {
-    return qHash(key.hashable());
+    return qHash(key.hashable(), seed);
 }
 
 class KRockerGesturePrivate;
@@ -238,9 +239,9 @@ private:
     KRockerGesturePrivate * const d;
 };
 
-inline uint qHash(const KRockerGesture &key)
+inline uint qHash(const KRockerGesture &key, uint seed = 0)
 {
-    return qHash(key.hashable());
+    return qHash(key.hashable(), seed);
 }
 
 //KGESTURE_H
