@@ -156,7 +156,7 @@ Kded::~Kded()
   delete m_pTimer;
   delete m_pDirWatch;
 
-  for (auto it = m_modules.begin(); it != m_modules.end(); ++it);
+  for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
   {
       KDEDModule* module(it.value());
 
