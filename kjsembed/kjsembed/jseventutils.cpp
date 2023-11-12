@@ -148,8 +148,6 @@ namespace JSEventUtils
             case QEvent::HoverEnter:
             case QEvent::HoverLeave:
             case QEvent::HoverMove:
-            case QEvent::AccessibilityHelp:
-            case QEvent::AccessibilityDescription:
             default:
                 return convertEvent( exec, ev );
                 break;

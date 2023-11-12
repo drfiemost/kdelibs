@@ -242,8 +242,6 @@ static EventType events[] = {
     EventType( KJS::Identifier("onHoverEnterEvent"), QEvent::HoverEnter ),
     EventType( KJS::Identifier("onHoverLeaveEvent"), QEvent::HoverLeave ),
     EventType( KJS::Identifier("onHoverMoveEvent"), QEvent::HoverMove ),
-    EventType( KJS::Identifier("onAccessibilityHelpEvent"), QEvent::AccessibilityHelp ),
-    EventType( KJS::Identifier("onAccessibilityDescriptionEvent"), QEvent::AccessibilityDescription ),
     EventType(KJS::Identifier(), QEvent::None )
 };
 
