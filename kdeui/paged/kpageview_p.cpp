@@ -422,7 +422,7 @@ void KPageListViewDelegate::paint( QPainter *painter, const QStyleOptionViewItem
   if ( cg == QPalette::Normal && !(option.state & QStyle::State_Active) )
     cg = QPalette::Inactive;
 
-  QStyleOptionViewItemV4 opt(option);
+  QStyleOptionViewItem opt(option);
   opt.showDecorationSelected = true;
   QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
   style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);

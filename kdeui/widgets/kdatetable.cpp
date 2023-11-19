@@ -516,7 +516,7 @@ void KDateTable::paintCell( QPainter *painter, int row, int col, const KColorSch
         painter->setBrush( cellBackgroundColor );
         painter->drawRect( cell );
     } else if (cellBackgroundColor != palette().color(backgroundRole()) || pos == d->m_hoveredPos) {
-        QStyleOptionViewItemV4 opt;
+        QStyleOptionViewItem opt;
         opt.initFrom(this);
         opt.rect = cell.toRect();
         if (cellBackgroundColor != palette().color(backgroundRole())) {
@@ -529,7 +529,7 @@ void KDateTable::paintCell( QPainter *painter, int row, int col, const KColorSch
             opt.state &= ~QStyle::State_MouseOver;
         }
         opt.showDecorationSelected = true;
-        opt.viewItemPosition = QStyleOptionViewItemV4::OnlyOne;
+        opt.viewItemPosition = QStyleOptionViewItem::OnlyOne;
         style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, this);
     }
 

@@ -130,9 +130,9 @@ bool KCategorizedView::Private::isCategorized() const
     return proxyModel && categoryDrawer && proxyModel->isCategorizedModel();
 }
 
-QStyleOptionViewItemV4 KCategorizedView::Private::blockRect(const QModelIndex &representative)
+QStyleOptionViewItem KCategorizedView::Private::blockRect(const QModelIndex &representative)
 {
-    QStyleOptionViewItemV4 option(q->viewOptions());
+    QStyleOptionViewItem option(q->viewOptions());
     const int height = categoryDrawer->categoryHeight(representative, option);
     const QString categoryDisplay = representative.data(KCategorizedSortFilterProxyModel::CategoryDisplayRole).toString();
     QPoint pos = blockPosition(categoryDisplay);
@@ -804,9 +804,9 @@ void KCategorizedView::paintEvent(QPaintEvent *event)
     while (it != d->blocks.constEnd()) {
         const Private::Block &block = *it;
         const QModelIndex categoryIndex = d->proxyModel->index(block.firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        QStyleOptionViewItemV4 option(viewOptions());
-        option.features |= d->alternatingBlockColors && block.alternate ? QStyleOptionViewItemV4::Alternate
-                                                                        : QStyleOptionViewItemV4::None;
+        QStyleOptionViewItem option(viewOptions());
+        option.features |= d->alternatingBlockColors && block.alternate ? QStyleOptionViewItem::Alternate
+                                                                        : QStyleOptionViewItem::None;
         option.state |= !d->collapsibleBlocks || !block.collapsed ? QStyle::State_Open
                                                                   : QStyle::State_None;
         const int height = d->categoryDrawer->categoryHeight(categoryIndex, option);
@@ -852,13 +852,13 @@ void KCategorizedView::paintEvent(QPaintEvent *event)
 
             const QModelIndex index = d->proxyModel->index(i, modelColumn(), rootIndex());
             const Qt::ItemFlags flags = d->proxyModel->flags(index);
-            QStyleOptionViewItemV4 option(viewOptions());
+            QStyleOptionViewItem option(viewOptions());
             option.rect = visualRect(index);
             option.widget = this;
-            option.features |= wordWrap() ? QStyleOptionViewItemV2::WrapText
-                                          : QStyleOptionViewItemV2::None;
-            option.features |= alternatingRowColors() && alternateItem ? QStyleOptionViewItemV4::Alternate
-                                                                       : QStyleOptionViewItemV4::None;
+            option.features |= wordWrap() ? QStyleOptionViewItem::WrapText
+                                          : QStyleOptionViewItem::None;
+            option.features |= alternatingRowColors() && alternateItem ? QStyleOptionViewItem::Alternate
+                                                                       : QStyleOptionViewItem::None;
             if (flags & Qt::ItemIsSelectable) {
                 option.state |= selectionModel()->isSelected(index) ? QStyle::State_Selected
                                                                     : QStyle::State_None;
@@ -965,7 +965,7 @@ void KCategorizedView::mouseMoveEvent(QMouseEvent *event)
     while (it != d->blocks.constEnd()) {
         const Private::Block &block = *it;
         const QModelIndex categoryIndex = d->proxyModel->index(block.firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        QStyleOptionViewItemV4 option(viewOptions());
+        QStyleOptionViewItem option(viewOptions());
         const int height = d->categoryDrawer->categoryHeight(categoryIndex, option);
         QPoint pos = d->blockPosition(it.key());
         pos.ry() -= height;
@@ -977,7 +977,7 @@ void KCategorizedView::mouseMoveEvent(QMouseEvent *event)
         if (option.rect.contains(mousePos)) {
             if (d->categoryDrawerV3 && d->hoveredBlock->height != -1 && *d->hoveredBlock != block) {
                 const QModelIndex categoryIndex = d->proxyModel->index(d->hoveredBlock->firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-                const QStyleOptionViewItemV4 option = d->blockRect(categoryIndex);
+                const QStyleOptionViewItem option = d->blockRect(categoryIndex);
                 d->categoryDrawerV3->mouseLeft(categoryIndex, option.rect);
                 *d->hoveredBlock = block;
                 d->hoveredCategory = it.key();
@@ -997,7 +997,7 @@ void KCategorizedView::mouseMoveEvent(QMouseEvent *event)
     }
     if (d->categoryDrawerV3 && d->hoveredBlock->height != -1) {
         const QModelIndex categoryIndex = d->proxyModel->index(d->hoveredBlock->firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        const QStyleOptionViewItemV4 option = d->blockRect(categoryIndex);
+        const QStyleOptionViewItem option = d->blockRect(categoryIndex);
         d->categoryDrawerV3->mouseLeft(categoryIndex, option.rect);
         *d->hoveredBlock = Private::Block();
         d->hoveredCategory = QString();
@@ -1020,7 +1020,7 @@ void KCategorizedView::mousePressEvent(QMouseEvent *event)
     while (it != d->blocks.constEnd()) {
         const Private::Block &block = *it;
         const QModelIndex categoryIndex = d->proxyModel->index(block.firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        const QStyleOptionViewItemV4 option = d->blockRect(categoryIndex);
+        const QStyleOptionViewItem option = d->blockRect(categoryIndex);
         const QPoint mousePos = viewport()->mapFromGlobal(QCursor::pos());
         if (option.rect.contains(mousePos)) {
             if (d->categoryDrawerV3) {
@@ -1051,7 +1051,7 @@ void KCategorizedView::mouseReleaseEvent(QMouseEvent *event)
     while (it != d->blocks.constEnd()) {
         const Private::Block &block = *it;
         const QModelIndex categoryIndex = d->proxyModel->index(block.firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        const QStyleOptionViewItemV4 option = d->blockRect(categoryIndex);
+        const QStyleOptionViewItem option = d->blockRect(categoryIndex);
         const QPoint mousePos = viewport()->mapFromGlobal(QCursor::pos());
         if (option.rect.contains(mousePos)) {
             if (d->categoryDrawerV3) {
@@ -1079,7 +1079,7 @@ void KCategorizedView::leaveEvent(QEvent *event)
     }
     if (d->categoryDrawerV3 && d->hoveredBlock->height != -1) {
         const QModelIndex categoryIndex = d->proxyModel->index(d->hoveredBlock->firstIndex.row(), d->proxyModel->sortColumn(), rootIndex());
-        const QStyleOptionViewItemV4 option = d->blockRect(categoryIndex);
+        const QStyleOptionViewItem option = d->blockRect(categoryIndex);
         d->categoryDrawerV3->mouseLeft(categoryIndex, option.rect);
         *d->hoveredBlock = Private::Block();
         d->hoveredCategory = QString();

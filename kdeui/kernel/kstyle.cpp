@@ -1187,7 +1187,7 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
 
         case PE_PanelItemViewItem: {
 
-            const QStyleOptionViewItemV4 *opt = qstyleoption_cast<const QStyleOptionViewItemV4*>(option);
+            const QStyleOptionViewItem *opt = qstyleoption_cast<const QStyleOptionViewItem*>(option);
             const QAbstractItemView *view = qobject_cast<const QAbstractItemView *>(widget);
             bool hover = (option->state & State_MouseOver) && (!view ||
                          view->selectionMode() != QAbstractItemView::NoSelection);
@@ -1199,7 +1199,7 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
             const qreal rounding = 2.5;
 
             if (!hover && !(option->state & State_Selected) && !hasCustomBackground &&
-                !(opt->features & QStyleOptionViewItemV2::Alternate))
+                !(opt->features & QStyleOptionViewItem::Alternate))
                 return;
 
             QPalette::ColorGroup cg;
@@ -1222,7 +1222,7 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
                     color = color.lighter(110);
             }
 
-            if (opt && (opt->features & QStyleOptionViewItemV2::Alternate))
+            if (opt && (opt->features & QStyleOptionViewItem::Alternate))
                 painter->fillRect(option->rect, option->palette.brush(cg, QPalette::AlternateBase));
 
             if (!hover && !(option->state & State_Selected) && !hasCustomBackground)
@@ -1281,10 +1281,10 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
             bool roundedLeft  = false;
             bool roundedRight = false;
             if (opt) {
-                roundedLeft  = (opt->viewItemPosition == QStyleOptionViewItemV4::Beginning);
-                roundedRight = (opt->viewItemPosition == QStyleOptionViewItemV4::End);
-                if (opt->viewItemPosition == QStyleOptionViewItemV4::OnlyOne ||
-                    opt->viewItemPosition == QStyleOptionViewItemV4::Invalid ||
+                roundedLeft  = (opt->viewItemPosition == QStyleOptionViewItem::Beginning);
+                roundedRight = (opt->viewItemPosition == QStyleOptionViewItem::End);
+                if (opt->viewItemPosition == QStyleOptionViewItem::OnlyOne ||
+                    opt->viewItemPosition == QStyleOptionViewItem::Invalid ||
                     (view && view->selectionBehavior() != QAbstractItemView::SelectRows))
                 {
                     roundedLeft  = true;
