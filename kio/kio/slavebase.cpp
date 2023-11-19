@@ -37,6 +37,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QList>
 #include <QtCore/QDateTime>
+#include <QtCore/QElapsedTimer>
 #include <QtCore/QCoreApplication>
 
 #include <kcrash.h>
@@ -79,7 +80,7 @@ public:
     ~SlaveBasePrivate() { delete m_passwdServer; }
 
     UDSEntryList pendingListEntries;
-    QTime m_timeSinceLastBatch;
+    QElapsedTimer m_timeSinceLastBatch;
     Connection appConnection;
     QString poolSocket;
     bool isConnectedToApp;

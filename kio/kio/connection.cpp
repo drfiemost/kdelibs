@@ -42,7 +42,7 @@ class KIO::ConnectionPrivate
 {
 public:
     inline ConnectionPrivate()
-        : backend(0), suspended(false)
+        : backend(nullptr), q(nullptr), suspended(false)
     { }
 
     void dequeue();
@@ -98,6 +98,7 @@ void ConnectionPrivate::disconnected()
 
 void ConnectionPrivate::setBackend(AbstractConnectionBackend *b)
 {
+    delete backend;
     backend = b;
     if (backend) {
         q->connect(backend, SIGNAL(commandReceived(Task)), SLOT(commandReceived(Task)));
