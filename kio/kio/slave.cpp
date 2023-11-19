@@ -32,6 +32,7 @@
 #include <QtCore/QTimer>
 #include <QtDBus/QtDBus>
 #include <QtCore/QProcess>
+#include <QElapsedTimer>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -80,10 +81,9 @@ namespace KIO {
             m_port(0),
             contacted(false),
             dead(false),
-            contact_started(time(0)),
-            m_idleSince(0),
             m_refCount(1)
         {
+            contact_started.start();
             slaveconnserver->listenForRemote();
             if ( !slaveconnserver->isListening() )
                 kWarning() << "Connection server not listening, could not connect";
@@ -104,8 +104,8 @@ namespace KIO {
         quint16 m_port;
         bool contacted;
         bool dead;
-        time_t contact_started;
-        time_t m_idleSince;
+        QElapsedTimer contact_started;
+        QElapsedTimer m_idleSince;
         int m_refCount;
   };
 }
@@ -132,7 +132,7 @@ void Slave::timeout()
                 << " protocol=" << d->m_protocol;
    if (d->m_pid && (::kill(d->m_pid, 0) == 0))
    {
-      int delta_t = (int) difftime(time(0), d->contact_started);
+      int delta_t = d->contact_started.elapsed() / 1000;
       kDebug(7002) << "slave is slow... pid=" << d->m_pid << " t=" << delta_t;
       if (delta_t < SLAVE_CONNECTION_TIMEOUT_MAX)
       {
@@ -217,7 +217,7 @@ QString Slave::passwd()
 void Slave::setIdle()
 {
     Q_D(Slave);
-    d->m_idleSince = time(0);
+    d->m_idleSince.start();
 }
 
 bool Slave::isConnected()
@@ -252,10 +252,10 @@ void Slave::deref()
 time_t Slave::idleTime()
 {
     Q_D(Slave);
-    if (!d->m_idleSince) {
+    if (!d->m_idleSince.isValid()) {
         return time_t(0);
     }
-    return time_t(difftime(time(0), d->m_idleSince));
+    return time_t(d->m_idleSince.elapsed() / 1000);
 }
 
 void Slave::setPID(pid_t pid)

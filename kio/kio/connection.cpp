@@ -264,7 +264,7 @@ bool SocketConnectionBackend::waitForIncomingTask(int ms)
         return true;            // there was enough data in the socket
 
     // not enough data in the socket, so wait for more
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
 
     while (socket->state() == QAbstractSocket::ConnectedState && !signalEmitted &&
