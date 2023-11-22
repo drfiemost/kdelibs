@@ -439,7 +439,7 @@ unsigned int qHash(const KParts::ScriptableExtension::Object& o, uint seed)
     return qHash(qMakePair(o.owner, o.objId), seed);
 }
 
-unsigned int qHash(const KParts::ScriptableExtension::FunctionRef& f)
+unsigned int qHash(const KParts::ScriptableExtension::FunctionRef& f, uint seed)
 {
     return qHash(qMakePair(f.base, f.field), seed);
 }
