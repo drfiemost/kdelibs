@@ -49,7 +49,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 private:
-    void setLayoutOption(QTextLayout &layout, const QStyleOptionViewItemV3 &option, Qt::Alignment alignment) const;
+    void setLayoutOption(QTextLayout &layout, const QStyleOptionViewItem &option, Qt::Alignment alignment) const;
     QSize layoutText(QTextLayout &layout, const QString &text, const QSize &constraints) const;
     void drawTextLayout(QPainter *painter, const QTextLayout &layout, const QRect &rect) const;
 };
@@ -65,12 +65,12 @@ ConsoleItemDelegate::~ConsoleItemDelegate()
 {
 }
 
-void ConsoleItemDelegate::setLayoutOption(QTextLayout &layout, const QStyleOptionViewItemV3 &option, Qt::Alignment alignment) const
+void ConsoleItemDelegate::setLayoutOption(QTextLayout &layout, const QStyleOptionViewItem &option, Qt::Alignment alignment) const
 {
     QTextOption textoption;
     textoption.setTextDirection(option.direction);
     textoption.setAlignment(QStyle::visualAlignment(option.direction, alignment));
-    textoption.setWrapMode(option.features & QStyleOptionViewItemV2::WrapText ? QTextOption::WordWrap
+    textoption.setWrapMode(option.features & QStyleOptionViewItem::WrapText ? QTextOption::WordWrap
                            : QTextOption::NoWrap);
 
     layout.setTextOption(textoption);
@@ -89,7 +89,7 @@ QSize ConsoleItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     QString input      = index.data(Qt::DisplayRole).toString();
     QString result     = index.data(ResultRole).toString();
 
-    QStyleOptionViewItemV3 opt(option);
+    QStyleOptionViewItem opt(option);
     int maxWidth = static_cast<const QListView*>(opt.widget)->viewport()->width();
 
     QTextLayout inputLayout, resultLayout;
@@ -184,7 +184,7 @@ void ConsoleItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
     // Draw the background
     bool selected = option.state & QStyle::State_Selected;
 
-    QStyleOptionViewItemV4 opt(option);
+    QStyleOptionViewItem opt(option);
 
     QStyle *style = opt.widget->style();
     style->drawPrimitive(QStyle::PE_PanelItemViewRow, &opt, painter, opt.widget);
