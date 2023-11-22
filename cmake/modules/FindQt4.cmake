@@ -27,7 +27,6 @@
 # available ones to set include:
 #                    QT_DONT_USE_QTCORE
 #                    QT_DONT_USE_QTGUI
-#                    QT_USE_QT3SUPPORT
 #                    QT_USE_QTASSISTANT
 #                    QT_USE_QAXCONTAINER
 #                    QT_USE_QAXSERVER
@@ -35,7 +34,6 @@
 #                    QT_USE_QTMOTIF
 #                    QT_USE_QTMAIN
 #                    QT_USE_QTNETWORK
-#                    QT_USE_QTNSPLUGIN
 #                    QT_USE_QTOPENGL
 #                    QT_USE_QTSQL
 #                    QT_USE_QTXML
@@ -172,7 +170,6 @@
 #  QT_EDITION_DESKTOPLIGHT  True if QT_EDITION == DesktopLight
 #  QT_QTCORE_FOUND          True if QtCore was found.
 #  QT_QTGUI_FOUND           True if QtGui was found.
-#  QT_QT3SUPPORT_FOUND      True if Qt3Support was found.
 #  QT_QTASSISTANT_FOUND     True if QtAssistant was found.
 #  QT_QTASSISTANTCLIENT_FOUND  True if QtAssistantClient was found.
 #  QT_QAXCONTAINER_FOUND    True if QAxContainer was found (Windows only).
@@ -183,7 +180,6 @@
 #  QT_QTHELP_FOUND          True if QtHelp was found.
 #  QT_QTMOTIF_FOUND         True if QtMotif was found.
 #  QT_QTNETWORK_FOUND       True if QtNetwork was found.
-#  QT_QTNSPLUGIN_FOUND      True if QtNsPlugin was found.
 #  QT_QTOPENGL_FOUND        True if QtOpenGL was found.
 #  QT_QTSQL_FOUND           True if QtSql was found.
 #  QT_QTSVG_FOUND           True if QtSvg was found.
@@ -217,8 +213,6 @@
 #  You do not need to use these variables if you include QT_USE_FILE.
 #
 #  QT_INCLUDE_DIR              Path to "include" of Qt4
-#  QT_QT_INCLUDE_DIR           Path to "include/Qt" 
-#  QT_QT3SUPPORT_INCLUDE_DIR   Path to "include/Qt3Support" 
 #  QT_QTASSISTANT_INCLUDE_DIR  Path to "include/QtAssistant" 
 #  QT_QTASSISTANTCLIENT_INCLUDE_DIR       Path to "include/QtAssistant"
 #  QT_QAXCONTAINER_INCLUDE_DIR Path to "include/ActiveQt" (Windows only)
@@ -231,7 +225,6 @@
 #  QT_QTHELP_INCLUDE_DIR       Path to "include/QtHelp"
 #  QT_QTMOTIF_INCLUDE_DIR      Path to "include/QtMotif" 
 #  QT_QTNETWORK_INCLUDE_DIR    Path to "include/QtNetwork" 
-#  QT_QTNSPLUGIN_INCLUDE_DIR   Path to "include/QtNsPlugin" 
 #  QT_QTOPENGL_INCLUDE_DIR     Path to "include/QtOpenGL" 
 #  QT_QTSCRIPT_INCLUDE_DIR     Path to "include/QtScript"
 #  QT_QTSQL_INCLUDE_DIR        Path to "include/QtSql" 
@@ -254,8 +247,6 @@
 # For every library of Qt, a QT_QTFOO_LIBRARY variable is defined, with the full path to the library.
 #
 # So there are the following variables:
-# The Qt3Support library:     QT_QT3SUPPORT_LIBRARY
-#
 # The QtAssistant library:    QT_QTASSISTANT_LIBRARY
 #
 # The QtAssistantClient library:  QT_QTASSISTANTCLIENT_LIBRARY
@@ -279,8 +270,6 @@
 # The QtMotif library:        QT_QTMOTIF_LIBRARY
 #
 # The QtNetwork library:      QT_QTNETWORK_LIBRARY
-#
-# The QtNsPLugin library:     QT_QTNSPLUGIN_LIBRARY
 #
 # The QtOpenGL library:       QT_QTOPENGL_LIBRARY
 #
@@ -687,9 +676,9 @@ IF (QT4_QMAKE_FOUND)
   #
   ########################################
 
-  SET(QT_MODULES QtCore QtGui Qt3Support QtSvg QtScript QtTest QtUiTools 
+  SET(QT_MODULES QtCore QtGui QtSvg QtScript QtTest QtUiTools 
                  QtHelp QtXmlPatterns QtNetwork
-                 QtNsPlugin QtOpenGL QtSql QtXml QtDesigner QtDBus QtScriptTools
+                 QtOpenGL QtSql QtXml QtDesigner QtDBus QtScriptTools
                  QtDeclarative)
   
   IF(Q_WS_X11)
@@ -775,14 +764,6 @@ IF (QT4_QMAKE_FOUND)
     NO_DEFAULT_PATH
     )
 
-  # Set QT_QT_INCLUDE_DIR
-  FIND_PATH(QT_QT_INCLUDE_DIR qglobal.h
-    PATHS
-    ${QT_HEADERS_DIR}/Qt
-    ${QT_LIBRARY_DIR}/QtCore.framework/Headers
-    NO_DEFAULT_PATH
-    )
-
   # Set QT_INCLUDE_DIR by removine "/QtCore" in the string ${QT_QTCORE_INCLUDE_DIR}
   IF( QT_QTCORE_INCLUDE_DIR AND NOT QT_INCLUDE_DIR)
     IF (QT_USE_FRAMEWORKS)
@@ -800,10 +781,10 @@ IF (QT4_QMAKE_FOUND)
   ENDIF( NOT QT_INCLUDE_DIR)
 
   # Make variables changeble to the advanced user
-  MARK_AS_ADVANCED( QT_INCLUDE_DIR QT_QT_INCLUDE_DIR)
+  MARK_AS_ADVANCED( QT_INCLUDE_DIR )
 
   # Set QT_INCLUDES
-  SET( QT_INCLUDES ${QT_QT_INCLUDE_DIR} ${QT_MKSPECS_DIR}/default ${QT_INCLUDE_DIR} )
+  SET( QT_INCLUDES ${QT_MKSPECS_DIR}/default ${QT_INCLUDE_DIR} )
 
 
   #######################################
@@ -999,7 +980,6 @@ IF (QT4_QMAKE_FOUND)
   # library include path to QT_INCLUDES
   _QT4_ADJUST_LIB_VARS(QtCore)
   _QT4_ADJUST_LIB_VARS(QtGui)
-  _QT4_ADJUST_LIB_VARS(Qt3Support)
   _QT4_ADJUST_LIB_VARS(QtAssistant)
   _QT4_ADJUST_LIB_VARS(QtAssistantClient)
   _QT4_ADJUST_LIB_VARS(QtCLucene)
@@ -1009,7 +989,6 @@ IF (QT4_QMAKE_FOUND)
   _QT4_ADJUST_LIB_VARS(QtDesignerComponents)
   _QT4_ADJUST_LIB_VARS(QtHelp)
   _QT4_ADJUST_LIB_VARS(QtNetwork)
-  _QT4_ADJUST_LIB_VARS(QtNsPlugin)
   _QT4_ADJUST_LIB_VARS(QtOpenGL)
   _QT4_ADJUST_LIB_VARS(QtScript)
   _QT4_ADJUST_LIB_VARS(QtScriptTools)
