@@ -61,7 +61,7 @@ class KIO::ConnectionServerPrivate
 {
 public:
     inline ConnectionServerPrivate()
-        : backend(0)
+        : backend(nullptr)
     { }
 
     ConnectionServer *q;
@@ -117,10 +117,10 @@ AbstractConnectionBackend::~AbstractConnectionBackend()
 }
 
 SocketConnectionBackend::SocketConnectionBackend(Mode m, QObject *parent)
-    : AbstractConnectionBackend(parent), socket(0), len(-1), cmd(0),
+    : AbstractConnectionBackend(parent), socket(nullptr), len(-1), cmd(0),
       signalEmitted(false), mode(m)
 {
-    localServer = 0;
+    localServer = nullptr;
     //tcpServer = 0;
 }
 
@@ -226,7 +226,7 @@ bool SocketConnectionBackend::listenForRemote()
         if (!localServer->listen(sockname, KLocalSocket::UnixSocket)) {
             errorString = localServer->errorString();
             delete localServer;
-            localServer = 0;
+            localServer = nullptr;
             return false;
         }
 
@@ -237,7 +237,7 @@ bool SocketConnectionBackend::listenForRemote()
         if (!tcpServer->isListening()) {
             errorString = tcpServer->errorString();
             delete tcpServer;
-            tcpServer = 0;
+            tcpServer = nullptr;
             return false;
         }
 
@@ -315,7 +315,7 @@ AbstractConnectionBackend *SocketConnectionBackend::nextPendingConnection()
     else
         newSocket = tcpServer->nextPendingConnection();
     if (!newSocket)
-        return 0;               // there was no connection...
+        return nullptr;               // there was no connection...
 
     SocketConnectionBackend *result = new SocketConnectionBackend(Mode(mode));
     result->state = Connected;
@@ -426,7 +426,7 @@ void Connection::close()
     if (d->backend) {
         d->backend->disconnect(this);
         d->backend->deleteLater();
-        d->backend = 0;
+        d->backend = nullptr;
     }
     d->outgoingTasks.clear();
     d->incomingTasks.clear();
@@ -468,7 +468,7 @@ void Connection::connectToRemote(const QString &address)
     if (!d->backend->connectToRemote(url)) {
         //kWarning(7017) << "could not connect to " << url << "using scheme" << scheme ;
         delete d->backend;
-        d->backend = 0;
+        d->backend = nullptr;
         return;
     }
 
@@ -565,7 +565,7 @@ void ConnectionServer::listenForRemote()
 #endif
     if (!d->backend->listenForRemote()) {
         delete d->backend;
-        d->backend = 0;
+        d->backend = nullptr;
         return;
     }
 
@@ -588,17 +588,17 @@ bool ConnectionServer::isListening() const
 void ConnectionServer::close()
 {
     delete d->backend;
-    d->backend = 0;
+    d->backend = nullptr;
 }
 
 Connection *ConnectionServer::nextPendingConnection()
 {
     if (!isListening())
-        return 0;
+        return nullptr;
 
     AbstractConnectionBackend *newBackend = d->backend->nextPendingConnection();
     if (!newBackend)
-        return 0;               // no new backend...
+        return nullptr;               // no new backend...
 
     Connection *result = new Connection;
     result->d->setBackend(newBackend);
@@ -612,7 +612,6 @@ void ConnectionServer::setNextPendingConnection(Connection *conn)
     AbstractConnectionBackend *newBackend = d->backend->nextPendingConnection();
     Q_ASSERT(newBackend);
 
-    conn->d->backend = newBackend;
     conn->d->setBackend(newBackend);
     newBackend->setParent(conn);
 
