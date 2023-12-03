@@ -30,6 +30,8 @@
 #include <QProcess>
 #include <QtEndian>
 
+#include <algorithm>
+
 extern int servicesDebugArea();
 
 KMimeTypeRepository * KMimeTypeRepository::self()
@@ -362,7 +364,7 @@ void KMimeTypeRepository::parseMagic()
         if (magicFile.open(QIODevice::ReadOnly))
             m_magicRules += parseMagicFile(&magicFile, fileName);
     }
-    qSort(m_magicRules.begin(), m_magicRules.end(), mimeMagicRuleCompare);
+    std::sort(m_magicRules.begin(), m_magicRules.end(), mimeMagicRuleCompare);
 }
 
 static char readNumber(qint64& value, QIODevice* file)

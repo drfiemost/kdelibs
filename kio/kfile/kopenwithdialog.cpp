@@ -54,6 +54,8 @@
 #include <kbuildsycocaprogressdialog.h>
 #include <kconfiggroup.h>
 
+#include <algorithm>
+
 inline void writeEntry( KConfigGroup& group, const char* key,
                         const KGlobalSettings::Completion& aValue,
                         KConfigBase::WriteConfigFlags flags = KConfigBase::Normal )
@@ -182,7 +184,7 @@ void KApplicationModelPrivate::fillNode(const QString &_entryPath, KDEPrivate::A
       newnode->parent = node;
       node->children.append(newnode);
    }
-   qStableSort(node->children.begin(), node->children.end(), KDEPrivate::AppNodeLessThan);
+   std::stable_sort(node->children.begin(), node->children.end(), KDEPrivate::AppNodeLessThan);
 }
 
 

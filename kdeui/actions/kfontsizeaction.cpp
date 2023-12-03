@@ -37,6 +37,8 @@
 
 #include "kmenu.h"
 
+#include <algorithm>
+
 class KFontSizeAction::Private
 {
     public:
@@ -119,7 +121,7 @@ void KFontSizeAction::setFontSize( int size )
         // New size
         lst.append( size );
         // Sort the list
-        qSort( lst );
+        std::sort( lst.begin(), lst.end() );
         Q_FOREACH( int it, lst ) {
             KAction* const action = addAction( QString::number(it) );
             if (it == size)

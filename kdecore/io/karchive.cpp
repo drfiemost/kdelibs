@@ -47,6 +47,8 @@
 #include <limits.h>  // PATH_MAX
 #endif
 
+#include <algorithm>
+
 class KArchivePrivate
 {
 public:
@@ -858,7 +860,7 @@ void KArchiveDirectory::copyTo(const QString& dest, bool recursiveCopy ) const
     }
   } while (!dirStack.isEmpty());
 
-  qSort( fileList.begin(), fileList.end(), sortByPosition );  // sort on d->pos, so we have a linear access
+  std::sort( fileList.begin(), fileList.end(), sortByPosition );  // sort on d->pos, so we have a linear access
 
   for ( QList<const KArchiveFile*>::const_iterator it = fileList.constBegin(), end = fileList.constEnd() ;
         it != end ; ++it ) {

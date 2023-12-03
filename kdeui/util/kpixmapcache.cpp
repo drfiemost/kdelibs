@@ -56,6 +56,8 @@
 #include <sys/mman.h>
 #endif
 
+#include <algorithm>
+
 //#define DISABLE_PIXMAPCACHE
 
 #ifdef Q_OS_SOLARIS
@@ -920,11 +922,11 @@ bool KPixmapCache::Private::removeEntries(int newsize)
     // Sort the entries according to RemoveStrategy. This moves the best
     //  entries to the beginning of the list
     if (q->removeEntryStrategy() == RemoveOldest) {
-        qSort(entries.begin(), entries.end(), compareEntriesByAge);
+        std::sort(entries.begin(), entries.end(), compareEntriesByAge);
     } else if (q->removeEntryStrategy() == RemoveSeldomUsed) {
-        qSort(entries.begin(), entries.end(), compareEntriesByTimesUsed);
+        std::sort(entries.begin(), entries.end(), compareEntriesByTimesUsed);
     } else {
-        qSort(entries.begin(), entries.end(), compareEntriesByLastUsed);
+        std::sort(entries.begin(), entries.end(), compareEntriesByLastUsed);
     }
 
     // Write some entries to the new files

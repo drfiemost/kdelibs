@@ -29,6 +29,8 @@
 
 #include <QStringList>
 
+#include <algorithm>
+
 // If DUMPTREE is defined, ModelInsertCommand dumps the tree of what it is inserting.
 // #define DUMPTREE
 #ifdef DUMPTREE
@@ -233,7 +235,7 @@ bool DynamicTreeModel::dropMimeData(const QMimeData* data, Qt::DropAction action
     srcPath = indexToPath(srcParent);
 
     rowsMoved = src_parent_it.value();
-    qSort(rowsMoved);
+    std::sort(rowsMoved.begin(), rowsMoved.end());
     src_row_it = rowsMoved.begin();
     rows_moved_end = rowsMoved.end();
     startRow = *src_row_it;
@@ -435,8 +437,7 @@ void ModelInsertCommand::interpret(const QString& treeString)
 
   QList<int> depths = getDepths(m_treeString);
 
-  int size = 0;
-  qCount(depths, 0, size);
+  int size = std::count(depths.begin(), depths.end(), 0);
   Q_ASSERT(size != 0);
 
   m_endRow = m_startRow + size - 1;
@@ -484,8 +485,7 @@ void ModelInsertCommand::doCommand()
   {
     QList<int> depths = getDepths(m_treeString);
 
-    int size = 0;
-    qCount(depths, 0, size);
+    int size = std::count(depths.begin(), depths.end(), 0);
     Q_ASSERT(size != 0);
     m_endRow = m_startRow + size - 1;
   }

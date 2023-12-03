@@ -32,13 +32,15 @@
 
 #include "ksqueezedtextlabel.h"
 
+#include <algorithm>
+
 
 class KStatusBarPrivate
 {
 public:
     int id(QObject* object) const
     {
-        QHash<int, QLabel*>::const_iterator it = qFind(items, object);
+        QHash<int, QLabel*>::const_iterator it = std::find(items.begin(), items.end(), object);
         if (it != items.constEnd())
             return it.key();
         // Not found. This happens when a subclass uses an eventFilter too,

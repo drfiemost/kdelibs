@@ -35,6 +35,8 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QStyleOption>
 
+#include <algorithm>
+
 namespace KDEPrivate
 {
 
@@ -486,7 +488,7 @@ void KUrlNavigatorButton::openSubDirsMenu(KJob* job)
         return;
     }
 
-    qSort(m_subDirs.begin(), m_subDirs.end(), naturalLessThan);
+    std::sort(m_subDirs.begin(), m_subDirs.end(), naturalLessThan);
     setDisplayHintEnabled(PopupActiveHint, true);
     update(); // ensure the button is drawn highlighted
 
@@ -537,7 +539,7 @@ void KUrlNavigatorButton::replaceButton(KJob* job)
         return;
     }
 
-    qSort(m_subDirs.begin(), m_subDirs.end(), naturalLessThan);
+    std::sort(m_subDirs.begin(), m_subDirs.end(), naturalLessThan);
 
     // Get index of the directory that is shown currently in the button
     const QString currentDir = m_url.fileName();

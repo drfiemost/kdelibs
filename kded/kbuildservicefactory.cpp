@@ -33,6 +33,8 @@
 #include <assert.h>
 #include <kmimetypefactory.h>
 
+#include <algorithm>
+
 KBuildServiceFactory::KBuildServiceFactory( KSycocaFactory *serviceTypeFactory,
                                             KBuildMimeTypeFactory *mimeTypeFactory,
                                             KBuildServiceGroupFactory *serviceGroupFactory ) :
@@ -339,7 +341,7 @@ void KBuildServiceFactory::saveOfferList(QDataStream &str)
         Q_ASSERT( entry );
 
         QList<KServiceOffer> offers = m_offerHash.offersFor(entry->name());
-        qStableSort( offers ); // by initial preference
+        std::stable_sort( offers.begin(), offers.end() ); // by initial preference
 
         for(QList<KServiceOffer>::const_iterator it2 = offers.constBegin();
             it2 != offers.constEnd(); ++it2) {
@@ -361,7 +363,7 @@ void KBuildServiceFactory::saveOfferList(QDataStream &str)
         const KMimeTypeFactory::MimeTypeEntry::Ptr entry = KMimeTypeFactory::MimeTypeEntry::Ptr::staticCast( *itmtf );
         Q_ASSERT( entry );
         QList<KServiceOffer> offers = m_offerHash.offersFor(entry->name());
-        qStableSort( offers ); // by initial preference
+        std::stable_sort( offers.begin(), offers.end() ); // by initial preference
 
         for(QList<KServiceOffer>::const_iterator it2 = offers.constBegin();
             it2 != offers.constEnd(); ++it2) {

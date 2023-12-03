@@ -37,6 +37,8 @@
 #include <QtGui/QPainter>
 #include <QtGui/QScrollBar>
 
+#include <algorithm>
+
 
 /**
  * Qt allocates very little horizontal space for the icon name,
@@ -510,7 +512,7 @@ void KIconDialog::KIconDialogPrivate::showIcons()
        iconlist.append(IconPath(it));
     }
 
-    qSort(iconlist);
+    std::sort(iconlist.begin(), iconlist.end());
     filelist.clear();
 
     foreach (const IconPath &ip, iconlist) {

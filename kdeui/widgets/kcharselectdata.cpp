@@ -29,6 +29,8 @@
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 
+#include <algorithm>
+
 /* constants for hangul (de)composition, see UAX #15 */
 #define SBase 0xAC00
 #define LBase 0x1100
@@ -738,7 +740,7 @@ QList<QChar> KCharSelectData::find(const QString& needle)
     }
 
     QList<quint16> sortedResult = result.toList();
-    qSort(sortedResult);
+    std::sort(sortedResult.begin(), sortedResult.end());
 
     foreach(const quint16 &c, sortedResult) {
         returnRes.append(c);

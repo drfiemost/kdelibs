@@ -42,6 +42,8 @@
 #include "kcategorydrawer.h"
 #include "kcategorizedsortfilterproxymodel.h"
 
+#include <algorithm>
+
 //BEGIN: Private part
 
 struct KCategorizedView::Private::Item
@@ -106,10 +108,10 @@ struct KCategorizedView::Private::Block
 
 KCategorizedView::Private::Private(KCategorizedView *q)
     : q(q)
-    , proxyModel(0)
-    , categoryDrawer(0)
-    , categoryDrawerV2(0)
-    , categoryDrawerV3(0)
+    , proxyModel(nullptr)
+    , categoryDrawer(nullptr)
+    , categoryDrawerV2(nullptr)
+    , categoryDrawerV3(nullptr)
     , categorySpacing(5)
     , alternatingBlockColors(false)
     , collapsibleBlocks(false)
@@ -315,7 +317,7 @@ void KCategorizedView::Private::rowsInserted(const QModelIndex &parent, int star
         const QModelIndex firstAffectedCategory = blocks[category].firstIndex;
         //BEGIN: order for marking as alternate those blocks that are alternate
         QList<Block> blockList = blocks.values();
-        qSort(blockList.begin(), blockList.end(), Block::lessThan);
+        std::sort(blockList.begin(), blockList.end(), Block::lessThan);
         QList<int> firstIndexesRows;
         foreach (const Block &block, blockList) {
             firstIndexesRows << block.firstIndex.row();

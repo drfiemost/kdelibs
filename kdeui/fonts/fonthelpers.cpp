@@ -24,6 +24,8 @@
 
 #include "klocale.h"
 
+#include <algorithm>
+
 #ifdef NEVERDEFINE // never true
 // Font names up for translation, listed for extraction.
 
@@ -114,7 +116,7 @@ QStringList translateFontNameList (const QStringList &names,
     }
 
     // Sort real fonts alphabetically.
-    qSort(trNames.begin(), trNames.end(), localeLessThan);
+    std::sort(trNames.begin(), trNames.end(), localeLessThan);
 
     // Prepend generic fonts, in the predefined order.
     foreach (const QString &genericName, genericNames) {

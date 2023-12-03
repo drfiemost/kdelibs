@@ -31,7 +31,8 @@
 #include <kconfiggroup.h>
 
 #include <QtCore/QHash>
-#include <QtAlgorithms>
+
+#include <algorithm>
 
 // servicetype -> profile
 class KServiceTypeProfiles : public QHash<QString, KServiceTypeProfileEntry *>
@@ -162,7 +163,7 @@ KServiceOfferList KServiceTypeProfile::sortServiceTypeOffers( const KServiceOffe
         }
     }
 
-    qStableSort( offers );
+    std::stable_sort( offers.begin(), offers.end() );
 
     //kDebug(7014) << "KServiceTypeProfile::offers returning " << offers.count() << " offers";
     return offers;

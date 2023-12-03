@@ -41,6 +41,8 @@
 #include <windows.h>
 #endif
 
+#include <algorithm>
+
 class KDirModelNode;
 class KDirModelDirNode;
 
@@ -882,7 +884,7 @@ KUrl::List KDirModel::simplifiedUrlList(const KUrl::List &urls)
     }
 
     KUrl::List ret(urls);
-    qSort(ret.begin(), ret.end(), lessThan);
+    std::sort(ret.begin(), ret.end(), lessThan);
 
     KUrl::List::iterator it = ret.begin();
     KUrl url = *it;

@@ -30,6 +30,8 @@
 
 #include "kdebug.h"
 
+#include <algorithm>
+
 typedef KBiHash<QPersistentModelIndex, QModelIndex> SourceProxyIndexMapping;
 typedef KBiHash<void*, QModelIndex> ParentMapping;
 typedef KHash2Map<QPersistentModelIndex, int> SourceIndexProxyRowMapping;
@@ -395,7 +397,7 @@ QItemSelection kNormalizeSelection(QItemSelection selection)
     }
 
     RangeLessThan lt;
-    qSort(selection.begin(), selection.end(), lt);
+    std::sort(selection.begin(), selection.end(), lt);
     return stableNormalizeSelection(selection);
 }
 

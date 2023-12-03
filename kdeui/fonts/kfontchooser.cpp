@@ -45,6 +45,8 @@ Boston, MA 02110-1301, USA.
 
 #include <cmath>
 
+#include <algorithm>
+
 // When message extraction needs to be avoided.
 #define I18NC_NOX i18nc
 
@@ -856,7 +858,7 @@ qreal KFontChooser::Private::fillSizeList (const QList<qreal> &sizes_)
 
     // Insert sizes into the listbox.
     sizeListBox->clear();
-    qSort(sizes);
+    std::sort(sizes.begin(), sizes.end());
     foreach (qreal size, sizes) {
         sizeListBox->addItem(formatFontSize(size));
     }

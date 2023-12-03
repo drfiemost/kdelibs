@@ -25,6 +25,8 @@
 #include <QtCore/QPair>
 #include <QtCore/QList>
 
+#include <algorithm>
+
 /**
  * \class KSortableItem ksortablelist.h <KSortableItem>
  *
@@ -174,14 +176,14 @@ public:
      * Sorts the KSortableItems.
      */
     void sort() {
-        qSort( *this );
+        std::sort( this->begin(), this->end() );
     }
 };
 
 
 #ifdef Q_CC_MSVC
 template<class T, class K>
-inline uint qHash(const KSortableItem<T,K>&) { Q_ASSERT(0); return 0; }
+inline uint qHash(const KSortableItem<T,K>&, uint seed = 0) { Q_ASSERT(0); return 0; }
 #endif
 
 

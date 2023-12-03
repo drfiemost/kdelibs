@@ -28,6 +28,8 @@
 #include <kstringhandler.h>
 #include <QtCore/QMutableVectorIterator>
 
+#include <algorithm>
+
 class KCompletionPrivate
 {
 public:
@@ -827,7 +829,7 @@ QStringList KCompletionMatchesWrapper::list() const
         for ( it = sortedList->constBegin(); it != sortedList->constEnd(); ++it )
             stringList.prepend( (*it).value() );
     } else if ( compOrder == KCompletion::Sorted ) {
-        qStableSort(stringList.begin(), stringList.end(), lessThan);
+        std::stable_sort(stringList.begin(), stringList.end(), lessThan);
     }
 
     return stringList;

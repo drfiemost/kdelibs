@@ -40,6 +40,8 @@
 #include <sys/mman.h>
 #include <stdlib.h>
 
+#include <algorithm>
+
 /// The maximum number of probes to make while searching for a bucket in
 /// the presence of collisions in the cache index table.
 static const uint MAX_PROBE_COUNT = 6;
@@ -405,7 +407,7 @@ struct SharedMemory
     // Returns pageSize in unsigned format.
     unsigned cachePageSize() const
     {
-        unsigned _pageSize = static_cast<unsigned>(pageSize.load());
+        unsigned _pageSize = static_cast<unsigned>(pageSize.loadRelaxed());
         // bits 9-18 may be set.
         static const unsigned validSizeMask = 0x7FE00u;
 
@@ -891,7 +893,7 @@ struct SharedMemory
         break;
         }
 
-        qSort(table, table + indexTableSize(), compareFunction);
+        std::sort(table, table + indexTableSize(), compareFunction);
 
         // Least recently used entries will be in the front.
         // Start killing until we have room.
@@ -1149,7 +1151,7 @@ class KSharedDataCache::Private
         //         1 means "in progress of initing"
         //         2 means "ready"
         uint usecSleepTime = 8; // Start by sleeping for 8 microseconds
-        while (shm->ready.load() != 2) {
+        while (shm->ready.loadRelaxed() != 2) {
             if (KDE_ISUNLIKELY(usecSleepTime >= (1 << 21))) {
                 // Didn't acquire within ~8 seconds?  Assume an issue exists
                 kError(ksdcArea()) << "Unable to acquire shared lock, is the cache corrupt?";

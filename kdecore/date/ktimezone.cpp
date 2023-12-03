@@ -40,6 +40,8 @@
 #include <kdebug.h>
 #include <kglobal.h>
 
+#include <algorithm>
+
 int gmtoff(time_t t);   // defined in ksystemtimezone.cpp
 
 
@@ -1219,7 +1221,7 @@ QList<int> KTimeZoneData::utcOffsets() const
         if (d->utcOffsets.isEmpty())
             d->utcOffsets += 0;
         else
-            qSort(d->utcOffsets);
+            std::sort(d->utcOffsets.begin(), d->utcOffsets.end());
     }
     return d->utcOffsets;
 }

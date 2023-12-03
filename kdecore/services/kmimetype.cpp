@@ -36,6 +36,8 @@
 #include <QtCore/QHash>
 #include <QBuffer>
 
+#include <algorithm>
+
 extern int servicesDebugArea();
 
 template class KSharedPtr<KMimeType>;
@@ -265,7 +267,7 @@ KMimeType::Ptr KMimeType::findByUrlHelper( const KUrl& _url, mode_t mode,
             *accuracy = 20;
         // We have to pick one...
         // At least make this deterministic
-        qSort(mimeList.begin(), mimeList.end());
+        std::sort(mimeList.begin(), mimeList.end());
         Q_FOREACH(const QString& mimeName, mimeList) {
             KMimeType::Ptr mime = mimeType(mimeName);
             if (!mime)

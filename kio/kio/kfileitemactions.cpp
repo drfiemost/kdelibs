@@ -35,9 +35,10 @@
 #include <kstandarddirs.h>
 #include <kservicetypetrader.h>
 #include <QFile>
-#include <QtAlgorithms>
 
 #include <QtDBus/QtDBus>
+
+#include <algorithm>
 
 static bool KIOSKAuthorizedAction(const KConfigGroup& cfg)
 {
@@ -477,7 +478,7 @@ KService::List KFileItemActions::associatedApplications(const QStringList& mimeT
         }
     }
 
-    qSort(rankings.begin(), rankings.end(), KFileItemActionsPrivate::lessRank);
+    std::sort(rankings.begin(), rankings.end(), KFileItemActionsPrivate::lessRank);
 
     KService::List result;
     Q_FOREACH(const KFileItemActionsPrivate::ServiceRank& tempRank, rankings) {

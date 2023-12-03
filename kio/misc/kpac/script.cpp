@@ -39,6 +39,8 @@
 #include <klocalizedstring.h>
 #include <kio/hostinfo_p.h>
 
+#include <algorithm>
+
 #define QL1S(x)    QLatin1String(x)
 
 namespace
@@ -669,12 +671,12 @@ namespace
         QString sortedAddress (QLatin1String(""));
 
         if (!ipV6List.isEmpty()) {
-            qSort(ipV6List.begin(), ipV6List.end(), addressLessThanComparison);
+            std::sort(ipV6List.begin(), ipV6List.end(), addressLessThanComparison);
             sortedAddress += addressListToString(ipV6List, actualEntryMap);
         }
 
         if (!ipV4List.isEmpty()) {
-            qSort(ipV4List.begin(), ipV4List.end(), addressLessThanComparison);
+            std::sort(ipV4List.begin(), ipV4List.end(), addressLessThanComparison);
             if (!sortedAddress.isEmpty()) {
                 sortedAddress += QLatin1Char(';');
             }
