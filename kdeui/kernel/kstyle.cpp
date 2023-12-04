@@ -1112,9 +1112,9 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
             if (const QStyleOptionFrame *fOpt =
                 qstyleoption_cast<const QStyleOptionFrame *>(option))
             {
-                QStyleOptionFrameV2 fOpt2(*fOpt);
+                QStyleOptionFrame fOpt2(*fOpt);
 
-                if (fOpt2.features & QStyleOptionFrameV2::Flat) {
+                if (fOpt2.features & QStyleOptionFrame::Flat) {
                     drawKStylePrimitive(WT_GroupBox, GroupBox::FlatFrame,option,r,pal,flags,painter,widget);
                 } else {
                     drawKStylePrimitive(WT_GroupBox, Generic::Frame,option,r,pal,flags,painter,widget);
@@ -1628,14 +1628,13 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
         case CE_ProgressBarContents:
         {
             const QStyleOptionProgressBar* pbOpt = qstyleoption_cast<const QStyleOptionProgressBar*>(option);
-            const QStyleOptionProgressBarV2* pbOpt2 = qstyleoption_cast<const QStyleOptionProgressBarV2*>(option);
             if  (!pbOpt) return;
 
             //We layout as if LTR, relying on visualRect to fix it up
             double progress    = pbOpt->progress - pbOpt->minimum;
             int steps          = qMax(pbOpt->maximum  - pbOpt->minimum, 1);
             bool busyIndicator = (pbOpt->minimum == 0 && pbOpt->maximum == 0);
-            bool horizontal    = !pbOpt2 || pbOpt2->orientation == Qt::Horizontal;
+            bool horizontal    = pbOpt->orientation == Qt::Horizontal;
 
             //Do we have to draw anything?
             if (!progress && ! busyIndicator)
@@ -1701,11 +1700,10 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
         case CE_ProgressBarLabel:
         {
             const QStyleOptionProgressBar* pbOpt = qstyleoption_cast<const QStyleOptionProgressBar*>(option);
-            const QStyleOptionProgressBarV2* pbOpt2 = qstyleoption_cast<const QStyleOptionProgressBarV2*>(option);
             if (pbOpt)
             {
                 TextOption lbOpt(pbOpt->text);
-                bool horizontal = !pbOpt2 || pbOpt2->orientation == Qt::Horizontal;
+                bool horizontal = pbOpt->orientation == Qt::Horizontal;
                 bool reverseLayout = option->direction == Qt::RightToLeft;
 
                 p->save();
@@ -2322,8 +2320,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
             //First, figure out if we have to deal with icons, and place them if need be.
             if (!tabOpt->icon.isNull())
             {
-                QStyleOptionTabV3 tabV3(*tabOpt);
-                QSize iconSize = tabV3.iconSize;
+                QSize iconSize = tabOpt->iconSize;
                 if (!iconSize.isValid()) {
                     int iconExtent = pixelMetric(PM_SmallIconSize);
                     iconSize = QSize(iconExtent, iconExtent);
@@ -3114,26 +3111,25 @@ QRect KStyle::subElementRect(SubElement sr, const QStyleOption* option, const QW
             if (!tabOpt) return QRect();
 
             QRect r = marginAdjustedTab(tabOpt, TabBar::TabContentsMargin);
-            QStyleOptionTabV3 tov3(*tabOpt);
 
-            switch (tov3.shape)
+            switch (tabOpt->shape)
             {
             case QTabBar::RoundedNorth:
             case QTabBar::TriangularNorth:
             case QTabBar::RoundedSouth:
             case QTabBar::TriangularSouth:
-                if (tov3.direction == Qt::LeftToRight)
-                    r.adjust(tov3.leftButtonSize.width(), 0, -tov3.rightButtonSize.width(), 0);
+                if (tabOpt->direction == Qt::LeftToRight)
+                    r.adjust(tabOpt->leftButtonSize.width(), 0, -tabOpt->rightButtonSize.width(), 0);
                 else
-                    r.adjust(tov3.rightButtonSize.width(), 0, -tov3.leftButtonSize.width(), 0);
+                    r.adjust(tabOpt->rightButtonSize.width(), 0, -tabOpt->leftButtonSize.width(), 0);
                 break;
             case QTabBar::RoundedEast:
             case QTabBar::TriangularEast:
-                r.adjust(0, tov3.leftButtonSize.width(), 0, -tov3.rightButtonSize.width());
+                r.adjust(0, tabOpt->leftButtonSize.width(), 0, -tabOpt->rightButtonSize.width());
                 break;
             case QTabBar::RoundedWest:
             case QTabBar::TriangularWest:
-                r.adjust(0, tov3.rightButtonSize.width(), 0, -tov3.leftButtonSize.width());
+                r.adjust(0, tabOpt->rightButtonSize.width(), 0, -tabOpt->leftButtonSize.width());
                 break;
             }
 

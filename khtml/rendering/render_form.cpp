@@ -60,7 +60,7 @@
 #include <QtGui/QStyle>
 #include <QStyleOptionButton>
 #include <QtGui/QLabel>
-#include <QtGui/QStyleOptionFrameV3>
+#include <QtGui/QStyleOptionFrame>
 #include <QtGui/QStandardItemModel>
 
 #include <misc/helper.h>
@@ -1980,7 +1980,7 @@ void RenderSelect::layout( )
         if(size < 1)
             size = qMin(w->count(), 10);
 
-        QStyleOptionFrameV3 opt;
+        QStyleOptionFrame opt;
         opt.initFrom(w);
         opt.lineWidth = w->lineWidth();
         opt.midLineWidth = w->midLineWidth();
@@ -2298,7 +2298,7 @@ void RenderTextArea::calcMinMaxWidth()
     int lbm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
     int ltm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutTopMargin));
 
-    QStyleOptionFrameV3 opt;
+    QStyleOptionFrame opt;
     opt.initFrom(w);
     opt.lineWidth = w->lineWidth();
     opt.midLineWidth = w->midLineWidth();
