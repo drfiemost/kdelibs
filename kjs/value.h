@@ -195,6 +195,7 @@ public:
 
     // Garbage collection.
     void *operator new(size_t);
+    void operator delete(void*);
     virtual void mark();
     bool marked() const;
 };

@@ -41,6 +41,11 @@ void *JSCell::operator new(size_t size)
     return Collector::allocate(size);
 }
 
+void JSCell::operator delete(void*)
+{
+    // let the garbage collector reclaim memory
+}
+
 bool JSCell::getUInt32(uint32_t&) const
 {
     return false;
