@@ -57,6 +57,8 @@
 #include "dom_docimpl.h"
 #include <kdebug.h>
 
+#include <algorithm>
+
 using namespace DOM;
 using namespace khtml;
 
@@ -370,7 +372,7 @@ void StaticNodeListImpl::normalizeUpto(NormalizationKind kind)
         return;
 
     // First sort.
-    qSort(m_kids.begin(), m_kids.end(), nodeLess);
+    std::sort(m_kids.begin(), m_kids.end(), nodeLess);
 
     // Now get rid of dupes.
     DOM::NodeImpl* last = 0;

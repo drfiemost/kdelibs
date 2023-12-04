@@ -48,6 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <unistd.h>
 
+#include <algorithm>
+
 time_t g_currentDate;
 int g_maxCacheAge;
 qint64 g_maxCacheSize;
@@ -686,7 +688,7 @@ public:
 
             if (m_fileNameList.isEmpty()) {
                 // final step of phase one
-                qSort(m_fiList.begin(), m_fiList.end(), CacheFileInfoPtrLessThan);
+                std::sort(m_fiList.begin(), m_fiList.end(), CacheFileInfoPtrLessThan);
             }
             return false;
         }

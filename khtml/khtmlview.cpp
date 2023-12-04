@@ -100,6 +100,8 @@
 #include <windows.h>
 #endif
 
+#include <algorithm>
+
 #if 0
 namespace khtml {
     void dumpLineBoxes(RenderFlow *flow);
@@ -2518,12 +2520,12 @@ void KHTMLView::displayAccessKeys( KHTMLView* caller, KHTMLView* origview, QVect
             QString accesskey;
             if( s.length() == 1 ) {
                 QChar a = s.string()[ 0 ].toUpper();
-                if( qFind( taken.begin(), taken.end(), a ) == taken.end()) // !contains
+                if( std::find( taken.begin(), taken.end(), a ) == taken.end()) // !contains
                     accesskey = a;
             }
             if( accesskey.isNull() && fallbacks.contains( en )) {
                 QChar a = fallbacks[ en ].toUpper();
-                if( qFind( taken.begin(), taken.end(), a ) == taken.end()) // !contains
+                if( std::find( taken.begin(), taken.end(), a ) == taken.end()) // !contains
                     accesskey = QString( "<qt><i>" ) + a + "</i></qt>";
             }
             if( !accesskey.isNull()) {

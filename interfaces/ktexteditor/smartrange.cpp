@@ -29,6 +29,8 @@
 #include <kaction.h>
 #include <kdebug.h>
 
+#include <algorithm>
+
 using namespace KTextEditor;
 
 //Uncomment this to enable debugging of the child-order. If it is enabled, an assertion will
@@ -660,7 +662,7 @@ static bool rangeEndLessThan(const SmartRange* s1, const SmartRange* s2) {
 void SmartRange::rebuildChildStructure() {
   
   ///Re-order
-  qStableSort(m_childRanges.begin(), m_childRanges.end(), rangeEndLessThan);
+  std::stable_sort(m_childRanges.begin(), m_childRanges.end(), rangeEndLessThan);
   DEBUG_CHILD_ORDER
   ///Update overlap
   for(int a = 0; a < m_childRanges.size(); ++a) {

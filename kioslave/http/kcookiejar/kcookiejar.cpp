@@ -50,6 +50,8 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 
+#include <algorithm>
+
 // BR87227
 // Waba: Should the number of cookies be limited?
 // I am not convinced of the need of such limit
@@ -997,7 +999,7 @@ void KCookieJar::addCookie(KHttpCookie &cookie)
         cookieList->push_back(cookie);
         // Use a stable sort so that unit tests are reliable.
         // In practice it doesn't matter though.
-        qStableSort(cookieList->begin(), cookieList->end(), compareCookies);
+        std::stable_sort(cookieList->begin(), cookieList->end(), compareCookies);
 
         m_cookiesChanged = true;
     }

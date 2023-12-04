@@ -32,6 +32,8 @@
 #include <kmimetype.h>
 #include <kdirwatch.h>
 
+#include <algorithm>
+
 class KEmoticonsPrivate
 {
 public:
@@ -69,7 +71,7 @@ void KEmoticonsPrivate::loadServiceList()
 {
     QString constraint("(exist Library)");
     m_loaded = KServiceTypeTrader::self()->query("KEmoticons", constraint);
-    qSort(m_loaded.begin(), m_loaded.end(), priorityLessThan);
+    std::sort(m_loaded.begin(), m_loaded.end(), priorityLessThan);
 }
 
 KEmoticonsProvider *KEmoticonsPrivate::loadProvider(const KService::Ptr &service)

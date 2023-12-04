@@ -49,6 +49,8 @@
 #include "private/extenderitemmimedata_p.h"
 #include "private/popupapplet_p.h"
 
+#include <algorithm>
+
 namespace Plasma
 {
 
@@ -728,7 +730,7 @@ void ExtenderPrivate::loadExtenderItems()
         KConfigGroup dg = cg.group(extenderItemId);
         groupList.append(qMakePair(dg.readEntry("extenderItemPosition", 0), extenderItemId));
     }
-    qSort(groupList);
+    std::sort(groupList.begin(), groupList.end());
 
     //iterate over the extender items
     for (int i = 0; i < groupList.count(); i++) {

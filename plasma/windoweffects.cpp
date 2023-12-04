@@ -24,6 +24,8 @@
 
 #include "theme.h"
 
+#include <algorithm>
+
 #ifdef Q_WS_X11
     #include <X11/Xlib.h>
     #include <X11/Xatom.h>
@@ -86,7 +88,7 @@ bool isEffectAvailable(Effect effect)
     int cnt;
     Atom *list = XListProperties(dpy, DefaultRootWindow(dpy), &cnt);
     if (list != NULL) {
-        bool ret = (qFind(list, list + cnt, atom) != list + cnt);
+        bool ret = (std::find(list, list + cnt, atom) != list + cnt);
         XFree(list);
         return ret;
     }

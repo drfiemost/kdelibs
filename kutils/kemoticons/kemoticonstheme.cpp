@@ -25,11 +25,12 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
 #include <QtGui/QTextDocument>
-#include <QtCore/QtAlgorithms>
 
 #include <kio/netaccess.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
+
+#include <algorithm>
 
 class KEmoticonsTheme::KEmoticonsThemeData : public QSharedData
 {
@@ -273,10 +274,10 @@ QList<KEmoticonsTheme::Token> KEmoticonsTheme::tokenize(const QString &message, 
 
         if (d->provider->emoticonsIndex().contains(c)) {
             emoticonList = d->provider->emoticonsIndex().value(c);
-	    if (mode & SkipHTML)
-		qSort(emoticonList.begin(),emoticonList.end(),EmoticonCompareEscaped);
-	    else
-		qSort(emoticonList.begin(),emoticonList.end(),EmoticonCompare);
+            if (mode & SkipHTML)
+                std::sort(emoticonList.begin(),emoticonList.end(),EmoticonCompareEscaped);
+            else
+                std::sort(emoticonList.begin(),emoticonList.end(),EmoticonCompare);
             bool found = false;
             for (it = emoticonList.constBegin(); it != emoticonList.constEnd(); ++it) {
                 // If this is an HTML, then search for the HTML form of the emoticon.

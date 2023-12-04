@@ -69,6 +69,8 @@ using namespace DOM;
 #include <assert.h>
 #include <stdlib.h>
 
+#include <algorithm>
+
 // keep in sync with html4.css'
 #define KHTML_STYLE_VERSION 1
 
@@ -694,7 +696,7 @@ RenderStyle *CSSStyleSelector::styleForElement(ElementImpl *e, RenderStyle* fall
     }
 
     // sort only matched selectors and then collect properties
-    qSort(selectorsForCheck.data(), selectorsForCheck.data() + amountOfMatchedSelectors);
+    std::sort(selectorsForCheck.data(), selectorsForCheck.data() + amountOfMatchedSelectors);
     for (unsigned k = 0; k < amountOfMatchedSelectors; ++k) {
         unsigned i = selectorsForCheck[k];
         if (selectorCache[i].state == Applies) {
@@ -2055,7 +2057,7 @@ void CSSStyleSelector::buildLists()
     }
 
     // presort properties. Should make the sort() calls in styleForElement faster.
-    qSort(propertyList.begin(), propertyList.end());
+    std::sort(propertyList.begin(), propertyList.end());
     properties_size = propertyList.count();
     propertiesBuffer = new CSSOrderedProperty[properties_size];
     for (int i = 0; i < propertyList.size(); ++i)
