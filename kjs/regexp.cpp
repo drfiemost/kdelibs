@@ -272,7 +272,7 @@ RegExp::RegExp(const UString &p, char flags)
   // Determine whether libpcre has unicode support if need be..
   if (utf8Support == Unknown) {
     int supported;
-    pcre_config(PCRE_CONFIG_UTF8, (void*)&supported);
+    pcre2_config(PCRE2_CONFIG_UNICODE, (void*)&supported);
     utf8Support = supported ? Supported : Unsupported;
   }
 #endif
@@ -290,21 +290,21 @@ RegExp::RegExp(const UString &p, char flags)
   // Note: the Global flag is already handled by RegExpProtoFunc::execute.
   // FIXME: That last comment is dubious. Not all RegExps get run through RegExpProtoFunc::execute.
   if (flags & IgnoreCase)
-    options |= PCRE_CASELESS;
+    options |= PCRE2_CASELESS;
   if (flags & Multiline)
-    options |= PCRE_MULTILINE;
+    options |= PCRE2_MULTILINE;
 
   if (utf8Support == Supported)
-    options |= (PCRE_UTF8 | PCRE_NO_UTF8_CHECK);
+    options |= (PCRE2_UTF | PCRE2_NO_UTF_CHECK);
 
-  const char *errorMessage;
-  int errorOffset;
+  int errorcode;
+  PCRE2_SIZE errorOffset;
   bool secondTry = false;
 
   while (1) {
     RegExpStringContext converted(intern);
     
-    _regex = pcre_compile(converted.buffer(), options, &errorMessage, &errorOffset, NULL);
+    _regex = pcre2_compile((PCRE2_SPTR)converted.buffer(), PCRE2_ZERO_TERMINATED, options, &errorcode, &errorOffset, NULL);
 
     if (!_regex) {
 #ifdef PCRE_JAVASCRIPT_COMPAT
@@ -314,13 +314,17 @@ RegExp::RegExp(const UString &p, char flags)
       if (doRecompile) {
         secondTry = true;
 #ifndef NDEBUG
-        fprintf(stderr, "KJS: pcre_compile() failed with '%s' - non-standard extensions detected in pattern, trying second compile after correction.\n", errorMessage);
+        PCRE2_UCHAR errorMessage[256];
+        pcre2_get_error_message(errorcode, errorMessage, sizeof(errorMessage));
+        fprintf(stderr, "KJS: pcre2_compile() failed with '%s' - non-standard extensions detected in pattern, trying second compile after correction.\n", errorMessage);
 #endif
         continue;
       }
 #endif
 #ifndef NDEBUG
-      fprintf(stderr, "KJS: pcre_compile() failed with '%s'\n", errorMessage);
+        PCRE2_UCHAR errorMessage[256];
+        pcre2_get_error_message(errorcode, errorMessage, sizeof(errorMessage));
+      fprintf(stderr, "KJS: pcre2_compile() failed with '%s'\n", errorMessage);
 #endif
       _valid = false;
       return;
@@ -364,7 +368,7 @@ RegExp::RegExp(const UString &p, char flags)
 RegExp::~RegExp()
 {
 #ifdef HAVE_PCREPOSIX
-  pcre_free(_regex);
+  //pcre_free(_regex);
 #else
   /* TODO: is this really okay after an error ? */
   regfree(&_regex);
@@ -498,56 +502,29 @@ UString RegExp::match(const RegExpStringContext& ctx, const UString &s, bool *er
     startPos = i;
   }
 
-  int baseFlags = utf8Support == Supported ? PCRE_NO_UTF8_CHECK : 0;
-  
-  // See if we have to limit stack space...
-  *error = false;  
-  int stackGlutton = 0;
-  pcre_config(PCRE_CONFIG_STACKRECURSE, (void*)&stackGlutton);
-  pcre_extra limits;
-  if (stackGlutton) {
-#if HAVE(SYS_TIME_H)
-    if (tryGrowingMaxStackSize) {
-      rlimit l;
-      getrlimit(RLIMIT_STACK, &l);
-      availableStackSize = l.rlim_cur;
-      if (l.rlim_cur < sWantedStackSizeLimit && 
-          (l.rlim_max > l.rlim_cur || l.rlim_max == RLIM_INFINITY)) {
-        l.rlim_cur = (l.rlim_max == RLIM_INFINITY) ? 
-                     sWantedStackSizeLimit : std::min(l.rlim_max, sWantedStackSizeLimit);
-        if ((didIncreaseMaxStackSize = !setrlimit( RLIMIT_STACK, &l)))
-          availableStackSize = l.rlim_cur;
-      }
-      tryGrowingMaxStackSize = false;
-    }
-#endif
+  int baseFlags = utf8Support == Supported ? PCRE2_NO_UTF_CHECK : 0;
 
-    limits.flags = PCRE_EXTRA_MATCH_LIMIT_RECURSION;
-    // libPCRE docs claim that it munches about 500 bytes per recursion.
-    // The crash in #160792 actually showed pcre 7.4 using about 1300 bytes
-    // (and I've measured 800 in an another instance)
-    // We go somewhat conservative, and use about 3/4ths of that,
-    // especially since we're not exactly light on the stack, either
-    limits.match_limit_recursion = (availableStackSize/1300)*3/4;
-  }
-  
-  const int numMatches = pcre_exec(_regex, stackGlutton ? &limits : 0, ctx.buffer(),
-                                   ctx.bufferSize(), startPos, baseFlags, offsetVector, offsetVectorSize);
+  pcre2_match_data* match_data = pcre2_match_data_create_from_pattern(_regex, NULL);
+  const int numMatches = pcre2_match(_regex, (PCRE2_SPTR)ctx.buffer(),
+                                   ctx.bufferSize(), startPos, baseFlags, match_data, NULL);
+
+  const PCRE2_SIZE *outputvector = pcre2_get_ovector_pointer(match_data);
+  pcre2_match_data_free(match_data);
 
   //Now go through and patch up the offsetVector
   if (utf8Support == Supported)
     for (int c = 0; c < 2 * numMatches; ++c)
-      if (offsetVector[c] != -1)
-        offsetVector[c] = ctx.originalPos(offsetVector[c]);
+      if (outputvector[c] != -1)
+        offsetVector[c] = ctx.originalPos(outputvector[c]);
 
   if (numMatches < 0) {
 #ifndef NDEBUG
-    if (numMatches != PCRE_ERROR_NOMATCH)
-      fprintf(stderr, "KJS: pcre_exec() failed with result %d\n", numMatches);
+    if (numMatches != PCRE2_ERROR_NOMATCH)
+      fprintf(stderr, "KJS: pcre2_match() failed with result %d\n", numMatches);
 #endif
     if (offsetVector != fixedSizeOffsetVector)
       delete [] offsetVector;
-    if (numMatches == PCRE_ERROR_MATCHLIMIT || numMatches == PCRE_ERROR_RECURSIONLIMIT)
+    if (numMatches == PCRE2_ERROR_MATCHLIMIT)
       *error = true;
     return UString::null();
   }
