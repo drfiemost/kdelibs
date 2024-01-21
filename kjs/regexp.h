@@ -29,7 +29,8 @@
 #include <config-kjs.h>
 
 #ifdef HAVE_PCREPOSIX
-#include <pcre.h>
+#define PCRE2_CODE_UNIT_WIDTH 8
+#include <pcre2.h>
 #else  // POSIX regex - not so good...
 extern "C" { // bug with some libc5 distributions
 #include <regex.h>
@@ -95,7 +96,7 @@ namespace KJS {
 #endif
   private:
 #ifdef HAVE_PCREPOSIX
-    pcre *_regex;
+    pcre2_code *_regex;
 #else
     regex_t _regex;
 #endif

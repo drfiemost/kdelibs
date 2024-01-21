@@ -1,9 +1,9 @@
 # - Try to find the PCRE regular expression library
 # Once done this will define
 #
-#  PCRE_FOUND - system has the PCRE library
-#  PCRE_INCLUDE_DIR - the PCRE include directory
-#  PCRE_LIBRARIES - The libraries needed to use PCRE
+#  PCRE_FOUND - system has the PCRE2 library
+#  PCRE_INCLUDE_DIR - the PCRE2 include directory
+#  PCRE_LIBRARIES - The libraries needed to use PCRE2
 
 # Copyright (c) 2006, Alexander Neundorf, <neundorf@kde.org>
 #
@@ -22,19 +22,19 @@ if (NOT WIN32)
   # in the FIND_PATH() and FIND_LIBRARY() calls
   find_package(PkgConfig)
 
-  pkg_check_modules(PC_PCRE QUIET libpcre)
+  pkg_check_modules(PC_PCRE QUIET libpcre2-8)
 
   set(PCRE_DEFINITIONS ${PC_PCRE_CFLAGS_OTHER})
 
 endif (NOT WIN32)
 
-find_path(PCRE_INCLUDE_DIR pcre.h 
+find_path(PCRE_INCLUDE_DIR pcre2.h 
           HINTS ${PC_PCRE_INCLUDEDIR} ${PC_PCRE_INCLUDE_DIRS} 
           PATH_SUFFIXES pcre)
 
-find_library(PCRE_PCRE_LIBRARY NAMES pcre pcred HINTS ${PC_PCRE_LIBDIR} ${PC_PCRE_LIBRARY_DIRS})
+find_library(PCRE_PCRE_LIBRARY NAMES pcre2-8 pcre2-8d HINTS ${PC_PCRE_LIBDIR} ${PC_PCRE_LIBRARY_DIRS})
 
-find_library(PCRE_PCREPOSIX_LIBRARY NAMES pcreposix pcreposixd HINTS ${PC_PCRE_LIBDIR} ${PC_PCRE_LIBRARY_DIRS})
+find_library(PCRE_PCREPOSIX_LIBRARY NAMES pcre2-posix pcre2-posixd HINTS ${PC_PCRE_LIBDIR} ${PC_PCRE_LIBRARY_DIRS})
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(PCRE DEFAULT_MSG PCRE_INCLUDE_DIR PCRE_PCRE_LIBRARY PCRE_PCREPOSIX_LIBRARY )
