@@ -103,6 +103,8 @@ void Solid::PowerManagement::requestSleep(SleepState state, QObject *receiver, c
     case HibernateState:
         globalPowerManager->managerIface.Hibernate();
         break;
+    //case HybridSuspendState:
+    //    break;
     }
 }
 
