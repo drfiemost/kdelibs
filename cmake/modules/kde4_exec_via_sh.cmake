@@ -16,7 +16,7 @@ ${_library_path_variable}=${_ld_library_path}\${${_library_path_variable}:+:\$${
 
 # make it executable
 # since this is only executed on UNIX, it is safe to call chmod
-exec_program(chmod ARGS ug+x \"${_filename}\" OUTPUT_VARIABLE _dummy )
+execute_process(COMMAND chmod ug+x ${_filename})
 
 else (UNIX)
 
