@@ -54,6 +54,8 @@
 #include "tooltipmanager.h"
 #include "abstractdialogmanager.h"
 
+#include <algorithm>
+
 using namespace Plasma;
 
 namespace Plasma
@@ -228,7 +230,7 @@ void Corona::layoutContainments()
         }
     }
 
-    qSort(c.begin(), c.end(), containmentSortByPosition);
+    std::sort(c.begin(), c.end(), containmentSortByPosition);
 
     if (c.isEmpty()) {
         CoronaPrivate::s_positioningContainments = false;

@@ -34,6 +34,8 @@
 
 #include <QtNetwork/QSslConfiguration>
 
+#include <cstring>
+
 #define QL1S(x)  QLatin1String(x)
 #define QL1C(x)  QLatin1Char(x)
 
@@ -140,7 +142,7 @@ qint64 AccessManagerReply::readData(char *data, qint64 maxSize)
     const qint64 length = qMin(qint64(m_data.length()), maxSize);
 
     if (length) {
-        qMemCopy(data, m_data.constData(), length);
+        std::memcpy(data, m_data.constData(), length);
         m_data.remove(0, length);
     }
 

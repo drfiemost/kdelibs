@@ -36,6 +36,8 @@
 #include <kuitformats_p.h>
 #include <klocale.h>
 
+#include <algorithm>
+
 #define QL1S(x)   QLatin1String(x)
 
 // Truncates string, for output of long messages.
@@ -914,7 +916,7 @@ QString KuitSemanticsPrivate::format (const QString &text,
 int KuitSemanticsPrivate::attSetKey (const QSet<Kuit::AttVar> &aset)
 {
     QList<Kuit::AttVar> alist = aset.toList();
-    qSort(alist);
+    std::sort(alist.begin(), alist.end());
     int key = 0;
     int tenp = 1;
     foreach (const Kuit::AttVar &att, alist) {

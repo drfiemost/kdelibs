@@ -75,6 +75,8 @@
 #include "plasma/plasma.h"
 #include "animations/animation.h"
 
+#include <algorithm>
+
 namespace Plasma
 {
 
@@ -482,7 +484,7 @@ void Containment::restoreContents(KConfigGroup &group)
         KConfigGroup appletConfig(&applets, appletGroup);
         appletConfigs.append(appletConfig);
     }
-    qStableSort(appletConfigs.begin(), appletConfigs.end(), appletConfigLessThan);
+    std::stable_sort(appletConfigs.begin(), appletConfigs.end(), appletConfigLessThan);
 
     QMutableListIterator<KConfigGroup> it(appletConfigs);
     while (it.hasNext()) {

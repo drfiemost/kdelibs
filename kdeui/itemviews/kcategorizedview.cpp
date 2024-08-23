@@ -1335,7 +1335,7 @@ void KCategorizedView::rowsAboutToBeRemoved(const QModelIndex &parent,
     {
         //BEGIN: order for marking as alternate those blocks that are alternate
         QList<Private::Block> blockList = d->blocks.values();
-        qSort(blockList.begin(), blockList.end(), Private::Block::lessThan);
+        std::sort(blockList.begin(), blockList.end(), Private::Block::lessThan);
         QList<int> firstIndexesRows;
         foreach (const Private::Block &block, blockList) {
             firstIndexesRows << block.firstIndex.row();

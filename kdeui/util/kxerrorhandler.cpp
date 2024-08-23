@@ -91,7 +91,7 @@ void KXErrorHandler::addHandler()
     if( size == pos )
         {
         size += 16;
-        handlers = static_cast< KXErrorHandler** >( qRealloc( handlers, size * sizeof( KXErrorHandler* )));
+        handlers = static_cast< KXErrorHandler** >( std::realloc( handlers, size * sizeof( KXErrorHandler* )));
         }
     handlers[ pos++ ] = this;
     }
