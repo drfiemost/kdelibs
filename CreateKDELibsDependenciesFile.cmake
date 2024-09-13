@@ -1,5 +1,5 @@
 # this file is included by kdelibs/CMakeLists.txt and contains the cmake code
-# which creates the KDELibsDepencies.cmake file, which is installed by kdelibs
+# which creates the KDELibsDependencies.cmake file, which is installed by kdelibs
 
 ######## write dependency file which will be installed #########
 

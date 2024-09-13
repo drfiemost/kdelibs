@@ -353,7 +353,7 @@ IF(QT_QT_LIBRARY)
 ENDIF(QT_QT_LIBRARY)
 
 function(_QT4_QUERY_QMAKE VAR RESULT)
-  execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query ${VAR} RESULT_VARIABLE return_code OUTPUT_VARIABLE output)
+  execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query ${VAR} RESULT_VARIABLE return_code OUTPUT_VARIABLE output OUTPUT_STRIP_TRAILING_WHITESPACE)
   if(NOT return_code)
     file(TO_CMAKE_PATH "${output}" output)
     set(${RESULT} ${output} PARENT_SCOPE)
