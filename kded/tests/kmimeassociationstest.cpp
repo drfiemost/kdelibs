@@ -30,6 +30,8 @@
 #include <ksycoca.h>
 #include <kstandarddirs.h>
 
+#include <algorithm>
+
 // We need a factory that returns the same KService::Ptr every time it's asked for a given service.
 // Otherwise the changes to the service's serviceTypes by KMimeAssociationsTest have no effect
 class FakeServiceFactory : public KServiceFactory
@@ -291,12 +293,12 @@ private Q_SLOTS:
         parser.parseMimeAppsList(fileName, 1050); // += 50 is correct.
 
         QList<KServiceOffer> offers = offerHash.offersFor("image/jpeg");
-        qStableSort(offers); // like kbuildservicefactory.cpp does
+        std::stable_sort(offers.begin(), offers.end()); // like kbuildservicefactory.cpp does
         const QStringList expectedJpegApps = preferredApps["image/jpeg"];
         QCOMPARE(assembleOffers(offers), expectedJpegApps);
 
         offers = offerHash.offersFor("text/html");
-        qStableSort(offers);
+        std::stable_sort(offers.begin(), offers.end());
         QStringList textHtmlApps = preferredApps["text/html"];
         if (KService::serviceByStorageId("firefox.desktop"))
             textHtmlApps.append("firefox.desktop");
@@ -304,7 +306,7 @@ private Q_SLOTS:
         QCOMPARE(assembleOffers(offers), textHtmlApps);
 
         offers = offerHash.offersFor("image/png");
-        qStableSort(offers);
+        std::stable_sort(offers.begin(), offers.end());
         QCOMPARE(assembleOffers(offers), QStringList() << "fakejpegapplication.desktop");
     }
 
