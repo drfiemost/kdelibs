@@ -429,7 +429,7 @@ KIO_EXPORT QStringList KIO::Job::detailedErrorStrings( const KUrl *reqUrl /*= 0L
 
   QString url, protocol, datetime;
   if ( reqUrl ) {
-    url = Qt::escape(reqUrl->prettyUrl());
+    url = reqUrl->prettyUrl().toHtmlEscaped();
     protocol = reqUrl->protocol();
   } else {
     url = i18nc("@info url", "(unknown)" );
