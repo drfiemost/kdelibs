@@ -20,11 +20,13 @@
 #define KLIBLOADERTEST_MODULE_H
 
 #include <QtCore/QObject>
+#include <QtCore/QVariant>
+
 class KLibLoaderTestObject : public QObject
 {
     Q_OBJECT
 public:
-    KLibLoaderTestObject( QObject* parent, const QStringList& );
+    KLibLoaderTestObject( QObject* parent, const QVariantList& );
     ~KLibLoaderTestObject();
 };
 

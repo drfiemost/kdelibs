@@ -17,12 +17,12 @@
 */
 
 #include "klibloadertest_module.h"
-#include <kgenericfactory.h>
+#include <kpluginfactory.h>
 
-typedef KGenericFactory<KLibLoaderTestObject> KLibLoaderTestFactory;
-K_EXPORT_COMPONENT_FACTORY( klibloadertestmodule, KLibLoaderTestFactory("klibloadertestfactory") )
+K_PLUGIN_FACTORY(KLibLoaderTestFactory, registerPlugin<KLibLoaderTestObject>();)
+K_EXPORT_PLUGIN( KLibLoaderTestFactory("klibloadertestfactory") )
 
-KLibLoaderTestObject::KLibLoaderTestObject( QObject* parent, const QStringList& )
+KLibLoaderTestObject::KLibLoaderTestObject( QObject* parent, const QVariantList& )
     : QObject( parent )
 {
     qDebug( "KLibLoaderTestObject created" );
