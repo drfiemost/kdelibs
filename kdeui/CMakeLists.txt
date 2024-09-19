@@ -279,13 +279,6 @@ set(kdeui_LIB_SRCS
  xmlgui/kxmlguiversionhandler.cpp
 )
 
-if(NOT KDE_NO_DEPRECATED)
-set(kdeui_LIB_SRCS
- ${kdeui_LIB_SRCS}
- widgets/keditlistbox.cpp
-)
-endif(NOT KDE_NO_DEPRECATED)
-
 option(MAC_USE_OSXKEYCHAIN "On OS X, use the keychain as backend for kwallet, instead of kwalletd.")
 
 if (Q_WS_MAC AND MAC_USE_OSXKEYCHAIN)
@@ -679,12 +672,6 @@ install( FILES
  xmlgui/kxmlguibuilder.h
  xmlgui/kxmlguifactory.h
  DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
-
-if(NOT KDE_NO_DEPRECATED)
-install(FILES
- widgets/keditlistbox.h
- DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
-endif(NOT KDE_NO_DEPRECATED)
 
 # KDE 5 remove this
 install(FILES

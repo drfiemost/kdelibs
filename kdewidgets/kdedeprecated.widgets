@@ -1,9 +1,0 @@
-[Global]
-PluginName=KDE3SupportWidgets
-Includes=kcomponentdata.h,classpreviews.h,ktimezone.h
-Init=new KComponentData("kdewidgets");
-
-[KEditListBox]
-ToolTip=Fullfeatured edit box with buttons (KDE)
-Group=Views (KDE)
-

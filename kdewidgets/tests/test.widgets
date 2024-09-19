@@ -51,7 +51,7 @@ Group=Container (KDE)
 ToolTip=A widget for selecting two related colors (KDE)
 Group=Graphics (KDE)
 
-[KEditListBox]
+[KEditListWidget]
 ToolTip=Fullfeatured edit box with buttons (KDE)
 Group=Views (KDE)
 
