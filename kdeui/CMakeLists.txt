@@ -673,13 +673,6 @@ install( FILES
  xmlgui/kxmlguifactory.h
  DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
 
-# KDE 5 remove this
-install(FILES
- widgets/kratingpainter.h
- widgets/kratingwidget.h
- DESTINATION ${INCLUDE_INSTALL_DIR}/nepomuk COMPONENT Devel
-)
-
 install( FILES
   sonnet/dialog.h
   sonnet/highlighter.h
