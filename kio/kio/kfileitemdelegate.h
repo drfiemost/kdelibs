@@ -151,7 +151,7 @@ class KIO_EXPORT KFileItemDelegate : public QAbstractItemDelegate
          *
          * Note that KFileItemDelegate will not call KFileItem::determineMimeType() if
          * KFileItem::isMimeTypeKnown() returns false, so if you want to display mime types
-         * you should use a KMimeTypeResolver with the model and the view, to ensure that mime
+         * you should use a KFilePreviewGenerator with the model and the view, to ensure that mime
          * types are resolved. If the mime type isn't known, "Unknown" will be displayed until
          * the mime type has been successfully resolved.
          *

@@ -446,12 +446,6 @@ install( FILES
   KPixmapSequenceOverlayPainter
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE COMPONENT Devel)
 
-if(NOT KDE_NO_DEPRECATED)
-install( FILES
-  KMimeTypeResolver
-DESTINATION ${INCLUDE_INSTALL_DIR}/KDE COMPONENT Devel)
-endif(NOT KDE_NO_DEPRECATED)
-
 if (UNIX)
    install( FILES
      KDEsuClient
