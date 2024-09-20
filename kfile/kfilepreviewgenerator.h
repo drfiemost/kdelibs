@@ -79,7 +79,7 @@ public:
     /**
      * @deprecated Use KFilePreviewGenerator::updateIcons() instead.
      */
-    void updatePreviews();
+    [[deprecated]] void updatePreviews();
 
     /**
      * Updates the icons for all items. Usually it is only

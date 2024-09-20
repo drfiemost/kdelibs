@@ -287,7 +287,7 @@ public:
      * @return The Nepomuk resource URI.
      * @since 4.4
      */
-    KUrl nepomukUri() const;
+    [[deprecated]] KUrl nepomukUri() const;
 
     /**
      * Returns the local path if isLocalFile() == true or the KIO item has
