@@ -24,11 +24,7 @@
 #include <kurl.h>
 #include <khbox.h>
 
-#ifndef KDE_NO_DEPRECATED
-#include <keditlistbox.h>
-#else
 #include <keditlistwidget.h>
-#endif
 
 class KComboBox;
 class KFileDialog;
@@ -187,11 +183,7 @@ public:
      * KEditListWidget *editListWidget = new KEditListWidget( req->customEditor(), someWidget );
      * \endcode
      */
-#ifndef KDE_NO_DEPRECATED
-    const KEditListBox::CustomEditor &customEditor();
-#else
     const KEditListWidget::CustomEditor &customEditor();
-#endif
 
     /**
      * @returns the message set with setClickMessage
