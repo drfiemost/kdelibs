@@ -48,6 +48,14 @@
 #include <kopenssl.h>
 
 #ifdef KSSL_HAVE_SSL
+#undef sk_new
+#undef sk_push
+#undef sk_free
+#undef sk_value
+#undef sk_num
+#undef sk_pop
+#undef sk_dup
+
 #define sk_new d->kossl->sk_new
 #define sk_push d->kossl->sk_push
 #define sk_free d->kossl->sk_free
