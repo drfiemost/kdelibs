@@ -108,15 +108,14 @@ void KBzip2Filter::terminate()
 {
     if (d->mode == QIODevice::ReadOnly) {
         int result = bzDecompressEnd(&d->zStream);
-        // TODO: test result and return false on error
-        //qDebug() << "bzDecompressEnd returned " << result;
+        if (result != BZ_OK)
+            qWarning() << "bzDecompressEnd returned " << result;
     } else if (d->mode == QIODevice::WriteOnly) {
         int result = bzCompressEnd(&d->zStream);
-        // TODO: test result and return false on error
-        //qDebug() << "bzCompressEnd returned " << result;
+        if (result != BZ_OK)
+            qWarning() << "bzCompressEnd returned " << result;
     } else {
         qWarning() << "Unsupported mode " << d->mode << ". Only QIODevice::ReadOnly and QIODevice::WriteOnly supported";
-        // TODO return false
     }
     d->isInitialized = false;
 }
@@ -181,15 +180,12 @@ KBzip2Filter::Result KBzip2Filter::compress( bool finish )
         case BZ_RUN_OK:
         case BZ_FINISH_OK:
                 return KFilterBase::Ok;
-                break;
         case BZ_STREAM_END:
                 //qDebug() << "  bzCompress returned " << result;
                 return KFilterBase::End;
-		break;
         default:
                 //qDebug() << "  bzCompress returned " << result;
                 return KFilterBase::Error;
-                break;
     }
 }
 

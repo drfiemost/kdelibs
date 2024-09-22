@@ -299,13 +299,9 @@ void KCodecs::quotedPrintableDecode(const QByteArray& in, QByteArray& out)
   if (in.isEmpty())
       return;
 
-  char *cursor;
-  const char *data;
   const unsigned int length = in.size();
-
-  data = in.data();
   out.resize (length);
-  cursor = out.data();
+  char *cursor = out.data();
 
   for (unsigned int i = 0; i < length; i++)
   {

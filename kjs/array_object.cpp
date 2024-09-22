@@ -721,7 +721,7 @@ ArrayObjectFuncImp::ArrayObjectFuncImp(ExecState* exec, FunctionPrototype* funcP
     putDirect(exec->propertyNames().length, len, DontDelete|ReadOnly|DontEnum);
 }
 
-JSValue *ArrayObjectFuncImp::callAsFunction(ExecState* exec, JSObject*, const List& args)
+JSValue *ArrayObjectFuncImp::callAsFunction(ExecState*, JSObject*, const List& args)
 {
     switch (id) {
     case IsArray: {
