@@ -299,7 +299,9 @@ RegExp::RegExp(const UString &p, char flags)
 
   int errorcode;
   PCRE2_SIZE errorOffset;
+#ifdef PCRE_JAVASCRIPT_COMPAT
   bool secondTry = false;
+#endif
 
   while (1) {
     RegExpStringContext converted(intern);
@@ -509,12 +511,13 @@ UString RegExp::match(const RegExpStringContext& ctx, const UString &s, bool *er
                                    ctx.bufferSize(), startPos, baseFlags, match_data, NULL);
 
   const PCRE2_SIZE *outputvector = pcre2_get_ovector_pointer(match_data);
+  //uint32_t l = pcre2_get_ovector_count(match_data);
   pcre2_match_data_free(match_data);
 
   //Now go through and patch up the offsetVector
   if (utf8Support == Supported)
     for (int c = 0; c < 2 * numMatches; ++c)
-      if (outputvector[c] != -1)
+      if (outputvector[c] != PCRE2_UNSET)
         offsetVector[c] = ctx.originalPos(outputvector[c]);
 
   if (numMatches < 0) {
