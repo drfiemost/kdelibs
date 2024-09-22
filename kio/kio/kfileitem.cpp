@@ -1235,7 +1235,7 @@ QString KFileItem::getToolTipText(int maxcount) const
     tip += start + i18n("Name:") + mid + text() + end;
     tip += start + i18n("Type:") + mid;
 
-    QString type = Qt::escape(mimeComment());
+    QString type = mimeComment().toHtmlEscaped();
     if ( d->m_bLink ) {
         tip += i18n("Link to %1 (%2)", linkDest(), type) + end;
     } else
@@ -1276,9 +1276,9 @@ QString KFileItem::getToolTipText(int maxcount) const
                 {
                     count++;
                     tip += start +
-                           Qt::escape( item.name() ) + ':' +
+                           item.name().toHtmlEscaped() + ':' +
                            mid +
-                           Qt::escape( s ) +
+                           s.toHtmlEscaped() +
                            end;
                 }
 
