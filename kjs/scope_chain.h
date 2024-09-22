@@ -207,6 +207,7 @@ inline ScopeChain &ScopeChain::operator=(const ScopeChain &c)
 inline JSObject *ScopeChain::bottom() const
 {
     ScopeChainLink last;
+    last.init();
     for (ScopeChainLink n = m_top; n.ptr; n = n.next())
         last = n;
     return last.object();
