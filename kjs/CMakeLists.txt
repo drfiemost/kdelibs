@@ -30,14 +30,14 @@ macro_pop_required_vars()
 
 #Do not make PCRE optional here. PCRE is a hard requirement for modern systems
 #but we give old systems some slack... that's why we don't specify "REQUIRED".
-find_package(PCRE)
-set_package_properties(PCRE PROPERTIES DESCRIPTION "Perl-compatible regular expressions in KJS"
+find_package(PCRE2)
+set_package_properties(PCRE2 PROPERTIES DESCRIPTION "Perl-compatible regular expressions in KJS"
                        URL "http://www.pcre.org"
                        TYPE OPTIONAL
                        PURPOSE "Without PCRE, KJS will have extremely poor regular expression support, breaking many webpages."
                       )
 
-macro_bool_to_01(PCRE_FOUND HAVE_PCREPOSIX)
+macro_bool_to_01(PCRE2_FOUND HAVE_PCREPOSIX)
 
 option(KJS_FORCE_DISABLE_PCRE "Force building of KJS without PCRE. Doing this will result in many webpage working incorrectly, due to extremely poor regular expression support")
 
@@ -49,30 +49,30 @@ include_directories(${KDE4_KDECORE_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/wtf ${K
 
 
 # the check for pcre is in kdelibs/CMakeLists.txt
-if(PCRE_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
-   include_directories(${PCRE_INCLUDE_DIR})
+if(PCRE2_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
+   include_directories(${PCRE2_INCLUDE_DIR})
 
    # tell check_symbol_exists to -I pcre dirs.
    macro_push_required_vars()
-   set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES} ${PCRE_INCLUDE_DIR})
+   set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES} ${PCRE2_INCLUDE_DIR})
+   set(CMAKE_REQUIRED_DEFINITIONS -DPCRE2_CODE_UNIT_WIDTH=8)
 
-   check_symbol_exists(PCRE_CONFIG_UTF8 "pcre.h" HAVE_PCRE_UTF8)
-   check_symbol_exists(PCRE_CONFIG_STACKRECURSE "pcre.h" HAVE_PCRE_STACK)
+   check_symbol_exists(PCRE2_CONFIG_UNICODE "pcre2.h" HAVE_PCRE2_UTF8)
 
    macro_pop_required_vars()
 
    # Even though we "support" non-PCRE builds, if we build PCRE, we want a version 
    # recent enough, and we don't want to fallback to a completely crippled 
    # POSIX code just like that. 
-   if (NOT HAVE_PCRE_UTF8  OR NOT  HAVE_PCRE_STACK)
-      message(FATAL_ERROR "Your libPCRE is too old. KJS requires at least PCRE4.5")
-   endif (NOT HAVE_PCRE_UTF8  OR NOT  HAVE_PCRE_STACK)
+   if (NOT HAVE_PCRE2_UTF8)
+      message(FATAL_ERROR "Your libPCRE2 is too old.")
+   endif (NOT HAVE_PCRE2_UTF8)
 
-else (PCRE_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
+else (PCRE2_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
    # if we're here, either PCRE support is disabled, or it's not found...
    # it better be disabled.
    if (NOT KJS_FORCE_DISABLE_PCRE)
-        message(FATAL_ERROR "The PCRE regular expression library has not been found. KJS requires PCRE >= 4.5 to function properly. If you for some reason can not install it, you can force a build with POSIX regex.h by passing -DKJS_FORCE_DISABLE_PCRE=true to cmake. However, be advised that it'll result in many websites breaking")
+        message(FATAL_ERROR "The PCRE regular expression library has not been found. KJS requires PCRE2 to function properly. If you for some reason can not install it, you can force a build with POSIX regex.h by passing -DKJS_FORCE_DISABLE_PCRE=true to cmake. However, be advised that it'll result in many websites breaking")
    endif (NOT KJS_FORCE_DISABLE_PCRE)
    # if pcre is not installed or disabled, at least the posix regex.h has to be available
    if(APPLE)
@@ -83,7 +83,7 @@ else (PCRE_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
    if (NOT HAVE_REGEX_H)
       message(FATAL_ERROR "Neither the PCRE regular expression library nor the POSIX regex.h header have been found. Consider installing PCRE.")
    endif (NOT HAVE_REGEX_H)
-endif(PCRE_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
+endif(PCRE2_FOUND  AND NOT  KJS_FORCE_DISABLE_PCRE)
 
 # The crosscompiling parts are commented out on purpose. Alex
 # if (CMAKE_CROSSCOMPILING)
