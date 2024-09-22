@@ -36,20 +36,20 @@ if (PYTHONINTERP_FOUND)
 
     option(INSTALL_PYTHON_FILES_IN_PYTHON_PREFIX "Install the Python files in the Python packages dir" FALSE)
 
+    find_package(Python QUIET)
+
     # Set the Python libraries to what we actually found for interpreters
-    set(Python_ADDITIONAL_VERSIONS "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
+    set(Python_ADDITIONAL_VERSIONS "${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
     # These are kept for compatibility
-    set(PYTHON_SHORT_VERSION "${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}")
-    set(PYTHON_LONG_VERSION ${PYTHON_VERSION_STRING})
+    set(PYTHON_SHORT_VERSION "${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}")
+    set(PYTHON_LONG_VERSION ${Python_VERSION})
 
-    find_package(PythonLibs QUIET)
-
-    if(PYTHONLIBS_FOUND)
-        set(PYTHON_LIBRARY ${PYTHON_LIBRARIES})
-    endif(PYTHONLIBS_FOUND)
+    if(Python_FOUND)
+        set(PYTHON_LIBRARY ${Python_LIBRARIES})
+    endif(Python_FOUND)
 
     # Auto detect Python site-packages directory
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(True))"
+    execute_process(COMMAND ${Python_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(True))"
                     OUTPUT_VARIABLE PYTHON_SITE_PACKAGES_DIR
                     OUTPUT_STRIP_TRAILING_WHITESPACE
                    )
@@ -58,7 +58,7 @@ if (PYTHONINTERP_FOUND)
     if(INSTALL_PYTHON_FILES_IN_PYTHON_PREFIX)
         set(PYTHON_SITE_PACKAGES_INSTALL_DIR ${PYTHON_SITE_PACKAGES_DIR})
     else()
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(True, prefix='${CMAKE_INSTALL_PREFIX}'))"
+        execute_process(COMMAND ${Python_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(True, prefix='${CMAKE_INSTALL_PREFIX}'))"
                         OUTPUT_VARIABLE PYTHON_SITE_PACKAGES_INSTALL_DIR
                         OUTPUT_STRIP_TRAILING_WHITESPACE
                        )
