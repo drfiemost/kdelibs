@@ -397,7 +397,7 @@ void TableBuilder::dumpOpStructForVariant(const OperationVariant& variant, bool 
 void TableBuilder::generateVariantImpl(const OperationVariant& variant)
 {
     mInd(16) << "pc += " << variant.size << ";\n";
-    mInd(16) << "const unsigned char* localPC = pc;\n";
+    mInd(16) << "[[maybe_unused]] const unsigned char* localPC = pc;\n";
     int numParams = variant.paramIsIm.size();
     for (int p = 0; p < numParams; ++p) {
         const Type& type  = variant.op.opParamTypes[p];
