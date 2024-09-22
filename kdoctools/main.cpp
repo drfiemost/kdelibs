@@ -49,8 +49,6 @@ extern "C"
         }
 
         LIBXML_TEST_VERSION
-        xmlSubstituteEntitiesDefault(1);
-        xmlLoadExtDtdDefaultValue = 1;
         exsltRegisterAll();
 
         HelpProtocol slave(false, argv[2], argv[3]);
