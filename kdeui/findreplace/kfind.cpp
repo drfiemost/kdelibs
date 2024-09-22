@@ -602,7 +602,7 @@ void KFind::displayFinalDialog() const
     if ( numMatches() )
         message = i18np( "1 match found.", "%1 matches found.", numMatches() );
     else
-        message = i18n("<qt>No matches found for '<b>%1</b>'.</qt>", Qt::escape(d->pattern));
+        message = i18n("<qt>No matches found for '<b>%1</b>'.</qt>", d->pattern.toHtmlEscaped());
     KMessageBox::information(dialogsParent(), message);
 }
 
@@ -622,7 +622,7 @@ bool KFind::shouldRestart( bool forceAsking, bool showNumMatches ) const
         if ( numMatches() )
             message = i18np( "1 match found.", "%1 matches found.", numMatches() );
         else
-            message = i18n("No matches found for '<b>%1</b>'.", Qt::escape(d->pattern));
+            message = i18n("No matches found for '<b>%1</b>'.", d->pattern.toHtmlEscaped());
     }
     else
     {

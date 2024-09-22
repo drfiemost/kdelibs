@@ -612,7 +612,7 @@ void KXMLGUIFactoryPrivate::applyActionProperties( const QDomElement &actionProp
 void KXMLGUIFactoryPrivate::configureAction( QAction *action, const QDomNamedNodeMap &attributes,
         ShortcutOption shortcutOption )
 {
-    for ( uint i = 0; i < attributes.length(); i++ )
+    for ( int i = 0; i < attributes.length(); i++ )
     {
         QDomAttr attr = attributes.item( i ).toAttr();
         if ( attr.isNull() )

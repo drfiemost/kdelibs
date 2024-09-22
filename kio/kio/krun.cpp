@@ -125,7 +125,7 @@ bool KRun::runUrl(const KUrl& u, const QString& _mimetype, QWidget* window, bool
     bool noAuth = false;
     if (_mimetype == QLatin1String("inode/directory-locked")) {
         KMessageBoxWrapper::error(window,
-                                  i18n("<qt>Unable to enter <b>%1</b>.\nYou do not have access rights to this location.</qt>", Qt::escape(u.prettyUrl())));
+                                  i18n("<qt>Unable to enter <b>%1</b>.\nYou do not have access rights to this location.</qt>", u.prettyUrl().toHtmlEscaped()));
         return false;
     }
     else if (_mimetype == QLatin1String("application/x-desktop")) {
@@ -160,12 +160,12 @@ bool KRun::runUrl(const KUrl& u, const QString& _mimetype, QWidget* window, bool
     if (noRun) {
         KMessageBox::sorry(window,
                            i18n("<qt>The file <b>%1</b> is an executable program. "
-                                "For safety it will not be started.</qt>", Qt::escape(u.prettyUrl())));
+                                "For safety it will not be started.</qt>", u.prettyUrl().toHtmlEscaped()));
         return false;
     }
     if (noAuth) {
         KMessageBoxWrapper::error(window,
-                                  i18n("<qt>You do not have permission to run <b>%1</b>.</qt>", Qt::escape(u.prettyUrl())));
+                                  i18n("<qt>You do not have permission to run <b>%1</b>.</qt>", u.prettyUrl().toHtmlEscaped()));
         return false;
     }
 
@@ -1176,7 +1176,7 @@ void KRun::init()
                 KMessageBoxWrapper::error(d->m_window,
                                           i18n("<qt>Unable to run the command specified. "
                                           "The file or folder <b>%1</b> does not exist.</qt>" ,
-                                          Qt::escape(d->m_strURL.prettyUrl())));
+                                          d->m_strURL.prettyUrl().toHtmlEscaped()));
                 d->m_showingDialog = false;
                 d->m_bFault = true;
                 d->m_bFinished = true;
