@@ -265,7 +265,7 @@ UString::UString(const QString &d)
 {
     unsigned int len = d.length();
     UChar *dat = static_cast<UChar*>(fastMalloc(sizeof(UChar) * len));
-    memcpy(dat, d.unicode(), len * sizeof(UChar));
+    memcpy(static_cast<void*>(dat), d.unicode(), len * sizeof(UChar));
     m_rep = UString::Rep::create(dat, len);
 }
 QString UString::qstring() const
