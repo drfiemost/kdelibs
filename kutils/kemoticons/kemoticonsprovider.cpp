@@ -138,7 +138,7 @@ void KEmoticonsProvider::addEmoticonIndex(const QString &path, const QStringList
         KEmoticonsProvider::Emoticon e;
         QPixmap p;
 
-        QString escaped = Qt::escape(s);
+        QString escaped = s.toHtmlEscaped();
         e.picPath = path;
         p.load(path);
 
@@ -158,7 +158,7 @@ void KEmoticonsProvider::addEmoticonIndex(const QString &path, const QStringList
 void KEmoticonsProvider::removeEmoticonIndex(const QString &path, const QStringList &emoList)
 {
     foreach(const QString &s, emoList) {
-        QString escaped = Qt::escape(s);
+        QString escaped = s.toHtmlEscaped();
 
         if (s.isEmpty() || escaped.isEmpty())
         {
