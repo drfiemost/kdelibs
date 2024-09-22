@@ -705,14 +705,8 @@ KOpenSSLProxy::KOpenSSLProxy()
 }
 
 KOpenSSLProxy::~KOpenSSLProxy() {
-   if (d->sslLib) {
-	d->sslLib->unload();
-   }
-   if (d->cryptoLib) {
-	d->cryptoLib->unload();
-   }
 
-   KOpenSSLProxyPrivate::sSelf = 0;
+   KOpenSSLProxyPrivate::sSelf = nullptr;
    delete d;
 }
 
