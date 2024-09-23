@@ -98,7 +98,7 @@ if(X11_FOUND)
   endif(NOT HAVE_XSYNC AND NOT HAVE_XSCREENSAVER)
 endif(X11_FOUND)
 
-macro_optional_find_package(OpenSSL)
+macro_optional_find_package(OpenSSL 1.1.0)
 set_package_properties(OpenSSL PROPERTIES DESCRIPTION "Support for secure network communications (SSL and TLS)"
                        URL "http://openssl.org"
                        TYPE RECOMMENDED

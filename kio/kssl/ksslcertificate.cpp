@@ -1207,42 +1207,10 @@ const char *footer = "-----END CERTIFICATE-----\n";
 
 #define NETSCAPE_CERT_HDR     "certificate"
 
-#ifdef KSSL_HAVE_SSL
-#if OPENSSL_VERSION_NUMBER < 0x00909000L
-
-typedef struct NETSCAPE_X509_st
-{
-    ASN1_OCTET_STRING *header;
-    X509 *cert;
-} NETSCAPE_X509;
-#endif
-#endif
-
 // what a piece of crap this is
 QByteArray KSSLCertificate::toNetscape() {
     QByteArray qba;
-    // no equivalent in OpenSSL 1.1.0 (?), so behave as if we had no OpenSSL at all
-#if KSSL_HAVE_SSL && OPENSSL_VERSION_NUMBER < 0x10100000L
-    NETSCAPE_X509 nx;
-    ASN1_OCTET_STRING hdr;
-    KTemporaryFile ktf;
-    ktf.open();
-    FILE *ktf_fs = fopen(ktf.fileName().toLatin1(), "r+");
-
-    hdr.data = (unsigned char *)NETSCAPE_CERT_HDR;
-    hdr.length = strlen(NETSCAPE_CERT_HDR);
-    nx.header = &hdr;
-    nx.cert = getCert();
-
-    d->kossl->ASN1_item_i2d_fp(ktf_fs,(unsigned char *)&nx);
-    fclose(ktf_fs);
-
-    QFile qf(ktf.fileName());
-    if (qf.open(QIODevice::ReadOnly)) {
-        qba = qf.readAll();
-    }
-#endif
-return qba;
+    return qba;
 }
 
 
