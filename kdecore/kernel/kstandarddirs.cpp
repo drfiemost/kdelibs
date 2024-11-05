@@ -415,7 +415,7 @@ bool KStandardDirs::addResourceType( const char *type,
                                      const QString& relativename,
                                      bool priority )
 {
-    return addResourceType( type, 0, relativename, priority);
+    return addResourceType( type, nullptr, relativename, priority);
 }
 #endif
 

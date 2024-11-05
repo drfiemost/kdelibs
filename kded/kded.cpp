@@ -67,7 +67,7 @@
 
 #define MODULES_PATH "/modules/"
 
-Kded *Kded::_self = 0;
+Kded *Kded::_self = nullptr;
 
 static bool checkStamps = true;
 static bool delayedCheck = false;
@@ -151,15 +151,13 @@ Kded::Kded()
 
 Kded::~Kded()
 {
-  _self = 0;
+  _self = nullptr;
   m_pTimer->stop();
   delete m_pTimer;
   delete m_pDirWatch;
 
-  for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
+  for (auto module: m_modules)
   {
-      KDEDModule* module(it.value());
-
       // first disconnect otherwise slotKDEDModuleRemoved() is called
       // and changes m_modules while we're iterating over it
       disconnect(module, SIGNAL(moduleDeleted(KDEDModule*)),
