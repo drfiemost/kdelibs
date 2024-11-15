@@ -561,10 +561,10 @@ QStringList KIconTheme::list()
         if (!dir.exists()) {
             continue;
         }
-        const QStringList lst = dir.entryList(QDir::Dirs);
+        const QStringList lst = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
         QStringList::ConstIterator it2;
         for (it2=lst.begin(); it2!=lst.end(); ++it2) {
-            if ((*it2 == ".") || (*it2 == "..") || (*it2).startsWith(QLatin1String("default.")) ) {
+            if ((*it2).startsWith(QLatin1String("default.")) ) {
                 continue;
             }
             if (!KStandardDirs::exists(*it + *it2 + "/index.desktop") && !KStandardDirs::exists(*it + *it2 + "/index.theme")) {
