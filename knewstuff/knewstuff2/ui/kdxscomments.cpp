@@ -55,7 +55,7 @@ void KDXSComments::addComment(const QString& username, const QString& comment)
 
     QString email = "spillner@kde.org";
 
-    t += "<a href='" + email + "'>" + Qt::escape(username) + "</a>"
+    t += "<a href='" + email + "'>" + username.toHtmlEscaped() + "</a>"
          + "<table class='itemBox'>"
          + "<tr>"
          + "<td class='contentsColumn'>"
@@ -63,10 +63,10 @@ void KDXSComments::addComment(const QString& username, const QString& comment)
          + "<td>Comment!</td>"
          + "</tr></table>"
          + "<div class='contentsBody'>"
-         + Qt::escape(comment)
+         + comment.toHtmlEscaped()
          + "</div>"
          + "<div class='contentsFooter'>"
-         + "<em>" + Qt::escape(username) + "</em>"
+         + "<em>" + username.toHtmlEscaped() + "</em>"
          + "</div>"
          + "</td>"
          + "</tr>"

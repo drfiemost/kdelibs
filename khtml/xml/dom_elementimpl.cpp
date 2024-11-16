@@ -1270,7 +1270,7 @@ DOMString ElementImpl::openTagStartToString(bool expandurls) const
 			    //FIXME:   are src=  and href=  the only places that might have a password and need to be sanitized?
 			    KUrl safeURL(document()->completeURL(attribute.value().string()));
 			    safeURL.setPass(QString());
-			    result += Qt::escape(safeURL.prettyUrl());
+			    result += safeURL.prettyUrl().toHtmlEscaped();
 			}
 		        else {
 		 	    kWarning() << "document() returned false";

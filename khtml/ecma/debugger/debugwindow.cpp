@@ -622,7 +622,7 @@ QString DebugWindow::exceptionToString(ExecState* exec, JSValue* exceptionObj)
         int      line = lineValue->toNumber(exec);
         QString  url  = urlValue->toString(exec).qstring();
         exceptionMsg = i18n("Parse error at %1 line %2",
-                            Qt::escape(url), line + 1);
+                            url.toHtmlEscaped(), line + 1);
     }
     else
     {

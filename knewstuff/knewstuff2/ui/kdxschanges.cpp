@@ -50,10 +50,10 @@ void KDXSChanges::addChangelog(const QString& version, const QString& log)
          + "<tr>"
          +   "<td class='contentsColumn'>"
          +     "<table class='contentsHeader' cellspacing='2' cellpadding='0'><tr>"
-         +     "<td>" + i18n("Version %1", Qt::escape(version)) + "</td>"
+         +     "<td>" + i18n("Version %1", version.toHtmlEscaped()) + "</td>"
          + "</tr></table>"
          + "<div class='contentsBody'>"
-         + Qt::escape(log)
+         + log.toHtmlEscaped()
          + "</div>";
 
     m_log->setHtml(t);

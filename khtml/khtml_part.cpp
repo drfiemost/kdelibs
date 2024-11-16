@@ -1299,7 +1299,7 @@ QVariant KHTMLPart::executeScript(const QString& filename, int baseLine, const D
       QString msg = KJSDebugger::DebugWindow::exceptionToString(
                               proxy->interpreter()->globalExec(), comp.value());
       dlg->addError(i18n("<qt><b>Error</b>: %1: %2</qt>",
-                         Qt::escape(filename), Qt::escape(msg)));
+                         filename.toHtmlEscaped(), msg.toHtmlEscaped()));
     }
   }
 
@@ -1347,7 +1347,7 @@ QVariant KHTMLPart::executeScript( const DOM::Node &n, const QString &script )
       QString msg = KJSDebugger::DebugWindow::exceptionToString(
                               proxy->interpreter()->globalExec(), comp.value());
       dlg->addError(i18n("<qt><b>Error</b>: node %1: %2</qt>",
-                         n.nodeName().string(), Qt::escape(msg)));
+                         n.nodeName().string(), msg.toHtmlEscaped()));
     }
   }
 
@@ -1826,7 +1826,7 @@ void KHTMLPart::htmlError( int errorCode, const QString& text, const KUrl& reqUr
 
   // This is somewhat confusing, but we have to escape the externally-
   // controlled URL twice: once for i18n, and once for HTML.
-  url = Qt::escape( Qt::escape( reqUrl.prettyUrl() ) );
+  url = reqUrl.prettyUrl().toHtmlEscaped().toHtmlEscaped();
   protocol = reqUrl.protocol();
   datetime = KGlobal::locale()->formatDateTime( QDateTime::currentDateTime(),
                                                 KLocale::LongDate );
@@ -3527,7 +3527,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
   emit onURL( url );
 
   if ( url.isEmpty() ) {
-    setStatusBarText(Qt::escape(u.prettyUrl()), BarHoverText);
+    setStatusBarText(u.prettyUrl().toHtmlEscaped(), BarHoverText);
     return;
   }
 
@@ -3536,7 +3536,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
     jscode = KStringHandler::rsqueeze( jscode, 80 ); // truncate if too long
     if (url.startsWith("javascript:window.open"))
       jscode += i18n(" (In new window)");
-    setStatusBarText( Qt::escape( jscode ), BarHoverText );
+    setStatusBarText( jscode.toHtmlEscaped(), BarHoverText );
     return;
   }
 
@@ -3551,7 +3551,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
     com = typ->comment( u );
 
   if ( !u.isValid() ) {
-    setStatusBarText(Qt::escape(u.prettyUrl()), BarHoverText);
+    setStatusBarText(u.prettyUrl().toHtmlEscaped(), BarHoverText);
     return;
   }
 
@@ -3567,7 +3567,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
     KDE_struct_stat lbuff;
     if (ok) ok = !KDE::lstat( path, &lbuff );
 
-    QString text = Qt::escape(u.prettyUrl());
+    QString text = u.prettyUrl().toHtmlEscaped();
     QString text2 = text;
 
     if (ok && S_ISLNK( lbuff.st_mode ) )
@@ -3651,7 +3651,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
           mailtoMsg += i18n(" - CC: ") + KUrl::fromPercentEncoding((*it).mid(3).toLatin1());
         else if ((*it).startsWith(QLatin1String("bcc=")))
           mailtoMsg += i18n(" - BCC: ") + KUrl::fromPercentEncoding((*it).mid(4).toLatin1());
-      mailtoMsg = Qt::escape(mailtoMsg);
+      mailtoMsg = mailtoMsg.toHtmlEscaped();
       mailtoMsg.replace(QRegExp("([\n\r\t]|[ ]{10})"), QString());
       setStatusBarText("<qt>"+mailtoMsg, BarHoverText);
       return;
@@ -3679,7 +3679,7 @@ void KHTMLPart::overURL( const QString &url, const QString &target, bool /*shift
         }
       }
 #endif
-    setStatusBarText(Qt::escape(u.prettyUrl()) + extra, BarHoverText);
+    setStatusBarText(u.prettyUrl().toHtmlEscaped() + extra, BarHoverText);
   }
 }
 
@@ -6822,7 +6822,7 @@ bool KHTMLPart::checkLinkSecurity(const KUrl &linkURL,const KLocalizedString &me
     {
             // Dangerous flag makes the Cancel button the default
             response = KMessageBox::warningContinueCancel( 0,
-                                                           message.subs(Qt::escape(linkURL.prettyUrl())).toString(),
+                                                           message.subs(linkURL.prettyUrl().toHtmlEscaped()).toString(),
                                                            i18n( "Security Warning" ),
                                                            KGuiItem(button),
                                                            KStandardGuiItem::cancel(),
@@ -6832,7 +6832,7 @@ bool KHTMLPart::checkLinkSecurity(const KUrl &linkURL,const KLocalizedString &me
     else
     {
             KMessageBox::error( 0,
-                                i18n( "<qt>Access by untrusted page to<br /><b>%1</b><br /> denied.</qt>", Qt::escape(linkURL.prettyUrl())),
+                                i18n( "<qt>Access by untrusted page to<br /><b>%1</b><br /> denied.</qt>", linkURL.prettyUrl().toHtmlEscaped()),
                                 i18n( "Security Alert" ));
     }
 
