@@ -28,6 +28,7 @@
 
 #include <plasma/version.h>
 #include "packagemetadata.h"
+#include "kpluginfactory.h"
 
 class KConfigBase;
 

@@ -25,10 +25,10 @@
 #include <QtGui/QRegion>
 #include <QtGui/QPixmap>
 
-#include <kgenericfactory.h>
-
 #include <plasma/version.h>
 #include <plasma/animator.h>
+
+#include <kpluginfactory.h>
 
 class QGraphicsItem;
 
