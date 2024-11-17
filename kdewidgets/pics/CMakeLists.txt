@@ -30,7 +30,6 @@ install( FILES
  kcharselect.png
  kdatepicker.png
  kdialog.png
- keditlistbox.png
  kfontcombo.png
  khistorycombo.png
  kintnuminput.png

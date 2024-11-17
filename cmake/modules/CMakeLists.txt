@@ -76,7 +76,7 @@ set(cmakeFiles
                FindNetworkManager.cmake
                FindOggVorbis.cmake
                FindOpenEXR.cmake
-               FindPCRE.cmake
+               FindPCRE2.cmake
                FindPhonon.cmake
                FindPlasma.cmake
                FindPopplerQt4.cmake
