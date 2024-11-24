@@ -96,6 +96,9 @@ public:
     KIconThemeNode(KIconTheme *_theme);
     ~KIconThemeNode();
 
+    KIconThemeNode(const KIconThemeNode &) = delete;
+    KIconThemeNode &operator=(const KIconThemeNode &) = delete;
+
     void queryIcons(QStringList *lst, int size, KIconLoader::Context context) const;
     void queryIconsByContext(QStringList *lst, int size, KIconLoader::Context context) const;
     K3Icon findIcon(const QString& name, int size, KIconLoader::MatchType match) const;
@@ -920,7 +923,7 @@ K3Icon KIconLoaderPrivate::findMatchingIcon(const QString& name, int size) const
     // The reasoning is that application icons should always match exactly, all other
     // icons may fallback. Since we do not know what the context is here when we start
     // looking for it, we can only go by the path found.
-    foreach (KIconThemeNode *themeNode, links) {
+    for (KIconThemeNode *themeNode: links) {
         for (int i = 0 ; i < 4 ; i++) {
             icon = themeNode->theme->iconPath(name + ext[i], size, KIconLoader::MatchExact);
             if (icon.isValid()) {
@@ -938,7 +941,7 @@ K3Icon KIconLoaderPrivate::findMatchingIcon(const QString& name, int size) const
         }
     }
 
-    foreach (KIconThemeNode *themeNode, links) {
+    for (KIconThemeNode *themeNode: links) {
         QString currentName = name;
 
         while (!currentName.isEmpty()) {
