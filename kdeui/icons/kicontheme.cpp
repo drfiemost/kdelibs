@@ -135,7 +135,7 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
     d->mInternalName = name;
 
     QStringList icnlibs;
-    QStringList::ConstIterator it, itDir;
+    QStringList::ConstIterator it;
     QStringList themeDirs;
     QSet<QString> addedDirs; // Used for avoiding duplicates.
 
@@ -144,7 +144,7 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
     // files are used..
 
     if (!appName.isEmpty() &&
-       ( name == defaultThemeName() || name== "hicolor" || name == "locolor" ) ) {
+       ( name == defaultThemeName() || name == "hicolor" || name == "locolor" ) ) {
         icnlibs = KGlobal::dirs()->resourceDirs("data");
         for (it=icnlibs.constBegin(); it!=icnlibs.constEnd(); ++it) {
             const QString cDir = *it + appName + "/icons/" + name + '/';
@@ -208,13 +208,13 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
     d->screenshot = cfg.readPathEntry("ScreenShot", QString());
 
     const QStringList dirs = cfg.readPathEntry("Directories", QStringList());
-    for (it=dirs.begin(); it!=dirs.end(); ++it) {
-        KConfigGroup cg(d->sharedConfig, *it);
-        for (itDir=themeDirs.constBegin(); itDir!=themeDirs.constEnd(); ++itDir) {
-            const QString currentDir(*itDir + *it + '/');
+    for (auto directory: dirs) {
+        KConfigGroup cg(d->sharedConfig, directory);
+        for (auto themeDir: themeDirs) {
+            const QString currentDir(themeDir + directory + '/');
             if (!addedDirs.contains(currentDir) && KStandardDirs::exists(currentDir)) {
                 addedDirs.insert(currentDir);
-                KIconThemeDir *dir = new KIconThemeDir(*itDir, *it, cg);
+                KIconThemeDir *dir = new KIconThemeDir(themeDir, directory, cg);
                 if (!dir->isValid()) {
                     delete dir;
                 }
@@ -228,7 +228,7 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
     // Expand available sizes for scalable icons to their full range
     int i;
     QMap<int,QList<int> > scIcons;
-    foreach(KIconThemeDir *dir, d->mDirs) {
+    for (KIconThemeDir *dir: d->mDirs) {
         if (!dir) {
             break;
         }
@@ -602,8 +602,19 @@ void KIconTheme::assignIconsToContextMenu( ContextMenus type,
     switch (type) {
         // FIXME: This code depends on Qt's action ordering.
         case TextEditor:
-            enum { UndoAct, RedoAct, Separator1, CutAct, CopyAct, PasteAct, DeleteAct, ClearAct,
-                   Separator2, SelectAllAct, NCountActs };
+            enum {
+                UndoAct,
+                RedoAct,
+                Separator1,
+                CutAct,
+                CopyAct,
+                PasteAct,
+                DeleteAct,
+                ClearAct,
+                Separator2,
+                SelectAllAct,
+                NCountActs,
+            };
 
             if ( actions.count() < NCountActs ) {
                 return;
