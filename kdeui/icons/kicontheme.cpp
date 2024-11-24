@@ -85,7 +85,10 @@ public:
     bool isValid() const { return mbValid; }
     QString iconPath(const QString& name) const;
     QStringList iconList() const;
-    QString dir() const { return mBaseDirThemeDir; }
+    QString constructFileName(const QString &file) const
+    {
+        return mBaseDir + mThemeDir + '/' + file;
+    }
 
     KIconLoader::Context context() const { return mContext; }
     KIconLoader::Type type() const { return mType; }
@@ -101,7 +104,8 @@ private:
     int mSize, mMinSize, mMaxSize;
     int mThreshold;
 
-    QString mBaseDirThemeDir;
+    const QString mBaseDir;
+    const QString mThemeDir;
 };
 
 
@@ -143,9 +147,9 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
        ( name == defaultThemeName() || name== "hicolor" || name == "locolor" ) ) {
         icnlibs = KGlobal::dirs()->resourceDirs("data");
         for (it=icnlibs.constBegin(); it!=icnlibs.constEnd(); ++it) {
-            const QString cDir = *it + appName + "/icons/" + name;
+            const QString cDir = *it + appName + "/icons/" + name + '/';
             if (QFile::exists( cDir )) {
-                themeDirs += cDir + '/';
+                themeDirs += cDir;
             }
         }
     }
@@ -631,14 +635,15 @@ void KIconTheme::assignIconsToContextMenu( ContextMenus type,
 
 /*** KIconThemeDir ***/
 
-KIconThemeDir::KIconThemeDir(const QString& basedir, const QString &themedir, const KConfigGroup &config)
+KIconThemeDir::KIconThemeDir(const QString& basedir, const QString &themedir, const KConfigGroup &config) :
+    mMinSize(1)    // just set the variables to something
+    , mMaxSize(50)   // meaningful in case someone calls minSize or maxSize
+    , mBaseDir(basedir)
+    , mThemeDir(themedir)
 {
     mbValid = false;
-    mBaseDirThemeDir = basedir + themedir;
 
     mSize = config.readEntry("Size", 0);
-    mMinSize = 1;    // just set the variables to something
-    mMaxSize = 50;   // meaningful in case someone calls minSize or maxSize
     mType = KIconLoader::Fixed;
 
     if (mSize == 0) {
@@ -673,7 +678,7 @@ KIconThemeDir::KIconThemeDir(const QString& basedir, const QString &themedir, co
     else if (tmp == "Stock") // invalid, but often present context, skip warning
         return;
     else {
-        kDebug(264) << "Invalid Context=" << tmp << "line for icon theme: " << dir() << "\n";
+        kDebug(264) << "Invalid Context=" << tmp << "line for icon theme: " << constructFileName(QString()) << "\n";
         return;
     }
     tmp = config.readEntry("Type");
@@ -684,7 +689,7 @@ KIconThemeDir::KIconThemeDir(const QString& basedir, const QString &themedir, co
     else if (tmp == "Threshold")
         mType = KIconLoader::Threshold;
     else {
-        kDebug(264) << "Invalid Type=" << tmp << "line for icon theme: " << dir() << "\n";
+        kDebug(264) << "Invalid Type=" << tmp << "line for icon theme: " << constructFileName(QString()) << "\n";
         return;
     }
     if (mType == KIconLoader::Scalable) {
@@ -702,7 +707,7 @@ QString KIconThemeDir::iconPath(const QString& name) const
         return QString();
     }
 
-    QString file = dir() + '/' + name;
+    const QString file = constructFileName(name);
 
     if (KDE::access(file, R_OK) == 0) {
         return KGlobal::hasLocale() ? KGlobal::locale()->localizedFilePath(file) : file;
@@ -713,15 +718,16 @@ QString KIconThemeDir::iconPath(const QString& name) const
 
 QStringList KIconThemeDir::iconList() const
 {
-    const QDir icondir = dir();
+    const QDir icondir = constructFileName(QString());
 
     const QStringList formats = QStringList() << "*.png" << "*.svg" << "*.svgz" << "*.xpm";
     const QStringList lst = icondir.entryList( formats, QDir::Files);
 
     QStringList result;
+    result.reserve(lst.size());
     QStringList::ConstIterator it;
-    for (it=lst.begin(); it!=lst.end(); ++it) {
-        result += dir() + '/' + *it;
+    foreach(const QString &file, lst) {
+        result += constructFileName(file);
     }
     return result;
 }
