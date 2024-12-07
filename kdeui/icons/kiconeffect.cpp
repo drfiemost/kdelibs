@@ -339,6 +339,9 @@ struct KIEImgEdit
 	if (img.depth() <= 8)
 	    img.setColorTable(colors);
     }
+
+    KIEImgEdit(const KIEImgEdit &) = delete;
+    KIEImgEdit &operator=(const KIEImgEdit &) = delete;
 };
 
 static bool painterSupportsAntialiasing()

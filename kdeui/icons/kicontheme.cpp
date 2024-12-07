@@ -225,22 +225,6 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
         }
     }
 
-    // Expand available sizes for scalable icons to their full range
-    int i;
-    QMap<int,QList<int> > scIcons;
-    for (KIconThemeDir *dir: d->mDirs) {
-        if (!dir) {
-            break;
-        }
-        if ((dir->type() == KIconLoader::Scalable) && !scIcons.contains(dir->size())) {
-            QList<int> lst;
-            for (i=dir->minSize(); i<=dir->maxSize(); ++i) {
-                lst += i;
-            }
-            scIcons[dir->size()] = lst;
-        }
-    }
-
     QStringList groups;
     groups += "Desktop";
     groups += "Toolbar";
@@ -250,17 +234,14 @@ KIconTheme::KIconTheme(const QString& name, const QString& appName)
     groups += "Dialog";
     const int defDefSizes[] = { 32, 22, 22, 16, 32, 32 };
     KConfigGroup cg(d->sharedConfig, mainSection);
-    for (it=groups.constBegin(), i=0; it!=groups.constEnd(); ++it, i++) {
-        d->mDefSize[i] = cg.readEntry(*it + "Default", defDefSizes[i]);
-        const QList<int> lst = cg.readEntry(*it + "Sizes", QList<int>());
+    for (int i = 0; i < groups.size(); ++i) {
+        const QString group = groups.at(i);
+        d->mDefSize[i] = cg.readEntry(group + "Default", defDefSizes[i]);
+        const QList<int> lst = cg.readEntry(group + "Sizes", QList<int>());
         QList<int> exp;
         QList<int>::ConstIterator it2;
         for (it2=lst.begin(); it2!=lst.end(); ++it2) {
-            if (scIcons.contains(*it2)) {
-                exp += scIcons[*it2];
-            } else {
-                exp += *it2;
-            }
+            exp += *it2;
         }
         d->mSizes[i] = exp;
     }
