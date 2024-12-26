@@ -137,6 +137,11 @@ class KStartupInfo::Private
         void new_startup_info_internal( const KStartupInfoId& id_P,
             Data& data_P, bool update_only_P );
         void remove_startup_info_internal( const KStartupInfoId& id_P );
+        /**
+        * Emits the gotRemoveStartup signal and erases the @p it from the startups map.
+        * @returns Iterator to next item in the startups map.
+        **/
+        QMap< KStartupInfoId, Data >::iterator removeStartupInfoInternal(QMap< KStartupInfoId, Data >::iterator it);
         void remove_startup_pids( const KStartupInfoId& id, const KStartupInfoData& data );
         void remove_startup_pids( const KStartupInfoData& data );
         startup_t check_startup_internal( WId w, KStartupInfoId* id, KStartupInfoData* data );
@@ -386,22 +391,28 @@ void KStartupInfo::Private::remove_startup_info_internal( const KStartupInfoId& 
     {
     if( startups.contains( id_P ))
         {
-	kDebug( 172 ) << "removing";
-	emit q->gotRemoveStartup( id_P, startups[ id_P ]);
-	startups.remove( id_P );
-	}
-    else if( silent_startups.contains( id_P ))
-	{
-	kDebug( 172 ) << "removing silent";
-	silent_startups.remove( id_P );
-	}
-    else if( uninited_startups.contains( id_P ))
-	{
-	kDebug( 172 ) << "removing uninited";
-	uninited_startups.remove( id_P );
-	}
+        kDebug( 172 ) << "removing";
+        emit q->gotRemoveStartup( id_P, startups[ id_P ]);
+        startups.remove( id_P );
+        }
+        else if( silent_startups.contains( id_P ))
+        {
+        kDebug( 172 ) << "removing silent";
+        silent_startups.remove( id_P );
+        }
+        else if( uninited_startups.contains( id_P ))
+        {
+        kDebug( 172 ) << "removing uninited";
+        uninited_startups.remove( id_P );
+        }
     return;
     }
+
+QMap< KStartupInfoId, KStartupInfo::Data >::iterator KStartupInfo::Private::removeStartupInfoInternal(QMap< KStartupInfoId, Data >::iterator it)
+{
+    emit q->gotRemoveStartup(it.key(), it.value());
+    return startups.erase(it);
+}
 
 void KStartupInfo::Private::remove_startup_pids( const KStartupInfoData& data_P )
     { // first find the matching info
@@ -777,8 +788,8 @@ bool KStartupInfo::Private::find_pid( pid_t pid_P, const QByteArray& hostname_P,
     KStartupInfoId* id_O, KStartupInfoData* data_O )
     {
     kDebug( 172 ) << "find_pid:" << pid_P;
-    for( QMap< KStartupInfoId, KStartupInfo::Data >::ConstIterator it = startups.cbegin();
-         it != startups.cend();
+    for( QMap< KStartupInfoId, KStartupInfo::Data >::Iterator it = startups.begin();
+         it != startups.end();
          ++it )
         {
         if( ( *it ).is_pid( pid_P ) && ( *it ).hostname() == hostname_P )
@@ -788,7 +799,7 @@ bool KStartupInfo::Private::find_pid( pid_t pid_P, const QByteArray& hostname_P,
             if( data_O != nullptr )
                 *data_O = it.value();
             // non-compliant, remove on first match
-            remove_startup_info_internal( it.key() );
+            removeStartupInfoInternal(it);
             kDebug( 172 ) << "check_startup_pid:match";
             return true;
             }
@@ -802,8 +813,8 @@ bool KStartupInfo::Private::find_wclass( const QByteArray &_res_name, const QByt
     QByteArray res_name = _res_name.toLower();
     QByteArray res_class = _res_class.toLower();
     kDebug( 172 ) << "find_wclass:" << res_name << ":" << res_class;
-    for( QMap< KStartupInfoId, Data >::ConstIterator it = startups.cbegin();
-         it != startups.cend();
+    for( QMap< KStartupInfoId, Data >::Iterator it = startups.begin();
+         it != startups.end();
          ++it )
         {
         const QByteArray wmclass = ( *it ).findWMClass();
@@ -814,7 +825,7 @@ bool KStartupInfo::Private::find_wclass( const QByteArray &_res_name, const QByt
             if( data_O != nullptr )
                 *data_O = it.value();
             // non-compliant, remove on first match
-            remove_startup_info_internal( it.key() );
+            removeStartupInfoInternal(it);
             kDebug( 172 ) << "check_startup_wclass:match";
             return true;
             }
@@ -929,69 +940,39 @@ void KStartupInfo::Private::startups_cleanup()
 
 void KStartupInfo::Private::startups_cleanup_internal( bool age_P )
     {
-    for( QMap< KStartupInfoId, KStartupInfo::Data >::Iterator it = startups.begin();
-         it != startups.end();
-         )
-        {
-        if( age_P )
-            ( *it ).age++;
-        unsigned int tout = timeout;
-        if( ( *it ).silent() == Data::Yes ) // TODO
-            tout *= 20;
-        if( ( *it ).age >= tout )
-            {
-            const KStartupInfoId& key = it.key();
-            ++it;
-            kDebug( 172 ) << "entry timeout:" << key.id();
-            remove_startup_info_internal( key );
+    auto checkCleanup = [this, age_P](QMap<KStartupInfoId, KStartupInfo::Data> &s, bool doEmit) {
+        auto it = s.begin();
+        while (it != s.end()) {
+            if (age_P)
+                (*it).age++;
+            unsigned int tout = timeout;
+            if ((*it).silent() == Data::Yes) {
+                // give kdesu time to get a password
+                tout *= 20;
             }
-        else
-            ++it;
-        }
-    for( QMap< KStartupInfoId, KStartupInfo::Data >::Iterator it = silent_startups.begin();
-         it != silent_startups.end();
-         )
-        {
-        if( age_P )
-            ( *it ).age++;
-        unsigned int tout = timeout;
-        if( ( *it ).silent() == Data::Yes ) // TODO
-            tout *= 20;
-        if( ( *it ).age >= tout )
-            {
-            const KStartupInfoId& key = it.key();
-            ++it;
-            kDebug( 172 ) << "entry timeout:" << key.id();
-            remove_startup_info_internal( key );
+            const QByteArray timeoutEnvVariable = qgetenv("KSTARTUPINFO_TIMEOUT");
+            if (!timeoutEnvVariable.isNull()) {
+                tout = timeoutEnvVariable.toUInt();
             }
-        else
-            ++it;
-        }
-    for( QMap< KStartupInfoId, KStartupInfo::Data >::Iterator it = uninited_startups.begin();
-         it != uninited_startups.end();
-         )
-        {
-        if( age_P )
-            ( *it ).age++;
-        unsigned int tout = timeout;
-        if( ( *it ).silent() == Data::Yes ) // TODO
-            tout *= 20;
-        if( ( *it ).age >= tout )
-            {
-            const KStartupInfoId& key = it.key();
-            ++it;
-            kDebug( 172 ) << "entry timeout:" << key.id();
-            remove_startup_info_internal( key );
+            if ((*it).age >= tout) {
+                if (doEmit) {
+                    emit q->gotRemoveStartup(it.key(), it.value());
+                }
+                it = s.erase(it);
+            } else {
+                ++it;
             }
-        else
-            ++it;
         }
+    };
+    checkCleanup(startups, true);
+    checkCleanup(silent_startups, false);
+    checkCleanup(uninited_startups, false);
     }
 
 void KStartupInfo::Private::clean_all_noncompliant()
     {
-    for( QMap< KStartupInfoId, KStartupInfo::Data >::ConstIterator it = startups.cbegin();
-         it != startups.cend();
+    for( QMap< KStartupInfoId, KStartupInfo::Data >::Iterator it = startups.begin();
+         it != startups.end();
          )
         {
         if( ( *it ).WMClass() != "0" )
@@ -999,10 +980,7 @@ void KStartupInfo::Private::clean_all_noncompliant()
             ++it;
             continue;
             }
-        const KStartupInfoId& key = it.key();
-        ++it;
-        kDebug( 172 ) << "entry cleaning:" << key.id();
-        remove_startup_info_internal( key );
+        it = removeStartupInfoInternal(it);
         }
     }
 
