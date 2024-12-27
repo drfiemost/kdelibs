@@ -21,7 +21,7 @@
 
 #include <kdeui_export.h>
 
-#include <QtGui/QIconEngineV2>
+#include <QtGui/QIconEngine>
 
 class KIconLoader;
 
@@ -34,7 +34,7 @@ class KIconLoader;
  *
  * @author Hamish Rodda <rodda@kde.org>
  */
-class KIconEngine : public QIconEngineV2
+class KIconEngine : public QIconEngine
 {
   public:
     /**
@@ -68,7 +68,7 @@ class KIconEngine : public QIconEngineV2
     virtual void virtual_hook ( int id, void * data );
 
     virtual QString key() const;
-    virtual QIconEngineV2 *clone() const;
+    virtual QIconEngine *clone() const;
     virtual bool read(QDataStream &in);
     virtual bool write(QDataStream &out) const;
 
