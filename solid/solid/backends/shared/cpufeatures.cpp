@@ -125,7 +125,7 @@ Solid::Processor::InstructionSets cpuFeatures()
             : "=d"(result), "=c"(result2) : : ASM_REG("ax") );
 
         features = result & 0x06800000; //copy the mmx and sse bits to features
-        features |= result2 & 0x00080001; //copy the sse3 and sse4 bits to features
+        features |= result2 & 0x00180101; //copy the sse3 and sse4 bits to features
 
         __asm__ __volatile__ (
              ASM_PUSH("bx")
