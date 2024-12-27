@@ -132,7 +132,7 @@ bool KComponentData::isValid() const
 
 void KComponentDataPrivate::lazyInit(const KComponentData &component)
 {
-    if (dirs == 0) {
+    if (dirs == nullptr) {
         dirs = new KStandardDirs();
         // install appdata resource type
         dirs->addResourceType("appdata", "data", aboutData.appName() + QLatin1Char('/'), true);

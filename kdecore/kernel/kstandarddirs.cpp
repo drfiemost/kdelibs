@@ -1884,7 +1884,7 @@ void KStandardDirs::addKDEDefaults()
     // end XDG_DATA_XXX
 
 
-    addResourceType("lib", 0, "lib" KDELIBSUFF "/");
+    addResourceType("lib", nullptr, "lib" KDELIBSUFF "/");
 
     addResourceType("qtplugins", "lib", "plugins");
 
@@ -1898,7 +1898,7 @@ void KStandardDirs::addKDEDefaults()
     addResourceDir("home", QDir::homePath(), false);
 
     addResourceType("autostart", "xdgconf-autostart", "/"); // merge them, start with xdg autostart
-    addResourceType("autostart", NULL, "share/autostart"); // KDE ones are higher priority
+    addResourceType("autostart", nullptr, "share/autostart"); // KDE ones are higher priority
 }
 
 static QStringList lookupProfiles(const QString &mapFile)
