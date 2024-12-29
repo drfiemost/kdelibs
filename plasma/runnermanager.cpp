@@ -104,20 +104,20 @@ public:
         //The number of threads used scales with the number of processors.
 #ifndef PLASMA_NO_SOLID
         const int numProcs =
-            qMax(Solid::Device::listFromType(Solid::DeviceInterface::Processor).count(), 1);
+            std::max(Solid::Device::listFromType(Solid::DeviceInterface::Processor).count(), 1);
 #else
         const int numProcs = 1;
 #endif
         //This entry allows to define a hard upper limit independent of the number of processors.
         const int maxThreads = config.readEntry("maxThreads", 16);
-        const int numThreads = qMin(maxThreads, 2 + ((numProcs - 1) * 2));
+        const int numThreads = std::min(maxThreads, 2 + ((numProcs - 1) * 2));
         //kDebug() << "setting up" << numThreads << "threads for" << numProcs << "processors";
         if (numThreads > Weaver::instance()->maximumNumberOfThreads()) {
             Weaver::instance()->setMaximumNumberOfThreads(numThreads);
         }
         // Limit the number of instances of a single normal speed runner and all of the slow runners
         // to half the number of threads
-        const int cap = qMax(2, numThreads/2);
+        const int cap = std::max(2, numThreads/2);
         DefaultRunnerPolicy::instance().setCap(cap);
 
         context.restore(config);

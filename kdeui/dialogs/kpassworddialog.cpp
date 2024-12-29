@@ -129,7 +129,7 @@ void KPasswordDialog::KPasswordDialogPrivate::init()
     updateFields();
 
     QRect desktop = KGlobalSettings::desktopGeometry(q->topLevelWidget());
-    q->setMinimumWidth(qMin(1000, qMax(q->sizeHint().width(), desktop.width() / 4)));
+    q->setMinimumWidth(std::min(1000, std::max(q->sizeHint().width(), desktop.width() / 4)));
     q->setPixmap(KIcon("dialog-password").pixmap(KIconLoader::SizeHuge));
 }
 
@@ -245,7 +245,7 @@ void KPasswordDialog::addCommentLine( const QString& label,
         if (li) {
             QWidget *w = li->widget();
             if (w && !w->isHidden()) {
-                firstColumnWidth = qMax(firstColumnWidth, w->sizeHint().width());
+                firstColumnWidth = std::max(firstColumnWidth, w->sizeHint().width());
             }
         }
     }

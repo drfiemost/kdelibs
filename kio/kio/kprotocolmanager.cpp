@@ -272,28 +272,28 @@ int KProtocolManager::readTimeout()
 {
   KConfigGroup cg( config(), QString() );
   int val = cg.readEntry( "ReadTimeout", DEFAULT_READ_TIMEOUT );
-  return qMax(MIN_TIMEOUT_VALUE, val);
+  return std::max(MIN_TIMEOUT_VALUE, val);
 }
 
 int KProtocolManager::connectTimeout()
 {
   KConfigGroup cg( config(), QString() );
   int val = cg.readEntry( "ConnectTimeout", DEFAULT_CONNECT_TIMEOUT );
-  return qMax(MIN_TIMEOUT_VALUE, val);
+  return std::max(MIN_TIMEOUT_VALUE, val);
 }
 
 int KProtocolManager::proxyConnectTimeout()
 {
   KConfigGroup cg( config(), QString() );
   int val = cg.readEntry( "ProxyConnectTimeout", DEFAULT_PROXY_CONNECT_TIMEOUT );
-  return qMax(MIN_TIMEOUT_VALUE, val);
+  return std::max(MIN_TIMEOUT_VALUE, val);
 }
 
 int KProtocolManager::responseTimeout()
 {
   KConfigGroup cg( config(), QString() );
   int val = cg.readEntry( "ResponseTimeout", DEFAULT_RESPONSE_TIMEOUT );
-  return qMax(MIN_TIMEOUT_VALUE, val);
+  return std::max(MIN_TIMEOUT_VALUE, val);
 }
 
 /*========================== PROXY SETTINGS =================================*/

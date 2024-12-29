@@ -30,7 +30,7 @@ EasingAnimation::EasingAnimation(QObject *parent)
 
 void EasingAnimation::updateCurrentTime(int currentTime)
 {
-    updateEffectiveTime(easingCurve().valueForProgress(currentTime / qreal(qMax(1, duration()))) * duration());
+    updateEffectiveTime(easingCurve().valueForProgress(currentTime / qreal(std::max(1, duration()))) * duration());
 }
 
 } // namespace Plasma

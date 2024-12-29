@@ -246,7 +246,7 @@ QTextCursor NestedListHelper::topOfSelection()
     QTextCursor cursor = textEdit->textCursor();
 
     if (cursor.hasSelection())
-        cursor.setPosition(qMin(cursor.position(), cursor.anchor()));
+        cursor.setPosition(std::min(cursor.position(), cursor.anchor()));
     return cursor;
 }
 
@@ -255,7 +255,7 @@ QTextCursor NestedListHelper::bottomOfSelection()
     QTextCursor cursor = textEdit->textCursor();
 
     if (cursor.hasSelection())
-        cursor.setPosition(qMax(cursor.position(), cursor.anchor()));
+        cursor.setPosition(std::max(cursor.position(), cursor.anchor()));
     return cursor;
 }
 

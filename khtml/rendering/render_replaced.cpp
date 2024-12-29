@@ -257,8 +257,8 @@ void  RenderWidget::resizeWidget( int w, int h )
 {
     // ugly hack to limit the maximum size of the widget ( as X11 has problems if
     // it is bigger )
-    h = qMin( h, 3072 );
-    w = qMin( w, 2000 );
+    h = std::min( h, 3072 );
+    w = std::min( w, 2000 );
 
     if (m_widget->width() != w || m_widget->height() != h) {
         m_widget->resize( w, h);
@@ -608,8 +608,8 @@ void RenderWidget::paint(PaintInfo& paintInfo, int _tx, int _ty)
             }
 //             qDebug("calculated yNew=%d", yNew);
         }
-        yNew = qMin( yNew, yPos + m_height - childh );
-        yNew = qMax( yNew, yPos );
+        yNew = std::min( yNew, yPos + m_height - childh );
+        yNew = std::max( yNew, yPos );
         if ( yNew != childy || xNew != childx ) {
             if ( vw->contentsHeight() < yNew - yPos + childh )
                 vw->resizeContents( vw->contentsWidth(), yNew - yPos + childh );
@@ -1033,8 +1033,8 @@ bool RenderWidget::handleEvent(const DOM::EventImpl& ev)
             // appropriate coordinates. Might be Enter/Leave issue. ### FIXME
             // In the meantime, clamping the event to the widget rect
             // will at least prevent the selection to be lost.
-            p.setX(qMin(qMax(0,p.x()),m_widget->width()));
-            p.setY(qMin(qMax(0,p.y()),m_widget->height()));
+            p.setX(std::min(std::max(0,p.x()),m_widget->width()));
+            p.setY(std::min(std::max(0,p.y()),m_widget->height()));
         }
 
         QPointer<QWidget> target;

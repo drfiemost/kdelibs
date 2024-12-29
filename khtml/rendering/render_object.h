@@ -621,7 +621,7 @@ public:
     /** the position of the object from where it begins drawing, including
      * its negative overflow
      */
-    int effectiveYPos() const { return yPos() + (hasOverflowClip() ? -borderTopExtra() : qMin(overflowTop(), -borderTopExtra())); }
+    int effectiveYPos() const { return yPos() + (hasOverflowClip() ? -borderTopExtra() : std::min(overflowTop(), -borderTopExtra())); }
 
     /** Leftmost coordinate of this inline element relative to containing
      * block. Always zero for non-inline elements.
@@ -654,7 +654,7 @@ public:
      * object as a whole -- usually the overflow height, or the height if clipped.
      */
     int effectiveHeight() const { return hasOverflowClip() ? height() + borderTopExtra() + borderBottomExtra() :
-                                         qMax(overflowHeight() - overflowTop(),  height() + borderTopExtra() + borderBottomExtra()); }
+                                         std::max(overflowHeight() - overflowTop(),  height() + borderTopExtra() + borderBottomExtra()); }
     /**
      * Returns the width that is effectively considered when contemplating the
      * object as a whole -- usually the overflow width, or the width if clipped.
@@ -684,9 +684,9 @@ public:
     virtual bool isTopMarginQuirk() const { return false; }
     virtual bool isBottomMarginQuirk() const { return false; }
     virtual short maxTopMargin(bool positive) const
-    { return positive ? qMax( int( marginTop() ), 0 ) : - qMin( int( marginTop() ), 0 ); }
+    { return positive ? std::max( int( marginTop() ), 0 ) : - std::min( int( marginTop() ), 0 ); }
     virtual short maxBottomMargin(bool positive) const
-    { return positive ? qMax( int( marginBottom() ), 0 ) : - qMin( int( marginBottom() ), 0 ); }
+    { return positive ? std::max( int( marginBottom() ), 0 ) : - std::min( int( marginBottom() ), 0 ); }
 
     virtual short marginTop() const { return 0; }
     virtual short marginBottom() const { return 0; }

@@ -635,7 +635,7 @@ unsigned CachedFontInstance::calcAndCacheWidth(unsigned short codePoint)
 	row = rows[rowNum] = new RowInfo();
 
     unsigned width = fm.width(QChar(codePoint));
-    return (row->widths[codePoint & 0xFF] = qMin(width, 0xFFu));
+    return (row->widths[codePoint & 0xFF] = std::min(width, 0xFFu));
 }
 
 void Font::update(int logicalDpiY) const
@@ -652,7 +652,7 @@ void Font::update(int logicalDpiY) const
         // lets see if we find a nice looking font, which is not too far away
         // from the requested one.
         // kDebug(6080) << "khtml::setFontSize family = " << f.family() << " size requested=" << size;
-        const float toPix = qMax(logicalDpiY, 96) / 72.0f;
+        const float toPix = std::max(logicalDpiY, 96) / 72.0f;
 
         float diff = 1; // ### 100% deviation
         float bestSize = 0;
@@ -678,7 +678,7 @@ void Font::update(int logicalDpiY) const
 
     // make sure we don't bust up X11
     // Also, Qt does not support sizing a QFont to zero.
-    size = qMax(1, qMin(255, size));
+    size = std::max(1, std::min(255, size));
 
 //       qDebug("setting font to %s, italic=%d, weight=%d, size=%d", fontDef.family.toLatin1().constData(), fontDef.italic,
 //    	   fontDef.weight, size );
@@ -692,7 +692,7 @@ void Font::update(int logicalDpiY) const
 
     if ( fontDef.smallCaps ) {
 	scFont = new QFont( cfi->f );
-	scFont->setPixelSize( qMax(1, cfi->f.pixelSize()*7/10) );
+	scFont->setPixelSize( std::max(1, cfi->f.pixelSize()*7/10) );
     }
 }
 

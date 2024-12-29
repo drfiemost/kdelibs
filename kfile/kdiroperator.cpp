@@ -938,8 +938,8 @@ void KDirOperator::setIconsZoom(int _value)
     }
 
     int value = _value;
-    value = qMin(100, value);
-    value = qMax(0, value);
+    value = std::min(100, value);
+    value = std::max(0, value);
 
     d->iconsZoom = value;
 

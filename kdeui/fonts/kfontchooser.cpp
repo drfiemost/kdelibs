@@ -58,7 +58,7 @@ static int minimumListWidth( const QListWidget *list )
         int itemWidth = list->visualItemRect(list->item(i)).width();
         // ...and add a space on both sides for not too tight look.
         itemWidth += list->fontMetrics().width(' ') * 2;
-        w = qMax(w,itemWidth);
+        w = std::max(w,itemWidth);
     }
     if( w == 0 ) { w = 40; }
     w += list->frameWidth() * 2;
@@ -815,8 +815,8 @@ int KFontChooser::Private::nearestSizeRow (qreal val, bool customize)
     int row = 0;
     for (int r = 0; r < sizeListBox->count(); ++r) {
         qreal cval = KGlobal::locale()->readNumber(sizeListBox->item(r)->text());
-        if (qAbs(cval - val) < diff) {
-            diff = qAbs(cval - val);
+        if (std::abs(cval - val) < diff) {
+            diff = std::abs(cval - val);
             row = r;
         }
     }

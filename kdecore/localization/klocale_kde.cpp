@@ -1737,7 +1737,7 @@ QString KLocalePrivate::formatByteSize(double size, int precision, KLocale::Bina
     // If a specific unit conversion is given, use it directly.  Otherwise
     // search until the result is in [0, multiplier) (or out of our range).
     if (specificUnit == KLocale::DefaultBinaryUnits) {
-        while (qAbs(size) >= multiplier && unit < (int) KLocale::UnitYottaByte) {
+        while (std::abs(size) >= multiplier && unit < (int) KLocale::UnitYottaByte) {
             size /= multiplier;
             unit++;
         }
@@ -2145,7 +2145,7 @@ static void stripStringAndPreceedingSeparator(QString &inout, const QLatin1Strin
         curPos--;
     }
 
-    remPos = qMax(curPos + 1, 0);
+    remPos = std::max(curPos + 1, 0);
     inout.remove(remPos, endPos - remPos);
 }
 

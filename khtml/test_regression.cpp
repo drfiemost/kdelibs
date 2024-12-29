@@ -198,7 +198,7 @@ public:
         {
             const QStyleOptionComboBox* cbOpt = qstyleoption_cast<const QStyleOptionComboBox*>(option);
 			Q_UNUSED(cbOpt); // is 'cbOpt' needed at all here?
-            return QSize(qMax(43, size.width() + 6), size.height());
+            return QSize(std::max(43, size.width() + 6), size.height());
         }
         default:
             return size;
@@ -1210,7 +1210,7 @@ QImage RegressionTest::renderToImage()
             QImage chunk = m_paintBuffer->toImage();
             assert( chunk.depth() == 32 );
             for ( int y = 0; y < 128 && py + y < eh; ++y )
-                memcpy( img.scanLine( py+y ) + px*4, chunk.scanLine( y ), qMin( 512, ew-px )*4 );
+                memcpy( img.scanLine( py+y ) + px*4, chunk.scanLine( y ), std::min( 512, ew-px )*4 );
         }
     }
 

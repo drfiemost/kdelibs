@@ -573,7 +573,7 @@ QRegion HTMLAreaElementImpl::getRegion(int width_, int height_) const
         region = QRegion(points);
     }
     else if ((shape==Circle && m_coordsLen>=3) || (shape==Unknown && m_coordsLen == 3)) {
-        int r = qMin(m_coords[2].minWidth(width_), m_coords[2].minWidth(height_));
+        int r = std::min(m_coords[2].minWidth(width_), m_coords[2].minWidth(height_));
         region = QRegion(m_coords[0].minWidth(width_)-r,
                          m_coords[1].minWidth(height_)-r, 2*r, 2*r,QRegion::Ellipse);
     }
@@ -582,9 +582,9 @@ QRegion HTMLAreaElementImpl::getRegion(int width_, int height_) const
         int y0 = m_coords[1].minWidth(height_);
         int x1 = m_coords[2].minWidth(width_);
         int y1 = m_coords[3].minWidth(height_);
-        // use qMin () and qAbs () to make sure that this works for any pair
+        // use std::min () and std::abs () to make sure that this works for any pair
         // of opposite corners (x0,y0) and (x1,y1)
-        region = QRegion(qMin(x0,x1),qMin(y0,y1),qAbs(x1-x0),qAbs(y1-y0));
+        region = QRegion(std::min(x0,x1),std::min(y0,y1),std::abs(x1-x0),std::abs(y1-y0));
     }
     else if (shape==Default)
         region = QRegion(0,0,width_,height_);

@@ -32,7 +32,7 @@ GrowAnimation::GrowAnimation(QObject *parent, qreal factor)
 
 void GrowAnimation::setFactor(const qreal factor)
 {
-    m_animFactor = qMax(qreal(0.0), factor);
+    m_animFactor = std::max(qreal(0.0), factor);
 }
 
 qreal GrowAnimation::factor() const

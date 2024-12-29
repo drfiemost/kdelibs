@@ -118,7 +118,7 @@ inline static void blurHorizontal(QImage &image, unsigned int *stack, int div, i
 
         for (int i = 1; i <= radius; i++)
         {
-            pixel = pixels[yw + qMin(i, wm)];
+            pixel = pixels[yw + std::min(i, wm)];
 
             unsigned int *stackpix = &stack[i + radius];
             *stackpix = qAlpha(pixel);
@@ -142,7 +142,7 @@ inline static void blurHorizontal(QImage &image, unsigned int *stack, int div, i
 
             sum_out -= *stackpix;
 
-            pixel = pixels[yw + qMin(x + radius + 1, wm)];
+            pixel = pixels[yw + std::min(x + radius + 1, wm)];
 
             *stackpix = qAlpha(pixel);
 
@@ -194,7 +194,7 @@ inline static void blurVertical(QImage &image, unsigned int *stack, int div, int
 
         for (int i = 1; i <= radius; i++)
         {
-            pixel = pixels[qMin(i, hm) * w + x];
+            pixel = pixels[std::min(i, hm) * w + x];
 
             unsigned int *stackpix = &stack[i + radius];
             *stackpix = qAlpha(pixel);
@@ -218,7 +218,7 @@ inline static void blurVertical(QImage &image, unsigned int *stack, int div, int
 
             sum_out -= *stackpix;
 
-            pixel = pixels[qMin(y + radius + 1, hm) * w + x];
+            pixel = pixels[std::min(y + radius + 1, hm) * w + x];
 
             *stackpix = qAlpha(pixel);
 

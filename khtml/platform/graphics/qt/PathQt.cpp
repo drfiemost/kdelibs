@@ -158,7 +158,7 @@ void Path::addArc(const FloatPoint& p, float r, float sar, float ear, bool antic
     // this is also due to switched coordinate system
     // we would end up with a 0 span instead of 360
     if (!(qFuzzyCompare(span + (ea - sa), 0.0) &&
-          qFuzzyCompare(qAbs(span), 360.0))) {
+          qFuzzyCompare(std::abs(span), 360.0))) {
         span += ea - sa;
     }
 

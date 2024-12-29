@@ -185,16 +185,16 @@ void KNumInput::layout(bool deep)
     KNumInput* p = d->previousNumInput;
     while (p) {
         p->doLayout();
-        w1 = qMax(w1, p->d->column1Width);
-        w2 = qMax(w2, p->d->column2Width);
+        w1 = std::max(w1, p->d->column1Width);
+        w2 = std::max(w2, p->d->column2Width);
         p = p->d->previousNumInput;
     }
 
     p = d->nextNumInput;
     while (p) {
         p->doLayout();
-        w1 = qMax(w1, p->d->column1Width);
-        w2 = qMax(w2, p->d->column2Width);
+        w1 = std::max(w1, p->d->column1Width);
+        w2 = std::max(w2, p->d->column2Width);
         p = p->d->nextNumInput;
     }
 
@@ -387,7 +387,7 @@ void KIntNumInput::init(int val, int _base)
 void KIntNumInput::setReferencePoint(int ref)
 {
     // clip to valid range:
-    ref = qMin(maximum(), qMax(minimum(),  ref));
+    ref = std::min(maximum(), std::max(minimum(),  ref));
     d->referencePoint = ref;
 }
 
@@ -436,7 +436,7 @@ void KIntNumInput::setSliderEnabled(bool slider)
         const int major = calcDiffByTen(d->intSpinBox->maximum(), d->intSpinBox->minimum());
 
         priv->slider->setSingleStep(d->intSpinBox->singleStep());
-        priv->slider->setPageStep(qMax(1, major));
+        priv->slider->setPageStep(std::max(1, major));
         priv->slider->setTickInterval(major);
     } else {
         if (priv->slider) {
@@ -551,21 +551,21 @@ QSize KIntNumInput::minimumSizeHint() const
     int w;
     int h;
 
-    h = qMax(d->intSpinBoxSize.height(), priv->sliderSize.height());
+    h = std::max(d->intSpinBoxSize.height(), priv->sliderSize.height());
 
     // if in extra row, then count it here
     if (priv->label && (priv->labelAlignment & (Qt::AlignBottom | Qt::AlignTop))) {
         h += 4 + priv->labelSize.height();
     } else {
         // label is in the same row as the other widgets
-        h = qMax(h, priv->labelSize.height() + 2);
+        h = std::max(h, priv->labelSize.height() + 2);
     }
 
     w = priv->slider ? priv->slider->sizeHint().width() + KDialog::spacingHint() : 0;
     w += priv->column1Width + priv->column2Width;
 
     if (priv->labelAlignment & (Qt::AlignTop | Qt::AlignBottom)) {
-        w = qMax(w, priv->labelSize.width() + 4);
+        w = std::max(w, priv->labelSize.width() + 4);
     }
 
     return QSize(w, h);
@@ -600,7 +600,7 @@ void KIntNumInput::resizeEvent(QResizeEvent* e)
     }
 
     if (qApp->layoutDirection() == Qt::RightToLeft) {
-        d->intSpinBox->setGeometry(w, h, priv->slider ? priv->column2Width : qMax(priv->column2Width, e->size().width() - w), d->intSpinBoxSize.height());
+        d->intSpinBox->setGeometry(w, h, priv->slider ? priv->column2Width : std::max(priv->column2Width, e->size().width() - w), d->intSpinBoxSize.height());
         w += priv->column2Width + KDialog::spacingHint();
 
         if (priv->slider) {
@@ -610,7 +610,7 @@ void KIntNumInput::resizeEvent(QResizeEvent* e)
         priv->slider->setGeometry(w, h, e->size().width() - (w + priv->column2Width + KDialog::spacingHint()), d->intSpinBoxSize.height() + KDialog::spacingHint());
         d->intSpinBox->setGeometry(w + priv->slider->size().width() + KDialog::spacingHint(), h, priv->column2Width, d->intSpinBoxSize.height());
     } else {
-        d->intSpinBox->setGeometry(w, h, qMax(priv->column2Width, e->size().width() - w), d->intSpinBoxSize.height());
+        d->intSpinBox->setGeometry(w, h, std::max(priv->column2Width, e->size().width() - w), d->intSpinBoxSize.height());
     }
 
     h += d->intSpinBoxSize.height() + 2;
@@ -813,21 +813,21 @@ QSize KDoubleNumInput::minimumSizeHint() const
     int w;
     int h;
 
-    h = qMax(d->editSize.height(), priv->sliderSize.height());
+    h = std::max(d->editSize.height(), priv->sliderSize.height());
 
     // if in extra row, then count it here
     if (priv->label && (priv->labelAlignment & (Qt::AlignBottom | Qt::AlignTop))) {
         h += 4 + priv->labelSize.height();
     } else {
         // label is in the same row as the other widgets
-        h = qMax(h, priv->labelSize.height() + 2);
+        h = std::max(h, priv->labelSize.height() + 2);
     }
 
     w = priv->slider ? priv->slider->sizeHint().width() + KDialog::spacingHint() : 0;
     w += priv->column1Width + priv->column2Width;
 
     if (priv->labelAlignment & (Qt::AlignTop | Qt::AlignBottom)) {
-        w = qMax(w, priv->labelSize.width() + 4);
+        w = std::max(w, priv->labelSize.width() + 4);
     }
 
     return QSize(w, h);
@@ -899,7 +899,7 @@ void KDoubleNumInput::setRelativeValue(double r)
 void KDoubleNumInput::setReferencePoint(double ref)
 {
     // clip to valid range:
-    ref = qMin(maximum(), qMax(minimum(), ref));
+    ref = std::min(maximum(), std::max(minimum(), ref));
     d->referencePoint = ref;
 }
 

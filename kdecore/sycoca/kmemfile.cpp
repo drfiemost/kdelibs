@@ -225,7 +225,7 @@ qint64 KMemFile::readData ( char * data, qint64 maxSize )
     return -1;
 
   qint64 maxRead = size() - d->readWritePos;
-  qint64 bytesToRead = qMin ( maxRead, maxSize );
+  qint64 bytesToRead = std::min ( maxRead, maxSize );
   const char *src = static_cast<const char*> ( d->shmData.data() );
   memcpy ( data, &src[d->readWritePos], bytesToRead );
   d->readWritePos += bytesToRead;

@@ -98,7 +98,7 @@ bool SmartCursor::advance(int distance, AdvanceMode mode)
       int lineLength = document()->lineLength(c.line());
 
       if (distance > 0) {
-        int advance = qMin(lineLength - c.column(), distance);
+        int advance = std::min(lineLength - c.column(), distance);
 
         if (distance > advance) {
           if (c.line() + 1 >= document()->lines())
@@ -114,7 +114,7 @@ bool SmartCursor::advance(int distance, AdvanceMode mode)
         }
 
       } else {
-        int back = qMin(c.column(), -distance);
+        int back = std::min(c.column(), -distance);
         if (-distance > back) {
           if (c.line() - 1 < 0)
             return false;

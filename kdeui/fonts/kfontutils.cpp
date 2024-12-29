@@ -42,7 +42,7 @@ qreal KFontUtils::adaptFontSize(QPainter &painter, const QString &string, qreal 
         if (boundingRect.width() == 0 || boundingRect.height() == 0) {
             return -1;
         } else if (boundingRect.width() > width || boundingRect.height() > height) {
-            size = qMin(width * size / boundingRect.width(), height * size / boundingRect.height());
+            size = std::min(width * size / boundingRect.width(), height * size / boundingRect.height());
         } else {
             done = true;
         }

@@ -287,7 +287,7 @@ float KShapeGesture::distance(const KShapeGesture &other, float abortThreshold) 
         position = desiredPosition;
 
         //set up upper bound of search interval on other shape
-        desiredPosition = qMin(oposition + other.d->m_curveLength / 15.00005,
+        desiredPosition = std::min(oposition + other.d->m_curveLength / 15.00005,
                                other.d->m_curveLength - 0.0001);
         if (i == 0 || desiredPosition > o_lengthTo[opointIndexB+1]) {
 
@@ -352,7 +352,7 @@ float KShapeGesture::distance(const KShapeGesture &other, float abortThreshold) 
                 dist = metric(ox-x, oy-y);
             }
         }
-        retval += qMin(dist, distB);
+        retval += std::min(dist, distB);
     }
     //scale value to make it roughly invariant against step width
     return retval / 30.0;

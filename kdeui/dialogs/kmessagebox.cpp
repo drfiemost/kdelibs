@@ -248,7 +248,7 @@ int KMessageBox::createKMessageBox(KDialog *dialog, const QIcon &icon,
         QFontMetrics fm(styleOption.font);
         int w = listWidget->width();
         Q_FOREACH(const QString &str, strlist) {
-            w = qMax(w, fm.width(str));
+            w = std::max(w, fm.width(str));
         }
         const int borderWidth = listWidget->width() - listWidget->viewport()->width() + listWidget->verticalScrollBar()->height();
         w += borderWidth;
@@ -303,9 +303,9 @@ int KMessageBox::createKMessageBox(KDialog *dialog, const QIcon &icon,
     else if (!details.isEmpty() && dialog->minimumHeight()<iconLabel->sizeHint().height()*2)//strange bug...
     {
         if (!usingScrollArea)
-            dialog->setMinimumSize(300,qMax(150,qMax(iconLabel->sizeHint().height(),messageLabel->sizeHint().height())));
+            dialog->setMinimumSize(300,std::max(150,std::max(iconLabel->sizeHint().height(),messageLabel->sizeHint().height())));
         else
-            dialog->setMinimumSize(300,qMax(150,iconLabel->sizeHint().height()));
+            dialog->setMinimumSize(300,std::max(150,iconLabel->sizeHint().height()));
     }
 
 

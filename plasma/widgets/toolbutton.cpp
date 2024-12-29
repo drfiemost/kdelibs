@@ -81,7 +81,7 @@ public:
             //QPainter p(&pm);
             if (!svgElement.isNull() && svg->hasElement(svgElement)) {
                 QSizeF elementSize = svg->elementSize(svgElement);
-                float scale = pm.width() / qMax(elementSize.width(), elementSize.height());
+                float scale = pm.width() / std::max(elementSize.width(), elementSize.height());
 
                 svg->resize(svg->size() * scale);
                 pm = svg->pixmap(svgElement);
@@ -360,7 +360,7 @@ void ToolButton::paint(QPainter *painter,
             QPainter bufferPainter(&buffer);
             bufferPainter.setCompositionMode(QPainter::CompositionMode_DestinationIn);
             QColor alphaColor(Qt::black);
-            alphaColor.setAlphaF(qMin(qreal(0.95), d->opacity));
+            alphaColor.setAlphaF(std::min(qreal(0.95), d->opacity));
             bufferPainter.fillRect(buffer.rect(), alphaColor);
             bufferPainter.end();
 

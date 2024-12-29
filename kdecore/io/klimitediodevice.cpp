@@ -54,14 +54,14 @@ qint64 KLimitedIODevice::size() const
 
 qint64 KLimitedIODevice::readData( char * data, qint64 maxlen )
 {
-    maxlen = qMin( maxlen, m_length - pos() ); // Apply upper limit
+    maxlen = std::min( maxlen, m_length - pos() ); // Apply upper limit
     return m_dev->read( data, maxlen );
 }
 
 bool KLimitedIODevice::seek( qint64 pos )
 {
     Q_ASSERT( pos <= m_length );
-    pos = qMin( pos, m_length ); // Apply upper limit
+    pos = std::min( pos, m_length ); // Apply upper limit
     bool ret = m_dev->seek( m_start + pos );
     if ( ret ) {
         QIODevice::seek( pos );

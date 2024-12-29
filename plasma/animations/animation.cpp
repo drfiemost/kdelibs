@@ -56,7 +56,7 @@ int Animation::duration() const
 
 void Animation::setDuration(int duration)
 {
-    d->duration = qMax(0, duration);
+    d->duration = std::max(0, duration);
 }
 
 void Animation::setTargetWidget(QGraphicsWidget* widget)

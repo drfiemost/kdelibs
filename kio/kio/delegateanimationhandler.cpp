@@ -106,12 +106,12 @@ bool AnimationState::update()
 
     if (direction == QTimeLine::Forward)
     {
-        progress = qMin(qreal(1.0), progress + delta);
+        progress = std::min(qreal(1.0), progress + delta);
         animating = (progress < 1.0);
     }
     else
     {
-        progress = qMax(qreal(0.0), progress - delta);
+        progress = std::max(qreal(0.0), progress - delta);
         animating = (progress > 0.0);
     }
 
@@ -119,7 +119,7 @@ bool AnimationState::update()
     if (fadeFromRenderCache)
     {
         //Icon fading goes always forwards
-        m_fadeProgress = qMin(qreal(1.0), m_fadeProgress + delta);
+        m_fadeProgress = std::min(qreal(1.0), m_fadeProgress + delta);
         animating |= (m_fadeProgress < 1.0);
         if (m_fadeProgress == 1)
             setCachedRenderingFadeFrom(0);

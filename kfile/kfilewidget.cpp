@@ -2041,7 +2041,7 @@ void KFileWidgetPrivate::_k_activateUrlNavigator()
 void KFileWidgetPrivate::_k_zoomOutIconsSize()
 {
     const int currValue = ops->iconsZoom();
-    const int futValue = qMax(0, currValue - 10);
+    const int futValue = std::max(0, currValue - 10);
     iconSizeSlider->setValue(futValue);
     _k_slotIconSizeSliderMoved(futValue);
 }
@@ -2049,7 +2049,7 @@ void KFileWidgetPrivate::_k_zoomOutIconsSize()
 void KFileWidgetPrivate::_k_zoomInIconsSize()
 {
     const int currValue = ops->iconsZoom();
-    const int futValue = qMin(100, currValue + 10);
+    const int futValue = std::min(100, currValue + 10);
     iconSizeSlider->setValue(futValue);
     _k_slotIconSizeSliderMoved(futValue);
 }

@@ -742,7 +742,7 @@ QString kRealBacktrace(int levels)
     char** strings = backtrace_symbols (trace, n);
 
     if ( levels != -1 )
-        n = qMin( n, levels );
+        n = std::min( n, levels );
     s = QLatin1String("[\n");
 
     for (int i = 0; i < n; ++i)

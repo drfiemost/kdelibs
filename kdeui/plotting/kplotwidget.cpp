@@ -417,7 +417,7 @@ void KPlotWidget::maskRect( const QRectF& rf, float fvalue ) {
         for ( int iy=r.top(); iy<r.bottom(); ++iy ) {
             newColor = QColor( d->plotMask.pixel(ix,iy) );
             newColor.setAlpha( 200 );
-            newColor.setRed( qMin( newColor.red() + value, 255 ) );
+            newColor.setRed( std::min( newColor.red() + value, 255 ) );
             d->plotMask.setPixel( ix, iy, newColor.rgba() );
         }
     }
@@ -450,7 +450,7 @@ void KPlotWidget::maskAlongLine( const QPointF &p1, const QPointF &p2, float fva
             if ( d->pixRect.contains( x, y ) ) {
                 newColor = QColor( d->plotMask.pixel(x,y) );
                 newColor.setAlpha( 100 );
-                newColor.setRed( qMin( newColor.red() + value, 255 ) );
+                newColor.setRed( std::min( newColor.red() + value, 255 ) );
                 d->plotMask.setPixel( x, y, newColor.rgba() );
             }
         }
@@ -468,7 +468,7 @@ void KPlotWidget::maskAlongLine( const QPointF &p1, const QPointF &p2, float fva
             if ( d->pixRect.contains( x, y ) ) {
                 newColor = QColor( d->plotMask.pixel(x,y) );
                 newColor.setAlpha( 100 );
-                newColor.setRed( qMin( newColor.red() + value, 255 ) );
+                newColor.setRed( std::min( newColor.red() + value, 255 ) );
                 d->plotMask.setPixel( x, y, newColor.rgba() );
             }
         }

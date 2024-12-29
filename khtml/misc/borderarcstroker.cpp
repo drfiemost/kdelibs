@@ -264,7 +264,7 @@ qreal KCubicBezier::tAtLength(qreal l) const
         const qreal t = lowerT + (upperT - lowerT) / 2;
         const qreal len = leftSection(t).length();
 
-        if (qAbs(l - len) < error)
+        if (std::abs(l - len) < error)
             return t;
 
         if (l > len)
@@ -345,7 +345,7 @@ QPainterPath BorderArcStroker::createStroke(qreal *nextOffset) const
     innerPath.arcTo(innerRect, angle, sweepLength);
     outerPath.arcTo(outerRect, angle, sweepLength);
 
-    Q_ASSERT(qAbs(sweepLength) <= 90);
+    Q_ASSERT(std::abs(sweepLength) <= 90);
     Q_ASSERT(innerPath.elementCount() == 4 && outerPath.elementCount() == 4);
 
     const KCubicBezier inner(innerPath.elementAt(0), innerPath.elementAt(1), innerPath.elementAt(2), innerPath.elementAt(3));
@@ -362,7 +362,7 @@ QPainterPath BorderArcStroker::createStroke(qreal *nextOffset) const
     else
         initialWidth = sweepLength > 0 ? vlw : hlw;
 
-    const qreal finalWidth = qMax(qreal(0.1), QLineF(outer.p3(), inner.p3()).length());
+    const qreal finalWidth = std::max(qreal(0.1), QLineF(outer.p3(), inner.p3()).length());
     const qreal dashAspect  = (pattern[0] / initialWidth);
     const qreal spaceAspect = (pattern[1] / initialWidth);
     const qreal length = inner.length();

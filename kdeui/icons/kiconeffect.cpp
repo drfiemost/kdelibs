@@ -810,7 +810,7 @@ void KIconEffect::overlay(QImage &src, QImage &overlay)
 		r2 = (a1 * r1 + (0xff - a1) * r2) >> 8;
 		g2 = (a1 * g1 + (0xff - a1) * g2) >> 8;
 		b2 = (a1 * b1 + (0xff - a1) * b2) >> 8;
-		a2 = qMax(a1, a2);
+		a2 = std::max(a1, a2);
 
 		sline[j] = qRgba(r2, g2, b2, a2);
 	    }

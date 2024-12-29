@@ -444,10 +444,10 @@ void KMainWindow::parseGeometry(bool parsewidth)
             w = width();
         if ( !(m & HeightValue) )
             h = height();
-         w = qMin(w,maxSize.width());
-         h = qMin(h,maxSize.height());
-         w = qMax(w,minSize.width());
-         h = qMax(h,minSize.height());
+         w = std::min(w,maxSize.width());
+         h = std::min(h,maxSize.height());
+         w = std::max(w,minSize.width());
+         h = std::max(h,minSize.height());
          resize(w, h);
     } else {
         if ( (m & XNegative) )

@@ -127,7 +127,7 @@ QueryMatch::Type QueryMatch::type() const
 
 void QueryMatch::setRelevance(qreal relevance)
 {
-    d->relevance = qMax(qreal(0.0), relevance);
+    d->relevance = std::max(qreal(0.0), relevance);
 }
 
 qreal QueryMatch::relevance() const

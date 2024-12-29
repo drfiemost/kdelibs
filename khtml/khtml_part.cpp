@@ -2452,7 +2452,7 @@ void KHTMLPart::checkCompleted()
     if ( parentPart() == 0 ) {
       //kDebug(6050) << this << " starting redirection timer";
       d->m_redirectionTimer.setSingleShot( true );
-      d->m_redirectionTimer.start( qMax(0, 1000 * d->m_delayRedirect) );
+      d->m_redirectionTimer.start( std::max(0, 1000 * d->m_delayRedirect) );
     } else {
       //kDebug(6050) << this << " not toplevel -> not starting redirection timer. Waiting for slotParentCompleted.";
     }
@@ -2480,7 +2480,7 @@ void KHTMLPart::checkCompleted()
   d->m_paUseStylesheet->setEnabled( sheets.count() > 2);
   if (sheets.count() > 2)
   {
-    d->m_paUseStylesheet->setCurrentItem(qMax(sheets.indexOf(d->m_sheetUsed), 0));
+    d->m_paUseStylesheet->setCurrentItem(std::max(sheets.indexOf(d->m_sheetUsed), 0));
     slotUseStylesheet();
   }
 
@@ -2580,7 +2580,7 @@ void KHTMLPart::scheduleRedirection( int delay, const QString &url, bool doLockH
     if ( d->m_bComplete ) {
       d->m_redirectionTimer.stop();
       d->m_redirectionTimer.setSingleShot( true );
-      d->m_redirectionTimer.start( qMax(0, 1000 * d->m_delayRedirect) );
+      d->m_redirectionTimer.start( std::max(0, 1000 * d->m_delayRedirect) );
     }
   }
 }
@@ -4997,7 +4997,7 @@ void KHTMLPart::slotParentCompleted()
   {
     //kDebug(6050) << this << ": starting timer for child redirection -> " << d->m_redirectURL;
     d->m_redirectionTimer.setSingleShot( true );
-    d->m_redirectionTimer.start( qMax(0, 1000 * d->m_delayRedirect) );
+    d->m_redirectionTimer.start( std::max(0, 1000 * d->m_delayRedirect) );
   }
 }
 

@@ -112,7 +112,7 @@ void PixmapPlane::paint(int dx, int dy, QPainter* p,
                 //Draw it, if there is anything (note: Qt would interpret 0 as everything)
                 if (h)
                     p->drawPixmap(paintX, paintY, *tile.pixmap, startX, startY,
-                                  paintWidth, qMin(h, paintHeight));
+                                  paintWidth, std::min(h, paintHeight));
             }
             paintX += paintWidth;
         }

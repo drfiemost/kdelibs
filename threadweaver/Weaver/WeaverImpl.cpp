@@ -52,7 +52,7 @@ using namespace ThreadWeaver;
 WeaverImpl::WeaverImpl( QObject* parent )
     : WeaverInterface(parent)
     , m_active(0)
-    , m_inventoryMax( qMax(4, 2 * QThread::idealThreadCount() ) )
+    , m_inventoryMax( std::max(4, 2 * QThread::idealThreadCount() ) )
     , m_mutex ( new QMutex( QMutex::Recursive ) )
     , m_finishMutex( new QMutex )
     , m_jobAvailableMutex ( new QMutex )
@@ -211,7 +211,7 @@ void WeaverImpl::adjustInventory ( int numberOfNewJobs )
 
     if ( reserve > 0 )
     {
-        for ( int i = 0; i < qMin ( reserve,  numberOfNewJobs ); ++i )
+        for ( int i = 0; i < std::min ( reserve,  numberOfNewJobs ); ++i )
 	{
             Thread *th = createThread();
             th->moveToThread( th ); // be sane from the start

@@ -730,7 +730,7 @@ kDebug(6200) << "== recursive invocation end";
 
     } else if (box->isInlineTextBox()) {
 #if DEBUG_ACIB
-kDebug(6200) << "isinlinetextbox " << box << (box->object() ? QString(" contains \"%1\"").arg(QConstString(static_cast<RenderText *>(box->object())->str->s+box->minOffset(), qMin(box->maxOffset() - box->minOffset(), 15L)).string()) : QString());
+kDebug(6200) << "isinlinetextbox " << box << (box->object() ? QString(" contains \"%1\"").arg(QConstString(static_cast<RenderText *>(box->object())->str->s+box->minOffset(), std::min(box->maxOffset() - box->minOffset(), 15L)).string()) : QString());
 #endif
       caret_boxes.append(new CaretBox(box, false, false));
       sbp.check(preEnd());
@@ -867,7 +867,7 @@ CaretBoxLine *CaretBoxLine::constructCaretBoxLine(CaretBoxLineDeleter *deleter,
         if (!outsideEnd ^ rtl)
             _y -= fm.leading() / 2;
         else
-            _y += qMax(cb->height() - fm.ascent() - hl, 0);
+            _y += std::max(cb->height() - fm.ascent() - hl, 0);
     } else {
         _y += baseline - fm.ascent() - hl;
     }
@@ -999,7 +999,7 @@ static CaretBoxLine* findCaretBoxLine(DOM::NodeImpl *node, long offset,
     outside = false;	// text boxes cannot have outside positions
     InlineFlowBox *baseFlowBox = seekBaseFlowBox(b, base);
 #if DEBUG_CARETMODE > 2
-  kDebug(6200) << "text-box b: " << b << " baseFlowBox: " << baseFlowBox << (b && b->object() ? QString(" contains \"%1\"").arg(QConstString(static_cast<RenderText *>(b->object())->str->s+b->minOffset(), qMin(b->maxOffset() - b->minOffset(), 15L)).string()) : QString());
+  kDebug(6200) << "text-box b: " << b << " baseFlowBox: " << baseFlowBox << (b && b->object() ? QString(" contains \"%1\"").arg(QConstString(static_cast<RenderText *>(b->object())->str->s+b->minOffset(), std::min(b->maxOffset() - b->minOffset(), 15L)).string()) : QString());
 #endif
 #if 0
     if (t->containingBlock()->isListItem()) dumpLineBoxes(static_cast<RenderFlow *>(t->containingBlock()));
@@ -1356,7 +1356,7 @@ void LineIterator::nextBlock()
     int state;		// not used
     mapRenderPosToTraversalState(cb_outside, cb_outside_end, false, trav);
 #if DEBUG_CARETMODE > 1
-    kDebug(6200) << "nextBlock: before adv r" << r << ' ' << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, qMin(((RenderText *)r)->str->l,15)) + "\"" : QString()) << " trav " << trav << " cb_outside " << cb_outside << " cb_outside_end " << cb_outside_end;
+    kDebug(6200) << "nextBlock: before adv r" << r << ' ' << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, std::min(((RenderText *)r)->str->l,15)) + "\"" : QString()) << " trav " << trav << " cb_outside " << cb_outside << " cb_outside_end " << cb_outside_end;
 #endif
     r = advanceSuitableObject(r, trav, false, base, state);
     if (!r) {
@@ -1425,7 +1425,7 @@ void LineIterator::prevBlock()
     int state;		// not used
     mapRenderPosToTraversalState(cb_outside, cb_outside_end, true, trav);
 #if DEBUG_CARETMODE > 1
-    kDebug(6200) << "prevBlock: before adv r" << r << " " << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, qMin(((RenderText *)r)->str->l,15)) + "\"" : QString()) << " trav " << trav << " cb_outside " << cb_outside << " cb_outside_end " << cb_outside_end;
+    kDebug(6200) << "prevBlock: before adv r" << r << " " << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, std::min(((RenderText *)r)->str->l,15)) + "\"" : QString()) << " trav " << trav << " cb_outside " << cb_outside << " cb_outside_end " << cb_outside_end;
 #endif
     r = advanceSuitableObject(r, trav, true, base, state);
     if (!r) {
@@ -1646,7 +1646,7 @@ bool EditableCaretBoxIterator::isEditable(const CaretBoxIterator &boxit, bool fr
   RenderObject *r = b->object();
 #if DEBUG_CARETMODE > 0
 //  if (b->isInlineFlowBox()) kDebug(6200) << "b is inline flow box" << (outside ? " (outside)" : "");
-  kDebug(6200) << "isEditable r" << r << ": " << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, qMin(((RenderText *)r)->str->l,15)) + "\"" : QString());
+  kDebug(6200) << "isEditable r" << r << ": " << (r ? r->renderName() : QString()) << (r && r->isText() ? " contains \"" + QString(((RenderText *)r)->str->s, std::min(((RenderText *)r)->str->l,15)) + "\"" : QString());
 #endif
   // Must check caret mode or design mode *after* r->element(), otherwise
   // lines without a backing DOM node get regarded, leading to a crash.
@@ -2637,7 +2637,7 @@ static void moveIteratorByPage(LinearDocument &ld,
       kDebug(6200) << "absdiff " << diff;
 #endif
     } else {
-      diff = qAbs(fby - lastfby);
+      diff = std::abs(fby - lastfby);
     }/*end if*/
 #if DEBUG_CARETMODE > 2
     kDebug(6200) << "cbl->begin().data()->yPos(): " << fby << " diff " << diff;
@@ -2645,7 +2645,7 @@ static void moveIteratorByPage(LinearDocument &ld,
 
     mindist -= diff;
 
-    lastheight = qAbs(fby - lastfby);
+    lastheight = std::abs(fby - lastfby);
     lastfby = fby;
     lastcb = cb;
     it = copy;

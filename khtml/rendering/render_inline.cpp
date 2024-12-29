@@ -451,7 +451,7 @@ static void collectHorizontalBoxCoordinates(InlineBox *box,
               l2 = y;
             else
               l2 = limit;
-            collectHorizontalBoxCoordinates(b, pointArray, bottom, qAbs(offset), l2);
+            collectHorizontalBoxCoordinates(b, pointArray, bottom, std::abs(offset), l2);
         }
 
         // Add intersection point if flow box contained any children
@@ -502,7 +502,7 @@ static void collectVerticalBoxCoordinates(InlineRunBox *line,
     for (InlineRunBox* curr = line; curr && !last; curr = left ? curr->prevLineBox() : curr->nextLineBox()) {
         InlineBox *root = curr;
 
-        bool isLast = lineBoxesDisjoint(curr, qAbs(offset), left);
+        bool isLast = lineBoxesDisjoint(curr, std::abs(offset), left);
         if (isLast) last = curr;
 
         if (root != line && !isLast)
@@ -512,9 +512,9 @@ static void collectVerticalBoxCoordinates(InlineRunBox *line,
         if (!pointArray.isEmpty()) {
             QPoint lastPnt = pointArray.back();
             if (newPnt.x()>lastPnt.x() && !left)
-                pointArray.back().setY( qMin(lastPnt.y(), root->topOverflow()-offset) );
+                pointArray.back().setY( std::min(lastPnt.y(), root->topOverflow()-offset) );
             else if (newPnt.x()<lastPnt.x() && left)
-                pointArray.back().setY( qMax(lastPnt.y(), root->bottomOverflow()+offset) );
+                pointArray.back().setY( std::max(lastPnt.y(), root->bottomOverflow()+offset) );
             QPoint insPnt(newPnt.x(), pointArray.back().y());
 //         kDebug(6040) << "left: " << lastPnt << " == " << insPnt << ": " << (insPnt == lastPnt);
             appendPoint(pointArray, insPnt);
@@ -972,7 +972,7 @@ inline int minXPos(const RenderInline *o)
     int retval=6666666;
     if (!o->firstLineBox()) return 0;
     for (InlineRunBox* curr = o->firstLineBox(); curr; curr = curr->nextLineBox())
-        retval = qMin( retval, int( curr->m_x ));
+        retval = std::min( retval, int( curr->m_x ));
     return retval;
 }
 

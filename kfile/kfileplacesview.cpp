@@ -131,7 +131,7 @@ QSize KFilePlacesViewDelegate::sizeHint(const QStyleOptionViewItem &option,
     const KFilePlacesModel *filePlacesModel = static_cast<const KFilePlacesModel*>(index.model());
     Solid::Device device = filePlacesModel->deviceForIndex(index);
 
-    return QSize(option.rect.width(), option.fontMetrics.height() / 2 + qMax(iconSize, option.fontMetrics.height()));
+    return QSize(option.rect.width(), option.fontMetrics.height() / 2 + std::max(iconSize, option.fontMetrics.height()));
 }
 
 void KFilePlacesViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -889,7 +889,7 @@ QSize KFilePlacesView::sizeHint() const
     for (int i=0; i<placesModel->rowCount(); ++i) {
         QModelIndex index = placesModel->index(i, 0);
         if (!placesModel->isHidden(index))
-           textWidth = qMax(textWidth,fm.width(index.data(Qt::DisplayRole).toString()));
+           textWidth = std::max(textWidth,fm.width(index.data(Qt::DisplayRole).toString()));
     }
 
     const int iconSize = KIconLoader::global()->currentSize(KIconLoader::Small) + 3 * LATERAL_MARGIN;
@@ -955,14 +955,14 @@ void KFilePlacesView::Private::adaptItemSize()
         QModelIndex index = placesModel->index(i, 0);
 
         if (!placesModel->isHidden(index))
-           textWidth = qMax(textWidth,fm.width(index.data(Qt::DisplayRole).toString()));
+           textWidth = std::max(textWidth,fm.width(index.data(Qt::DisplayRole).toString()));
     }
 
     const int margin = q->style()->pixelMetric(QStyle::PM_FocusFrameHMargin, 0, q) + 1;
     const int maxWidth = q->viewport()->width() - textWidth - 4 * margin - 1;
     const int maxHeight = ((q->height() - (fm.height() / 2) * rowCount) / rowCount) - 1;
 
-    int size = qMin(maxHeight, maxWidth);
+    int size = std::min(maxHeight, maxWidth);
 
     if (size<minSize) {
         size = minSize;

@@ -261,7 +261,7 @@ void RLEData::write(QDataStream& s)
 bool RLEData::operator<(const RLEData& b) const
 {
     uchar ac, bc;
-    for (int i = 0; i < qMin(size(), b.size()); i++) {
+    for (int i = 0; i < std::min(size(), b.size()); i++) {
         ac = at(i);
         bc = b[i];
         if (ac != bc)

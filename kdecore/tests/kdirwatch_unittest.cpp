@@ -170,7 +170,7 @@ void KDirWatch_UnitTest::waitUntilMTimeChange(const QString& path)
     // otherwise this change will go unnoticed
     KDE_struct_stat stat_buf;
     QCOMPARE(KDE::stat(path, &stat_buf), 0);
-    const time_t ctime = qMax(stat_buf.st_ctime, stat_buf.st_mtime);
+    const time_t ctime = std::max(stat_buf.st_ctime, stat_buf.st_mtime);
     waitUntilAfter(ctime);
 }
 

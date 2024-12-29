@@ -265,11 +265,11 @@ void RenderCanvas::updateDocumentSize()
 
         if (!vss && m_width - vsPixSize == viewport.width() &&
             hDocW <= m_width)
-            hDocW = qMin( hDocW, viewport.width() );
+            hDocW = std::min( hDocW, viewport.width() );
 
         if (!hss && m_height - hsPixSize == viewport.height() &&
             hDocH <= m_height)
-            hDocH = qMin( hDocH, viewport.height() );
+            hDocH = std::min( hDocH, viewport.height() );
 
         // likewise, if a scrollbar is shown, and we have a cunning plan to turn it off,
         // think again if we are falling downright in the hysteresis zone
@@ -283,7 +283,7 @@ void RenderCanvas::updateDocumentSize()
         m_view->resizeContents((overrideW ? overrideW : hDocW), (overrideH ? overrideH : hDocH));
 
     }
-    layer()->resize( qMax( m_cachedDocWidth,int( m_width ) ), qMax( m_cachedDocHeight,m_height ) );
+    layer()->resize( std::max( m_cachedDocWidth,int( m_width ) ), std::max( m_cachedDocHeight,m_height ) );
 }
 
 void RenderCanvas::updateDocSizeAfterLayerTranslation( RenderObject* o, bool posXOffset, bool posYOffset )
@@ -294,13 +294,13 @@ void RenderCanvas::updateDocSizeAfterLayerTranslation( RenderObject* o, bool pos
     o->absolutePosition( rightmost, lowest );
     if (posXOffset) {
         rightmost += o->rightmostPosition(false, true);
-        setCachedDocWidth( qMax(docWidth(), rightmost) );
+        setCachedDocWidth( std::max(docWidth(), rightmost) );
     } else {
         setCachedDocWidth( -1 );
     }
     if (posYOffset) {
         lowest += o->lowestPosition(false, true);
-        setCachedDocHeight( qMax(docHeight(), lowest) );
+        setCachedDocHeight( std::max(docHeight(), lowest) );
     } else {
         setCachedDocHeight( -1 );
     }
@@ -839,7 +839,7 @@ int RenderCanvas::docHeight() const
     }
 
     RenderLayer *layer = m_layer;
-    h = qMax( h, layer->yPos() + layer->height() );
+    h = std::max( h, layer->yPos() + layer->height() );
 // kDebug(6040) << "h " << h << " layer(" << layer->renderer()->renderName() << "@" << layer->renderer() << ")->height " << layer->height() << " lp " << (layer->yPos() + layer->height()) << " height() " << layer->renderer()->height() << " rh " << layer->renderer()->effectiveHeight();
     return h;
 }
@@ -872,7 +872,7 @@ int RenderCanvas::docWidth() const
     }
 
     RenderLayer *layer = m_layer;
-    w = qMax( w, layer->xPos() + layer->width() );
+    w = std::max( w, layer->xPos() + layer->width() );
 // kDebug(6040) << "w " << w << " layer(" << layer->renderer()->renderName() << ")->width " << layer->width() << " rm " << (layer->xPos() + layer->width()) << " width() " << layer->renderer()->width() << " rw " << layer->renderer()->effectiveWidth();
     return w;
 }

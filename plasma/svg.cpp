@@ -557,10 +557,10 @@ qreal SvgPrivate::closestDistance(qreal to, qreal from)
         return 0;
     else if ( to > from ) {
         qreal b = to - from - 1;
-        return (qAbs(a) > qAbs(b)) ?  b : a;
+        return (std::abs(a) > std::abs(b)) ?  b : a;
     } else {
         qreal b = 1 + to - from;
-        return (qAbs(a) > qAbs(b)) ? b : a;
+        return (std::abs(a) > std::abs(b)) ? b : a;
     }
 }
 

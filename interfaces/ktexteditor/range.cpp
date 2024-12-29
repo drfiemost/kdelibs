@@ -318,7 +318,7 @@ Range KTextEditor::Range::intersect( const Range & range ) const
   if (!isValid() || !range.isValid() || *this > range || *this < range)
     return invalid();
 
-  return Range(qMax(start(), range.start()), qMin(end(), range.end()));
+  return Range(std::max(start(), range.start()), std::min(end(), range.end()));
 }
 
 Range KTextEditor::Range::encompass( const Range & range ) const
@@ -331,7 +331,7 @@ Range KTextEditor::Range::encompass( const Range & range ) const
   else if (!range.isValid())
     return *this;
   else
-    return Range(qMin(start(), range.start()), qMax(end(), range.end()));
+    return Range(std::min(start(), range.start()), std::max(end(), range.end()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

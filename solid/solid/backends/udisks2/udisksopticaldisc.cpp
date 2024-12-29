@@ -178,7 +178,7 @@ public:
              Solid::OpticalDisc::ContentTypes content)
     {
         if (!find(key)) {
-            m_n = qMin(m_n + 1, sizeof(m_info) / sizeof(*m_info));
+            m_n = std::min(m_n + 1, sizeof(m_info) / sizeof(*m_info));
             moveToFront(m_n - 1);
             front().first = key;
         }

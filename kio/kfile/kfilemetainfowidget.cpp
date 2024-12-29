@@ -263,7 +263,7 @@ QWidget* KFileMetaInfoWidget::makeIntWidget()
 #ifndef KDE_NO_DEPRECATED
     // make sure that an uint cannot be set to a value < 0
     if (d->m_item.properties().type() == QVariant::UInt)
-        sb->setMinimum(qMax(sb->minimum(), 0));
+        sb->setMinimum(std::max(sb->minimum(), 0));
 #endif
 
     connect(sb, SIGNAL(valueChanged(int)), this, SLOT(slotChanged(int)));
@@ -274,8 +274,8 @@ QWidget* KFileMetaInfoWidget::makeDoubleWidget()
 {
     double value = d->m_item.value().toDouble();
 
-    KDoubleNumInput* dni = new KDoubleNumInput(qMin(0.0,value), //krazy:exclude=qminmax
-                                               qMax(0.0,value), //krazy:exclude=qminmax
+    KDoubleNumInput* dni = new KDoubleNumInput(std::min(0.0,value), //krazy:exclude=qminmax
+                                               std::max(0.0,value), //krazy:exclude=qminmax
                                                value, this, 0.01 ,2);
 
 

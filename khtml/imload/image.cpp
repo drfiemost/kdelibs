@@ -64,8 +64,8 @@ Image::~Image()
 
 void Image::requestUpdate(int line)
 {
-    updatesStartLine = qMin(line, updatesStartLine);
-    updatesEndLine   = qMax(line, updatesEndLine);
+    updatesStartLine = std::min(line, updatesStartLine);
+    updatesEndLine   = std::max(line, updatesEndLine);
     if (!updatesPending)
     {
         updatesPending = true;

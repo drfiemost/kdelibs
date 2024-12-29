@@ -279,13 +279,13 @@ void RenderTable::calcWidth()
             marginTotal += style()->marginRight().width(availableWidth);
 
         // Subtract out our margins to get the available content width.
-        int availContentWidth = qMax(0, availableWidth - marginTotal);
+        int availContentWidth = std::max(0, availableWidth - marginTotal);
 
         // Ensure we aren't bigger than our max width or smaller than our min width.
-        m_width = qMin(availContentWidth, m_maxWidth);
+        m_width = std::min(availContentWidth, m_maxWidth);
     }
 
-    m_width = qMax (m_width, m_minWidth);
+    m_width = std::max (m_width, m_minWidth);
 
     // Finally, with our true width determined, compute our margins for real.
     m_marginRight=0;
@@ -429,8 +429,8 @@ void RenderTable::layout()
         section->setPos(bl, m_height);
 
         m_height += section->height();
-        m_overflowLeft = qMin(m_overflowLeft, section->effectiveXPos());
-        m_overflowWidth = qMax(m_overflowWidth, section->effectiveXPos() + section->effectiveWidth());
+        m_overflowLeft = std::min(m_overflowLeft, section->effectiveXPos());
+        m_overflowWidth = std::max(m_overflowWidth, section->effectiveXPos() + section->effectiveWidth());
         section = sectionBelow(section);
     }
 
@@ -565,17 +565,17 @@ void RenderTable::paintBoxDecorations(PaintInfo &pI, int _tx, int _ty)
             _ty += captionHeight;
     }
     QRect cr;
-    cr.setX(qMax(_tx, pI.r.x()));
-    cr.setY(qMax(_ty, pI.r.y()));
+    cr.setX(std::max(_tx, pI.r.x()));
+    cr.setY(std::max(_ty, pI.r.y()));
     int mw, mh;
     if (_ty<pI.r.y())
-        mh= qMax(0,h-(pI.r.y()-_ty));
+        mh= std::max(0,h-(pI.r.y()-_ty));
     else
-        mh = qMin(pI.r.height(),h);
+        mh = std::min(pI.r.height(),h);
     if (_tx<pI.r.x())
-        mw = qMax(0,w-(pI.r.x()-_tx));
+        mw = std::max(0,w-(pI.r.x()-_tx));
     else
-        mw = qMin(pI.r.width(),w);
+        mw = std::min(pI.r.width(),w);
     cr.setWidth(mw);
     cr.setHeight(mh);
 
@@ -1541,10 +1541,10 @@ int RenderTableSection::layoutRows( int toAdd )
 	    int rh = rowPos[1]-rowPos[0];
 	    for ( int r = 0; r < totalRows; r++ ) {
 		if ( totalPercent > 0 && grid[r].height.isPercent() ) {
-		    int toAdd = qMin( dh, (totalHeight * grid[r].height.rawValue() / (100 * PERCENT_SCALE_FACTOR))-rh );
+		    int toAdd = std::min( dh, (totalHeight * grid[r].height.rawValue() / (100 * PERCENT_SCALE_FACTOR))-rh );
 		    // If toAdd is negative, then we don't want to shrink the row (this bug
                     // affected Outlook Web Access).
-                    toAdd = qMax(0, toAdd);
+                    toAdd = std::max(0, toAdd);
 		    add += toAdd;
 		    dh -= toAdd;
 		    totalPercent -= grid[r].height.rawValue();
@@ -1642,7 +1642,7 @@ int RenderTableSection::layoutRows( int toAdd )
             bool flexAllChildren = grid[r].needFlex || (!table()->style()->height().isAuto() && rHeight != cell->height());
             cell->setHasFlexedAnonymous(false);
             if ( flexAllChildren && flexCellChildren(cell) ) {
-                cell->setCellPercentageHeight(qMax(0,
+                cell->setCellPercentageHeight(std::max(0,
                                                    rHeight - cell->borderTop() - cell->paddingTop() -
                                                    cell->borderBottom() - cell->paddingBottom()));
                 cell->layoutIfNeeded();
@@ -1652,7 +1652,7 @@ int RenderTableSection::layoutRows( int toAdd )
                 if (va == BASELINE || va == TEXT_BOTTOM || va == TEXT_TOP || va == SUPER || va == SUB) {
                     int b = cell->baselinePosition();
                     if (b > cell->borderTop() + cell->paddingTop())
-                        grid[r].baseLine = qMax(grid[r].baseLine, b);
+                        grid[r].baseLine = std::max(grid[r].baseLine, b);
                 }
             }
             {
@@ -1684,7 +1684,7 @@ int RenderTableSection::layoutRows( int toAdd )
 		default:
 		    break;
 		}
-		te = qMax( 0, te );
+		te = std::max( 0, te );
 #ifdef DEBUG_LAYOUT
 		//            kDebug( 6040 ) << "CELL " << cell << " te=" << te << ", be=" << rHeight - cell->height() - te << ", rHeight=" << rHeight << ", valign=" << va;
 #endif
@@ -1754,7 +1754,7 @@ int RenderTableSection::lowestPosition(bool includeOverflowInterior, bool includ
         for (RenderObject *cell = row->firstChild(); cell; cell = cell->nextSibling())
             if (cell->isTableCell()) {
                 int bp = row->yPos() + cell->lowestPosition(false);
-                bottom = qMax(bottom, bp);
+                bottom = std::max(bottom, bp);
         }
     }
 
@@ -1771,7 +1771,7 @@ int RenderTableSection::rightmostPosition(bool includeOverflowInterior, bool inc
         for (RenderObject *cell = row->firstChild(); cell; cell = cell->nextSibling())
             if (cell->isTableCell()) {
                 int rp = cell->xPos() + cell->rightmostPosition(false);
-                right = qMax(right, rp);
+                right = std::max(right, rp);
         }
     }
 
@@ -1788,7 +1788,7 @@ int RenderTableSection::leftmostPosition(bool includeOverflowInterior, bool incl
         for (RenderObject *cell = row->firstChild(); cell; cell = cell->nextSibling())
             if (cell->isTableCell()) {
                 int lp = cell->xPos() + cell->leftmostPosition(false);
-                left = qMin(left, lp);
+                left = std::min(left, lp);
         }
     }
 
@@ -1805,7 +1805,7 @@ int RenderTableSection::highestPosition(bool includeOverflowInterior, bool inclu
         for (RenderObject *cell = row->firstChild(); cell; cell = cell->nextSibling())
             if (cell->isTableCell()) {
                 int hp = row->yPos() + cell->highestPosition(false);
-                top = qMin(top, hp);
+                top = std::min(top, hp);
         }
     }
 
@@ -1887,18 +1887,18 @@ void RenderTableSection::paint( PaintInfo& pI, int tx, int ty )
     int os = 2*maximalOutlineSize(pI.phase);
     unsigned int startrow = 0;
     unsigned int endrow = totalRows;
-    findRowCover(startrow, endrow, rowPos, y - os - ty - qMax(cbsw21, os), y + h + os - ty + qMax(cbsw2, os));
+    findRowCover(startrow, endrow, rowPos, y - os - ty - std::max(cbsw21, os), y + h + os - ty + std::max(cbsw2, os));
 
     // A binary search is probably not worthwhile for columns
     unsigned int startcol = 0;
     unsigned int endcol = totalCols;
     if ( style()->direction() == LTR ) {
 	for ( ; startcol < totalCols; startcol++ ) {
-	    if ( tx + table()->columnPos[startcol+1] + qMax(cbsw21, os) > x - os )
+	    if ( tx + table()->columnPos[startcol+1] + std::max(cbsw21, os) > x - os )
 		break;
 	}
 	for ( ; endcol > 0; endcol-- ) {
-	    if ( tx + table()->columnPos[endcol-1] - qMax(cbsw2, os) < x + w + os )
+	    if ( tx + table()->columnPos[endcol-1] - std::max(cbsw2, os) < x + w + os )
 		break;
 	}
     }
@@ -2492,7 +2492,7 @@ Length RenderTableCell::styleOrColWidth()
         // Column widths specified on <col> apply to the border box of the cell.
         // Percentages don't need to be handled since they're always treated this way (even when specified on the cells).
         if (w.isFixed() && w.isPositive())
-            w = Length(qMax(0, w.value() - borderLeft() - borderRight() - paddingLeft() - paddingRight()), Fixed);
+            w = Length(std::max(0, w.value() - borderLeft() - borderRight() - paddingLeft() - paddingRight()), Fixed);
     }
     return w;
 }
@@ -3005,7 +3005,7 @@ void RenderTableCell::paint(PaintInfo& pI, int _tx, int _ty)
     RenderTable *tbl = table();
 
     // check if we need to do anything at all...
-    int os = qMax(tbl->currentBorderStyle() ? (tbl->currentBorderStyle()->border->width+1)/2 : 0, 2*maximalOutlineSize(pI.phase));
+    int os = std::max(tbl->currentBorderStyle() ? (tbl->currentBorderStyle()->border->width+1)/2 : 0, 2*maximalOutlineSize(pI.phase));
     if ((_ty >= pI.r.y() + pI.r.height() + os)
          || (_ty + _topExtra + m_height + _bottomExtra <= pI.r.y() - os)) return;
 
@@ -3186,10 +3186,10 @@ void RenderTableCell::paintBackgroundsBehindCell(PaintInfo& pI, int _tx, int _ty
     }
 
     QRect cr;
-    cr.setX(qMax(cellx, pI.r.x()));
-    cr.setY(qMax(celly, pI.r.y()));
-    cr.setWidth(cellx<pI.r.x() ? qMax(0,cellw-(pI.r.x()-cellx)) : qMin(pI.r.width(),cellw));
-    cr.setHeight(celly<pI.r.y() ? qMax(0,cellh-(pI.r.y()-celly)) : qMin(pI.r.height(),cellh));
+    cr.setX(std::max(cellx, pI.r.x()));
+    cr.setY(std::max(celly, pI.r.y()));
+    cr.setWidth(cellx<pI.r.x() ? std::max(0,cellw-(pI.r.x()-cellx)) : std::min(pI.r.width(),cellw));
+    cr.setHeight(celly<pI.r.y() ? std::max(0,cellh-(pI.r.y()-celly)) : std::min(pI.r.height(),cellh));
 
     QColor c = bgObj->style()->backgroundColor();
     const BackgroundLayer* bgLayer = bgObj->style()->backgroundLayers();

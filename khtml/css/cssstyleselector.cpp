@@ -509,7 +509,7 @@ void CSSStyleSelector::computeFontSizesFor(int logicalDpiY, int zoomFactor, QVec
     const float toPix = 1.0;
 #else
     Q_UNUSED( isFixed );
-    const float toPix = qMax(logicalDpiY, 96) / 72.0f;
+    const float toPix = std::max(logicalDpiY, 96) / 72.0f;
 #endif // ######### fix isFixed code again.
 
     fontSizes.resize( MAXFONTSIZES );
@@ -535,8 +535,8 @@ void CSSStyleSelector::computeFontSizesFor(int logicalDpiY, int zoomFactor, QVec
     const float* factors = scale*mediumFontSize >= 12.5 ? fontFactors : smallFontFactors;
     for ( int i = 0; i < MAXFONTSIZES; i++ ) {
         factor = scale*factors[i];
-        fontSizes[i] = qMax(qRound(mediumFontSize * factor), m_minFontSize);
-        //kDebug( 6080 ) << "index: " << i << " factor: " << factors[i] << " font pix size: " << qMax(qRound(mediumFontSize*factor), m_minFontSize);
+        fontSizes[i] = std::max(qRound(mediumFontSize * factor), m_minFontSize);
+        //kDebug( 6080 ) << "index: " << i << " factor: " << factors[i] << " font pix size: " << std::max(qRound(mediumFontSize*factor), m_minFontSize);
     }
 }
 
@@ -2298,9 +2298,9 @@ static inline int nextFontSize(const QVector<int>& a, int v, bool smaller)
             l = m+1;
     }
     if (!l)
-        return smaller ? (v*5)/6 : qMin((v*6)/5, a[0]);
+        return smaller ? (v*5)/6 : std::min((v*6)/5, a[0]);
     if (l == int(a.count()))
-        return smaller ? qMax((v*5)/6, a[r]) : (v*6)/5;
+        return smaller ? std::max((v*5)/6, a[r]) : (v*6)/5;
 
     return smaller ? a[r] : a[l];
 }
@@ -3519,7 +3519,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
             // we never want to get smaller than the minimum font size to keep fonts readable
             // do not however maximize zero as that is commonly used for fancy layouting purposes
             if (size) {
-                size = qMax(size, m_minFontSize);
+                size = std::max(size, m_minFontSize);
             }
         }
 
@@ -4205,7 +4205,7 @@ void CSSStyleSelector::applyRule( int id, DOM::CSSValueImpl *value )
             return; // Error case.
 
         // Clamp opacity to the range 0-1
-        style->setOpacity(qMin(1.0f, qMax(0.0f, (float)primitiveValue->floatValue(CSSPrimitiveValue::CSS_NUMBER))));
+        style->setOpacity(std::min(1.0f, std::max(0.0f, (float)primitiveValue->floatValue(CSSPrimitiveValue::CSS_NUMBER))));
         break;
     case CSS_PROP__KHTML_MARQUEE:
         if (value->cssValueType() != CSSValue::CSS_INHERIT || !parentNode) return;

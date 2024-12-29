@@ -647,7 +647,7 @@ void KStyle::drawKStylePrimitive(WidgetType widgetType, int primitive,
             {
                 p->setPen( pal.buttonText().color() );
 
-                int l = qMin( r.width()-2, r.height()-2 );
+                int l = std::min( r.width()-2, r.height()-2 );
                 QPoint c = r.center();
 
                 p->drawLine( c.x()-l/2, c.y(), c.x()+l/2, c.y() );
@@ -1020,7 +1020,7 @@ void KStyle::drawPrimitive(PrimitiveElement elem, const QStyleOption* option, QP
             if (flags & State_Children)
             {
                 //How large should we make it?
-                int sizeLimit = qMin(qMin(r.width(), r.height()),
+                int sizeLimit = std::min(std::min(r.width(), r.height()),
                                      widgetLayoutProp(WT_Tree, Tree::MaxExpanderSize, option, widget));
                 if ((sizeLimit & 1) == 0)
                     --sizeLimit;
@@ -1632,7 +1632,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
 
             //We layout as if LTR, relying on visualRect to fix it up
             double progress    = pbOpt->progress - pbOpt->minimum;
-            int steps          = qMax(pbOpt->maximum  - pbOpt->minimum, 1);
+            int steps          = std::max(pbOpt->maximum  - pbOpt->minimum, 1);
             bool busyIndicator = (pbOpt->minimum == 0 && pbOpt->maximum == 0);
             bool horizontal    = pbOpt->orientation == Qt::Horizontal;
 
@@ -1648,8 +1648,8 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
                 widthFrac = progress / steps;
 
             //And now the pixel width
-            int width = qMin(r.width(), (int)(widthFrac * double(r.width())));
-            int height = qMin(r.height(), (int)(widthFrac * r.height()));
+            int width = std::min(r.width(), (int)(widthFrac * double(r.width())));
+            int height = std::min(r.height(), (int)(widthFrac * r.height()));
 
             if (busyIndicator)
             {
@@ -1747,7 +1747,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
                     //Now, we need to figure out the geometry of the indicator.
                     QRect progressRect;
                     double progress    = pbOpt->progress - pbOpt->minimum;
-                    int steps          = qMax(pbOpt->maximum  - pbOpt->minimum, 1);
+                    int steps          = std::max(pbOpt->maximum  - pbOpt->minimum, 1);
                     bool busyIndicator = (steps <= 1);
 
                     int width;
@@ -1761,8 +1761,8 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
                     else
                     {
                         double widthFrac = progress / steps;;
-                        width = qMin(r.width(), (int)(widthFrac * r.width()));
-                        height = qMin(r.height(), (int)(widthFrac * r.height()));
+                        width = std::min(r.width(), (int)(widthFrac * r.width()));
+                        height = std::min(r.height(), (int)(widthFrac * r.height()));
                     }
 
                     //If there is any indicator, we do two paths, with different
@@ -1858,7 +1858,7 @@ void KStyle::drawControl(ControlElement element, const QStyleOption* option, QPa
             //First, figure out the left column width. When CheckAlongsideIcon is disabled it's just
             // the icon column width. Otherwise it consists of CheckWidth+CheckSpace+icon column width.
             int iconColW = miOpt->maxIconWidth;
-            iconColW     = qMax(iconColW, widgetLayoutProp(WT_MenuItem, MenuItem::IconWidth, option, widget));
+            iconColW     = std::max(iconColW, widgetLayoutProp(WT_MenuItem, MenuItem::IconWidth, option, widget));
             int checkColW = widgetLayoutProp(WT_MenuItem, MenuItem::CheckWidth, option, widget);
             int checkSpace = widgetLayoutProp(WT_MenuItem, MenuItem::CheckSpace, option, widget);
 
@@ -2659,7 +2659,7 @@ int KStyle::pixelMetric(PixelMetric metric, const QStyleOption* option, const QW
         {
             int checkBoxSize = widgetLayoutProp(WT_CheckBox, CheckBox::Size, option, widget);
             int radioButtonSize = widgetLayoutProp(WT_RadioButton, RadioButton::Size, option, widget);
-            return qMax(checkBoxSize, radioButtonSize);
+            return std::max(checkBoxSize, radioButtonSize);
         }
 #endif
         case PM_DockWidgetFrameWidth:
@@ -4144,7 +4144,7 @@ QSize KStyle::sizeFromContents(ContentsType type, const QStyleOption* option, co
             QSize size = expandDim(contentsSize, WT_CheckBox, CheckBox::FocusMargin, option, widget);
 
             //Make sure we can fit the indicator (### an extra margin around that?)
-            size.setHeight(qMax(size.height(), indicator));
+            size.setHeight(std::max(size.height(), indicator));
 
             //Add space for the indicator and the icon
             size.setWidth(size.width() + indicator + spacer);
@@ -4162,7 +4162,7 @@ QSize KStyle::sizeFromContents(ContentsType type, const QStyleOption* option, co
             QSize size = expandDim(contentsSize, WT_RadioButton, RadioButton::FocusMargin, option, widget);
 
             //Make sure we can fit the indicator (### an extra margin around that?)
-            size.setHeight(qMax(size.height(), indicator));
+            size.setHeight(std::max(size.height(), indicator));
 
             //Add space for the indicator and the icon
             size.setWidth(size.width() + indicator + spacer);
@@ -4222,7 +4222,7 @@ QSize KStyle::sizeFromContents(ContentsType type, const QStyleOption* option, co
                 case QStyleOptionMenuItem::SubMenu:
                 {
                     int iconColW = miOpt->maxIconWidth;
-                    iconColW     = qMax(iconColW, widgetLayoutProp(WT_MenuItem, MenuItem::IconWidth, option, widget));
+                    iconColW     = std::max(iconColW, widgetLayoutProp(WT_MenuItem, MenuItem::IconWidth, option, widget));
 
                     int leftColW = iconColW;
                     if (miOpt->menuHasCheckableItems &&
@@ -4257,7 +4257,7 @@ QSize KStyle::sizeFromContents(ContentsType type, const QStyleOption* option, co
                                 widgetLayoutProp(WT_MenuItem,MenuItem::AccelSpace,option,widget);
                     }
 
-                    int h = qMax(contentsSize.height(), widgetLayoutProp(WT_MenuItem, MenuItem::MinHeight, option, widget));
+                    int h = std::max(contentsSize.height(), widgetLayoutProp(WT_MenuItem, MenuItem::MinHeight, option, widget));
                     insideSize = QSize(leftColW + textW + rightColW, h);
                     break;
                 }
@@ -4332,7 +4332,7 @@ QSize KStyle::sizeFromContents(ContentsType type, const QStyleOption* option, co
                 QSize textSize = header->fontMetrics.size(0, header->text);
                 int iconSpacing = widgetLayoutProp(WT_Header, Header::TextToIconSpace, option, widget);
                 int w = iconSize.width() + iconSpacing + textSize.width();
-                int h = qMax(iconSize.height(), textSize.height() );
+                int h = std::max(iconSize.height(), textSize.height() );
 
                 return expandDim(QSize(w, h), WT_Header, Header::ContentsMargin, option, widget);
             }

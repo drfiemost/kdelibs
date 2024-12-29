@@ -171,7 +171,7 @@ bool KFilterDev::seek( qint64 pos )
     }
 
     //kDebug(7005) << "reading " << pos << " dummy bytes";
-    QByteArray dummy( qMin( pos, (qint64)3*BUFFER_SIZE ), 0 );
+    QByteArray dummy( std::min( pos, (qint64)3*BUFFER_SIZE ), 0 );
     d->bIgnoreData = true;
     bool result = ( read( dummy.data(), pos ) == pos );
     d->bIgnoreData = false;
@@ -206,7 +206,7 @@ qint64 KFilterDev::readData( char *data, qint64 maxlen )
     qint64 outBufferSize;
     if ( d->bIgnoreData )
     {
-        outBufferSize = qMin( maxlen, (qint64)3*BUFFER_SIZE );
+        outBufferSize = std::min( maxlen, (qint64)3*BUFFER_SIZE );
     }
     else
     {

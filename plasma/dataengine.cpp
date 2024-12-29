@@ -651,8 +651,8 @@ void DataEnginePrivate::connectSource(DataContainer *s, QObject *visualization,
     }
     if (pollingInterval > 0) {
         // never more frequently than allowed, never more than 20 times per second
-        uint min = qMax(50, minPollingInterval); // for qMax below
-        pollingInterval = qMax(min, pollingInterval);
+        uint min = std::max(50, minPollingInterval); // for std::max below
+        pollingInterval = std::max(min, pollingInterval);
 
         // align on the 50ms
         pollingInterval = pollingInterval - (pollingInterval % 50);

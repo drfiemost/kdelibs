@@ -95,7 +95,7 @@ public:
         }
         return BufferFragment();
     }
-    
+
     bool isEmpty() const 
     {
         return (len == 0);
@@ -103,7 +103,7 @@ public:
 
     BufferFragment left(unsigned int size) const 
     {
-        return BufferFragment(d, qMin(size,len));
+        return BufferFragment(d, std::min(size,len));
     }
 
     void truncateLeft(unsigned int size) 

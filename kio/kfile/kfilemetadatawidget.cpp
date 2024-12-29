@@ -365,7 +365,7 @@ QSize KFileMetaDataWidget::sizeHint() const
     int height = d->m_gridLayout->margin() * 2 + d->m_gridLayout->spacing() * (d->m_rows.count() - 1);
     foreach (const Private::Row& row, d->m_rows) {
         const QWidget* valueWidget = row.value;
-        const int rowHeight = qMax(row.label->heightForWidth(leftWidthMax),
+        const int rowHeight = std::max(row.label->heightForWidth(leftWidthMax),
                                    valueWidget->heightForWidth(rightWidthMax));
         height += rowHeight;
     }

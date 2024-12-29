@@ -141,7 +141,7 @@ void KPageListView::updateWidth()
 
   int width = 0;
   for ( int i = 0; i < rows; ++i )
-    width = qMax( width, sizeHintForIndex( model()->index( i, 0 ) ).width() );
+    width = std::max( width, sizeHintForIndex( model()->index( i, 0 ) ).width() );
 
   setFixedWidth( width + 25 );
 }
@@ -181,7 +181,7 @@ void KPageTreeView::updateWidth()
   int width = 0;
   for ( int i = 0; i < columns; ++i ) {
     resizeColumnToContents( i );
-    width = qMax( width, sizeHintForColumn( i ) );
+    width = std::max( width, sizeHintForColumn( i ) );
   }
 
   setFixedWidth( width + 25 );
@@ -391,7 +391,7 @@ static int layoutText(QTextLayout *layout, int maxWidth)
         line.setLineWidth(maxWidth);
         line.setPosition(QPointF(0, height));
         height += line.height();
-        textWidth = qMax(textWidth, qRound(line.naturalTextWidth() + 0.5));
+        textWidth = std::max(textWidth, qRound(line.naturalTextWidth() + 0.5));
     }
     layout->endLayout();
     return textWidth;
@@ -413,7 +413,7 @@ void KPageListViewDelegate::paint( QPainter *painter, const QStyleOptionViewItem
   QTextLayout iconTextLayout( text, option.font );
   QTextOption textOption( Qt::AlignHCenter );
   iconTextLayout.setTextOption( textOption );
-  int maxWidth = qMax( 3 * wp, 8 * fm.height() );
+  int maxWidth = std::max( 3 * wp, 8 * fm.height() );
   layoutText( &iconTextLayout, maxWidth );
 
   QPen pen = painter->pen();
@@ -464,7 +464,7 @@ QSize KPageListViewDelegate::sizeHint( const QStyleOptionViewItem &option, const
   }
 
   QTextLayout iconTextLayout( text, option.font );
-  int wt = layoutText( &iconTextLayout, qMax( 3 * wp, 8 * fm.height() ) );
+  int wt = layoutText( &iconTextLayout, std::max( 3 * wp, 8 * fm.height() ) );
   int ht = iconTextLayout.boundingRect().height();
 
   int width, height;
@@ -473,7 +473,7 @@ QSize KPageListViewDelegate::sizeHint( const QStyleOptionViewItem &option, const
   else
     height = hp + ht + 10;
 
-  width = qMax( wt, wp ) + gap;
+  width = std::max( wt, wp ) + gap;
 
   return QSize( width, height );
 }

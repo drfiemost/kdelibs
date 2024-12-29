@@ -216,7 +216,7 @@ void KHistoryComboBox::addToHistory( const QString& item )
 
     const int last = count() - 1; // last valid index
     const int mc = maxCount();
-    const int stopAt = qMax(mc, 0);
+    const int stopAt = std::max(mc, 0);
 
     for (int rmIndex = last; rmIndex >= stopAt; --rmIndex) {
         // remove the last item, as long as we are longer than maxCount()

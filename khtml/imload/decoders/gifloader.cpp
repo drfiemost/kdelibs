@@ -307,7 +307,7 @@ public:
         GIFLoader* me = static_cast<GIFLoader*>(gifInfo->UserData);
         
         int remBytes = me->buffer.size() - me->bufferReadPos;
-        int toRet    = qMin(remBytes, limit);
+        int toRet    = std::min(remBytes, limit);
         
         memcpy(data, me->buffer.data() + me->bufferReadPos, toRet);
         me->bufferReadPos += toRet;

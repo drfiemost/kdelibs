@@ -102,7 +102,7 @@ using namespace DOM;
               case QStyle::SE_PushButtonContents:
               case QStyle::SE_LineEditContents:
               case QStyle::SE_ShapedFrameContents:
-                r.adjust(left, top, -qMax(0, right - clearButtonOverlay), -bottom);
+                r.adjust(left, top, -std::max(0, right - clearButtonOverlay), -bottom);
               default:
                 break;
             }
@@ -195,7 +195,7 @@ using namespace DOM;
                         int iw = fm.width(cb->itemText(c));
                         if (!cb->itemIcon(c).isNull())
                             iw += 4 + cb->iconSize().width();
-                        maxW = qMax(maxW, iw);
+                        maxW = std::max(maxW, iw);
                     }
 
                     // Now let sizeFromContent add in extra stuff.
@@ -450,7 +450,7 @@ void RenderButton::layout()
         // button text hiding 'trick' that makes use of negative text-indent,
         // which we do not support on form widgets.
         int ti = style()->textIndent().minWidth( containingBlockWidth() );
-        if (m_widget->width() <= qAbs(ti)) {
+        if (m_widget->width() <= std::abs(ti)) {
             needsTextIndentHack = true;
         }
     }
@@ -495,8 +495,8 @@ void RenderCheckBox::calcMinMaxWidth()
     KHTMLAssert( !minMaxKnown() );
 
     QCheckBox *cb = static_cast<QCheckBox *>( m_widget );
-    QSize s( qMin(22, qMax(14, cb->style()->pixelMetric( QStyle::PM_IndicatorWidth ))),
-             qMin(22, qMax(12, cb->style()->pixelMetric( QStyle::PM_IndicatorHeight ))) );
+    QSize s( std::min(22, std::max(14, cb->style()->pixelMetric( QStyle::PM_IndicatorWidth ))),
+             std::min(22, std::max(12, cb->style()->pixelMetric( QStyle::PM_IndicatorHeight ))) );
     setIntrinsicWidth( s.width() );
     setIntrinsicHeight( s.height() );
 
@@ -566,8 +566,8 @@ void RenderRadioButton::calcMinMaxWidth()
     KHTMLAssert( !minMaxKnown() );
 
     QRadioButton *rb = static_cast<QRadioButton *>( m_widget );
-    QSize s( qMin(22, qMax(14, rb->style()->pixelMetric( QStyle::PM_ExclusiveIndicatorWidth ))),
-             qMin(20, qMax(12, rb->style()->pixelMetric( QStyle::PM_ExclusiveIndicatorHeight ))) );
+    QSize s( std::min(22, std::max(14, rb->style()->pixelMetric( QStyle::PM_ExclusiveIndicatorWidth ))),
+             std::min(20, std::max(12, rb->style()->pixelMetric( QStyle::PM_ExclusiveIndicatorHeight ))) );
     setIntrinsicWidth( s.width() );
     setIntrinsicHeight( s.height() );
 
@@ -726,7 +726,7 @@ void RenderSubmitButton::calcMinMaxWidth()
     // (+/- padding: 0px 8px 0px 8px) - IE is most often in a separate css
     // code path nowadays, so we have wider buttons than other engines.
     int toAdd = (w*13/10)-w-hpadding;
-    toAdd = qMax(0,toAdd);
+    toAdd = std::max(0,toAdd);
     w += toAdd;
 
     if (shouldDisableNativeBorders()) {
@@ -1166,7 +1166,7 @@ void RenderLineEdit::setStyle(RenderStyle* _style)
     }
 
     if (m_proxyStyle) {
-        static_cast<KHTMLProxyStyle*>(m_proxyStyle)->clearButtonOverlay = qMax(0, widget()->clearButtonUsedSize().width());
+        static_cast<KHTMLProxyStyle*>(m_proxyStyle)->clearButtonOverlay = std::max(0, widget()->clearButtonUsedSize().width());
     }
 }
 
@@ -1223,7 +1223,7 @@ void RenderLineEdit::calcMinMaxWidth()
     if (widget()->hasFrame())
         opt.lineWidth = widget()->style()->pixelMetric(QStyle::PM_DefaultFrameWidth, &opt, widget());
 
-    s = QSize(w, qMax(h, 14));
+    s = QSize(w, std::max(h, 14));
     s = widget()->style()->sizeFromContents(QStyle::CT_LineEdit, &opt, s, widget());
     s = s.expandedTo(QApplication::globalStrut());
 
@@ -1341,7 +1341,7 @@ void RenderFieldset::calcMinMaxWidth()
         if (legendMarginRight.isFixed())
             legendMinWidth += legendMarginRight.value();
 
-        m_intrinsicWidth = qMax((int)m_minWidth, legendMinWidth + paddingLeft() + paddingRight() + borderLeft() + borderRight());
+        m_intrinsicWidth = std::max((int)m_minWidth, legendMinWidth + paddingLeft() + paddingRight() + borderLeft() + borderRight());
     }}
 }
 
@@ -1358,8 +1358,8 @@ RenderObject* RenderFieldset::layoutLegend(bool relayoutChildren)
             xPos = m_width - paddingRight() - borderRight() - legend->width() - legend->marginRight();
         int b = borderTop();
         int h = legend->height();
-        legend->setPos(xPos, qMax((b-h)/2, 0));
-        m_height = qMax(b,h) + paddingTop();
+        legend->setPos(xPos, std::max((b-h)/2, 0));
+        m_height = std::max(b,h) + paddingTop();
     }
     return legend;
 }
@@ -1540,14 +1540,14 @@ void RenderFileButton::calcMinMaxWidth()
     if (edit->hasFrame())
         opt.lineWidth = edit->style()->pixelMetric(QStyle::PM_DefaultFrameWidth, &opt, edit);
 
-    QSize s(w, qMax(h, 14));
+    QSize s(w, std::max(h, 14));
     s = edit->style()->sizeFromContents(QStyle::CT_LineEdit, &opt, s, edit);
     s = s.expandedTo(QApplication::globalStrut());
 
     QSize bs = widget()->minimumSizeHint() - edit->minimumSizeHint();
 
     setIntrinsicWidth( s.width() + bs.width() );
-    setIntrinsicHeight( qMax(s.height(), bs.height()) );
+    setIntrinsicHeight( std::max(s.height(), bs.height()) );
 
     RenderFormElement::calcMinMaxWidth();
 }
@@ -1962,8 +1962,8 @@ void RenderSelect::layout( )
         for ( int rowIndex = 0 ; rowIndex < w->count() ; rowIndex++ ) {
             QModelIndex mi = m->index(rowIndex, 0);
             QSize s = d->sizeHint( so, mi);
-            width = qMax(width, s.width());
-            height = qMax(height, s.height());
+            width = std::max(width, s.width());
+            height = std::max(height, s.height());
         }
 
         if ( !height )
@@ -1973,12 +1973,12 @@ void RenderSelect::layout( )
 
         int size = m_size;
         // check if multiple and size was not given or invalid
-        // Internet Exploder sets size to qMin(number of elements, 4)
+        // Internet Exploder sets size to std::min(number of elements, 4)
         // Netscape seems to simply set it to "number of elements"
-        // the average of that is IMHO qMin(number of elements, 10)
+        // the average of that is IMHO std::min(number of elements, 10)
         // so I did that ;-)
         if(size < 1)
-            size = qMin(w->count(), 10);
+            size = std::min(w->count(), 10);
 
         QStyleOptionFrame opt;
         opt.initFrom(w);
@@ -2291,12 +2291,12 @@ void RenderTextArea::calcMinMaxWidth()
     TextAreaWidget* w = static_cast<TextAreaWidget*>(m_widget);
     const QFontMetrics &m = style()->fontMetrics();
     w->setTabStopWidth(8 * m.width(" "));
-    int lvs = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
-    int lhs = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
-    int llm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutLeftMargin));
-    int lrm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutRightMargin));
-    int lbm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
-    int ltm = qMax(0, w->style()->pixelMetric(QStyle::PM_LayoutTopMargin));
+    int lvs = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
+    int lhs = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
+    int llm = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutLeftMargin));
+    int lrm = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutRightMargin));
+    int lbm = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    int ltm = std::max(0, w->style()->pixelMetric(QStyle::PM_LayoutTopMargin));
 
     QStyleOptionFrame opt;
     opt.initFrom(w);
@@ -2308,9 +2308,9 @@ void RenderTextArea::calcMinMaxWidth()
     int hfw = (r.left()-o.left()) + (o.right()-r.right());
     int vfw = (r.top()-o.top()) + (o.bottom()-r.bottom());
 
-    QSize size( qMax(element()->cols(), 1L)*m.width('x') + hfw + llm+lrm +
+    QSize size( std::max(element()->cols(), 1L)*m.width('x') + hfw + llm+lrm +
                 w->verticalScrollBar()->sizeHint().width()+lhs,
-                qMax(element()->rows(), 1L)*m.lineSpacing() + vfw + lbm+ltm +
+                std::max(element()->rows(), 1L)*m.lineSpacing() + vfw + lbm+ltm +
                 (w->lineWrapMode() == QTextEdit::NoWrap ?
                  w->horizontalScrollBar()->sizeHint().height()+lvs : 0)
         );
@@ -2371,7 +2371,7 @@ int RenderTextArea::scrollHeight() const
 {
     TextAreaWidget* w = static_cast<TextAreaWidget*>(m_widget);
     int contentHeight = qRound(w->document()->size().height());
-    return qMax(contentHeight, RenderObject::clientHeight());
+    return std::max(contentHeight, RenderObject::clientHeight());
 }
 
 void RenderTextArea::setText(const QString& newText)
@@ -2389,7 +2389,7 @@ void RenderTextArea::setText(const QString& newText)
         int cx = w->horizontalScrollBar()->value();
         int cy = w->verticalScrollBar()->value();
         // Not using setPlaintext as it resets text alignment property
-        int minLen = qMin(newTextLen, oldTextLen);
+        int minLen = std::min(newTextLen, oldTextLen);
         int ex = 0;
         while (ex < minLen && (newText.at(ex) == oldText.at(ex)))
                ++ex;

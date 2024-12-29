@@ -91,14 +91,14 @@ QPixmap shadowText(QString text, const QFont &font, QColor textColor, QColor sha
     shadowBlur(img, radius, shadowColor);
 
     //Compose text and shadow
-    int addSizeX = qMax(0, qAbs(offset.x()) - radius);
-    int addSizeY = qMax(0, qAbs(offset.y()) - radius);
+    int addSizeX = std::max(0, std::abs(offset.x()) - radius);
+    int addSizeY = std::max(0, std::abs(offset.y()) - radius);
 
     QPixmap finalPixmap(img.size() + QSize(addSizeX, addSizeY));
     finalPixmap.fill(Qt::transparent);
     p.begin(&finalPixmap);
-    p.drawImage(qMax(0, offset.x()), qMax(0, offset.y()), img);
-    p.drawPixmap(radius + qMax(0, -offset.x()), radius + qMax(0, -offset.y()), textPixmap);
+    p.drawImage(std::max(0, offset.x()), std::max(0, offset.y()), img);
+    p.drawPixmap(radius + std::max(0, -offset.x()), radius + std::max(0, -offset.y()), textPixmap);
     p.end();
 
     return finalPixmap;

@@ -77,7 +77,7 @@ bool KMimeType::isBufferBinaryData(const QByteArray& data)
 {
     // Check the first 32 bytes (see shared-mime spec)
     const char* p = data.data();
-    const int end = qMin(32, data.size());
+    const int end = std::min(32, data.size());
     for (int i = 0; i < end; ++i) {
         if ((unsigned char)(p[i]) < 32 && p[i] != 9 && p[i] != 10 && p[i] != 13) // ASCII control character
             return true;

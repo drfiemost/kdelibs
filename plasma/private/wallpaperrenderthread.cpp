@@ -98,7 +98,7 @@ void WallpaperRenderThread::checkQueue()
     }
 
 #ifndef PLASMA_NO_SOLID
-    const int numProcs = qMax(1, Solid::Device::listFromType(Solid::DeviceInterface::Processor).count());
+    const int numProcs = std::max(1, Solid::Device::listFromType(Solid::DeviceInterface::Processor).count());
 #else
     const int numProcs = 1;
 #endif
@@ -126,7 +126,7 @@ void WallpaperRenderThread::run()
     }
 
     QPoint pos(0, 0);
-    //const float ratio = qMax(float(1), m_request.size.width() / float(m_request.size.height()));
+    //const float ratio = std::max(float(1), m_request.size.width() / float(m_request.size.height()));
     const bool scalable = m_request.file.endsWith(QLatin1String("svg")) || m_request.file.endsWith(QLatin1String("svgz"));
     bool tiled = false;
     QSize scaledSize;

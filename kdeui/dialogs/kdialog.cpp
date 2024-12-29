@@ -584,10 +584,10 @@ bool KDialog::avoidArea( QWidget *widget, const QRect& area, int screen )
   avoid.setRight( avoid.right() + 10 );
   avoid.setBottom( avoid.bottom() + 10 );
 
-  if ( qMax( fg.top(), avoid.top() ) <= qMin( fg.bottom(), avoid.bottom() ) ) {
+  if ( std::max( fg.top(), avoid.top() ) <= std::min( fg.bottom(), avoid.bottom() ) ) {
     // We need to move the widget up or down
-    int spaceAbove = qMax( 0, avoid.top() - scr.top() );
-    int spaceBelow = qMax( 0, scr.bottom() - avoid.bottom() );
+    int spaceAbove = std::max( 0, avoid.top() - scr.top() );
+    int spaceBelow = std::max( 0, scr.bottom() - avoid.bottom() );
     if ( spaceAbove > spaceBelow ) // where's the biggest side?
       if ( fg.height() <= spaceAbove ) // big enough?
         fg.setY( avoid.top() - fg.height() );
@@ -600,10 +600,10 @@ bool KDialog::avoidArea( QWidget *widget, const QRect& area, int screen )
         return false;
   }
 
-  if ( qMax( fg.left(), avoid.left() ) <= qMin( fg.right(), avoid.right() ) ) {
+  if ( std::max( fg.left(), avoid.left() ) <= std::min( fg.right(), avoid.right() ) ) {
     // We need to move the widget left or right
-    const int spaceLeft = qMax( 0, avoid.left() - scr.left() );
-    const int spaceRight = qMax( 0, scr.right() - avoid.right() );
+    const int spaceLeft = std::max( 0, avoid.left() - scr.left() );
+    const int spaceRight = std::max( 0, scr.right() - avoid.right() );
     if ( spaceLeft > spaceRight ) // where's the biggest side?
       if ( fg.width() <= spaceLeft ) // big enough?
         fg.setX( avoid.left() - fg.width() );

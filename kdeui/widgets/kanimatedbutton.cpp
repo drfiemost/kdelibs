@@ -198,7 +198,7 @@ void KAnimatedButton::updateIcons()
 
 int KAnimatedButton::iconDimensions() const
 {
-  return qMin(iconSize().width(), iconSize().height());
+  return std::min(iconSize().width(), iconSize().height());
 }
 
 #include "kanimatedbutton.moc"

@@ -522,8 +522,8 @@ bool KCalendarSystemCoptic::julianDayToDate(int jd, int &year, int &month, int &
     //How many full 4 year leap cycles have been completed, 1461 = (365*3)+366
     int leapCyclesCompleted = dayInEpoch / 1461;
     //Which year are we in the current 4 year leap cycle, 0 indexed
-    //Need the qMin as day 366 of 4th year of cycle returns following year (max 3 as 0 index)
-    int yearInCurrentLeapCycle = qMin(3, (dayInEpoch % 1461) / 365);
+    //Need the std::min as day 366 of 4th year of cycle returns following year (max 3 as 0 index)
+    int yearInCurrentLeapCycle = std::min(3, (dayInEpoch % 1461) / 365);
     //Calculate the year
     year = (leapCyclesCompleted * 4) + yearInCurrentLeapCycle;
     //Days since the fake epoch up to 1st day of this year

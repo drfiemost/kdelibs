@@ -39,7 +39,8 @@
 
 #include <config.h>
 
-
+// just to silence compiler warning 'ISO C forbids an empty translation unit'
+typedef int make_iso_compilers_happy;
 
 #define KDE_open open
 #define KDE_mkdir mkdir

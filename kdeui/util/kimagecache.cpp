@@ -86,7 +86,7 @@ KImageCache::KImageCache(const QString &cacheName,
     , d(new Private)
 {
     // Use at least 16 KiB for the pixmap cache
-    d->pixmapCache.setMaxCost(qMax(defaultCacheSize / 8, (unsigned int) 16384));
+    d->pixmapCache.setMaxCost(std::max(defaultCacheSize / 8, (unsigned int) 16384));
 }
 
 KImageCache::~KImageCache()

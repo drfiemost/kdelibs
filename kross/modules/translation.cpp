@@ -62,7 +62,7 @@ TranslationModule::~TranslationModule()
 KLocalizedString TranslationModule::substituteArguments( const KLocalizedString &kls, const QVariantList &arguments, int max ) const
 {
     KLocalizedString ls = kls;
-    int cnt = qMin( arguments.count(), max ); // QString supports max 99
+    int cnt = std::min( arguments.count(), max ); // QString supports max 99
     for ( int i = 0; i < cnt; ++i ) {
         QVariant arg = arguments[i];
         switch ( arg.type() ) {

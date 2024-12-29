@@ -526,7 +526,7 @@ RenderFlow::lowestPosition(bool includeOverflowInterior, bool includeSelf) const
     for (RenderObject *c = firstChild(); c; c = c->nextSibling()) {
         if (!c->isFloatingOrPositioned() && !c->isText() && !c->isInlineFlow()) {
             int lp = c->yPos() + c->lowestPosition(false);
-            bottom = qMax(bottom, lp);
+            bottom = std::max(bottom, lp);
         }
     }
 
@@ -551,7 +551,7 @@ int RenderFlow::rightmostPosition(bool includeOverflowInterior, bool includeSelf
     for (RenderObject *c = firstChild(); c; c = c->nextSibling()) {
         if (!c->isFloatingOrPositioned() && !c->isText() && !c->isInlineFlow()) {
             int rp = c->xPos() + c->rightmostPosition(false);
-            right = qMax(right, rp);
+            right = std::max(right, rp);
         }
     }
 
@@ -576,7 +576,7 @@ int RenderFlow::leftmostPosition(bool includeOverflowInterior, bool includeSelf)
     for (RenderObject *c = firstChild(); c; c = c->nextSibling()) {
         if (!c->isFloatingOrPositioned() && !c->isText() && !c->isInlineFlow()) {
             int lp = c->xPos() + c->leftmostPosition(false);
-            left = qMin(left, lp);
+            left = std::min(left, lp);
         }
     }
 
@@ -601,7 +601,7 @@ int RenderFlow::highestPosition(bool includeOverflowInterior, bool includeSelf) 
     for (RenderObject *c = firstChild(); c; c = c->nextSibling()) {
         if (!c->isFloatingOrPositioned() && !c->isText() && !c->isInlineFlow()) {
             int hp = c->yPos() + c->highestPosition(false);
-            top = qMin(top, hp);
+            top = std::min(top, hp);
         }
     }
 

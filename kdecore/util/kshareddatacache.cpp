@@ -1034,13 +1034,13 @@ class KSharedDataCache::Private
     void mapSharedMemory()
     {
         // 0-sized caches are fairly useless.
-        unsigned cacheSize = qMax(m_defaultCacheSize, uint(SharedMemory::MINIMUM_CACHE_SIZE));
+        unsigned cacheSize = std::max(m_defaultCacheSize, uint(SharedMemory::MINIMUM_CACHE_SIZE));
         unsigned pageSize = SharedMemory::equivalentPageSize(m_expectedItemSize);
 
         // Ensure that the cache is sized such that there is a minimum number of
         // pages available. (i.e. a cache consisting of only 1 page is fairly
         // useless and probably crash-prone).
-        cacheSize = qMax(pageSize * 256, cacheSize);
+        cacheSize = std::max(pageSize * 256, cacheSize);
 
         // The m_cacheName is used to find the file to store the cache in.
         QString cacheName = KGlobal::dirs()->locateLocal("cache", m_cacheName + QLatin1String(".kcache"));
@@ -1537,7 +1537,7 @@ bool KSharedDataCache::insert(const QString &key, const QByteArray &data)
            (firstPage = d->shm->findEmptyPages(pagesNeeded)) >= d->shm->pageTableSize())
         {
             // If we have enough free space just defragment
-            uint freePagesDesired = 3 * qMax(1u, pagesNeeded / 2);
+            uint freePagesDesired = 3 * std::max(1u, pagesNeeded / 2);
 
             if (d->shm->cacheAvail > freePagesDesired) {
                 // TODO: How the hell long does this actually take on real
@@ -1550,7 +1550,7 @@ bool KSharedDataCache::insert(const QString &key, const QByteArray &data)
                 // extra. However we can't rely on the return value of
                 // removeUsedPages giving us a good location since we're not
                 // passing in the actual number of pages that we need.
-                d->shm->removeUsedPages(qMin(2 * freePagesDesired, d->shm->pageTableSize())
+                d->shm->removeUsedPages(std::min(2 * freePagesDesired, d->shm->pageTableSize())
                                         - d->shm->cacheAvail);
                 firstPage = d->shm->findEmptyPages(pagesNeeded);
             }

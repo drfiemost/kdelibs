@@ -503,7 +503,7 @@ bool KZip::openArchive( QIODevice::OpenMode mode )
             // skip rest of extra field in case it is too long
             unsigned int extraFieldEnd = dev->pos() + extralen;
 	    pfi.extralen = extralen;
-	    int handledextralen = qMin(extralen, (int)sizeof buffer);
+	    int handledextralen = std::min(extralen, (int)sizeof buffer);
 
             //if ( handledextralen )
             //    kDebug(7040) << "handledextralen: " << handledextralen;

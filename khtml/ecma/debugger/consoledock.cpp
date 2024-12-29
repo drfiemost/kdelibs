@@ -104,7 +104,7 @@ QSize ConsoleItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     QSize inputSize  = layoutText(inputLayout, input, constraints);
     QSize resultSize = layoutText(resultLayout, result, constraints);
 
-    int width = qBound(0, qMax(inputSize.width(), resultSize.width()) + 4, maxWidth);
+    int width = qBound(0, std::max(inputSize.width(), resultSize.width()) + 4, maxWidth);
     int height = inputSize.height() + option.fontMetrics.leading() + resultSize.height();
 
     return QSize(width, height + 8);
@@ -140,7 +140,7 @@ QSize ConsoleItemDelegate::layoutText(QTextLayout &layout, const QString &text, 
         line.setPosition(QPoint(0, height));
 
         height += int(line.height());
-        widthUsed = int(qMax(qreal(widthUsed), line.naturalTextWidth()));
+        widthUsed = int(std::max(qreal(widthUsed), line.naturalTextWidth()));
     }
     layout.endLayout();
 

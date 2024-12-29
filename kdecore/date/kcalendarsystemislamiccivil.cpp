@@ -561,7 +561,7 @@ bool KCalendarSystemIslamicCivil::julianDayToDate(int jd, int &year, int &month,
     Formula from Fourmilab website
     jd = Math.floor(jd) + 0.5;
     year = Math.floor(((30 * (jd - epoch().toJulianDay())) + 10646) / 10631);
-    month = qMin(12, Math.ceil((jd - (29 + islamic_to_jd(year, 1, 1))) / 29.5) + 1);
+    month = std::min(12, Math.ceil((jd - (29 + islamic_to_jd(year, 1, 1))) / 29.5) + 1);
     day = (jd - islamic_to_jd(year, month, 1)) + 1;
     */
 }

@@ -37,7 +37,7 @@ class KDateWidgetSpinBox : public QSpinBox
 public:
     KDateWidgetSpinBox( int min, int max, QWidget *parent ) : QSpinBox( parent )
     {
-        setRange( qMin( min, max ), qMax( min, max ) );
+        setRange( std::min( min, max ), std::max( min, max ) );
         setSingleStep( 1 );
         lineEdit()->setAlignment( Qt::AlignRight );
     }
@@ -144,16 +144,16 @@ void KDateWidget::slotDateChanged( )
     int y, m, day;
 
     y = d->m_year->value();
-    y = qMin( qMax( y, calendar()->year( calendar()->earliestValidDate() ) ),
+    y = std::min( std::max( y, calendar()->year( calendar()->earliestValidDate() ) ),
               calendar()->year( calendar()->latestValidDate() ) );
 
     date.setDate( y, 1, 1 );
     m = d->m_month->currentIndex() + 1;
-    m = qMin( qMax( m, 1 ), date.monthsInYear() );
+    m = std::min( std::max( m, 1 ), date.monthsInYear() );
 
     date.setDate( y, m, 1 );
     day = d->m_day->value();
-    day = qMin( qMax( day, 1 ), date.daysInMonth() );
+    day = std::min( std::max( day, 1 ), date.daysInMonth() );
 
     date.setDate( y, m, day );
     setDate( date.date() );

@@ -111,5 +111,5 @@ int RenderBody::availableHeight() const
     if( style()->marginBottom().isFixed() )
         h -= style()->marginBottom().value();
 
-    return qMax(0, h);
+    return std::max(0, h);
 }

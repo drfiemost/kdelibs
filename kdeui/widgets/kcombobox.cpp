@@ -273,7 +273,7 @@ QSize KComboBox::minimumSizeHint() const
         QSize bs = d->klineEdit->clearButtonUsedSize();
         if (bs.isValid()) {
             size.rwidth() += bs.width();
-            size.rheight() = qMax(size.height(), bs.height());
+            size.rheight() = std::max(size.height(), bs.height());
         }
     }
     return size;

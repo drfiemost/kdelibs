@@ -63,7 +63,7 @@ static QFont nearestExistingFont (const QFont &font)
             int mindiff = 1000;
             int refsize = size;
             foreach (int lsize, sizes) {
-                int diff = qAbs(refsize - lsize);
+                int diff = std::abs(refsize - lsize);
                 if (mindiff > diff) {
                     mindiff = diff;
                     size = lsize;

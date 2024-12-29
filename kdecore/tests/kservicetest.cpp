@@ -581,7 +581,7 @@ void KServiceTest::testThreads()
     futures << QtConcurrent::run(this, &KServiceTest::testHasServiceType1);
     futures << QtConcurrent::run(this, &KServiceTest::testKSycocaUpdate);
     futures << QtConcurrent::run(this, &KServiceTest::testTraderConstraints);
-    while (m_sycocaUpdateDone == 0) // not using a bool, just to silence helgrind
+    while (m_sycocaUpdateDone.loadRelaxed() == 0) // not using a bool, just to silence helgrind
         QTest::qWait(100); // process D-Bus events!
     kDebug() << "Joining all threads";
     Q_FOREACH(QFuture<void> f, futures) // krazy:exclude=foreach

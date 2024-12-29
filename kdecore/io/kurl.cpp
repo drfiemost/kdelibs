@@ -1694,7 +1694,7 @@ static QString _relativePath(const QString &base_dir, const QString &path, bool 
 
    // Find where they meet
    int level = 0;
-   int maxLevel = qMin(list1.count(), list2.count());
+   int maxLevel = std::min(list1.count(), list2.count());
    while((level < maxLevel) && (list1[level] == list2[level])) level++;
 
    QString result;

@@ -419,9 +419,9 @@ DOMString CSSStyleDeclarationImpl::getLayeredShortHandValue(const int* propertie
         if (values[i]) {
             if (values[i]->isValueList()) {
                 CSSValueListImpl* valueList = static_cast<CSSValueListImpl*>(values[i]);
-                numLayers = qMax(valueList->length(), (unsigned long)numLayers);
+                numLayers = std::max(valueList->length(), (unsigned long)numLayers);
             } else
-                numLayers = qMax(1U, numLayers);
+                numLayers = std::max(1U, numLayers);
         }
     }
 

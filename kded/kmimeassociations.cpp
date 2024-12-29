@@ -128,11 +128,11 @@ void KOfferHash::addServiceOffer(const QString& serviceType, const KServiceOffer
     } else {
         //kDebug(7021) << service->entryPath() << "already in" << serviceType;
         // This happens when mimeapps.list mentions a service (to make it preferred)
-        // Update initialPreference to qMax(existing offer, new offer)
+        // Update initialPreference to std::max(existing offer, new offer)
         QMutableListIterator<KServiceOffer> sfit(data.offers);
         while (sfit.hasNext()) {
             if (sfit.next().service() == service) // we can compare KService::Ptrs because they are from the memory hash
-                sfit.value().setPreference( qMax(sfit.value().preference(), offer.preference()) );
+                sfit.value().setPreference( std::max(sfit.value().preference(), offer.preference()) );
         }
     }
 }

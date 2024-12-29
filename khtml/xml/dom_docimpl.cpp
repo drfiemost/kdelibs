@@ -1981,7 +1981,7 @@ void DocumentImpl::processHttpEquiv(const DOMString &equiv, const DOMString &con
             pos = str.indexOf(QRegExp("[ \t]"));
 
         bool ok = false;
-	int delay = qMax( 0, content.implementation()->toInt(&ok) );
+	int delay = std::max( 0, content.implementation()->toInt(&ok) );
         if ( !ok && str.length() && str[0] == '.' )
             ok = true;
 

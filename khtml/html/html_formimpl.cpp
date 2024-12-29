@@ -1675,11 +1675,11 @@ bool HTMLInputElementImpl::encoding(const QTextCodec* codec, khtml::encodingList
                 QString astr(nme.isEmpty() ? QLatin1String("x") : QString(nme + ".x"));
 
                 encoding += fixUpfromUnicode(codec, astr);
-                astr.setNum(qMax( clickX(), 0 ));
+                astr.setNum(std::max( clickX(), 0 ));
                 encoding += fixUpfromUnicode(codec, astr);
                 astr = nme.isEmpty() ? QLatin1String("y") : QString(nme + ".y");
                 encoding += fixUpfromUnicode(codec, astr);
-                astr.setNum(qMax( clickY(), 0 ) );
+                astr.setNum(std::max( clickY(), 0 ) );
                 encoding += fixUpfromUnicode(codec, astr);
 		astr = value().string();
 		if(astr.length() > 0) {
@@ -2447,11 +2447,11 @@ void HTMLSelectElementImpl::parseAttribute(AttributeImpl *attr)
     switch(attr->id())
     {
     case ATTR_SIZE:
-        m_size = qMax(attr->value().toInt(), 1);
+        m_size = std::max(attr->value().toInt(), 1);
         setChanged();
         break;
     case ATTR_WIDTH:
-        m_minwidth = qMax(attr->value().toInt(), 0);
+        m_minwidth = std::max(attr->value().toInt(), 0);
         break;
     case ATTR_MULTIPLE:
         m_multiple = (attr->val() != 0);

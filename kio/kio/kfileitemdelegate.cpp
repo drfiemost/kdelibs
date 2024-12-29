@@ -376,7 +376,7 @@ QSize KFileItemDelegate::Private::layoutText(QTextLayout &layout, const QString 
         height += leading;
         line.setPosition(QPoint(0, height));
         height += int(line.height());
-        widthUsed = qMax(widthUsed, line.naturalTextWidth());
+        widthUsed = std::max(widthUsed, line.naturalTextWidth());
     }
     layout.endLayout();
 
@@ -503,7 +503,7 @@ QSize KFileItemDelegate::Private::decorationSizeHint(const QStyleOptionViewItem 
     if (!verticalLayout(option))
         iconSize.rwidth() = option.decorationSize.width();
     else if (iconSize.width() < option.decorationSize.width())
-        iconSize.rwidth() = qMin(iconSize.width() + 10, option.decorationSize.width());
+        iconSize.rwidth() = std::min(iconSize.width() + 10, option.decorationSize.width());
     if (iconSize.height() < option.decorationSize.height())
         iconSize.rheight() = option.decorationSize.height();
 
@@ -761,7 +761,7 @@ void KFileItemDelegate::Private::layoutTextItems(const QStyleOptionViewItem &opt
         infoSize = QSize(0, 0);
 
     // Compute the bounding rect of the text
-    const QSize size(qMax(labelSize.width(), infoSize.width()), labelSize.height() + infoSize.height());
+    const QSize size(std::max(labelSize.width(), infoSize.width()), labelSize.height() + infoSize.height());
     *textBoundingRect = QStyle::alignedRect(option.direction, option.displayAlignment, size, textRect);
 
     // Compute the positions where we should draw the layouts
@@ -959,13 +959,13 @@ QSize KFileItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QMod
 
     if (d->verticalLayout(opt))
     {
-        size.rwidth()  = qMax(displaySize.width(), decorationSize.width());
+        size.rwidth()  = std::max(displaySize.width(), decorationSize.width());
         size.rheight() = decorationSize.height() + displaySize.height() + 1;
     }
     else
     {
         size.rwidth()  = decorationSize.width() + displaySize.width() + 1;
-        size.rheight() = qMax(decorationSize.height(), displaySize.height());
+        size.rheight() = std::max(decorationSize.height(), displaySize.height());
     }
 
     size = d->addMargin(size, Private::ItemMargin);
@@ -1526,13 +1526,13 @@ void KFileItemDelegate::updateEditorGeometry(QWidget *editor, const QStyleOption
     // Use the full available width for the editor when maximumSize is set
     if (!d->maximumSize.isEmpty()) {
         if (d->verticalLayout(option)) {
-            int diff = qMax(r.width(), d->maximumSize.width()) - r.width();
+            int diff = std::max(r.width(), d->maximumSize.width()) - r.width();
             if (diff > 1) {
                 r.adjust(-(diff / 2), 0, diff / 2, 0);
             }
         }
         else {
-            int diff = qMax(r.width(), d->maximumSize.width() - opt.decorationSize.width()) - r.width();
+            int diff = std::max(r.width(), d->maximumSize.width() - opt.decorationSize.width()) - r.width();
             if (diff > 0) {
                 if (opt.decorationPosition == QStyleOptionViewItem::Left) {
                     r.adjust(0, 0, diff, 0);

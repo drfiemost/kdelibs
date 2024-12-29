@@ -797,7 +797,7 @@ class SecureMessageDialog : public KDialog
         QRect curRect(m_textEdit->rect());
         QFontMetrics metrics(fontMetrics());
         curRect.setHeight(5 * metrics.lineSpacing());
-        curRect.setWidth(qMax(curRect.width(), 300)); // At least 300 pixels ok?
+        curRect.setWidth(std::max(curRect.width(), 300)); // At least 300 pixels ok?
 
         QString text(m_textEdit->toPlainText());
         curRect = metrics.boundingRect(curRect, Qt::TextWordWrap | Qt::TextSingleLine, text);

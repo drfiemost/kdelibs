@@ -248,16 +248,16 @@ void KCharSelectTablePrivate::_k_resizeCells()
     int maxCharWidth = 0;
     const QList<QChar> chars = model->chars();
     for (int i = 0 ; i < chars.size(); ++i) {
-        maxCharWidth = qMax(maxCharWidth, fontMetrics.width(chars.at(i)));
+        maxCharWidth = std::max(maxCharWidth, fontMetrics.width(chars.at(i)));
     }
     // Avoid too narrow cells
-    maxCharWidth = qMax(maxCharWidth, 2 * fontMetrics.xHeight());
-    maxCharWidth = qMax(maxCharWidth, fontMetrics.height());
+    maxCharWidth = std::max(maxCharWidth, 2 * fontMetrics.xHeight());
+    maxCharWidth = std::max(maxCharWidth, fontMetrics.height());
     // Add the necessary padding, trying to match the delegate
     const int textMargin = q->style()->pixelMetric(QStyle::PM_FocusFrameHMargin, 0, q) + 1;
     maxCharWidth += 2 * textMargin;
 
-    const int columns = qMax(1, viewportWidth / maxCharWidth);
+    const int columns = std::max(1, viewportWidth / maxCharWidth);
     model->setColumnCount(columns);
 
     const QChar oldChar = q->chr();
@@ -283,7 +283,7 @@ void KCharSelectTablePrivate::_k_resizeCells()
 #endif
     const int fontHeight = fontMetrics.height();
     if (new_h < 5 || new_h < 4 + fontHeight) {
-        new_h = qMax(5, 4 + fontHeight);
+        new_h = std::max(5, 4 + fontHeight);
     }
     for (int i = 0;i < rows;i++) {
         vHeader->resizeSection(i, new_h);

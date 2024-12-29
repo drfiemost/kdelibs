@@ -221,7 +221,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
                     }
                     componentString = calendar->eraYear(fromDateTime.date());
                 } else if (modifierChar != QLatin1Char(':')) {    //Long year numeric, default 0 pad to 4 places with sign
-                    componentInteger = qAbs(year);
+                    componentInteger = std::abs(year);
                     minWidth = 4;
                     if (year < 0) {
                         signChar = QLatin1Char('-');
@@ -235,7 +235,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
                     }
                     componentString = calendar->eraName(fromDateTime.date());
                 } else if (modifierChar != QLatin1Char(':')) {    //Century numeric, default 0 pad to 2 places with sign
-                    componentInteger =  qAbs(year) / 100 ;
+                    componentInteger =  std::abs(year) / 100 ;
                     minWidth = 2;
                     if (year < 0) {
                         signChar = QLatin1Char('-');
@@ -247,7 +247,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
                     componentInteger =  calendar->yearInEra(fromDateTime.date());
                     minWidth = 1;
                 } else if (modifierChar != QLatin1Char(':')) {    //Short year numeric, default 0 pad to 2 places with sign
-                    componentInteger =  qAbs(year) % 100;
+                    componentInteger =  std::abs(year) % 100;
                     minWidth = 2;
                     if (year < 0) {
                         signChar = QLatin1Char('-');
@@ -393,7 +393,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
                 if (modifierChar != QLatin1Char(':')) {
                     calendar->week(fromDateTime.date(), KLocale::IsoWeekNumber, &isoWeekYear);
                     calendar->setDate(yearDate, isoWeekYear, 1, 1);
-                    componentInteger = qAbs(isoWeekYear);
+                    componentInteger = std::abs(isoWeekYear);
                     minWidth = 4;
                     if (isoWeekYear < 0) {
                         signChar = QLatin1Char('-');
@@ -404,7 +404,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
                 if (modifierChar != QLatin1Char(':')) {
                     calendar->week(fromDateTime.date(), KLocale::IsoWeekNumber, &isoWeekYear);
                     calendar->setDate(yearDate, isoWeekYear, 1, 1);
-                    componentInteger = qAbs(isoWeekYear) % 100;
+                    componentInteger = std::abs(isoWeekYear) % 100;
                     minWidth = 2;
                     if (isoWeekYear < 0) {
                         signChar = QLatin1Char('-');
@@ -589,7 +589,7 @@ QString KDateTimeFormatter::formatDateTimePosix(const KDateTime &fromDateTime,
             if (invalidComponent || invalidModifier) {    // If escape sequence invalid treat as literal
                 componentString = toFormat.mid(escapeIndex, formatIndex);
             } else if (componentString.isEmpty()) {    //i.e. is a number component
-                padWidth = qMax(minWidth, padWidth);
+                padWidth = std::max(minWidth, padWidth);
                 componentString = stringFromInteger(componentInteger, padWidth, padChar, signChar, digitSet, locale);
             } else { //i.e. is a string component
                 if (padChar != QChar() && padWidth != 0) {
@@ -737,7 +737,7 @@ QString KDateTimeFormatter::getUnicodeString(const KDateTime &fromDateTime,
         removed = 1;
     } else if (toFormat.startsWith(QLatin1String("yyyy"))) {
         const int year = calendar->year(fromDateTime.date());
-        result = QString::number(qAbs(year)).rightJustified(4, QLatin1Char('0'));
+        result = QString::number(std::abs(year)).rightJustified(4, QLatin1Char('0'));
         if (year > 0)
             removed = 4;
         else {

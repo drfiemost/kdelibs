@@ -305,16 +305,16 @@ void Dialog::syncToGraphicsWidget()
         setMinimumSize(0, 0);
         setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
 
-        QSize newSize(qMin(int(graphicsWidget->size().width()) + left + right, maxSize.width()),
-               qMin(int(graphicsWidget->size().height()) + top + bottom, maxSize.height()));
+        QSize newSize(std::min(int(graphicsWidget->size().width()) + left + right, maxSize.width()),
+               std::min(int(graphicsWidget->size().height()) + top + bottom, maxSize.height()));
 
         const QSizeF minimum = graphicsWidget->effectiveSizeHint(Qt::MinimumSize);
-        QSize newMinimumSize(qMin(int(minimum.width()) + left + right, maxSize.width()),
-                       qMin(int(minimum.height()) + top + bottom, maxSize.height()));
+        QSize newMinimumSize(std::min(int(minimum.width()) + left + right, maxSize.width()),
+                       std::min(int(minimum.height()) + top + bottom, maxSize.height()));
 
 
-        QSize newMaximumSize(qMin(int(graphicsWidget->maximumSize().width()) + left + right, maxSize.width()),
-                       qMin(int(graphicsWidget->maximumSize().height()) + top + bottom, maxSize.height()));
+        QSize newMaximumSize(std::min(int(graphicsWidget->maximumSize().width()) + left + right, maxSize.width()),
+                       std::min(int(graphicsWidget->maximumSize().height()) + top + bottom, maxSize.height()));
 
 
         Plasma::Applet *applet = d->appletPtr.data();
@@ -345,8 +345,8 @@ void Dialog::syncToGraphicsWidget()
         //force a valid rect, otherwise it will take up the whole scene
         QRectF sceneRect(graphicsWidget->sceneBoundingRect());
 
-        sceneRect.setWidth(qMax(qreal(1), sceneRect.width()));
-        sceneRect.setHeight(qMax(qreal(1), sceneRect.height()));
+        sceneRect.setWidth(std::max(qreal(1), sceneRect.width()));
+        sceneRect.setHeight(std::max(qreal(1), sceneRect.height()));
         d->view->setSceneRect(sceneRect);
 
         //d->view->resize(graphicsWidget->size().toSize());
@@ -445,42 +445,42 @@ void Dialog::mouseMoveEvent(QMouseEvent *event)
 
         switch(d->resizeStartCorner) {
             case Dialog::NorthEast:
-                newHeight = qMin(maximumHeight(), qMax(minimumHeight(), height() - event->y()));
+                newHeight = std::min(maximumHeight(), std::max(minimumHeight(), height() - event->y()));
                 newWidth = d->calculateWidthForHeightAndRatio(newHeight, aspectRatio);
                 if (newWidth == -1) {
-                    newWidth = qMin(maximumWidth(), qMax(minimumWidth(), event->x()));
+                    newWidth = std::min(maximumWidth(), std::max(minimumWidth(), event->x()));
                 }
                 position = QPoint(x(), y() + height() - newHeight);
                 break;
             case Dialog::NorthWest:
-                newHeight = qMin(maximumHeight(), qMax(minimumHeight(), height() - event->y()));
+                newHeight = std::min(maximumHeight(), std::max(minimumHeight(), height() - event->y()));
                 newWidth = d->calculateWidthForHeightAndRatio(newHeight, aspectRatio);
                 if (newWidth == -1) {
-                    newWidth = qMin(maximumWidth(), qMax(minimumWidth(), width() - event->x()));
+                    newWidth = std::min(maximumWidth(), std::max(minimumWidth(), width() - event->x()));
                 }
                 position = QPoint(x() + width() - newWidth, y() + height() - newHeight);
                 break;
             case Dialog::SouthWest:
-                newHeight = qMin(maximumHeight(), qMax(minimumHeight(), event->y()));
+                newHeight = std::min(maximumHeight(), std::max(minimumHeight(), event->y()));
                 newWidth = d->calculateWidthForHeightAndRatio(newHeight, aspectRatio);
                 if (newWidth == -1) {
-                    newWidth = qMin(maximumWidth(), qMax(minimumWidth(), width() - event->x()));
+                    newWidth = std::min(maximumWidth(), std::max(minimumWidth(), width() - event->x()));
                 }
                 position = QPoint(x() + width() - newWidth, y());
                 break;
             case Dialog::SouthEast:
-                newHeight = qMin(maximumHeight(), qMax(minimumHeight(), event->y()));
+                newHeight = std::min(maximumHeight(), std::max(minimumHeight(), event->y()));
                 newWidth = d->calculateWidthForHeightAndRatio(newHeight, aspectRatio);
                 if (newWidth == -1) {
-                    newWidth = qMin(maximumWidth(), qMax(minimumWidth(), event->x()));
+                    newWidth = std::min(maximumWidth(), std::max(minimumWidth(), event->x()));
                 }
                 position = QPoint(x(), y());
                 break;
              default:
-                newHeight = qMin(maximumHeight(), qMax(minimumHeight(), height()));
+                newHeight = std::min(maximumHeight(), std::max(minimumHeight(), height()));
                 newWidth = d->calculateWidthForHeightAndRatio(newHeight, aspectRatio);
                 if (newWidth == -1) {
-                    newWidth = qMin(maximumWidth(), qMax(minimumWidth(), width()));
+                    newWidth = std::min(maximumWidth(), std::max(minimumWidth(), width()));
                 }
                 position = QPoint(x(), y());
                 break;
@@ -564,8 +564,8 @@ void Dialog::resizeEvent(QResizeEvent *event)
         graphicsWidget->resize(d->view->size());
 
         QRectF sceneRect(graphicsWidget->sceneBoundingRect());
-        sceneRect.setWidth(qMax(qreal(1), sceneRect.width()));
-        sceneRect.setHeight(qMax(qreal(1), sceneRect.height()));
+        sceneRect.setWidth(std::max(qreal(1), sceneRect.width()));
+        sceneRect.setHeight(std::max(qreal(1), sceneRect.height()));
         d->view->setSceneRect(sceneRect);
         d->view->centerOn(graphicsWidget);
     }

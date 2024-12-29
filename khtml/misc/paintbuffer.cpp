@@ -191,8 +191,8 @@ QPixmap *PaintBuffer::getBuf( QSize s )
 
     m_grabbed = true;
     bool cur_overflow = false;
-    int nw = qMax(m_buf.width(), s.width());
-    int nh = qMax(m_buf.height(), s.height());
+    int nw = std::max(m_buf.width(), s.width());
+    int nh = std::max(m_buf.height(), s.height());
 
     if (!m_overflow && (nw*nh > maxPixelBuffering))
         cur_overflow = true;

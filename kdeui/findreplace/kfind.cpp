@@ -440,7 +440,7 @@ int KFind::find(const QString &text, const QString &pattern, int index, long opt
     // In Qt4 QString("aaaaaa").lastIndexOf("a",6) returns -1; we need
     // to start at text.length() - pattern.length() to give a valid index to QString.
     if (options & KFind::FindBackwards) {
-        index = qMin( qMax(0, text.length() - pattern.length()), index );
+        index = std::min( std::max(0, text.length() - pattern.length()), index );
     }
 
     Qt::CaseSensitivity caseSensitive = (options & KFind::CaseSensitive) ? Qt::CaseSensitive : Qt::CaseInsensitive;

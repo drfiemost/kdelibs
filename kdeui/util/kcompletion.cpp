@@ -908,7 +908,7 @@ void KCompletionMatches::removeDuplicates()
         for ( (it2 = it1), ++it2; it2 != end();) {
             if( (*it1).value() == (*it2).value()) {
                 // use the max height
-                (*it1).first = qMax( (*it1).key(), (*it2).key());
+                (*it1).first = std::max( (*it1).key(), (*it2).key());
                 it2 = erase( it2 );
                 continue;
             }

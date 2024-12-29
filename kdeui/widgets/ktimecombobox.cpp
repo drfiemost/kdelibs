@@ -114,7 +114,7 @@ QString KTimeComboBoxPrivate::timeFormatToInputMask(const QString &format, bool 
         format.contains(QLatin1String("%P"))) {
         QString am = KGlobal::locale()->dayPeriodText(QTime(0, 0, 0));
         QString pm = KGlobal::locale()->dayPeriodText(QTime(12, 0, 0));
-        int ampmLen = qMax(am.length(), pm.length());
+        int ampmLen = std::max(am.length(), pm.length());
         QString ampmMask;
         for (int i = 0; i < ampmLen; ++i) {
             ampmMask.append(QLatin1Char('a'));

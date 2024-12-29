@@ -116,7 +116,7 @@ void RenderImage::updatePixmap( const QRect& r, CachedImage *o)
                 iw = br.width();
 #else
                 // hack for testregression, remove (use above instead) when main branch
-                iw = br.width() + qMax(-fm.minLeftBearing(), 0) + qMax(-fm.minRightBearing(), 0);
+                iw = br.width() + std::max(-fm.minLeftBearing(), 0) + std::max(-fm.minRightBearing(), 0);
 #endif
             if ( br.height() > ih )
                 ih = br.height();
@@ -277,8 +277,8 @@ void RenderImage::paint(PaintInfo& paintInfo, int _tx, int _ty)
 #ifdef TEST_HACK
 //BEGIN HACK
                 // hack for testregression, remove when main branch
-                ax     += qMax(-fm.minLeftBearing(), 0);
-                cWidth -= qMax(-fm.minLeftBearing(), 0);
+                ax     += std::max(-fm.minLeftBearing(), 0);
+                cWidth -= std::max(-fm.minLeftBearing(), 0);
 
 //END HACK
 #endif

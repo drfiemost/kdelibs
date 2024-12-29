@@ -176,14 +176,14 @@ void KRatingPainter::setCustomPixmap( const QPixmap& pixmap )
 
 void KRatingPainter::setSpacing( int s )
 {
-    d->spacing = qMax( 0, s );
+    d->spacing = std::max( 0, s );
 }
 
 
 void KRatingPainter::paint( QPainter* painter, const QRect& rect, int rating, int hoverRating ) const
 {
-    rating = qMin( rating, d->maxRating );
-    hoverRating = qMin( hoverRating, d->maxRating );
+    rating = std::min( rating, d->maxRating );
+    hoverRating = std::min( hoverRating, d->maxRating );
 
     int numUsedStars = d->bHalfSteps ? d->maxRating/2 : d->maxRating;
 
@@ -197,7 +197,7 @@ void KRatingPainter::paint( QPainter* painter, const QRect& rect, int rating, in
 
     // get the rating pixmaps
     int maxHSizeOnePix = ( rect.width() - (numUsedStars-1)*usedSpacing ) / numUsedStars;
-    QPixmap ratingPix = d->getPixmap( qMin( rect.height(), maxHSizeOnePix ) );
+    QPixmap ratingPix = d->getPixmap( std::min( rect.height(), maxHSizeOnePix ) );
 
     KIconEffect *iconEffect = KIconLoader::global()->iconEffect();
     QPixmap disabledRatingPix = iconEffect->apply( ratingPix, KIconEffect::ToGray, 1.0, QColor(), QColor(), false );
@@ -290,7 +290,7 @@ int KRatingPainter::ratingFromPosition( const QRect& rect, const QPoint& pos ) c
     int usedSpacing = d->spacing;
     int numUsedStars = d->bHalfSteps ? d->maxRating/2 : d->maxRating;
     int maxHSizeOnePix = ( rect.width() - (numUsedStars-1)*usedSpacing ) / numUsedStars;
-    QPixmap ratingPix = d->getPixmap( qMin( rect.height(), maxHSizeOnePix ) );
+    QPixmap ratingPix = d->getPixmap( std::min( rect.height(), maxHSizeOnePix ) );
 
     int ratingAreaWidth = ratingPix.width()*numUsedStars + usedSpacing*(numUsedStars-1);
 

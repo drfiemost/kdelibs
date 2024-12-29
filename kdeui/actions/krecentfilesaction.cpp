@@ -124,7 +124,7 @@ static QString titleWithSensibleWidth(const QString& nameValue, const QString& v
     const QDesktopWidget desktopWidget;
     int maxWidthForTitles = INT_MAX;
     for (int i = 0; i < desktopWidget.screenCount(); ++i) {
-        maxWidthForTitles = qMin(maxWidthForTitles, desktopWidget.availableGeometry(i).width() * 3 / 4);
+        maxWidthForTitles = std::min(maxWidthForTitles, desktopWidget.availableGeometry(i).width() * 3 / 4);
     }
     const QFontMetrics fontMetrics = QFontMetrics(QFont());
 

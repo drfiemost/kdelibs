@@ -3581,10 +3581,10 @@ NETStrut NETWinInfo::frameExtents() const {
 
 void NETWinInfo::setFrameOverlap(NETStrut strut) {
     if (strut.left != -1 || strut.top != -1 || strut.right != -1 || strut.bottom != -1) {
-        strut.left   = qMax(0, strut.left);
-        strut.top    = qMax(0, strut.top);
-        strut.right  = qMax(0, strut.right);
-        strut.bottom = qMax(0, strut.bottom);
+        strut.left   = std::max(0, strut.left);
+        strut.top    = std::max(0, strut.top);
+        strut.right  = std::max(0, strut.right);
+        strut.bottom = std::max(0, strut.bottom);
     }
 
     p->frame_overlap = strut;

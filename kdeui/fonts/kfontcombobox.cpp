@@ -207,7 +207,7 @@ QSize KFontFamilyDelegate::sizeHint (const QStyleOptionViewItem &option,
     QString sample = alphabetSample();
 
     // Only the hight matters here, the width is mandated by KFontComboBox::event()
-    return QSize(qMax(familyMetrics.width(trFontFamily), sampleMetrics.width(sample)),
+    return QSize(std::max(familyMetrics.width(trFontFamily), sampleMetrics.width(sample)),
                  qRound(familyMetrics.lineSpacing() + sampleMetrics.lineSpacing() * 1.2));
 }
 
@@ -386,7 +386,7 @@ bool KFontComboBox::event (QEvent *e)
             if (lview->verticalScrollBar()) {
                 vsbarWidth = lview->verticalScrollBar()->width();
             }
-            lview->window()->setFixedWidth(  qMax(widgetWidth, sampleWidth)
+            lview->window()->setFixedWidth(  std::max(widgetWidth, sampleWidth)
                                            + iconWidth + vsbarWidth);
         }
     }

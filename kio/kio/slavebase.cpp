@@ -274,7 +274,7 @@ void SlaveBase::dispatchLoop()
 
         int ms = -1;
         if (d->timeout)
-            ms = 1000 * qMax<time_t>(d->timeout - time(0), 1);
+            ms = 1000 * std::max<time_t>(d->timeout - time(0), 1);
 
         int ret = -1;
         if (d->appConnection.hasTaskAvailable() || d->appConnection.waitForIncomingTask(ms)) {

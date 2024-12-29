@@ -423,7 +423,7 @@ bool KSaveFile::numberedBackupFile( const QString& qFilename,
                     if ( num >= maxBackups ) {
                         QFile::remove( fi.filePath() );
                     } else {
-                        maxBackupFound = qMax( maxBackupFound, num );
+                        maxBackupFound = std::max( maxBackupFound, num );
                     }
                 }
             }

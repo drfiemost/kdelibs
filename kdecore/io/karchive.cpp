@@ -270,7 +270,7 @@ bool KArchive::addLocalFile( const QString& fileName, const QString& destName )
 
     // Read and write data in chunks to minimize memory usage
     QByteArray array;
-    array.resize( int( qMin( qint64( 1024 * 1024 ), size ) ) );
+    array.resize( int( std::min( qint64( 1024 * 1024 ), size ) ) );
     qint64 n;
     qint64 total = 0;
     while ( ( n = file.read( array.data(), array.size() ) ) > 0 )
@@ -672,10 +672,10 @@ void KArchiveFile::copyTo(const QString& dest) const
       const qint64 chunkSize = 1024 * 1024;
       qint64 remainingSize = d->size;
       QByteArray array;
-      array.resize( int( qMin( chunkSize, remainingSize ) ) );
+      array.resize( int( std::min( chunkSize, remainingSize ) ) );
 
       while ( remainingSize > 0 ) {
-          const qint64 currentChunkSize = qMin( chunkSize, remainingSize );
+          const qint64 currentChunkSize = std::min( chunkSize, remainingSize );
           const qint64 n = inputDev->read( array.data(), currentChunkSize );
           Q_ASSERT( n == currentChunkSize );
           f.write( array.data(), currentChunkSize );

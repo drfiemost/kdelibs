@@ -364,7 +364,7 @@ QSize KExtendableItemDelegate::Private::maybeExtendedSize(const QStyleOptionView
         if (!neighborIndex.isValid()) {
             break;
         }
-        itemHeight = qMax(itemHeight, q->QStyledItemDelegate::sizeHint(option, neighborIndex).height());
+        itemHeight = std::max(itemHeight, q->QStyledItemDelegate::sizeHint(option, neighborIndex).height());
     }
 
     //we only want to reserve vertical space, the horizontal extender layout is our private business.

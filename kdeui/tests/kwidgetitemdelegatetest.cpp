@@ -78,7 +78,7 @@ protected:
 
         QRadialGradient radialGrad(QPointF(event->rect().width() / 2,
                                            event->rect().height() / 2),
-                                           qMin(event->rect().width() / 2,
+                                           std::min(event->rect().width() / 2,
                                                 event->rect().height() / 2));
 
         if (underMouse())
@@ -255,7 +255,7 @@ public:
         int widthUninstall = QApplication::style()->sizeFromContents(QStyle::CT_ToolButton, &toolButtonOpt, QSize(option.fontMetrics.width("Uninstall") + HARDCODED_BORDER * 3, option.fontMetrics.height()), toolButton).width();
 
         QSize size = toolButton->sizeHint();
-        size.setWidth(qMax(widthInstall, widthUninstall));
+        size.setWidth(std::max(widthInstall, widthUninstall));
         toolButton->resize(size);
 #endif
         toolButton->move(option.rect.width() - toolButton->size().width() - HARDCODED_BORDER,

@@ -82,7 +82,7 @@ QIODeviceInputStream::fillBuffer ( char* start, int32_t space )
     if(max < 0)
         max = space;
     else
-        max = qMin(qint64(space), qMax(max-m_read,qint64(0)));
+        max = std::min(qint64(space), std::max(max-m_read,qint64(0)));
 
     // read into the buffer
     int32_t nwritten = in.read ( start, max );

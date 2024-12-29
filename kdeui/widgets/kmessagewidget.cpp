@@ -181,7 +181,7 @@ void KMessageWidgetPrivate::updateSnapShot()
 
 void KMessageWidgetPrivate::slotTimeLineChanged(qreal value)
 {
-    q->setFixedHeight(qMin(value * 2, qreal(1.0)) * content->height());
+    q->setFixedHeight(std::min(value * 2, qreal(1.0)) * content->height());
     q->update();
 }
 

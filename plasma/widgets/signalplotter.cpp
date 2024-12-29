@@ -779,8 +779,8 @@ void SignalPlotter::drawTopBarContents(QPainter *p, int x, int width, int height
             double newest_datapoint = newestData.at(i);
             int start = x + (int)(bias * scaleFac);
             int end = x + (int)((bias += newest_datapoint) * scaleFac);
-            int start2 = qMin(start, end);
-            end = qMax(start, end);
+            int start2 = std::min(start, end);
+            end = std::max(start, end);
             start = start2;
 
             // If the rect is wider than 2 pixels we draw only the last
@@ -923,22 +923,22 @@ void SignalPlotter::drawPlots(QPainter *p, int top, int w, int h, int horizontal
         int offset = 0; // Our line is 2 pixels thick.  This means that when we draw the area, we need to offset
         double max_y = 0;
         double min_y = 0;
-        for (int j = qMin(datapoints.size(), d->plotColors.size()) - 1; j >=0; --j) {
+        for (int j = std::min(datapoints.size(), d->plotColors.size()) - 1; j >=0; --j) {
             if (d->useAutoRange) {
                 // If we use autorange, then we need to prepare the min and max values for _next_ time we paint.
                 // If we are stacking the plots, then we need to add the maximums together.
                 double current_maxvalue =
-                    qMax(datapoints[j],
-                         qMax(prev_datapoints[j],
-                              qMax(prev_prev_datapoints[j],
+                    std::max(datapoints[j],
+                         std::max(prev_datapoints[j],
+                              std::max(prev_prev_datapoints[j],
                                    prev_prev_prev_datapoints[j])));
                 double current_minvalue =
-                    qMin<double>(datapoints[j],
-                         qMin(prev_datapoints[j],
-                              qMin(prev_prev_datapoints[j],
+                    std::min<double>(datapoints[j],
+                         std::min(prev_datapoints[j],
+                              std::min(prev_prev_datapoints[j],
                                    prev_prev_prev_datapoints[j])));
-                d->verticalMax = qMax(d->verticalMax, current_maxvalue);
-                d->verticalMin = qMin(d->verticalMin, current_maxvalue);
+                d->verticalMax = std::max(d->verticalMax, current_maxvalue);
+                d->verticalMin = std::min(d->verticalMin, current_maxvalue);
                 if (d->stackPlots) {
                     max_y += current_maxvalue;
                     min_y += current_minvalue;
@@ -1028,8 +1028,8 @@ void SignalPlotter::drawPlots(QPainter *p, int top, int w, int h, int horizontal
                 }
             }
             if (d->useAutoRange && d->stackPlots) {
-                d->verticalMax = qMax(max_y, d->verticalMax);
-                d->verticalMin = qMin(min_y, d->verticalMin);
+                d->verticalMax = std::max(max_y, d->verticalMax);
+                d->verticalMin = std::min(min_y, d->verticalMin);
             }
         }
     }

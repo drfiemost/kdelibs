@@ -911,9 +911,9 @@ void PopupAppletPrivate::restoreDialogSize()
         preferredHeight = gWidget->preferredSize().height();
     }
 
-    const int width = qMin(sizeGroup.readEntry("DialogWidth", preferredWidth),
+    const int width = std::min(sizeGroup.readEntry("DialogWidth", preferredWidth),
                            corona->screenGeometry(-1).width() - 50);
-    const int height = qMin(sizeGroup.readEntry("DialogHeight", preferredHeight),
+    const int height = std::min(sizeGroup.readEntry("DialogHeight", preferredHeight),
                             corona->screenGeometry(-1).height() - 50);
 
     QSize saved(width, height);

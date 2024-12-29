@@ -189,7 +189,7 @@ public:
         const bool verticalVisible = widget.data()->size().height() > q->size().height();
         const bool horizontalVisible = widget.data()->size().width() > q->size().width();
 
-        verticalScrollBar->nativeWidget()->setMaximum(qMax(0, int((widget.data()->size().height() - scrollingWidget->size().height())/10)));
+        verticalScrollBar->nativeWidget()->setMaximum(std::max(0, int((widget.data()->size().height() - scrollingWidget->size().height())/10)));
         verticalScrollBar->nativeWidget()->setPageStep(int(scrollingWidget->size().height())/10);
 
         if (verticalScrollBarPolicy == Qt::ScrollBarAlwaysOff ||
@@ -205,7 +205,7 @@ public:
             verticalScrollBar->show();
         }
 
-        horizontalScrollBar->nativeWidget()->setMaximum(qMax(0, int((widget.data()->size().width() - scrollingWidget->size().width())/10)));
+        horizontalScrollBar->nativeWidget()->setMaximum(std::max(0, int((widget.data()->size().width() - scrollingWidget->size().width())/10)));
         horizontalScrollBar->nativeWidget()->setPageStep(int(scrollingWidget->size().width())/10);
 
         if (horizontalScrollBarPolicy == Qt::ScrollBarAlwaysOff ||
@@ -333,7 +333,7 @@ public:
         if (MaxVelocity <= 0)
             return 0.0;
 
-        velocity = qAbs(velocity);
+        velocity = std::abs(velocity);
         if (velocity > MaxVelocity)
             velocity = MaxVelocity;
         qreal dist = size / 4 * velocity / MaxVelocity;
@@ -348,8 +348,8 @@ public:
         QPointF diff = pos - start;
 
         //reduce if it's within the viewport
-        if (qAbs(diff.x()) < threshold.width() ||
-            qAbs(diff.y()) < threshold.height())
+        if (std::abs(diff.x()) < threshold.width() ||
+            std::abs(diff.y()) < threshold.height())
             duration /= 2;
 
         fixupAnimation.groupX->stop();
@@ -376,23 +376,23 @@ public:
         // -ve velocity means list is moving up
         if (velocity > 0) {
             if (val < minExtent)
-                maxDistance = qAbs(minExtent - val + (hasOvershoot?overShootDistance(velocity,size):0));
+                maxDistance = std::abs(minExtent - val + (hasOvershoot?overShootDistance(velocity,size):0));
             target = minExtent;
             deceleration = -deceleration;
         } else {
             if (val > maxExtent)
-                maxDistance = qAbs(maxExtent - val) + (hasOvershoot?overShootDistance(velocity,size):0);
+                maxDistance = std::abs(maxExtent - val) + (hasOvershoot?overShootDistance(velocity,size):0);
             target = maxExtent;
         }
         if (maxDistance > 0) {
             qreal v = velocity;
-            if (MaxVelocity != -1 && MaxVelocity < qAbs(v)) {
+            if (MaxVelocity != -1 && MaxVelocity < std::abs(v)) {
                 if (v < 0)
                     v = -MaxVelocity;
                 else
                     v = MaxVelocity;
             }
-            qreal duration = qAbs(v / deceleration);
+            qreal duration = std::abs(v / deceleration);
             qreal diffY = v * duration + (0.5  * deceleration * duration * duration);
             qreal startY = val;
 
@@ -405,7 +405,7 @@ public:
                 if (endY < target)
                     endY = startY - maxDistance;
             }
-            duration = qAbs((endY-startY)/ (-v/2));
+            duration = std::abs((endY-startY)/ (-v/2));
 
             if (hasYProperty) {
                 startY = -startY;
@@ -674,7 +674,7 @@ public:
 
         if (canYFlick()) {
             int dy = int(event->scenePos().y() - pressPos.y());
-            if (qAbs(dy) > KGlobalSettings::dndEventDelay() || elapsed(pressTime) > 200) {
+            if (std::abs(dy) > KGlobalSettings::dndEventDelay() || elapsed(pressTime) > 200) {
                 qreal newY = dy + pressScrollPos.y();
                 const qreal minY = minYExtent();
                 const qreal maxY = maxYExtent();
@@ -694,14 +694,14 @@ public:
                     setWidgetY(qRound(newY));
                     moved = true;
                 }
-                if (qAbs(dy) > KGlobalSettings::dndEventDelay())
+                if (std::abs(dy) > KGlobalSettings::dndEventDelay())
                     stealEvent = true;
             }
         }
 
         if (canXFlick()) {
             int dx = int(event->scenePos().x() - pressPos.x());
-            if (qAbs(dx) > KGlobalSettings::dndEventDelay() || elapsed(pressTime) > 200) {
+            if (std::abs(dx) > KGlobalSettings::dndEventDelay() || elapsed(pressTime) > 200) {
                 qreal newX = dx + pressScrollPos.x();
                 const qreal minX = minXExtent();
                 const qreal maxX = maxXExtent();
@@ -722,7 +722,7 @@ public:
                     moved = true;
                 }
 
-                if (qAbs(dx) > KGlobalSettings::dndEventDelay())
+                if (std::abs(dx) > KGlobalSettings::dndEventDelay())
                     stealEvent = true;
             }
         }
@@ -770,22 +770,22 @@ public:
             velocity = QPointF();
         }
 
-        if (qAbs(velocity.y()) > 10 &&
-            qAbs(event->scenePos().y() - pressPos.y()) > FlickThreshold) {
+        if (std::abs(velocity.y()) > 10 &&
+            std::abs(event->scenePos().y() - pressPos.y()) > FlickThreshold) {
             qreal vVelocity = velocity.y();
             // Minimum velocity to avoid annoyingly slow flicks.
-            if (qAbs(vVelocity) < MinimumFlickVelocity)
+            if (std::abs(vVelocity) < MinimumFlickVelocity)
                 vVelocity = vVelocity < 0 ? -MinimumFlickVelocity : MinimumFlickVelocity;
             flickY(vVelocity);
         } else {
             fixupY();
         }
 
-        if (qAbs(velocity.x()) > 10 &&
-            qAbs(event->scenePos().x() - pressPos.x()) > FlickThreshold) {
+        if (std::abs(velocity.x()) > 10 &&
+            std::abs(event->scenePos().x() - pressPos.x()) > FlickThreshold) {
             qreal hVelocity = velocity.x();
             // Minimum velocity to avoid annoyingly slow flicks.
-            if (qAbs(hVelocity) < MinimumFlickVelocity)
+            if (std::abs(hVelocity) < MinimumFlickVelocity)
                 hVelocity = hVelocity < 0 ? -MinimumFlickVelocity : MinimumFlickVelocity;
             flickX(hVelocity);
         } else {
@@ -1536,7 +1536,7 @@ bool ScrollWidget::sceneEventFilter(QGraphicsItem *i, QEvent *e)
                 d->multitouchGesture = ScrollWidgetPrivate::GestureUndefined;
             }
             if (d->multitouchGesture == ScrollWidgetPrivate::GestureUndefined) {
-                const int zoomDistance = qAbs(line1.length() - startLine.length());
+                const int zoomDistance = std::abs(line1.length() - startLine.length());
                 const int dragDistance = (startLine.pointAt(0.5) - point).manhattanLength();
 
                 if (zoomDistance - dragDistance > 30) {

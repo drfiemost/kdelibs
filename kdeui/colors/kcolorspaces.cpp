@@ -78,8 +78,8 @@ KHCY::KHCY(const QColor& color)
     y = lumag(r, g, b);
 
     // hue component
-    qreal p = qMax(qMax(r, g), b);
-    qreal n = qMin(qMin(r, g), b);
+    qreal p = std::max(std::max(r, g), b);
+    qreal n = std::min(std::min(r, g), b);
     qreal d = 6.0 * (p - n);
     if (n == p)
         h = 0.0;
@@ -94,7 +94,7 @@ KHCY::KHCY(const QColor& color)
     if (r == g && g == b)
         c = 0.0;
     else
-        c = qMax( (y - n) / y, (p - y) / (1 - y) );
+        c = std::max( (y - n) / y, (p - y) / (1 - y) );
 }
 
 QColor KHCY::qColor() const

@@ -300,7 +300,7 @@ static bool get_string_value( HKEY key, const TCHAR * value, TCHAR * dest, DWORD
     dest[0] = '\0';
     if ( RegQueryValueEx( key, value, 0, &type, (LPBYTE)dest, &size ) != ERROR_SUCCESS )
         return false;
-    //dest[ qMin( size, destSizeInBytes - sizeof( WCHAR ) ) / sizeof( WCHAR ) ] = 0;
+    //dest[ std::min( size, destSizeInBytes - sizeof( WCHAR ) ) / sizeof( WCHAR ) ] = 0;
     assert( type == REG_SZ );
     if ( type != REG_SZ )
         return false;

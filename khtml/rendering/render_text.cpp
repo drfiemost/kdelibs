@@ -112,8 +112,8 @@ void InlineTextBox::selectionStartEnd(int& sPos, int& ePos)
             startPos = 0;
     }
 
-    sPos = qMax(startPos - m_start, 0);
-    ePos = qMin(endPos - m_start, (int)m_len);
+    sPos = std::max(startPos - m_start, 0);
+    ePos = std::min(endPos - m_start, (int)m_len);
 }
 
 RenderObject::SelectionState InlineTextBox::selectionState()
@@ -539,7 +539,7 @@ int InlineTextBox::widthFromStart(int pos) const
 {
   // gasp! sometimes pos is i < 0 which crashes Font::width
   // kDebug() << this << pos << endl;
-  pos = qMax(pos, 0);
+  pos = std::max(pos, 0);
 
   const RenderText *t = renderText();
   Q_ASSERT(t->isText());
@@ -646,7 +646,7 @@ int InlineTextBox::placeEllipsisBox(bool ltr, int blockEdge, int ellipsisWidth, 
                 // No characters should be rendered.  Set ourselves to full truncation and place the ellipsis at the min of our start
                 // and the ellipsis edge.
                 m_truncation = cFullTruncation;
-                return qMin(ellipsisX, (int)m_x);
+                return std::min(ellipsisX, (int)m_x);
             }
 
             // Set the truncation index on the text run.  The ellipsis needs to be placed just after the last visible character.
@@ -1137,7 +1137,7 @@ long RenderText::caretMaxOffset() const
     int maxOffset = box->m_start + box->m_len;
     // ### slow
     for (box = box->prevTextBox(); box; box = box->prevTextBox())
-        maxOffset = qMax(maxOffset, box->m_start + box->m_len);
+        maxOffset = std::max(maxOffset, box->m_start + box->m_len);
     return maxOffset;
 }
 
@@ -1360,7 +1360,7 @@ int RenderText::minXPos() const
 	return 0;
     int retval=6666666;
     for (InlineTextBox* box = firstTextBox(); box; box = box->nextTextBox())
-        retval = qMin( retval, static_cast<int>(box->m_x));
+        retval = std::min( retval, static_cast<int>(box->m_x));
     return retval;
 }
 
@@ -1545,7 +1545,7 @@ short RenderText::width() const
             maxx = s->m_x + s->m_width;
     }
 
-    w = qMax(0, maxx-minx);
+    w = std::max(0, maxx-minx);
 
     return w;
 }

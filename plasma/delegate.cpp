@@ -76,7 +76,7 @@ class DelegatePrivate
 QFont DelegatePrivate::fontForSubTitle(const QFont &titleFont) const
 {
     QFont subTitleFont = titleFont;
-    subTitleFont.setPointSize(qMax(subTitleFont.pointSize() - 2,
+    subTitleFont.setPointSize(std::max(subTitleFont.pointSize() - 2,
                               KGlobalSettings::smallestReadableFont().pointSize()));
     return subTitleFont;
 }
@@ -229,7 +229,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
                             Qt::AlignLeft : Qt::AlignRight,
                             option.decorationSize,
                             contentRect.adjusted(DelegatePrivate::ITEM_LEFT_MARGIN, DelegatePrivate::ITEM_TOP_MARGIN, -DelegatePrivate::ITEM_RIGHT_MARGIN, -DelegatePrivate::ITEM_BOTTOM_MARGIN));
-    decorationRect.moveTop(contentRect.top() + qMax(0, (contentRect.height() - decorationRect.height())) / 2);
+    decorationRect.moveTop(contentRect.top() + std::max(0, (contentRect.height() - decorationRect.height())) / 2);
 
     QString titleText = index.data(Qt::DisplayRole).value<QString>();
     QString subTitleText = index.data(d->roles[SubTitleRole]).value<QString>();
@@ -466,7 +466,7 @@ QSize Delegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &
     QFontMetrics metrics(option.font);
 
     QFontMetrics subMetrics(d->fontForSubTitle(option.font));
-    size.setHeight(qMax(option.decorationSize.height(), qMax(size.height(), metrics.height() + subMetrics.ascent()) + 3) + 4);
+    size.setHeight(std::max(option.decorationSize.height(), std::max(size.height(), metrics.height() + subMetrics.ascent()) + 3) + 4);
 //    kDebug() << "size hint is" << size << (metrics.height() + subMetrics.ascent());
 
     const bool useSvg = option.palette.color(QPalette::Base).alpha() == 0;

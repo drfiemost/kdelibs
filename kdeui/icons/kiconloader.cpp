@@ -358,7 +358,7 @@ void KIconLoaderPrivate::drawOverlays(const KIconLoader *iconLoader, KIconLoader
 
     const int width = pix.size().width();
     const int height = pix.size().height();
-    const int iconSize = qMin(width, height);
+    const int iconSize = std::min(width, height);
     int overlaySize;
 
     if (iconSize < 32) {

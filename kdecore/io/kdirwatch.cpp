@@ -283,7 +283,7 @@ void KDirWatchPrivate::inotifyEventReceived()
 
   while ( pending > 0 ) {
 
-    const int bytesToRead = qMin( pending, (int)sizeof( buf ) - offsetStartRead );
+    const int bytesToRead = std::min( pending, (int)sizeof( buf ) - offsetStartRead );
 
     int bytesAvailable = read( m_inotify_fd, &buf[offsetStartRead], bytesToRead );
     pending -= bytesAvailable;
@@ -1243,9 +1243,9 @@ int KDirWatchPrivate::scanEntry(Entry* e)
   if (exists) {
 
     if (e->m_status == NonExistent) {
-      // ctime is the 'creation time' on windows, but with qMax
+      // ctime is the 'creation time' on windows, but with std::max
       // we get the latest change of any kind, on any platform.
-      e->m_ctime = qMax(stat_buf.st_ctime, stat_buf.st_mtime);
+      e->m_ctime = std::max(stat_buf.st_ctime, stat_buf.st_mtime);
       e->m_status = Normal;
       e->m_ino = stat_buf.st_ino;
       if (s_verboseDebug) {
@@ -1272,7 +1272,7 @@ int KDirWatchPrivate::scanEntry(Entry* e)
 #endif
 
     if ( ((e->m_ctime != invalid_ctime) &&
-          (qMax(stat_buf.st_ctime, stat_buf.st_mtime) != e->m_ctime ||
+          (std::max(stat_buf.st_ctime, stat_buf.st_mtime) != e->m_ctime ||
            stat_buf.st_ino != e->m_ino ||
            stat_buf.st_nlink != nlink_t(e->m_nlink)))
           // we trust QFSW to get it right, the ctime comparisons above
@@ -1280,7 +1280,7 @@ int KDirWatchPrivate::scanEntry(Entry* e)
           // which doesn't change the mtime of the directory
         || e->m_mode == QFSWatchMode
     ) {
-      e->m_ctime = qMax(stat_buf.st_ctime, stat_buf.st_mtime);
+      e->m_ctime = std::max(stat_buf.st_ctime, stat_buf.st_mtime);
       e->m_nlink = stat_buf.st_nlink;
       if (e->m_ino != stat_buf.st_ino) {
           // The file got deleted and recreated. We need to watch it again.

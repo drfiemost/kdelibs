@@ -200,7 +200,7 @@ QSize KAboutApplicationPersonListDelegate::sizeHint( const QStyleOptionViewItem 
 
     int margin = option.fontMetrics.height() / 2;
 
-    int height = hasAvatar ? qMax( widgetsRect( option, index ).height(),
+    int height = hasAvatar ? std::max( widgetsRect( option, index ).height(),
                                    AVATAR_HEIGHT + 2*margin )
                            : widgetsRect( option, index ).height();
 
@@ -220,7 +220,7 @@ void KAboutApplicationPersonListDelegate::paint( QPainter *painter,
     const KAboutApplicationPersonModel * model = qobject_cast< const KAboutApplicationPersonModel * >(index.model());
 
     if ( model->hasAvatarPixmaps() ) {
-        int height = qMax( widgetsRect( option, index ).height(), AVATAR_HEIGHT + 2*margin );
+        int height = std::max( widgetsRect( option, index ).height(), AVATAR_HEIGHT + 2*margin );
         QPoint point( option.rect.left() + 2 * margin,
                       option.rect.top() + ( (height - AVATAR_HEIGHT) / 2) );
 

@@ -257,10 +257,10 @@ int Animator::animateItem(QGraphicsItem *item, Animation animation)
     state->item = item;
     state->animation = animation;
     state->curve = d->driver->animationCurve(animation);
-    state->frames = qMax(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
+    state->frames = std::max(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
     state->currentFrame = 0;
     state->interval = d->driver->animationDuration(animation) / qreal(state->frames);
-    state->interval = qMax(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
+    state->interval = std::max(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
     state->currentInterval = state->interval;
     state->qobj = dynamic_cast<QObject*>(item);
 
@@ -312,10 +312,10 @@ int Animator::moveItem(QGraphicsItem *item, Movement movement, const QPoint &des
      state->movement = movement;
      state->curve = d->driver->movementAnimationCurve(movement);
      int duration = d->driver->movementAnimationDuration(movement);
-     state->frames = qMax(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
+     state->frames = std::max(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
      state->currentFrame = 0;
      state->interval = duration / qreal(state->frames);
-     state->interval = qMax(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
+     state->interval = std::max(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
 //     state->interval = (state->interval / MIN_TICK_RATE) * MIN_TICK_RATE;
 //     kDebug() << "interval of" << state->interval << state->frames << duration << frames;
      state->currentInterval = state->interval;
@@ -349,8 +349,8 @@ int Animator::customAnimation(int frames, int duration, Animator::CurveShape cur
     state->frames = frames;
     state->currentFrame = 0;
     state->curve = curve;
-    state->frameInterval = qMax(qreal(1.0), duration / qreal(state->frames));
-    state->interval = qMax(MIN_TICK_RATE_INT, state->frameInterval - (state->frameInterval % MIN_TICK_RATE_INT));
+    state->frameInterval = std::max(qreal(1.0), duration / qreal(state->frames));
+    state->interval = std::max(MIN_TICK_RATE_INT, state->frameInterval - (state->frameInterval % MIN_TICK_RATE_INT));
     state->currentInterval = state->interval;
     state->receiver = receiver;
     state->slot = qstrdup(slot);
@@ -438,10 +438,10 @@ int Animator::animateElement(QGraphicsItem *item, Animation animation)
     state->item = item;
     state->curve = d->driver->elementAnimationCurve(animation);
     state->animation = animation;
-    state->frames = qMax(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
+    state->frames = std::max(1.0, frames * (duration / 1000.0)); //krazy:exclude=qminmax
     state->currentFrame = 0;
     state->interval = duration / qreal(state->frames);
-    state->interval = qMax(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
+    state->interval = std::max(MIN_TICK_RATE_INT, state->interval - (state->interval % MIN_TICK_RATE_INT));
     state->currentInterval = state->interval;
     state->id = ++d->animId;
     state->qobj = dynamic_cast<QObject*>(item);
@@ -565,7 +565,7 @@ void Animator::timerEvent(QTimerEvent *event)
             // we need to step forward!
             state->currentFrame +=
                 (KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects) ?
-                qMax(1, elapsed / state->interval) : state->frames - state->currentFrame;
+                std::max(1, elapsed / state->interval) : state->frames - state->currentFrame;
 
             if (state->currentFrame < state->frames) {
                 qreal progress = d->calculateProgress(state->currentFrame * state->interval,
@@ -595,7 +595,7 @@ void Animator::timerEvent(QTimerEvent *event)
             // we need to step forward!
             state->currentFrame +=
                 (KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects) ?
-                qMax(1, elapsed / state->interval) : state->frames - state->currentFrame;
+                std::max(1, elapsed / state->interval) : state->frames - state->currentFrame;
 
             if (state->currentFrame < state->frames) {
                 //kDebug() << "movement";
@@ -635,11 +635,11 @@ void Animator::timerEvent(QTimerEvent *event)
             // we need to step forward!
             /*kDebug() << "stepping forwards element anim " << state->id
                        << " from " << state->currentFrame
-                       << " by " << qMax(1, elapsed / state->interval) << " to "
-                       << state->currentFrame + qMax(1, elapsed / state->interval) << endl;*/
+                       << " by " << std::max(1, elapsed / state->interval) << " to "
+                       << state->currentFrame + std::max(1, elapsed / state->interval) << endl;*/
             state->currentFrame +=
                 (KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects) ?
-                qMax(1, elapsed / state->interval) : state->frames - state->currentFrame;
+                std::max(1, elapsed / state->interval) : state->frames - state->currentFrame;
 
             state->item->update();
             if (state->currentFrame < state->frames) {
@@ -665,7 +665,7 @@ void Animator::timerEvent(QTimerEvent *event)
             // advance the frame
             state->currentFrame +=
                 (KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects) ?
-                qMax(1, elapsed / state->frameInterval) : state->frames - state->currentFrame;
+                std::max(1, elapsed / state->frameInterval) : state->frames - state->currentFrame;
             /*kDebug() << "custom anim for" << state->receiver
                        << "to slot" << state->slot
                        << "with interval of" << state->interval

@@ -1373,7 +1373,7 @@ bool KDateTime::operator==(const KDateTime &other) const
                &&  d->dt() == other.d->dt();
     }
     // Don't waste time converting to UTC if the dates aren't close enough.
-    if (qAbs(d->date().daysTo(other.d->date())) > 2)
+    if (std::abs(d->date().daysTo(other.d->date())) > 2)
         return false;
     if (d->dateOnly())
     {

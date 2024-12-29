@@ -795,7 +795,7 @@ void RenderBlock::computeHorizontalPositionsForLine(InlineFlowBox* lineBox, Bidi
                 // Only justify text with white-space: normal.
                 if (r->obj->style()->whiteSpace() == NORMAL) {
                     spaceAdd = (availableWidth - totWidth)*spaces/numSpaces;
-                    spaceAdd = qMax(0, spaceAdd);
+                    spaceAdd = std::max(0, spaceAdd);
                     static_cast<InlineTextBox*>(r->box)->setSpaceAdd(spaceAdd);
                     totWidth += spaceAdd;
                 }
@@ -810,7 +810,7 @@ void RenderBlock::computeHorizontalPositionsForLine(InlineFlowBox* lineBox, Bidi
     if (rightPos > m_overflowWidth)
         m_overflowWidth = rightPos; // FIXME: Work for rtl overflow also.
     if (x < 0)
-        m_overflowLeft = qMin(m_overflowLeft, x);
+        m_overflowLeft = std::min(m_overflowLeft, x);
 }
 
 void RenderBlock::computeVerticalPositionsForLine(RootInlineBox* lineBox)
@@ -1657,7 +1657,7 @@ redo_linebreak:
     m_height += toAdd;
 
     // Always make sure this is at least our height.
-    m_overflowHeight = qMax(m_height, m_overflowHeight);
+    m_overflowHeight = std::max(m_height, m_overflowHeight);
 
     // See if any lines spill out of the block.  If so, we need to update our overflow width.
     checkLinesForOverflow();
@@ -2457,9 +2457,9 @@ void RenderBlock::checkLinesForOverflow()
 {
     for (RootInlineBox* curr = static_cast<khtml::RootInlineBox*>(firstLineBox()); curr; curr = static_cast<khtml::RootInlineBox*>(curr->nextLineBox())) {
 //         m_overflowLeft = min(curr->leftOverflow(), m_overflowLeft);
-        m_overflowTop = qMin(curr->topOverflow(), m_overflowTop);
+        m_overflowTop = std::min(curr->topOverflow(), m_overflowTop);
 //         m_overflowWidth = max(curr->rightOverflow(), m_overflowWidth);
-        m_overflowHeight = qMax(curr->bottomOverflow(), m_overflowHeight);
+        m_overflowHeight = std::max(curr->bottomOverflow(), m_overflowHeight);
     }
 }
 

@@ -913,9 +913,9 @@ static void calc3DColor(QColor &color, bool darken)
     else
       color.setRgb(r, g, b);
   } else {
-    int r = qMin(rb + (f1 * (MAX_COLOR - rb) / 100), 255);
-    int g = qMin(gb + (f1 * (MAX_COLOR - gb) / 100), 255);
-    int b = qMin(bb + (f1 * (MAX_COLOR - bb) / 100), 255);
+    int r = std::min(rb + (f1 * (MAX_COLOR - rb) / 100), 255);
+    int g = std::min(gb + (f1 * (MAX_COLOR - gb) / 100), 255);
+    int b = std::min(bb + (f1 * (MAX_COLOR - bb) / 100), 255);
     if ((r == rb) && (g == gb) && (b == bb))
       color = (color == Qt::white) ? QColor(LIGHT_GRAY) : QColor(Qt::white);
     else
@@ -1094,7 +1094,7 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
                 if (offset.x() > 0)
                     offset.rx() -= onLen + offLen;
                 for (int x = x1 + offset.x(); x < x2; x += onLen + offLen) {
-                    const QRect r(x, y1, qMin(onLen, (x2 - x)), width);
+                    const QRect r(x, y1, std::min(onLen, (x2 - x)), width);
                     path.addRect(r & bounding);
                 }
             }
@@ -1103,7 +1103,7 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
                 if (offset.y() > 0)
                     offset.ry() -= onLen + offLen;
                 for (int y = y1 + offset.y(); y < y2; y += onLen + offLen) {
-                    const QRect r(x1, y, width, qMin(onLen, (y2 - y)));
+                    const QRect r(x1, y, width, std::min(onLen, (y2 - y)));
                     path.addRect(r & bounding);
                 }
             }
@@ -1152,20 +1152,20 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
           switch(s)
             {
             case BSTop:
-              drawBorder(p, x1+qMax((-adjbw1*2+1)/3,0), y1        , x2-qMax((-adjbw2*2+1)/3,0), y1 + third, s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
-              drawBorder(p, x1+qMax(( adjbw1*2+1)/3,0), y2 - third, x2-qMax(( adjbw2*2+1)/3,0), y2        , s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x1+std::max((-adjbw1*2+1)/3,0), y1        , x2-std::max((-adjbw2*2+1)/3,0), y1 + third, s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x1+std::max(( adjbw1*2+1)/3,0), y2 - third, x2-std::max(( adjbw2*2+1)/3,0), y2        , s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
               break;
             case BSLeft:
-              drawBorder(p, x1        , y1+qMax((-adjbw1*2+1)/3,0), x1+third, y2-qMax((-adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
-              drawBorder(p, x2 - third, y1+qMax(( adjbw1*2+1)/3,0), x2      , y2-qMax(( adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x1        , y1+std::max((-adjbw1*2+1)/3,0), x1+third, y2-std::max((-adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x2 - third, y1+std::max(( adjbw1*2+1)/3,0), x2      , y2-std::max(( adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
               break;
             case BSBottom:
-              drawBorder(p, x1+qMax(( adjbw1*2+1)/3,0), y1      , x2-qMax(( adjbw2*2+1)/3,0), y1+third, s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
-              drawBorder(p, x1+qMax((-adjbw1*2+1)/3,0), y2-third, x2-qMax((-adjbw2*2+1)/3,0), y2      , s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x1+std::max(( adjbw1*2+1)/3,0), y1      , x2-std::max(( adjbw2*2+1)/3,0), y1+third, s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+              drawBorder(p, x1+std::max((-adjbw1*2+1)/3,0), y2-third, x2-std::max((-adjbw2*2+1)/3,0), y2      , s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
               break;
             case BSRight:
-            drawBorder(p, x1      , y1+qMax(( adjbw1*2+1)/3,0), x1+third, y2-qMax(( adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
-            drawBorder(p, x2-third, y1+qMax((-adjbw1*2+1)/3,0), x2      , y2-qMax((-adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+            drawBorder(p, x1      , y1+std::max(( adjbw1*2+1)/3,0), x1+third, y2-std::max(( adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
+            drawBorder(p, x2-third, y1+std::max((-adjbw1*2+1)/3,0), x2      , y2-std::max((-adjbw2*2+1)/3,0), s, c, textcolor, SOLID, adjbw1bigthird, adjbw2bigthird);
               break;
             default:
               break;
@@ -1202,20 +1202,20 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
         switch (s)
         {
         case BSTop:
-            drawBorder(p, x1+qMax(-adjbw1  ,0)/2,  y1        , x2-qMax(-adjbw2,0)/2, (y1+y2+1)/2, s, c, textcolor, s1, adjbw1bighalf, adjbw2bighalf);
-            drawBorder(p, x1+qMax( adjbw1+1,0)/2, (y1+y2+1)/2, x2-qMax( adjbw2+1,0)/2,  y2        , s, c, textcolor, s2, adjbw1/2, adjbw2/2);
+            drawBorder(p, x1+std::max(-adjbw1  ,0)/2,  y1        , x2-std::max(-adjbw2,0)/2, (y1+y2+1)/2, s, c, textcolor, s1, adjbw1bighalf, adjbw2bighalf);
+            drawBorder(p, x1+std::max( adjbw1+1,0)/2, (y1+y2+1)/2, x2-std::max( adjbw2+1,0)/2,  y2        , s, c, textcolor, s2, adjbw1/2, adjbw2/2);
             break;
         case BSLeft:
-            drawBorder(p,  x1        , y1+qMax(-adjbw1  ,0)/2, (x1+x2+1)/2, y2-qMax(-adjbw2,0)/2, s, c, textcolor, s1, adjbw1bighalf, adjbw2bighalf);
-            drawBorder(p, (x1+x2+1)/2, y1+qMax( adjbw1+1,0)/2,  x2        , y2-qMax( adjbw2+1,0)/2, s, c, textcolor, s2, adjbw1/2, adjbw2/2);
+            drawBorder(p,  x1        , y1+std::max(-adjbw1  ,0)/2, (x1+x2+1)/2, y2-std::max(-adjbw2,0)/2, s, c, textcolor, s1, adjbw1bighalf, adjbw2bighalf);
+            drawBorder(p, (x1+x2+1)/2, y1+std::max( adjbw1+1,0)/2,  x2        , y2-std::max( adjbw2+1,0)/2, s, c, textcolor, s2, adjbw1/2, adjbw2/2);
             break;
         case BSBottom:
-            drawBorder(p, x1+qMax( adjbw1  ,0)/2,  y1        , x2-qMax( adjbw2,0)/2, (y1+y2+1)/2, s, c, textcolor, s2,  adjbw1bighalf, adjbw2bighalf);
-            drawBorder(p, x1+qMax(-adjbw1+1,0)/2, (y1+y2+1)/2, x2-qMax(-adjbw2+1,0)/2,  y2        , s, c, textcolor, s1, adjbw1/2, adjbw2/2);
+            drawBorder(p, x1+std::max( adjbw1  ,0)/2,  y1        , x2-std::max( adjbw2,0)/2, (y1+y2+1)/2, s, c, textcolor, s2,  adjbw1bighalf, adjbw2bighalf);
+            drawBorder(p, x1+std::max(-adjbw1+1,0)/2, (y1+y2+1)/2, x2-std::max(-adjbw2+1,0)/2,  y2        , s, c, textcolor, s1, adjbw1/2, adjbw2/2);
             break;
         case BSRight:
-            drawBorder(p,  x1        , y1+qMax( adjbw1  ,0)/2, (x1+x2+1)/2, y2-qMax( adjbw2,0)/2, s, c, textcolor, s2, adjbw1bighalf, adjbw2bighalf);
-            drawBorder(p, (x1+x2+1)/2, y1+qMax(-adjbw1+1,0)/2,  x2        , y2-qMax(-adjbw2+1,0)/2, s, c, textcolor, s1, adjbw1/2, adjbw2/2);
+            drawBorder(p,  x1        , y1+std::max( adjbw1  ,0)/2, (x1+x2+1)/2, y2-std::max( adjbw2,0)/2, s, c, textcolor, s2, adjbw1bighalf, adjbw2bighalf);
+            drawBorder(p, (x1+x2+1)/2, y1+std::max(-adjbw1+1,0)/2,  x2        , y2-std::max(-adjbw2+1,0)/2, s, c, textcolor, s1, adjbw1/2, adjbw2/2);
             break;
         }
         break;
@@ -1238,31 +1238,31 @@ void RenderObject::drawBorder(QPainter *p, int x1, int y1, int x2, int y2,
         switch(s) {
         case BSTop:
             quad.setPoints(4,
-                           x1+qMax(-adjbw1,0), y1,
-                           x1+qMax( adjbw1,0), y2,
-                           x2-qMax( adjbw2,0), y2,
-                           x2-qMax(-adjbw2,0), y1);
+                           x1+std::max(-adjbw1,0), y1,
+                           x1+std::max( adjbw1,0), y2,
+                           x2-std::max( adjbw2,0), y2,
+                           x2-std::max(-adjbw2,0), y1);
             break;
         case BSBottom:
             quad.setPoints(4,
-                           x1+qMax( adjbw1,0), y1,
-                           x1+qMax(-adjbw1,0), y2,
-                           x2-qMax(-adjbw2,0), y2,
-                           x2-qMax( adjbw2,0), y1);
+                           x1+std::max( adjbw1,0), y1,
+                           x1+std::max(-adjbw1,0), y2,
+                           x2-std::max(-adjbw2,0), y2,
+                           x2-std::max( adjbw2,0), y1);
             break;
         case BSLeft:
           quad.setPoints(4,
-                         x1, y1+qMax(-adjbw1,0),
-                                x1, y2-qMax(-adjbw2,0),
-                         x2, y2-qMax( adjbw2,0),
-                         x2, y1+qMax( adjbw1,0));
+                         x1, y1+std::max(-adjbw1,0),
+                                x1, y2-std::max(-adjbw2,0),
+                         x2, y2-std::max( adjbw2,0),
+                         x2, y1+std::max( adjbw1,0));
             break;
         case BSRight:
           quad.setPoints(4,
-                         x1, y1+qMax( adjbw1,0),
-                                x1, y2-qMax( adjbw2,0),
-                         x2, y2-qMax(-adjbw2,0),
-                         x2, y1+qMax(-adjbw1,0));
+                         x1, y1+std::max( adjbw1,0),
+                                x1, y2-std::max( adjbw2,0),
+                         x2, y2-std::max(-adjbw2,0),
+                         x2, y1+std::max(-adjbw1,0));
             break;
         }
         p->drawConvexPolygon(quad);
@@ -1297,14 +1297,14 @@ void RenderObject::calcBorderRadii(QPoint &topLeftRadii, QPoint &topRightRadii, 
 
     // Adjust the border radii so they don't overlap when taking the size of the box into account.
 
-    const int horS = qMax(topLeftRadii.x() + topRightRadii.x(), bottomLeftRadii.x() + bottomRightRadii.x());
-    const int verS = qMax(topLeftRadii.y() + bottomLeftRadii.y(), topRightRadii.y() + bottomRightRadii.y());
+    const int horS = std::max(topLeftRadii.x() + topRightRadii.x(), bottomLeftRadii.x() + bottomRightRadii.x());
+    const int verS = std::max(topLeftRadii.y() + bottomLeftRadii.y(), topRightRadii.y() + bottomRightRadii.y());
 
     qreal f = 1.0;
     if (horS > 0)
-        f = qMin(f, w / qreal(horS));
+        f = std::min(f, w / qreal(horS));
     if (verS > 0)
-        f = qMin(f, h / qreal(verS));
+        f = std::min(f, h / qreal(verS));
 
     if (f < 1.0) {
         topLeftRadii *= f;
@@ -1331,7 +1331,7 @@ static QImage blendCornerImages(const QImage &image1, const QImage &image2)
     QBrush gradientBrush = gradient;
 
     if (mask.width() != mask.height()) {
-        int min = qMin(mask.width(), mask.height());
+        int min = std::min(mask.width(), mask.height());
         QTransform xform;
         xform.translate(mask.width() / 2, mask.height() / 2);
         xform.scale(min / mask.width(), min / mask.height());
@@ -1908,7 +1908,7 @@ QString RenderObject::information() const
     if ( continuation() )
         ts << " continuation=" << continuation();
     if (isText())
-        ts << " \"" << QString::fromRawData(static_cast<const RenderText *>(this)->text(), qMin(static_cast<const RenderText *>(this)->length(), 10u)) << "\"";
+        ts << " \"" << QString::fromRawData(static_cast<const RenderText *>(this)->text(), std::min(static_cast<const RenderText *>(this)->length(), 10u)) << "\"";
     return str;
 }
 
@@ -2498,7 +2498,7 @@ FindSelectionResult RenderObject::checkSelectionPoint( int _x, int _y, int _tx, 
         if (child->isText() && !static_cast<RenderText *>(child)->firstTextBox())
             continue;
 
-//        kDebug(6040) << "iterating " << (child ? child->renderName() : "") << "@" << child << (child->isText() ? " contains: \"" + QString::fromRawData(static_cast<RenderText *>(child)->text(), qMin(static_cast<RenderText *>(child)->length(), 10u)) + "\"" : QString());
+//        kDebug(6040) << "iterating " << (child ? child->renderName() : "") << "@" << child << (child->isText() ? " contains: \"" + QString::fromRawData(static_cast<RenderText *>(child)->text(), std::min(static_cast<RenderText *>(child)->length(), 10u)) + "\"" : QString());
 //        kDebug(6040) << "---------- checkSelectionPoint recursive -----------";
         khtml::FindSelectionResult pos = child->checkSelectionPoint(_x, _y, _tx+xPos(), _ty+yPos(), nod, off, state);
 //        kDebug(6040) << "-------- end checkSelectionPoint recursive ---------";

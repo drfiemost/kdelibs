@@ -114,7 +114,7 @@ bool KMimeMagicMatch::match(QIODevice* device, qint64 deviceSize, QByteArray& av
 
     // Read in one block all the data we'll need
     // Example: m_data="ABC", m_rangeLength=3 -> we need 3+3-1=5 bytes (ABCxx,xABCx,xxABC would match)
-    const int dataNeeded = qMin(mDataSize + m_rangeLength - 1, deviceSize - m_rangeStart);
+    const int dataNeeded = std::min(mDataSize + m_rangeLength - 1, deviceSize - m_rangeStart);
     QByteArray readData;
 
     /*kDebug() << "need " << dataNeeded << " bytes of data starting at " << m_rangeStart

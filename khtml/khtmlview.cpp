@@ -707,7 +707,7 @@ int KHTMLView::visibleWidth() const
             int ret = rw->width()-rw->paddingLeft()-rw->paddingRight()-rw->borderLeft()-rw->borderRight();
             if (verticalScrollBar()->isVisible()) {
                 ret -= verticalScrollBar()->sizeHint().width();
-                ret = qMax(0, ret);
+                ret = std::max(0, ret);
             }
             return ret;
         }
@@ -723,7 +723,7 @@ int KHTMLView::visibleHeight() const
             int ret = rw->height()-rw->paddingBottom()-rw->paddingTop()-rw->borderTop()-rw->borderBottom();
             if (horizontalScrollBar()->isVisible()) {
                 ret -= horizontalScrollBar()->sizeHint().height();
-                ret = qMax(0, ret);
+                ret = std::max(0, ret);
             }
             return ret;
         }
@@ -1311,11 +1311,11 @@ void KHTMLView::mouseMoveEvent( QMouseEvent * _mouse )
         (deltaX > 0) ? d->m_mouseScroll_byX = 1 : d->m_mouseScroll_byX = -1;
         (deltaY > 0) ? d->m_mouseScroll_byY = 1 : d->m_mouseScroll_byY = -1;
 
-        double adX = qAbs(deltaX)/30.0;
-        double adY = qAbs(deltaY)/30.0;
+        double adX = std::abs(deltaX)/30.0;
+        double adY = std::abs(deltaY)/30.0;
 
-        d->m_mouseScroll_byX = qMax(qMin(d->m_mouseScroll_byX * int(adX*adX), SHRT_MAX), SHRT_MIN);
-        d->m_mouseScroll_byY = qMax(qMin(d->m_mouseScroll_byY * int(adY*adY), SHRT_MAX), SHRT_MIN);
+        d->m_mouseScroll_byX = std::max(std::min(d->m_mouseScroll_byX * int(adX*adX), SHRT_MAX), SHRT_MIN);
+        d->m_mouseScroll_byY = std::max(std::min(d->m_mouseScroll_byY * int(adY*adY), SHRT_MAX), SHRT_MIN);
 
         if (d->m_mouseScroll_byX == 0 && d->m_mouseScroll_byY == 0) {
             d->m_mouseScrollTimer->stop();
@@ -2543,8 +2543,8 @@ void KHTMLView::displayAccessKeys( KHTMLView* caller, KHTMLView* origview, QVect
 	        lab->setParent( widget() );
 		lab->setAutoFillBackground(true);
 	        lab->move(
-			qMin(rec.left()+rec.width()/2 - contentsX(), contentsWidth() - lab->width()),
-			qMin(rec.top()+rec.height()/2 - contentsY(), contentsHeight() - lab->height()));
+			std::min(rec.left()+rec.width()/2 - contentsX(), contentsWidth() - lab->width()),
+			std::min(rec.top()+rec.height()/2 - contentsY(), contentsHeight() - lab->height()));
 	        lab->show();
                 taken.append( accesskey[ 0 ] );
 	    }
@@ -3144,7 +3144,7 @@ void KHTMLView::print(bool quick)
         if (printHeader)
         {
             int available_width = printer.width() - 10 -
-                2 * qMax(p->boundingRect(0, 0, printer.width(), p->fontMetrics().lineSpacing(), Qt::AlignLeft, headerLeft).width(),
+                2 * std::max(p->boundingRect(0, 0, printer.width(), p->fontMetrics().lineSpacing(), Qt::AlignLeft, headerLeft).width(),
                          p->boundingRect(0, 0, printer.width(), p->fontMetrics().lineSpacing(), Qt::AlignLeft, headerRight).width());
             if (available_width < 150)
                available_width = 150;
@@ -3876,8 +3876,8 @@ void KHTMLView::scrollContentsBy( int dx, int dy )
 void KHTMLView::setupSmoothScrolling(int dx, int dy)
 {
     // old or minimum speed
-    int ddx = qMax(d->steps ? abs(d->dx)/d->steps : 0,3);
-    int ddy = qMax(d->steps ? abs(d->dy)/d->steps : 0,3);
+    int ddx = std::max(d->steps ? abs(d->dx)/d->steps : 0,3);
+    int ddy = std::max(d->steps ? abs(d->dy)/d->steps : 0,3);
 
     // full scroll is remaining scroll plus new scroll
     d->dx = d->dx + dx;
@@ -3890,10 +3890,10 @@ void KHTMLView::setupSmoothScrolling(int dx, int dy)
 
     d->steps = (sSmoothScrollTime-1)/sSmoothScrollTick + 1;
 
-    if (qMax(abs(d->dx), abs(d->dy)) / d->steps < qMax(ddx,ddy)) {
+    if (std::max(abs(d->dx), abs(d->dy)) / d->steps < std::max(ddx,ddy)) {
         // Don't move slower than average 4px/step in minimum one direction
         // This means fewer than normal steps
-        d->steps = qMax((abs(d->dx)+ddx-1)/ddx, (abs(d->dy)+ddy-1)/ddy);
+        d->steps = std::max((abs(d->dx)+ddx-1)/ddx, (abs(d->dy)+ddy-1)/ddy);
         if (d->steps < 1) d->steps = 1;
     }
 
@@ -4114,7 +4114,7 @@ void KHTMLView::scheduleRelayout(khtml::RenderObject * /*clippedObj*/)
     } else if (m_part->xmlDocImpl() && m_part->xmlDocImpl()->parsing()) {
         // Delay between successive layouts in parsing mode.
         // Increment reflects the decaying importance of visual feedback over time.
-        time = qMin(2000, sParsingLayoutsInterval + d->scheduledLayoutCounter*sParsingLayoutsIncrement);
+        time = std::min(2000, sParsingLayoutsInterval + d->scheduledLayoutCounter*sParsingLayoutsIncrement);
     }
     d->layoutTimerId = startTimer( time );
 }

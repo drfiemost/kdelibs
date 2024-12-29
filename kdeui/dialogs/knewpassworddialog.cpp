@@ -178,7 +178,7 @@ void KNewPasswordDialog::KNewPasswordDialogPrivate::_k_textChanged()
     }
 
     // Password strength calculator
-    int pwstrength = (20 * ui.linePassword->text().length() + 80 * effectivePasswordLength(ui.linePassword->text())) / qMax(reasonablePasswordLength, 2);
+    int pwstrength = (20 * ui.linePassword->text().length() + 80 * effectivePasswordLength(ui.linePassword->text())) / std::max(reasonablePasswordLength, 2);
     if (pwstrength < 0) {
         pwstrength = 0;
     } else if (pwstrength > 100) {

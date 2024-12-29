@@ -201,7 +201,7 @@ bool KPCMemoryDevice::seek(qint64 pos)
 
 qint64 KPCMemoryDevice::readData(char* data, qint64 len)
 {
-    len = qMin(len, qint64(*mSize) - mPos);
+    len = std::min(len, qint64(*mSize) - mPos);
     if (len <= 0) {
         return 0;
     }
@@ -218,7 +218,7 @@ qint64 KPCMemoryDevice::writeData(const char* data, qint64 len)
     }
     memcpy(mMemory + mPos, (uchar*)data, len);
     mPos += len;
-    *mSize = qMax(*mSize, mPos);
+    *mSize = std::max(*mSize, mPos);
     return len;
 }
 

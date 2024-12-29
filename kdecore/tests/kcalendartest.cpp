@@ -986,9 +986,9 @@ void KCalendarTest::testEra()
     QCOMPARE(calendar->eraName(testDate, KCalendarSystem::ShortFormat), QString("BC"));
     QCOMPARE(calendar->eraName(testDate, KCalendarSystem::LongFormat), QString("Before Christ"));
 
-    QCOMPARE(calendar->isValid("BC",            qAbs(earliestValidYear - 1), 1, 1), false);
-    QCOMPARE(calendar->isValid("BC",            qAbs(earliestValidYear),     1, 1), true);
-    QCOMPARE(calendar->isValid("Before Christ", qAbs(earliestValidYear),     1, 1), true);
+    QCOMPARE(calendar->isValid("BC",            std::abs(earliestValidYear - 1), 1, 1), false);
+    QCOMPARE(calendar->isValid("BC",            std::abs(earliestValidYear),     1, 1), true);
+    QCOMPARE(calendar->isValid("Before Christ", std::abs(earliestValidYear),     1, 1), true);
     QCOMPARE(calendar->isValid("BC",            -1,                            1, 1), true);
     QCOMPARE(calendar->isValid("Before Christ", -1,                            1, 1), true);
     QCOMPARE(calendar->isValid("BC", 0,                                        1, 1), false);
@@ -1007,9 +1007,9 @@ void KCalendarTest::testEra()
     QCOMPARE(calendar->isValid("AD", 2005, 12,  1), true);
     QCOMPARE(calendar->isValid("AD", 2005, 12, 31), true);
 
-    QCOMPARE(setEraDate(calendar, "BC",            qAbs(earliestValidYear - 1), 1, 1), QDate());
-    QCOMPARE(setEraDate(calendar, "BC",            qAbs(earliestValidYear),     1, 1), QDate(earliestValidYear, 1, 1));
-    QCOMPARE(setEraDate(calendar, "Before Christ", qAbs(earliestValidYear),     1, 1), QDate(earliestValidYear, 1, 1));
+    QCOMPARE(setEraDate(calendar, "BC",            std::abs(earliestValidYear - 1), 1, 1), QDate());
+    QCOMPARE(setEraDate(calendar, "BC",            std::abs(earliestValidYear),     1, 1), QDate(earliestValidYear, 1, 1));
+    QCOMPARE(setEraDate(calendar, "Before Christ", std::abs(earliestValidYear),     1, 1), QDate(earliestValidYear, 1, 1));
     QCOMPARE(setEraDate(calendar, "BC",            1,                             1, 1), QDate(-1,                1, 1));
     QCOMPARE(setEraDate(calendar, "Before Christ", 1,                             1, 1), QDate(-1,                1, 1));
     QCOMPARE(setEraDate(calendar, "BC",            0,                             1, 1), QDate());
@@ -1988,8 +1988,8 @@ void KCalendarTest::testRoundTrip(const KCalendarSystem *calendar, bool testFull
         loopDate = calendar->earliestValidDate();
         terminateDate = calendar->latestValidDate();
     } else {
-        loopDate = qMax(QDate(1990, 1, 1), calendar->earliestValidDate());
-        terminateDate = qMin(QDate(2020, 1, 1), calendar->latestValidDate());
+        loopDate = std::max(QDate(1990, 1, 1), calendar->earliestValidDate());
+        terminateDate = std::min(QDate(2020, 1, 1), calendar->latestValidDate());
     }
     QByteArray msg;
     while (loopDate <= terminateDate) {

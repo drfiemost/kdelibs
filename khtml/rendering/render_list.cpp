@@ -180,7 +180,7 @@ short RenderListItem::marginLeft() const
     if (m_insideList)
         return RenderBlock::marginLeft();
     else
-        return qMax(m_marker->markerWidth(), RenderBlock::marginLeft());
+        return std::max(m_marker->markerWidth(), RenderBlock::marginLeft());
 }
 
 short RenderListItem::marginRight() const
@@ -356,7 +356,7 @@ void RenderListMarker::paint(PaintInfo& paintInfo, int _tx, int _ty)
 #ifdef TEST_HACK
                 //BEGIN HACK
                 // hack for testregression, remove when main branch
-                _tx += qMax(-fm.minLeftBearing(), 0);
+                _tx += std::max(-fm.minLeftBearing(), 0);
                 //END HACK
 #endif
             	if( style()->direction() == LTR) {
@@ -381,7 +381,7 @@ void RenderListMarker::paint(PaintInfo& paintInfo, int _tx, int _ty)
 #ifdef TEST_HACK
                 //BEGIN HACK
                 // hack for testregression, remove when main branch
-                _tx += qMax(-fm.minLeftBearing(), 0);
+                _tx += std::max(-fm.minLeftBearing(), 0);
                 //END HACK
 #endif
                     const QString& punct(QLatin1String(" ."));
@@ -477,7 +477,7 @@ void RenderListMarker::calcMinMaxWidth()
             t = t/10;
             decimals++;
         }
-        decimals = qMax(decimals, 2);
+        decimals = std::max(decimals, 2);
         QString num = QString::number(value);
         m_item.fill('0',decimals-num.length());
         m_item.append(num);

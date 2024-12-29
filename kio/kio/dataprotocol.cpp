@@ -259,7 +259,7 @@ void DataProtocol::get(const KUrl& url) {
   const DataHeader hdr = parseDataHeader(url, false);
 
   const int size = hdr.url.length();
-  const int data_ofs = qMin(hdr.data_offset, size);
+  const int data_ofs = std::min(hdr.data_offset, size);
   // FIXME: string is copied, would be nice if we could have a reference only
   const QByteArray url_data = hdr.url.mid(data_ofs);
   QByteArray outData;

@@ -373,7 +373,7 @@ void HTMLElementImpl::addHTMLColor( int id, const DOMString &c )
 		    colors[component] = (colors[component] << 4);
 		    if ( hex > 0 ) {
 			colors[component] += hex;
-			maxDigit = qMin( maxDigit, numDigits );
+			maxDigit = std::min( maxDigit, numDigits );
 		    }
 		    numDigits++;
 		    pos++;

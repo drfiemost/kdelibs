@@ -279,11 +279,11 @@ int RenderSVGContainer::calcReplacedWidth() const
 {
     switch (style()->width().type()) {
     case Fixed:
-        return qMax(0, style()->width().value());
+        return std::max(0, style()->width().value());
     case Percent:
     {
         const int cw = containingBlockWidth();
-        return cw > 0 ? qMax(0, style()->width().minWidth(cw)) : 0;
+        return cw > 0 ? std::max(0, style()->width().minWidth(cw)) : 0;
     }
     default:
         return 0;
@@ -294,7 +294,7 @@ int RenderSVGContainer::calcReplacedHeight() const
 {
     switch (style()->height().type()) {
     case Fixed:
-        return qMax(0, style()->height().value());
+        return std::max(0, style()->height().value());
     case Percent:
     {
         RenderBlock* cb = containingBlock();

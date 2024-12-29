@@ -570,7 +570,7 @@ static qreal adjustPosition( qreal pos, const QGradientStops &stops )
         bool atEnd = ( itr != stops.constEnd() );
         if ( qFuzzyCompare( pos, stop.first ) ) {
             if ( atEnd || !qFuzzyCompare( pos + smallDiff, ( *itr ).first ) ) {
-                return qMin(pos + smallDiff, qreal(1.0));
+                return std::min(pos + smallDiff, qreal(1.0));
             }
         }
     }
@@ -1166,7 +1166,7 @@ void CanvasContext2DImpl::drawPathWithShadow(QPainter *p, const QPainterPath &pa
     // This seems to produce a shadow that's a fairly close approximation
     // to the shadows rendered by CoreGraphics.
     if (radius > 7)
-        radius = qMin(7 + std::pow(float(radius - 7.0), float(.7)), float(127.0));
+        radius = std::min(7 + std::pow(float(radius - 7.0), float(.7)), float(127.0));
 
     const qreal offset = radius * 2;
     const QPainterPath repeatClip = (flags & NotUsingCanvasPattern) ?
@@ -1308,14 +1308,14 @@ void CanvasContext2DImpl::arcTo(float x1, float y1, float x2, float y2, float ra
 
     // If the angle between the lines is 180 degrees, the span of the arc becomes
     // zero, causing the tangent points to converge to the same point at (x1, y1).
-    if (qFuzzyCompare(qAbs(theta), float(M_PI))) {
+    if (qFuzzyCompare(std::abs(theta), float(M_PI))) {
         path.lineTo(mapToDevice(x1, y1));
         return;
     }
 
     // The length of the hypotenuse of the right triangle formed by the points
     // (x1, y1), the center point of the circle, and either of the two tangent points.
-    float h = radius / std::sin(qAbs(theta / 2.0));
+    float h = radius / std::sin(std::abs(theta / 2.0));
 
     // The distance from (x1, y1) to the tangent points on line1 and line2.
     float tDist = std::cos(theta / 2.0) * h;
@@ -1592,8 +1592,8 @@ void CanvasContext2DImpl::putImageData(CanvasImageDataImpl* id, float dx, float 
 
 CanvasImageDataImpl* CanvasContext2DImpl::createImageData(float sw, float sh, int& exceptionCode)
 {
-    int w = qRound(qAbs(sw));
-    int h = qRound(qAbs(sh));
+    int w = qRound(std::abs(sw));
+    int h = qRound(std::abs(sh));
 
     if (w == 0 || h == 0) {
         exceptionCode = DOMException::INDEX_SIZE_ERR;

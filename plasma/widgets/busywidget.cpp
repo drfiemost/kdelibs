@@ -136,7 +136,7 @@ void BusyWidget::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
     int intRotation = int(d->rotation);
 
-    QRectF spinnerRect(QPoint(0, 0), QSize(qMin(size().width(), size().height()), qMin(size().width(), size().height())));
+    QRectF spinnerRect(QPoint(0, 0), QSize(std::min(size().width(), size().height()), std::min(size().width(), size().height())));
     spinnerRect.moveCenter(boundingRect().center());
 
     if (!isEnabled()) {

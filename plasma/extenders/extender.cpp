@@ -854,7 +854,7 @@ void ExtenderPrivate::adjustMinimumSize()
     //FIXME: hardcoded number for the scrollbar
     scrollWidget->setMinimumWidth(mainWidget->effectiveSizeHint(Qt::MinimumSize).width() + 32);
     //FIXME: hardcoded number
-    scrollWidget->setMinimumHeight(qMin((qreal)300, mainWidget->effectiveSizeHint(Qt::MinimumSize).height()));
+    scrollWidget->setMinimumHeight(std::min((qreal)300, mainWidget->effectiveSizeHint(Qt::MinimumSize).height()));
 }
 
 void ExtenderPrivate::setPositionFromDragPosition(const QPointF &pos)
@@ -922,8 +922,8 @@ void ExtenderPrivate::adjustSize()
             screenRect = containment->corona()->screenGeometry(containment->screen());
         }
     }
-    q->resize(qMin(screenRect.width()/3, (int)size.width()),
-              qMin(screenRect.height()/3, (int)size.height()));
+    q->resize(std::min(screenRect.width()/3, (int)size.width()),
+              std::min(screenRect.height()/3, (int)size.height()));
 }
 
 bool Extender::isEmpty() const

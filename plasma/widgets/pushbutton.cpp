@@ -85,7 +85,7 @@ public:
             if (!svgElement.isEmpty() && svg->hasElement(svgElement)) {
                 svg->resize();
                 QSizeF elementSize = svg->elementSize(svgElement);
-                float scale = q->nativeWidget()->iconSize().width() / qMax(elementSize.width(), elementSize.height());
+                float scale = q->nativeWidget()->iconSize().width() / std::max(elementSize.width(), elementSize.height());
 
                 svg->resize(elementSize * scale);
                 pm = svg->pixmap(svgElement);
@@ -406,7 +406,7 @@ void PushButton::paint(QPainter *painter,
     QRectF rect = contentsRect();
 
     if (!nativeWidget()->icon().isNull()) {
-        const qreal iconSize = qMin(rect.width(), rect.height());
+        const qreal iconSize = std::min(rect.width(), rect.height());
         QPixmap iconPix = nativeWidget()->icon().pixmap(iconSize);
         if (!isEnabled()) {
             KIconEffect *effect = KIconLoader::global()->iconEffect();

@@ -114,7 +114,7 @@ KWordWrap* KWordWrap::formatText( QFontMetrics &fm, const QRect & r, int /*flags
             kw->d->m_breakPositions.append( breakAt );
             int thisLineWidth = lastBreak == -1 ? x + ww : lineWidth;
             kw->d->m_lineWidths.append( thisLineWidth );
-            textwidth = qMax( textwidth, thisLineWidth );
+            textwidth = std::max( textwidth, thisLineWidth );
             x = 0;
             y += height;
             wasBreakable = true;
@@ -135,7 +135,7 @@ KWordWrap* KWordWrap::formatText( QFontMetrics &fm, const QRect & r, int /*flags
         wasBreakable = isBreakable;
         wasParens = isParens;
     }
-    textwidth = qMax( textwidth, x );
+    textwidth = std::max( textwidth, x );
     kw->d->m_lineWidths.append( x );
     y += height;
     //kDebug() << "KWordWrap::formatText boundingRect:" << r.x() << "," << r.y() << " " << textwidth << "x" << y;
@@ -146,7 +146,7 @@ KWordWrap* KWordWrap::formatText( QFontMetrics &fm, const QRect & r, int /*flags
     {
         while ( realY > r.height() )
             realY -= height;
-        realY = qMax( realY, 0 );
+        realY = std::max( realY, 0 );
     }
     kw->d->m_boundingRect.setRect( 0, 0, textwidth, realY );
     return kw;
@@ -204,7 +204,7 @@ void KWordWrap::drawFadeoutText(QPainter *p, int x, int y, int maxW,
             tl++;
         }
 
-        int n = qMin( tl, 3);
+        int n = std::min( tl, 3);
         if ( t.isRightToLeft() ) {
             x += maxW; // start from the right side for RTL string
             if (tl > 3) {

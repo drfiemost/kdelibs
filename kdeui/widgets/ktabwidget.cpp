@@ -155,11 +155,11 @@ void KTabWidget::Private::resizeTabs( int changeTabIndex )
         const int tabBarHeight = m_parent->tabBar()->sizeHint().height();
         if (m_parent->cornerWidget(Qt::TopLeftCorner) &&
             m_parent->cornerWidget( Qt::TopLeftCorner )->isVisible()) {
-            lcw = qMax(m_parent->cornerWidget(Qt::TopLeftCorner)->width(), tabBarHeight);
+            lcw = std::max(m_parent->cornerWidget(Qt::TopLeftCorner)->width(), tabBarHeight);
         }
         if (m_parent->cornerWidget(Qt::TopRightCorner) &&
             m_parent->cornerWidget(Qt::TopRightCorner)->isVisible()) {
-            rcw = qMax( m_parent->cornerWidget(Qt::TopRightCorner)->width(), tabBarHeight);
+            rcw = std::max( m_parent->cornerWidget(Qt::TopRightCorner)->width(), tabBarHeight);
         }
 
         const int maxTabBarWidth = m_parent->width() - lcw - rcw;
@@ -183,7 +183,7 @@ void KTabWidget::Private::resizeTabs( int changeTabIndex )
                 newTabLengthLo = newTabLengthMid;
             }
         }
-        newTabLength = qMin(newTabLengthLo, m_maxLength);
+        newTabLength = std::min(newTabLengthLo, m_maxLength);
     }
 
     // Update hinted or all tabs
@@ -367,7 +367,7 @@ int KTabWidget::tabBarWidthForMaxChars( int maxLength )
     }
 #endif
     x += ( tabBar()->style()->sizeFromContents( QStyle::CT_TabBarTab, 0L,
-         QSize( qMax( lw + hframe + iw, QApplication::globalStrut().width() ), 0 ),
+         QSize( std::max( lw + hframe + iw, QApplication::globalStrut().width() ), 0 ),
          this ) ).width();
   }
 

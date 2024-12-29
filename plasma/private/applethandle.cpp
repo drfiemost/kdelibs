@@ -233,7 +233,7 @@ void AppletHandle::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     //regenerate our buffer?
     if (isRunning || !m_backgroundBuffer || m_backgroundBuffer->size() != pixmapSize) {
         QColor transparencyColor = Qt::black;
-        transparencyColor.setAlphaF(qMin(m_opacity, qreal(0.99)));
+        transparencyColor.setAlphaF(std::min(m_opacity, qreal(0.99)));
 
         QLinearGradient g(QPoint(0, 0), QPoint(m_decorationRect.width(), 0));
         //fading out panel
@@ -245,7 +245,7 @@ void AppletHandle::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                 //kDebug() << "opaquePoint" << opaquePoint
                 //         << m_background->marginSize(LeftMargin) << m_decorationRect.width();
                 g.setColorAt(0.0, Qt::transparent);
-                g.setColorAt(qMax(0.0, opaquePoint - 0.01), Qt::transparent); //krazy:exclude=qminmax
+                g.setColorAt(std::max(0.0, opaquePoint - 0.01), Qt::transparent); //krazy:exclude=qminmax
                 g.setColorAt(opaquePoint, transparencyColor);
                 g.setColorAt(1.0, transparencyColor);
             } else {
@@ -253,7 +253,7 @@ void AppletHandle::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                     1 - ((m_background->marginSize(RightMargin) + translation) / m_decorationRect.width());
                 g.setColorAt(1.0, Qt::transparent);
                 g.setColorAt(opaquePoint + 0.01, Qt::transparent);
-                g.setColorAt(qMax(qreal(0), opaquePoint), transparencyColor);
+                g.setColorAt(std::max(qreal(0), opaquePoint), transparencyColor);
                 g.setColorAt(0.0, transparencyColor);
             }
         //complete panel
@@ -701,14 +701,14 @@ void AppletHandle::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
                 newSize = _k_projectPoint(newSize, m_origAppletSize);
                 // limit size, presering ratio
                 qreal ratio = m_origAppletSize.y() / m_origAppletSize.x();
-                newSize.rx() = qMin(max.width(), qMax(min.width(), newSize.x()));
+                newSize.rx() = std::min(max.width(), std::max(min.width(), newSize.x()));
                 newSize.ry() = newSize.x() * ratio;
-                newSize.ry() = qMin(max.height(), qMax(min.height(), newSize.y()));
+                newSize.ry() = std::min(max.height(), std::max(min.height(), newSize.y()));
                 newSize.rx() = newSize.y() / ratio;
             } else {
                 // limit size
-                newSize.rx() = qMin(max.width(), qMax(min.width(), newSize.x()));
-                newSize.ry() = qMin(max.height(), qMax(min.height(), newSize.y()));
+                newSize.rx() = std::min(max.width(), std::max(min.width(), newSize.x()));
+                newSize.ry() = std::min(max.height(), std::max(min.height(), newSize.y()));
             }
 
             // move center such that the static corner remains in the same place
@@ -750,8 +750,8 @@ bool AppletHandle::sceneEvent(QEvent *event)
         QRectF geom = m_applet->geometry();
         QPointF translation(t.m31(), t.m32());
         QPointF center = geom.center();
-        geom.setWidth(geom.width()*qAbs(t.m11()));
-        geom.setHeight(geom.height()*qAbs(t.m22()));
+        geom.setWidth(geom.width()*std::abs(t.m11()));
+        geom.setHeight(geom.height()*std::abs(t.m22()));
         geom.moveCenter(center);
 
         m_applet->setGeometry(geom);
@@ -1023,7 +1023,7 @@ void AppletHandle::calculateSize()
     //m_iconSize = iconLoader->currentSize(KIconLoader::Small); //does not work with double sized icon
     m_iconSize = iconLoader->loadIcon("transform-scale", KIconLoader::Small).width(); //workaround
 
-    int handleHeight = qMax(minimumHeight(), int(m_applet->contentsRect().height() * 0.8));
+    int handleHeight = std::max(minimumHeight(), int(m_applet->contentsRect().height() * 0.8));
     int handleWidth = m_iconSize + 2 * HANDLE_MARGIN;
     int top =
         m_applet->contentsRect().top() + (m_applet->contentsRect().height() - handleHeight) / 2.0;

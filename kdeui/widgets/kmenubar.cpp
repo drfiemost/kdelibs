@@ -384,8 +384,8 @@ void KMenuBar::checkSize( int& w, int& h )
     // This is not done as setMinimumSize(), because that would set the minimum
     // size in WM_NORMAL_HINTS, and KWin would not allow changing to smaller size
     // anymore
-    w = qMax( w, d->min_size.width());
-    h = qMax( h, d->min_size.height());
+    w = std::max( w, d->min_size.width());
+    h = std::max( h, d->min_size.height());
 }
 
 // QMenuBar's sizeHint() gives wrong size (insufficient width), which causes wrapping in the kicker applet

@@ -289,7 +289,7 @@ void KDebugTest::testNoMainComponentData()
     expectedLines << "kdebug_qcoreapptest_mainData main: This should appear, under the kdebug_qcoreapptest_mainData area";
     expectedLines << "kdebug_qcoreapptest_mainData main: Debug in area 100";
     expectedLines << ""; // artefact of split, I guess?
-    for (int i = 0; i < qMin(expectedLines.count(), receivedLines.count()); ++i)
+    for (int i = 0; i < std::min(expectedLines.count(), receivedLines.count()); ++i)
         QCOMPARE(QString::fromLatin1(receivedLines[i]), QString::fromLatin1(expectedLines[i]));
     QCOMPARE(receivedLines.count(), expectedLines.count());
     QCOMPARE(receivedLines, expectedLines);

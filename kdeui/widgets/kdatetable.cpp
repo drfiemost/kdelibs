@@ -349,8 +349,8 @@ void KDateTable::paintEvent( QPaintEvent *e )
     int topRow = ( int )std::floor( rectToUpdate.top() / cellHeight );
     int rightCol = ( int )std::ceil( rectToUpdate.right() / cellWidth );
     int bottomRow = ( int )std::ceil( rectToUpdate.bottom() / cellHeight );
-    bottomRow = qMin( bottomRow, d->m_numWeekRows - 1 );
-    rightCol = qMin( rightCol, d->m_numDayColumns - 1 );
+    bottomRow = std::min( bottomRow, d->m_numWeekRows - 1 );
+    rightCol = std::min( rightCol, d->m_numDayColumns - 1 );
     if ( layoutDirection() == Qt::RightToLeft ) {
         p.translate( ( d->m_numDayColumns - leftCol - 1 ) * cellWidth, topRow * cellHeight );
     } else {
@@ -647,13 +647,13 @@ void KDateTable::setFontSize( int size )
     d->m_maxCell.setHeight( 0 );
     for( int weekday = 1; weekday <= d->m_date.daysInWeek(); ++weekday ) {
         rect = metrics.boundingRect( calendar()->weekDayName( weekday, KCalendarSystem::ShortDayName ) );
-        d->m_maxCell.setWidth( qMax( d->m_maxCell.width(), rect.width() ) );
-        d->m_maxCell.setHeight( qMax( d->m_maxCell.height(), rect.height() ) );
+        d->m_maxCell.setWidth( std::max( d->m_maxCell.width(), rect.width() ) );
+        d->m_maxCell.setHeight( std::max( d->m_maxCell.height(), rect.height() ) );
     }
     // ----- compare with a real wide number and add some space:
     rect = metrics.boundingRect( QLatin1String( "88" ) );
-    d->m_maxCell.setWidth( qMax( d->m_maxCell.width() + 2, rect.width() ) );
-    d->m_maxCell.setHeight( qMax( d->m_maxCell.height() + 4, rect.height() ) );
+    d->m_maxCell.setWidth( std::max( d->m_maxCell.width() + 2, rect.width() ) );
+    d->m_maxCell.setHeight( std::max( d->m_maxCell.height() + 4, rect.height() ) );
 }
 
 void KDateTable::wheelEvent ( QWheelEvent * e )

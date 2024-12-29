@@ -166,7 +166,7 @@ static bool isCrossDomainRequest( const QString& fqdn, const QString& originURL 
   QStringList la = a.split(QLatin1Char('.'), QString::SkipEmptyParts);
   QStringList lb = b.split(QLatin1Char('.'), QString::SkipEmptyParts);
 
-  if (qMin(la.count(), lb.count()) < 2) {
+  if (std::min(la.count(), lb.count()) < 2) {
       return true;  // better safe than sorry...
   }
 
@@ -2078,7 +2078,7 @@ size_t HTTPProtocol::readBuffered(char *buf, size_t size, bool unlimited)
     size_t bytesRead = 0;
     if (!m_unreadBuf.isEmpty()) {
         const int bufSize = m_unreadBuf.size();
-        bytesRead = qMin((int)size, bufSize);
+        bytesRead = std::min((int)size, bufSize);
 
         for (size_t i = 0; i < bytesRead; i++) {
             buf[i] = m_unreadBuf.constData()[bufSize - i - 1];
@@ -2113,7 +2113,7 @@ bool HTTPProtocol::readDelimitedText(char *buf, int *idx, int end, int numNewlin
     char mybuf[64]; //somewhere close to the usual line length to avoid unread()ing too much
     int pos = *idx;
     while (pos < end && !m_isEOF) {
-        int step = qMin((int)sizeof(mybuf), end - pos);
+        int step = std::min((int)sizeof(mybuf), end - pos);
         if (m_isChunked) {
             //we might be reading the end of the very last chunk after which there is no data.
             //don't try to read any more bytes than there are because it causes stalls
@@ -3737,7 +3737,7 @@ void HTTPProtocol::cacheParseResponseHeader(const HeaderTokenizer &tokenizer)
                 qint64 expAge = (m_request.cacheTag.servedDate -
                                  m_request.cacheTag.lastModifiedDate) / 10;
                 // not in the RFC: make sure not to have a huge heuristic cache lifetime
-                expAge = qMin(expAge, qint64(3600 * 24));
+                expAge = std::min(expAge, qint64(3600 * 24));
                 m_request.cacheTag.expireDate = m_request.cacheTag.servedDate + expAge;
             } else {
                 m_request.cacheTag.expireDate = m_request.cacheTag.servedDate +
@@ -5090,7 +5090,7 @@ void HTTPProtocol::cacheFileWritePayload(const QByteArray &d)
 void HTTPProtocol::cachePostData(const QByteArray& data)
 {
     if (!m_POSTbuf) {
-        m_POSTbuf = createPostBufferDeviceFor(qMax(m_iPostDataSize, static_cast<KIO::filesize_t>(data.size())));
+        m_POSTbuf = createPostBufferDeviceFor(std::max(m_iPostDataSize, static_cast<KIO::filesize_t>(data.size())));
         if (!m_POSTbuf)
             return;
     }

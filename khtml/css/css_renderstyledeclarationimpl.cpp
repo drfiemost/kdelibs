@@ -957,7 +957,7 @@ CSSValueImpl *RenderStyleDeclarationImpl::getPropertyCSSValue( int propertyID ) 
             overflow = style->overflowY();
             break;
         default:
-            overflow = qMax(style->overflowX(), style->overflowY());
+            overflow = std::max(style->overflowX(), style->overflowY());
         }
         switch (overflow) {
         case OVISIBLE:

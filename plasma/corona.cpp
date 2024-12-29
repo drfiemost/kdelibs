@@ -548,7 +548,7 @@ QPoint Corona::popupPosition(const QGraphicsItem *item, const QSize &s, Qt::Alig
         if (pos.x() + s.width() > v->geometry().x() + v->geometry().width()) {
             pos.setX((v->geometry().x() + v->geometry().width()) - s.width());
         } else {
-            pos.setX(qMax(pos.x(), v->geometry().left()));
+            pos.setX(std::max(pos.x(), v->geometry().left()));
         }
         break;
     }
@@ -563,7 +563,7 @@ QPoint Corona::popupPosition(const QGraphicsItem *item, const QSize &s, Qt::Alig
         if (pos.y() + s.height() > v->geometry().y() + v->geometry().height()) {
             pos.setY((v->geometry().y() + v->geometry().height()) - s.height());
         } else {
-            pos.setY(qMax(pos.y(), v->geometry().top()));
+            pos.setY(std::max(pos.y(), v->geometry().top()));
         }
         break;
     }
@@ -622,8 +622,8 @@ QPoint Corona::popupPosition(const QGraphicsItem *item, const QSize &s, Qt::Alig
         pos.ry() -= ((pos.y() + s.height()) - (screenRect.y() + screenRect.height()));
     }
 
-    pos.rx() = qMax(0, pos.x());
-    pos.ry() = qMax(0, pos.y());
+    pos.rx() = std::max(0, pos.x());
+    pos.ry() = std::max(0, pos.y());
     return pos;
 }
 

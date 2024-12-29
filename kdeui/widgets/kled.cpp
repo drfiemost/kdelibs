@@ -116,12 +116,12 @@ void KLed::paintEvent( QPaintEvent* )
 int KLed::ledWidth() const
 {
   // Make sure the LED is round!
-  int size = qMin(width(), height());
+  int size = std::min(width(), height());
 
   // leave one pixel border
   size -= 2;
 
-  return qMax(0, size);
+  return std::max(0, size);
 }
 
 bool KLed::paintCachedPixmap()
@@ -282,7 +282,7 @@ void KLed::paintLed(Shape shape, Look look)
         size = QSize(width, width);
     }
     QPointF center(size.width() / 2.0, size.height() / 2.0);
-    const int smallestSize = qMin(size.width(), size.height());
+    const int smallestSize = std::min(size.width(), size.height());
     QPainter painter;
 
     QImage image(size, QImage::Format_ARGB32_Premultiplied);

@@ -94,7 +94,7 @@ public:
         Plasma::Theme *theme = Plasma::Theme::defaultTheme();
         QFont font = theme->font(Plasma::Theme::DefaultFont);
         QFontMetrics fm(font);
-        m_iconSize = qMax(size.height(), (qreal) fm.height());
+        m_iconSize = std::max(size.height(), (qreal) fm.height());
     }
 
     void setBackgroundPrefix(const QString &string)
@@ -136,7 +136,7 @@ ExtenderItem::ExtenderItem(Extender *hostExtender, uint extenderItemId)
     if (extenderItemId) {
         d->extenderItemId = extenderItemId;
         ExtenderItemPrivate::s_maxExtenderItemId =
-            qMax(ExtenderItemPrivate::s_maxExtenderItemId, extenderItemId);
+            std::max(ExtenderItemPrivate::s_maxExtenderItemId, extenderItemId);
     } else {
         d->extenderItemId = ++ExtenderItemPrivate::s_maxExtenderItemId;
     }

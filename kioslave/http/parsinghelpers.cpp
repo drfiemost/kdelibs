@@ -49,11 +49,11 @@ static bool nextLine(const char input[], int *pos, int end)
     }
     int rCount = 0;
     int nCount = 0;
-    while (idx < end && qMax(rCount, nCount) < 2 && (input[idx] == '\r' || input[idx] == '\n')) {
+    while (idx < end && std::max(rCount, nCount) < 2 && (input[idx] == '\r' || input[idx] == '\n')) {
         input[idx] == '\r' ? rCount++ : nCount++;
         idx++;
     }
-    if (idx < end && qMax(rCount, nCount) == 2 && qMin(rCount, nCount) == 1) {
+    if (idx < end && std::max(rCount, nCount) == 2 && std::min(rCount, nCount) == 1) {
         // if just one of the others is missing eat it too.
         // this ensures that conforming headers using the proper
         // \r\n sequence (and also \n\r) will be parsed correctly.

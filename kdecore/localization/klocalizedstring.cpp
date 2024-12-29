@@ -854,7 +854,7 @@ KLocalizedString KLocalizedString::subs (qlonglong a, int fieldWidth, int base,
 {
     KLocalizedString kls(*this);
     if (!kls.d->plural.isEmpty() && !kls.d->numberSet) {
-        kls.d->number = static_cast<pluraln>(qAbs(a));
+        kls.d->number = static_cast<pluraln>(std::abs(a));
         kls.d->numberSet = true;
         kls.d->numberOrd = d->args.size();
     }

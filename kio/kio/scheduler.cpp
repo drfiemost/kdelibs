@@ -394,7 +394,7 @@ static void verifyRunningJobsCount(QHash<QString, HostQueue> *queues, int runnin
 ProtoQueue::ProtoQueue(SchedulerPrivate *sp, int maxSlaves, int maxSlavesPerHost)
  : m_schedPrivate(sp),
    m_maxConnectionsPerHost(maxSlavesPerHost ? maxSlavesPerHost : maxSlaves),
-   m_maxConnectionsTotal(qMax(maxSlaves, maxSlavesPerHost)),
+   m_maxConnectionsTotal(std::max(maxSlaves, maxSlavesPerHost)),
    m_runningJobsCount(0)
 
 {
@@ -735,7 +735,7 @@ public:
                 maxSlavesPerHost = KProtocolInfo::maxSlavesPerHost(protocol);
             }
             // Never allow maxSlavesPerHost to exceed maxSlaves.
-            pq = new ProtoQueue(this, maxSlaves, qMin(maxSlaves, maxSlavesPerHost));
+            pq = new ProtoQueue(this, maxSlaves, std::min(maxSlaves, maxSlavesPerHost));
             m_protocols.insert(protocol, pq);
         }
         return pq;

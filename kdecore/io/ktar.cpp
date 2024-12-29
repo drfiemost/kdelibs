@@ -226,7 +226,7 @@ bool KTar::KTarPrivate::readLonglink(char *buffer,QByteArray &longlink) {
   longlink.resize(size);
   qint64 offset = 0;
   while (size > 0) {
-    int chunksize = qMin(size, 0x200LL);
+    int chunksize = std::min(size, 0x200LL);
     n = dev->read( longlink.data() + offset, chunksize );
     if (n == -1) return false;
     size -= chunksize;
@@ -670,7 +670,7 @@ void KTar::KTarPrivate::writeLonglink(char *buffer, const QByteArray &name, char
   q->device()->write( buffer, 0x200 ); // TODO error checking
   qint64 offset = 0;
   while (namelen > 0) {
-    int chunksize = qMin(namelen, 0x200LL);
+    int chunksize = std::min(namelen, 0x200LL);
     memcpy(buffer, name.data()+offset, chunksize);
     // write long name
     q->device()->write( buffer, 0x200 ); // TODO error checking

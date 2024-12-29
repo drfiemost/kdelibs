@@ -598,7 +598,7 @@ void InlineFlowBox::verticallyAlignBoxes(int& heightOfBlock)
 
     computeLogicalBoxHeights(maxPositionTop, maxPositionBottom, maxAscent, maxDescent, strictMode);
 
-    if (maxAscent + maxDescent < qMax(maxPositionTop, maxPositionBottom))
+    if (maxAscent + maxDescent < std::max(maxPositionTop, maxPositionBottom))
         adjustMaxAscentAndDescent(maxAscent, maxDescent, maxPositionTop, maxPositionBottom);
 
     int maxHeight = maxAscent + maxDescent;
@@ -635,7 +635,7 @@ void InlineFlowBox::adjustMaxAscentAndDescent(int& maxAscent, int& maxDescent,
                     maxAscent = curr->height() - maxDescent;
             }
 
-            if ( maxAscent + maxDescent >= qMax( maxPositionTop, maxPositionBottom ) )
+            if ( maxAscent + maxDescent >= std::max( maxPositionTop, maxPositionBottom ) )
                 break;
         }
 
@@ -741,7 +741,7 @@ void InlineFlowBox::placeBoxesVertically(int y, int maxHeight, int maxAscent, bo
             newHeight = newBaseline+fm.descent();
 #else
             // only adjust if the leading delta is superior to the font's natural leading
-            if ( qAbs(fm.ascent() - curr->baseline()) > fm.leading()/2 ) {
+            if ( std::abs(fm.ascent() - curr->baseline()) > fm.leading()/2 ) {
                 int ascent = fm.ascent()+fm.leading()/2;
                 newBaseline = ascent;
                 newY += curr->baseline() - newBaseline;
@@ -749,8 +749,8 @@ void InlineFlowBox::placeBoxesVertically(int y, int maxHeight, int maxAscent, bo
             }
 #endif
             for (ShadowData* shadow = curr->object()->style()->textShadow(); shadow; shadow = shadow->next) {
-                overflowTop = qMin(overflowTop, shadow->y - shadow->blur);
-                overflowBottom = qMax(overflowBottom, shadow->y + shadow->blur);
+                overflowTop = std::min(overflowTop, shadow->y - shadow->blur);
+                overflowBottom = std::max(overflowBottom, shadow->y + shadow->blur);
             }
             if (curr->isInlineFlowBox()) {
                 newHeight += curr->object()->borderTop() + curr->object()->paddingTop() +
@@ -769,8 +769,8 @@ void InlineFlowBox::placeBoxesVertically(int y, int maxHeight, int maxAscent, bo
         curr->setBaseline(newBaseline);
 
         if (childAffectsTopBottomPos) {
-            topPosition = qMin(topPosition, newY + overflowTop);
-            bottomPosition = qMax(bottomPosition, newY + newHeight + overflowBottom);
+            topPosition = std::min(topPosition, newY + overflowTop);
+            bottomPosition = std::max(bottomPosition, newY + newHeight + overflowBottom);
         }
     }
 
@@ -781,7 +781,7 @@ void InlineFlowBox::placeBoxesVertically(int y, int maxHeight, int maxAscent, bo
         setYPos(yPos() + baseline() - fm.ascent());
         setBaseline(fm.ascent());
 #else
-        if ( qAbs(fm.ascent() - baseline()) > fm.leading()/2 ) {
+        if ( std::abs(fm.ascent() - baseline()) > fm.leading()/2 ) {
             int ascent = fm.ascent()+fm.leading()/2;
             setHeight(fm.lineSpacing());
             setYPos(yPos() + baseline() - ascent);
@@ -936,10 +936,10 @@ void InlineFlowBox::paintBackgroundAndBorder(RenderObject::PaintInfo& pI, int _t
     int h = height();
 
     QRect cr;
-    cr.setX(qMax(_tx, pI.r.x()));
-    cr.setY(qMax(_ty, pI.r.y()));
-    cr.setWidth(_tx<pI.r.x() ? qMax(0,w-(pI.r.x()-_tx)) : qMin(pI.r.width(),w));
-    cr.setHeight(_ty<pI.r.y() ? qMax(0,h-(pI.r.y()-_ty)) : qMin(pI.r.height(),h));
+    cr.setX(std::max(_tx, pI.r.x()));
+    cr.setY(std::max(_ty, pI.r.y()));
+    cr.setWidth(_tx<pI.r.x() ? std::max(0,w-(pI.r.x()-_tx)) : std::min(pI.r.width(),w));
+    cr.setHeight(_ty<pI.r.y() ? std::max(0,h-(pI.r.y()-_ty)) : std::min(pI.r.height(),h));
 
     // You can use p::first-line to specify a background. If so, the root line boxes for
     // a line may actually have to paint a background.

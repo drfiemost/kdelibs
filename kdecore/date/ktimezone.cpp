@@ -485,11 +485,11 @@ int KTimeZoneBackend::offsetAtZoneTime(const KTimeZone* caller, const QDateTime 
         {
             const int offset = transitions[index].phase().utcOffset();
 	    const int preoffset = (index > 0) ? transitions[index - 1].phase().utcOffset() : d->data ? d->data->previousUtcOffset() : 0;
-            d->cachedTransitionStartZoneTime = transitions[index].time().addSecs(qMax(offset, preoffset));
+            d->cachedTransitionStartZoneTime = transitions[index].time().addSecs(std::max(offset, preoffset));
             if (index + 1 < transitions.count())
 	    {
                 const int postoffset = transitions[index + 1].phase().utcOffset();
-                d->cachedTransitionEndZoneTime = transitions[index + 1].time().addSecs(qMin(offset, postoffset));
+                d->cachedTransitionEndZoneTime = transitions[index + 1].time().addSecs(std::min(offset, postoffset));
 	    }
             d->cachedTransitionTimesValid = true;
         }

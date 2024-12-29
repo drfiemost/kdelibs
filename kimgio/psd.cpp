@@ -70,7 +70,7 @@ namespace {	// Private.
         {
                 char buf[4096];
                 while (bytes) {
-                        unsigned int num= qMin(bytes,( unsigned int )sizeof(buf));
+                        unsigned int num= std::min(bytes,( unsigned int )sizeof(buf));
                         unsigned int l = num;
                         s.readRawData(buf, l);
                         if(l != num)

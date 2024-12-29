@@ -76,7 +76,7 @@ namespace ThreadWeaver {
         {
             it.next();
             int x = padding + count*Spacing + count*CellWidth;
-            int y = qMax ( padding,
+            int y = std::max ( padding,
                            ( height() - 2*frameWidth() - padding ) / 2 );
             if ( x < width() && y < height() )
             {

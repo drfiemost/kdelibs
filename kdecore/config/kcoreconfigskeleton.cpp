@@ -319,9 +319,9 @@ void KCoreConfigSkeleton::ItemInt::readConfig( KConfig *config )
   KConfigGroup cg(config, mGroup );
   mReference = cg.readEntry( mKey, mDefault );
   if (mHasMin)
-    mReference = qMax(mReference, mMin);
+    mReference = std::max(mReference, mMin);
   if (mHasMax)
-    mReference = qMin(mReference, mMax);
+    mReference = std::min(mReference, mMax);
   mLoadedValue = mReference;
 
   readImmutability( cg );
@@ -381,9 +381,9 @@ void KCoreConfigSkeleton::ItemLongLong::readConfig( KConfig *config )
   KConfigGroup cg(config, mGroup );
   mReference = cg.readEntry( mKey, mDefault );
   if (mHasMin)
-    mReference = qMax(mReference, mMin);
+    mReference = std::max(mReference, mMin);
   if (mHasMax)
-    mReference = qMin(mReference, mMax);
+    mReference = std::min(mReference, mMax);
   mLoadedValue = mReference;
 
   readImmutability( cg );
@@ -522,9 +522,9 @@ void KCoreConfigSkeleton::ItemUInt::readConfig( KConfig *config )
   KConfigGroup cg(config, mGroup );
   mReference = cg.readEntry( mKey, mDefault );
   if (mHasMin)
-    mReference = qMax(mReference, mMin);
+    mReference = std::max(mReference, mMin);
   if (mHasMax)
-    mReference = qMin(mReference, mMax);
+    mReference = std::min(mReference, mMax);
   mLoadedValue = mReference;
 
   readImmutability( cg );
@@ -584,9 +584,9 @@ void KCoreConfigSkeleton::ItemULongLong::readConfig( KConfig *config )
   KConfigGroup cg(config, mGroup );
   mReference = cg.readEntry( mKey, mDefault );
   if (mHasMin)
-    mReference = qMax(mReference, mMin);
+    mReference = std::max(mReference, mMin);
   if (mHasMax)
-    mReference = qMin(mReference, mMax);
+    mReference = std::min(mReference, mMax);
   mLoadedValue = mReference;
 
   readImmutability( cg );
@@ -645,9 +645,9 @@ void KCoreConfigSkeleton::ItemDouble::readConfig( KConfig *config )
   KConfigGroup cg(config, mGroup );
   mReference = cg.readEntry( mKey, mDefault );
   if (mHasMin)
-    mReference = qMax(mReference, mMin);
+    mReference = std::max(mReference, mMin);
   if (mHasMax)
-    mReference = qMin(mReference, mMax);
+    mReference = std::min(mReference, mMax);
   mLoadedValue = mReference;
 
   readImmutability( cg );

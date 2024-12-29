@@ -219,8 +219,8 @@ void KImageFilePreview::KImageFilePreviewPrivate::_k_slotStepAnimation( int fram
 {
     Q_UNUSED(frame)
 
-    QPixmap pm(QSize(qMax(m_pmCurrent.size().width(), m_pmTransition.size().width()),
-                     qMax(m_pmCurrent.size().height(), m_pmTransition.size().height())));
+    QPixmap pm(QSize(std::max(m_pmCurrent.size().width(), m_pmTransition.size().width()),
+                     std::max(m_pmCurrent.size().height(), m_pmTransition.size().height())));
     pm.fill(Qt::transparent);
 
     QPainter p(&pm);
@@ -239,8 +239,8 @@ void KImageFilePreview::KImageFilePreviewPrivate::_k_slotStepAnimation( int fram
 
     imageLabel->setPixmap(pm);
 
-    m_pmCurrentOpacity = qMax(m_pmCurrentOpacity - 0.4, 0.0); // krazy:exclude=qminmax
-    m_pmTransitionOpacity = qMin(m_pmTransitionOpacity + 0.4, 1.0); //krazy:exclude=qminmax
+    m_pmCurrentOpacity = std::max(m_pmCurrentOpacity - 0.4, 0.0); // krazy:exclude=qminmax
+    m_pmTransitionOpacity = std::min(m_pmTransitionOpacity + 0.4, 1.0); //krazy:exclude=qminmax
 }
 
 void KImageFilePreview::KImageFilePreviewPrivate::_k_slotFinished()

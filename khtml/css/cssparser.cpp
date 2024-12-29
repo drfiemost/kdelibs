@@ -2518,7 +2518,7 @@ bool CSSParser::parseColorParameters(Value* value, int* colorArray, bool parseAl
         v = args->next();
         if (!validUnit(v, FNumber, true))
             return false;
-        colorArray[3] = static_cast<int>(qMax(0.0, qMin(1.0, v->fValue)) * 255); //krazy:exclude=qminmax
+        colorArray[3] = static_cast<int>(std::max(0.0, std::min(1.0, v->fValue)) * 255); //krazy:exclude=qminmax
     }
     return true;
 }
@@ -2544,7 +2544,7 @@ bool CSSParser::parseHSLParameters(Value* value, double* colorArray, bool parseA
         v = args->next();
         if (!validUnit(v, FPercent, true))
             return false;
-        colorArray[i] = qMax(0.0, qMin(100.0, v->fValue)) / 100.0; // needs to be value between 0 and 1.0, krazy:exclude=qminmax
+        colorArray[i] = std::max(0.0, std::min(100.0, v->fValue)) / 100.0; // needs to be value between 0 and 1.0, krazy:exclude=qminmax
     }
     if (parseAlpha) {
         v = args->next();
@@ -2553,7 +2553,7 @@ bool CSSParser::parseHSLParameters(Value* value, double* colorArray, bool parseA
         v = args->next();
         if (!validUnit(v, FNumber, true))
             return false;
-        colorArray[3] = qMax(0.0, qMin(1.0, v->fValue)); //krazy:exclude=qminmax
+        colorArray[3] = std::max(0.0, std::min(1.0, v->fValue)); //krazy:exclude=qminmax
     }
     return true;
 }
@@ -2642,9 +2642,9 @@ CSSPrimitiveValueImpl *CSSParser::parseColorFromValue(Value* value)
         int colorValues[3];
         if (!parseColorParameters(value, colorValues, false))
             return 0;
-        colorValues[0] = qMax( 0, qMin( 255, colorValues[0] ) );
-        colorValues[1] = qMax( 0, qMin( 255, colorValues[1] ) );
-        colorValues[2] = qMax( 0, qMin( 255, colorValues[2] ) );
+        colorValues[0] = std::max( 0, std::min( 255, colorValues[0] ) );
+        colorValues[1] = std::max( 0, std::min( 255, colorValues[1] ) );
+        colorValues[2] = std::max( 0, std::min( 255, colorValues[2] ) );
         c = qRgb(colorValues[0], colorValues[1], colorValues[2]);
     } else if (value->unit == Value::Function &&
                 value->function->args != 0 &&
@@ -2653,9 +2653,9 @@ CSSPrimitiveValueImpl *CSSParser::parseColorFromValue(Value* value)
         int colorValues[4];
         if (!parseColorParameters(value, colorValues, true))
             return 0;
-        colorValues[0] = qMax( 0, qMin( 255, colorValues[0] ) );
-        colorValues[1] = qMax( 0, qMin( 255, colorValues[1] ) );
-        colorValues[2] = qMax( 0, qMin( 255, colorValues[2] ) );
+        colorValues[0] = std::max( 0, std::min( 255, colorValues[0] ) );
+        colorValues[1] = std::max( 0, std::min( 255, colorValues[1] ) );
+        colorValues[2] = std::max( 0, std::min( 255, colorValues[2] ) );
         c = qRgba(colorValues[0], colorValues[1], colorValues[2], colorValues[3]);
     } else if (value->unit == Value::Function &&
                 value->function->args != 0 &&
@@ -2974,7 +2974,7 @@ int DOM::CSSParser::lex( void *_yylval )
         [[fallthrough]];
     case FLOAT:
     case INTEGER:
-        yylval->val = qMin(QString((QChar *)t, length).toDouble(), dIntMax);
+        yylval->val = std::min(QString((QChar *)t, length).toDouble(), dIntMax);
         //qDebug("value = %s, converted=%.2f", QString( (QChar *)t, length ).toLatin1().constData(), yylval->val );
         break;
 

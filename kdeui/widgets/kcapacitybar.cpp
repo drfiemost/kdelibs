@@ -357,7 +357,7 @@ QSize KCapacityBar::minimumSizeHint() const
                 fontMetrics().width(d->text);
 
     int height = (d->drawTextMode == KCapacityBar::DrawTextInline) ?
-                 qMax(fontMetrics().height(), d->barHeight) :
+                 std::max(fontMetrics().height(), d->barHeight) :
                  (d->text.isEmpty() ? 0 : fontMetrics().height() + VERTICAL_SPACING * 2) + d->barHeight;
 
     if (height % 2) {

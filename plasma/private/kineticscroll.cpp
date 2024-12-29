@@ -186,7 +186,7 @@ QPointF KineticScrolling::thresholdPosition(QPointF value) const
     d->minimum.setY(-d->contentsSize.height() + d->viewportGeometry.height()
         -d->overshoot);
 
-    d->minimum.setY(qMin((qreal)d->overshoot, d->minimum.y()));
+    d->minimum.setY(std::min((qreal)d->overshoot, d->minimum.y()));
     d->maximum = value;
 
     if(d->minimum.x() >= 0) {
@@ -434,7 +434,7 @@ bool KineticScrolling::eventFilter(QObject *watched, QEvent *event)
                 d->multitouchGesture = KineticScrollingPrivate::GestureUndefined;
             }
             if (d->multitouchGesture == KineticScrollingPrivate::GestureUndefined) {
-                const int zoomDistance = qAbs(line1.length() - startLine.length());
+                const int zoomDistance = std::abs(line1.length() - startLine.length());
                 const int dragDistance = (startLine.pointAt(0.5) - point).manhattanLength();
 
                 if (zoomDistance - dragDistance > 30) {

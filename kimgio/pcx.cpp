@@ -170,7 +170,7 @@ static void readImage1( QImage &img, QDataStream &s, const PCXHEADER &header )
 
     readLine( s, buf, header );
     uchar *p = img.scanLine( y );
-    unsigned int bpl = qMin((quint16)((header.width()+7)/8), header.BytesPerLine);
+    unsigned int bpl = std::min((quint16)((header.width()+7)/8), header.BytesPerLine);
     for ( unsigned int x=0; x< bpl; ++x )
       p[ x ] = buf[x];
   }
@@ -235,7 +235,7 @@ static void readImage8( QImage &img, QDataStream &s, const PCXHEADER &header )
     readLine( s, buf, header );
 
     uchar *p = img.scanLine( y );
-    unsigned int bpl = qMin(header.BytesPerLine, (quint16)header.width());
+    unsigned int bpl = std::min(header.BytesPerLine, (quint16)header.width());
     for ( unsigned int x=0; x<bpl; ++x )
       p[ x ] = buf[ x ];
   }

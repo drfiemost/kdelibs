@@ -484,7 +484,7 @@ void KDatePicker::selectMonthClicked()
 
     // If we have succeeded in creating a date in the new month, then try to create the new date,
     // checking we don't set a day after the last day of the month
-    newDate.setDate( newDate.year(), newDate.month(), qMin( thisDate.day(), newDate.daysInMonth() ) );
+    newDate.setDate( newDate.year(), newDate.month(), std::min( thisDate.day(), newDate.daysInMonth() ) );
 
     // Set the date, if it's invalid in any way then alert user and don't update
     if ( ! setDate( newDate.date() ) ) {
@@ -515,7 +515,7 @@ void KDatePicker::selectYearClicked()
 
         // If we have succeeded in creating a date in the new month, then try to create the new
         // date, checking we don't set a day after the last day of the month
-        newDate.setDate( newDate.year(), newDate.month(), qMin( thisDate.day(), newDate.daysInMonth() ) );
+        newDate.setDate( newDate.year(), newDate.month(), std::min( thisDate.day(), newDate.daysInMonth() ) );
 
         // Set the date, if it's invalid in any way then alert user and don't update
         if ( ! setDate( newDate.date() ) ) {

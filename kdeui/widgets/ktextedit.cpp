@@ -426,7 +426,7 @@ bool KTextEdit::Private::handleShortcut(const QKeyEvent* event)
     qreal distance = 0;
     do {
         qreal y = parent->cursorRect(cursor).bottom();
-        distance += qAbs(y - lastY);
+        distance += std::abs(y - lastY);
         lastY = y;
         moved = cursor.movePosition(QTextCursor::Down);
     } while (moved && distance < parent->viewport()->height());
@@ -444,7 +444,7 @@ bool KTextEdit::Private::handleShortcut(const QKeyEvent* event)
     qreal distance = 0;
     do {
         qreal y = parent->cursorRect(cursor).bottom();
-        distance += qAbs(y - lastY);
+        distance += std::abs(y - lastY);
         lastY = y;
         moved = cursor.movePosition(QTextCursor::Up);
     } while (moved && distance < parent->viewport()->height());

@@ -139,7 +139,7 @@ qint64 AccessManagerReply::bytesAvailable() const
 
 qint64 AccessManagerReply::readData(char *data, qint64 maxSize)
 {
-    const qint64 length = qMin(qint64(m_data.length()), maxSize);
+    const qint64 length = std::min(qint64(m_data.length()), maxSize);
 
     if (length) {
         std::memcpy(data, m_data.constData(), length);

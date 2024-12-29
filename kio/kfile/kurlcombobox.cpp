@@ -274,7 +274,7 @@ void KUrlComboBox::setUrl( const KUrl& url )
 
     setDefaults();
 
-    int offset = qMax (0, d->itemList.count() - d->myMaximum + d->defaultList.count());
+    int offset = std::max (0, d->itemList.count() - d->myMaximum + d->defaultList.count());
     for ( int i = offset; i < d->itemList.count(); i++ )
         d->insertUrlItem( d->itemList[i] );
 
@@ -335,7 +335,7 @@ void KUrlComboBox::setMaxItems( int max )
 
         setDefaults();
 
-        int offset = qMax (0, d->itemList.count() - d->myMaximum + d->defaultList.count());
+        int offset = std::max (0, d->itemList.count() - d->myMaximum + d->defaultList.count());
         for ( int i = offset; i < d->itemList.count(); i++ )
             d->insertUrlItem( d->itemList[i] );
 

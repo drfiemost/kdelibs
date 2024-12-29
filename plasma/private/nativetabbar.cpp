@@ -523,14 +523,14 @@ QSize NativeTabBar::tabSize(int index) const
     const QFontMetrics metrics(QApplication::font());
     const QSize textSize = metrics.size(Qt::TextHideMnemonic, tabText(index));
     hint.rwidth() = textSize.width() + iconSpacing + iconSize().width() + buttonHMargin * 2;
-    hint.rheight() = qMax(iconSize().height(), textSize.height()) + buttonVMargin * 2;
+    hint.rheight() = std::max(iconSize().height(), textSize.height()) + buttonVMargin * 2;
     hint.rwidth() += d->buttonLeft + d->buttonRight;
     hint.rheight() += d->buttonTop + d->buttonBottom;
 
     if (isVertical()) {
-        hint.rwidth() = qMax(hint.width(), int(minimumWidth() - d->left - d->right));
+        hint.rwidth() = std::max(hint.width(), int(minimumWidth() - d->left - d->right));
     } else {
-        hint.rheight() = qMax(hint.height(), int(minimumHeight() - d->top - d->bottom));
+        hint.rheight() = std::max(hint.height(), int(minimumHeight() - d->top - d->bottom));
     }
 
     return hint;
