@@ -29,7 +29,7 @@ endif(NOT Exiv2_FIND_VERSION)
 
 # the minimum version of exiv2 we require
 if(NOT Exiv2_FIND_VERSION)
-  set(Exiv2_FIND_VERSION "0.12")
+  set(Exiv2_FIND_VERSION "0.27")
 endif(NOT Exiv2_FIND_VERSION)
 
 
@@ -58,13 +58,13 @@ find_library(EXIV2_LIBRARY NAMES exiv2 libexiv2
 # Get the version number from exiv2/exv_conf.h and store it in the cache:
 if(EXIV2_INCLUDE_DIR  AND NOT  EXIV2_VERSION)
   file(READ ${EXIV2_INCLUDE_DIR}/exiv2/exv_conf.h EXIV2_VERSION_CONTENT)
-  string(REGEX MATCH "#define EXIV2_MAJOR_VERSION +\\( *([0-9]+) *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
+  string(REGEX MATCH "#define EXIV2_MAJOR_VERSION +\\( *([0-9]+)U? *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
   set(EXIV2_VERSION_MAJOR "${CMAKE_MATCH_1}")
 
-  string(REGEX MATCH "#define EXIV2_MINOR_VERSION +\\( *([0-9]+) *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
+  string(REGEX MATCH "#define EXIV2_MINOR_VERSION +\\( *([0-9]+)U? *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
   set(EXIV2_VERSION_MINOR "${CMAKE_MATCH_1}")
 
-  string(REGEX MATCH "#define EXIV2_PATCH_VERSION +\\( *([0-9]+) *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
+  string(REGEX MATCH "#define EXIV2_PATCH_VERSION +\\( *([0-9]+)U? *\\)"  _dummy "${EXIV2_VERSION_CONTENT}")
   set(EXIV2_VERSION_PATCH "${CMAKE_MATCH_1}")
 
   set(EXIV2_VERSION "${EXIV2_VERSION_MAJOR}.${EXIV2_VERSION_MINOR}.${EXIV2_VERSION_PATCH}" CACHE STRING "Version number of Exiv2" FORCE)
