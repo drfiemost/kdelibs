@@ -101,7 +101,6 @@ set(cmakeFiles
                FindX11.cmake
                FindXKB.cmake
                FindXine.cmake
-               FindXmms.cmake
                HandleImportedTargetsInCMakeRequiredLibraries.cmake
                KDE4Defaults.cmake
                KDE4Macros.cmake
