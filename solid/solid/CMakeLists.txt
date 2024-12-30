@@ -146,48 +146,7 @@ set(solid_LIB_SRCS
    backends/shared/cpufeatures.cpp
 )
 
-if(NOT APPLE)
-  macro_optional_find_package( HUpnp )
-
-  set(HUPNP_ENABLED FALSE CACHE BOOL "explicitly enable the compilation of the hupnp backend")
-  if (HUPNP_ENABLED AND HUPNP_FOUND AND ((HUPNP_VERSION_MAJOR EQUAL 0 AND HUPNP_VERSION_MINOR EQUAL 9) OR (HUPNP_VERSION_MAJOR EQUAL 1)))
-    include_directories( ${HUPNP_INCLUDE_DIR} )
-    message(STATUS "Building Solid UPnP backend." )
-    set(solid_LIB_SRCS ${solid_LIB_SRCS}
-       backends/upnp/upnpdevice.cpp
-       backends/upnp/upnpdevicemanager.cpp
-       backends/upnp/upnpdeviceinterface.cpp
-       backends/upnp/upnpmediaserver.cpp
-       backends/upnp/upnpinternetgateway.cpp
-       backends/upnp/upnpcontrolpoint.cpp
-    )
-  else ()
-    if(NOT HUPNP_ENABLED)
-        message(STATUS "To have UPnP support, explicitly enable HUPNP_ENABLED in the cmake cache")
-    endif(NOT HUPNP_ENABLED)
-    set(HUPNP_FOUND false)
-  endif ()
-  macro_log_feature( HUPNP_FOUND "HUPnP" "UPnP support for Solid" "http://www.herqq.org" FALSE "" "Allows Solid to provide information about UPnP devices on the network" )
-endif(NOT APPLE)
-
 if(NOT WIN32 AND NOT APPLE)
-#   message(STATUS "Building Solid KUPnP backend." )
-#   set(solid_LIB_SRCS ${solid_LIB_SRCS}
-
-#   backends/kupnp/cagibidbuscodec.cpp
-#   backends/kupnp/cagibidevice.cpp
-#   backends/kupnp/kupnpstorageaccess.cpp
-#   backends/kupnp/kupnpdeviceinterface.cpp
-#   backends/kupnp/mediaserver1.cpp
-#   backends/kupnp/mediaserver2.cpp
-#   backends/kupnp/mediaserver3.cpp
-#   backends/kupnp/internetgatewaydevice1.cpp
-#   backends/kupnp/kupnpdevice.cpp
-#   backends/kupnp/kupnprootdevice.cpp
-#   backends/kupnp/kupnpmanager.cpp
-
-#   )
-
    macro_optional_find_package( UDev )
    set_package_properties(UDev PROPERTIES DESCRIPTION "UDev support for Solid"
                           URL "http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html"
@@ -195,7 +154,6 @@ if(NOT WIN32 AND NOT APPLE)
                           PURPOSE "Allows Solid to use UDev to provide information about devices on Linux"
                          )
    configure_file( config-solid.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-solid.h )
-
 
    if ( UDEV_FOUND )
       message(STATUS "Building Solid UDev backend." )
@@ -349,10 +307,6 @@ if(APPLE)
 endif(APPLE)
 
 kde4_add_library(solid ${LIBRARY_TYPE} ${solid_LIB_SRCS})
-
-if ( HUPNP_FOUND )
-   set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${HUPNP_LIBS})
-endif( HUPNP_FOUND )
 
 if ( UDEV_FOUND )
    set(solid_OPTIONAL_LIBS ${solid_OPTIONAL_LIBS} ${UDEV_LIBS})

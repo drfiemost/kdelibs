@@ -7,7 +7,6 @@ set(module_install_dir ${DATA_INSTALL_DIR}/cmake/modules )
 # to have it around, so there is a place where the modules which are not installed
 # are listed explicitly:
 set(cmakeFilesDontInstall
-               FindHUpnp.cmake
                FindPolkitQt.cmake
                FindPolkitQt-1.cmake
                FindUDev.cmake
