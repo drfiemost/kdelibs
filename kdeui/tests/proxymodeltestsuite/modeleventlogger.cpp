@@ -29,40 +29,6 @@
 #include <QFile>
 #include <QDebug>
 
-#ifdef Grantlee_FOUND
-#include <grantlee_core.h>
-#include "grantlee_paths.h"
-
-/**
-  Don't escape the code generation output.
-
-  'const QString &' should not become 'const QString &amp;'
-*/
-class NoEscapeOutputStream : public Grantlee::OutputStream
-{
-public:
-  NoEscapeOutputStream()
-    : Grantlee::OutputStream()
-  {
-
-  }
-
-  NoEscapeOutputStream(QTextStream* stream)
-    : OutputStream( stream )
-  {
-
-  }
-
-  virtual QSharedPointer< Grantlee::OutputStream > clone() const {
-    return QSharedPointer<Grantlee::OutputStream>( new NoEscapeOutputStream );
-  }
-
-  virtual QString escape( const QString& input ) const {
-    return input;
-  }
-};
-#endif
-
 class ModelWrapper : public QAbstractItemModel
 {
 public:
@@ -194,38 +160,7 @@ ModelEventLogger::ModelEventLogger(QAbstractItemModel *model, QObject* parent)
 
 void ModelEventLogger::writeLog()
 {
-#ifdef Grantlee_FOUND
-  QString logFileName = QString("main.%1.%2.%3.cpp").arg(m_modelName).arg(reinterpret_cast<qint64>(this)).arg(m_numLogs++);
-  qDebug() << "Writing to " << logFileName;
-  QFile outputFile(logFileName);
-  const bool logFileOpened = outputFile.open(QFile::WriteOnly | QFile::Text);
-  Q_ASSERT(logFileOpened);
-
-  Grantlee::Engine engine;
-  Grantlee::FileSystemTemplateLoader::Ptr loader(new Grantlee::FileSystemTemplateLoader);
-  loader->setTemplateDirs(QStringList() << ":/templates");
-  engine.addTemplateLoader(loader);
-  engine.setPluginPaths(QStringList() << GRANTLEE_PLUGIN_PATH);
-
-  // Write out.
-  Grantlee::Template t = engine.loadByName("main.cpp");
-  if (!t->error())
-  {
-    Grantlee::Context c;
-    c.insert("initEvent", m_initEvent);
-    c.insert("events", m_events);
-
-    QTextStream textStream(&outputFile);
-    NoEscapeOutputStream outputStream(&textStream);
-    t->render(&outputStream, &c);
-  }
-  outputFile.close();
-
-  if (t->error())
-    qDebug() << t->errorString();
-#else
-  qDebug() << "Grantlee not found. No log written.";
-#endif
+  qDebug() << "No log written.";
 }
 
 ModelEventLogger::~ModelEventLogger()

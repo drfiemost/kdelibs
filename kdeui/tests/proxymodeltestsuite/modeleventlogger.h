@@ -88,9 +88,6 @@ private:
 
   Q_PROPERTY(int start READ start)
   Q_PROPERTY(int end READ end)
-  // TODO: custom grantlee plugin.
-//   Q_PROPERTY(QList<int> rowAncestors READ rowAncestors)
-
   Q_PROPERTY(QString rowAncestors READ rowAncestors)
   Q_PROPERTY(bool hasInterpretString READ hasInterpretString)
   Q_PROPERTY(QString interpretString READ interpretString)
