@@ -22,8 +22,6 @@ set(cmakeFiles
                CheckPrototypeExists.cmake
                CheckStructMember.cmake
                FindACL.cmake
-               FindAGG.cmake
-               FindAkode.cmake
                FindAlsa.cmake
                FindAutomoc4.cmake
                FindAvahi.cmake
@@ -51,13 +49,9 @@ set(cmakeFiles
                FindIOKit.cmake
                FindKDE4Internal.cmake
                FindKDE4Workspace.cmake
-               FindKDevPlatform.cmake
                FindKdcraw.cmake
-               FindKdeMultimedia.cmake
                FindKexiv2.cmake
                FindKipi.cmake
-               FindKopete.cmake
-               FindKorundum.cmake
                FindLCMS.cmake
                FindLibArt.cmake
                FindLibKonq.cmake
@@ -68,7 +62,6 @@ set(cmakeFiles
                FindLinuxWirelesstools.cmake
                FindMsgfmt.cmake
                FindMusicBrainz.cmake
-               FindMySQL.cmake
                FindNetworkManager.cmake
                FindOggVorbis.cmake
                FindOpenEXR.cmake
@@ -76,7 +69,6 @@ set(cmakeFiles
                FindPhonon.cmake
                FindPlasma.cmake
                FindPopplerQt4.cmake
-               FindPostgreSQL.cmake
                FindPulseAudio.cmake
                FindPyKDE4.cmake
                FindPyQt4.cmake
@@ -86,7 +78,6 @@ set(cmakeFiles
                FindQCA2.cmake
                FindQImageBlitz.cmake
                FindQt4.cmake
-               FindRUBY.cmake
                FindSIP.cmake
                FindSamba.cmake
                FindSane.cmake

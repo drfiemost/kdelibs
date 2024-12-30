@@ -29,8 +29,7 @@ endfunction(execute_one_test)
 if(DEFINED MODULE)
    set(modulesToTest ${MODULE})
 else(DEFINED MODULE)
-   set(modulesToTest AGG 
-                     Blitz 
+   set(modulesToTest Blitz 
                      BlueZ
                      ENCHANT
                      Eigen2 
@@ -48,8 +47,7 @@ else(DEFINED MODULE)
                      QImageBlitz
                      Sqlite 
                      USB 
-                     Xine 
-                     Xmms)
+                     Xine)
 endif(DEFINED MODULE)
 
 foreach(currentModule ${modulesToTest})
