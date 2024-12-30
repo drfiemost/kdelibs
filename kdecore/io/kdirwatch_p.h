@@ -43,11 +43,6 @@
 class QFileSystemWatcher;
 class QSocketNotifier;
 
-#ifdef HAVE_FAM
-#include <limits.h>
-#include <fam.h>
-#endif
-
 #ifdef HAVE_SYS_INOTIFY_H
 #include <unistd.h>
 #include <fcntl.h>
@@ -173,10 +168,6 @@ public:
     QList<Client *> clientsForFileOrDir(const QString& tpath, bool* isDir) const;
     QList<Client *> inotifyClientsForFileOrDir(bool isDir) const;
 
-#ifdef HAVE_FAM
-    FAMRequest fr;
-#endif
-
 #ifdef HAVE_SYS_INOTIFY_H
     int wd;
     // Creation and Deletion of files happens infrequently, so
@@ -221,7 +212,6 @@ public:
 
 public Q_SLOTS:
   void slotRescan();
-  void famEventReceived(); // for FAM
   void inotifyEventReceived(); // for inotify
   void slotRemoveDelayed();
   void fswEventReceived(const QString &path);  // for QFileSystemWatcher
@@ -243,15 +233,6 @@ public:
 
   bool rescan_all;
   QTimer rescan_timer;
-
-#ifdef HAVE_FAM
-  QSocketNotifier *sn;
-  FAMConnection fc;
-  bool use_fam;
-
-  void checkFAMEvent(FAMEvent*);
-  bool useFAM(Entry*);
-#endif
 
 #ifdef HAVE_SYS_INOTIFY_H
   QSocketNotifier *mSn;

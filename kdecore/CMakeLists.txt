@@ -9,10 +9,6 @@ configure_file(kdefakes.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/kdefakes.h )
 # Generate kdeversion.h
 configure_file(util/kdeversion.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/kdeversion.h )
 
-# Configure checks for kdirwatch
-macro_optional_find_package(FAM)
-macro_bool_to_01(FAM_FOUND HAVE_FAM)
-
 check_include_files(sys/inotify.h SYS_INOTIFY_H_FOUND)
 macro_bool_to_01(SYS_INOTIFY_H_FOUND HAVE_SYS_INOTIFY_H)
 
@@ -385,26 +381,6 @@ target_link_libraries(kdecore LINK_PRIVATE Qt4::QtCore Qt4::QtNetwork Qt4::QtDBu
 if(WINCE)
   target_link_libraries(kdecore LINK_PRIVATE ${WCECOMPAT_LIBRARIES} Ceshell.lib)
 endif(WINCE)
-
-set(SYS_INOTIFY_H_FOUND 0)
-if(SYS_INOTIFY_H_FOUND)
-   set_package_properties(FAM PROPERTIES DESCRIPTION "File alteration notification support via a separate service"
-                          URL "http://oss.sgi.com/projects/fam"
-                          TYPE OPTIONAL
-                          PURPOSE "You have file alteration notification support built into your kernel, however you might consider installing FAM as it also supports NFS."
-                         )
-else(SYS_INOTIFY_H_FOUND)
-   set_package_properties(FAM PROPERTIES DESCRIPTION "File alteration notification support via a separate service"
-                          URL "http://oss.sgi.com/projects/fam"
-                          TYPE OPTIONAL
-                          PURPOSE "Provides file alteration notification facilities using a separate service."
-                         )
-endif(SYS_INOTIFY_H_FOUND)
-
-if(FAM_FOUND)
-   include_directories(${FAM_INCLUDE_DIR})
-   target_link_libraries(kdecore LINK_PRIVATE ${FAM_LIBRARIES})
-endif(FAM_FOUND)
 
 if(WIN32)
   set(kdecore_LINK_INTERFACE_LIBRARIES  Qt4::QtDBus Qt4::QtCore ${KDEWIN_LIBRARIES})

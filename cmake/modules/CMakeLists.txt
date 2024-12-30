@@ -36,7 +36,6 @@ set(cmakeFiles
                FindENCHANT.cmake
                FindEigen2.cmake
                FindExiv2.cmake
-               FindFAM.cmake
                FindFFmpeg.cmake
                FindFlac.cmake
                FindFlex.cmake

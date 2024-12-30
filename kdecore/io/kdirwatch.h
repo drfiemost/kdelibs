@@ -50,13 +50,12 @@ class KDirWatchPrivate;
   * Directories and files can be added/removed from the list in any state.
   *
   * The implementation uses the INOTIFY functionality on LINUX.
-  * Otherwise the FAM service is used, when available.
   * As a last resort, a regular polling for change of modification times
   * is done; the polling interval is a global config option:
   * DirWatch/PollInterval and DirWatch/NFSPollInterval for NFS mounted
   * directories.
   * The choice of implementation can be adjusted by the user, with the key
-  * [DirWatch] PreferredMethod={Fam|Stat|QFSWatch|inotify}
+  * [DirWatch] PreferredMethod={Stat|QFSWatch|inotify}
   *
   * @see self()
   * @author Sven Radej (in 1998)
@@ -220,7 +219,7 @@ class KDECORE_EXPORT KDirWatch : public QObject
     */
    static void statistics(); // TODO implement a QDebug operator for KDirWatch instead.
 
-   enum Method { FAM, INotify, DNotify /*now unused*/, Stat, QFSWatch };
+   enum Method { INotify, DNotify /*now unused*/, Stat, QFSWatch };
    /**
     * Returns the preferred internal method to
     * watch for changes.
