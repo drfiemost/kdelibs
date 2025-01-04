@@ -137,64 +137,21 @@ void KPluginFactory::registerPlugin(const QString &keyword, const QMetaObject *m
     }
 }
 
-#ifndef KDE_NO_DEPRECATED
-QObject *KPluginFactory::createObject(QObject *parent, const char *className, const QStringList &args)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(className);
-    Q_UNUSED(args);
-    return 0;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-KParts::Part *KPluginFactory::createPartObject(QWidget *parentWidget, QObject *parent, const char *classname, const QStringList &args)
-{
-    Q_UNUSED(parent);
-    Q_UNUSED(parentWidget);
-    Q_UNUSED(classname);
-    Q_UNUSED(args);
-    return 0;
-}
-#endif
-
 QObject *KPluginFactory::create(const char *iface, QWidget *parentWidget, QObject *parent, const QVariantList &args, const QString &keyword)
 {
     Q_D(KPluginFactory);
 
-    QObject *obj = 0;
+    QObject *obj = nullptr;
 
     if (!d->catalogInitialized) {
         d->catalogInitialized = true;
         setupTranslations();
     }
 
-#ifndef KDE_NO_DEPRECATED
-    if (keyword.isEmpty()) {
-
-        // kde3-kparts compatibility, remove in kde5
-        const char* kpartsIface = iface;
-        if (args.contains(QVariant(QString::fromLatin1("Browser/View"))))
-            kpartsIface = "Browser/View";
-
-        const QStringList argsStringList = variantListToStringList(args);
-
-        if ((obj = reinterpret_cast<QObject *>(createPartObject(parentWidget, parent, kpartsIface, argsStringList)))) {
-            objectCreated(obj);
-            return obj;
-        }
-
-        if ((obj = createObject(parent, iface, argsStringList))) {
-            objectCreated(obj);
-            return obj;
-        }
-    }
-#endif
-
     const QList<KPluginFactoryPrivate::Plugin> candidates(d->createInstanceHash.values(keyword));
     // for !keyword.isEmpty() candidates.count() is 0 or 1
 
-    foreach (const KPluginFactoryPrivate::Plugin &plugin, candidates) {
+    for (const KPluginFactoryPrivate::Plugin &plugin: candidates) {
         for (const QMetaObject *current = plugin.first; current; current = current->superClass()) {
             if (0 == qstrcmp(iface, current->className())) {
                 if (obj) {
@@ -228,20 +185,18 @@ void KPluginFactory::setComponentData(const KComponentData &kcd)
     d->componentData = kcd;
 }
 
-// KDE5 TODO: should be static, and possibly public (for apps to use)
 QStringList KPluginFactory::variantListToStringList(const QVariantList &list)
 {
     QStringList stringlist;
-    Q_FOREACH(const QVariant& var, list)
+    for(const QVariant& var: list)
         stringlist << var.toString();
     return stringlist;
 }
 
-// KDE5 TODO: should be static, and possibly public (for apps to use)
 QVariantList KPluginFactory::stringListToVariantList(const QStringList &list)
 {
     QVariantList variantlist;
-    Q_FOREACH(const QString& str, list)
+    for(const QString& str: list)
         variantlist << QVariant(str);
     return variantlist;
 }

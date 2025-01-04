@@ -43,8 +43,8 @@ public:
     typedef void (*void_function_ptr) ();
 
     explicit KLibrary(QObject *parent = 0);
-    explicit KLibrary(const QString &name, const KComponentData &cData = KGlobal::mainComponent(), QObject *parent = 0);
-    KLibrary(const QString &name, int verNum, const KComponentData &cData = KGlobal::mainComponent(), QObject *parent = 0);
+    explicit KLibrary(const QString &name, const KComponentData &cData = KGlobal::mainComponent(), QObject *parent = nullptr);
+    KLibrary(const QString &name, int verNum, const KComponentData &cData = KGlobal::mainComponent(), QObject *parent = nullptr);
 
     virtual ~KLibrary();
 
@@ -56,7 +56,7 @@ public:
      * @return The factory of the library if there is any, otherwise 0
      * @deprecated use KPluginLoader::factory
      */
-    KDE_DEPRECATED KPluginFactory* factory( const char* factoryname = 0 );
+    KDE_DEPRECATED KPluginFactory* factory( const char* factoryname = nullptr );
 
     /**
      * Looks up a symbol from the library. This is a very low level
@@ -75,8 +75,6 @@ public:
     void_function_ptr resolveFunction(const char *name);
 
     void setFileName(const QString &name, const KComponentData &data = KGlobal::mainComponent());
-
-    KDE_DEPRECATED bool unload() { return false; } //this is only temporary. i will remove it as soon as I have removed all dangerous users of it
 private:
     KLibraryPrivate *d_ptr;
 };

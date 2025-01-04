@@ -244,7 +244,7 @@ public:
      * \param catalogName the translation catalog to use
      * \param parent a parent object
      */
-    explicit KPluginFactory(const char *componentName = 0, const char *catalogName = 0, QObject *parent = 0);
+    explicit KPluginFactory(const char *componentName = nullptr, const char *catalogName = nullptr, QObject *parent = nullptr);
 
     /**
      * This constructor creates a factory for a plugin with the given KAboutData object. This object is
@@ -255,12 +255,12 @@ public:
      * \param aboutData the KAboutData for the plugin
      * \param parent a parent object
      */
-    explicit KPluginFactory(const KAboutData &aboutData, QObject *parent = 0);
+    explicit KPluginFactory(const KAboutData &aboutData, QObject *parent = nullptr);
     /**
      * @deprecated
      */
 #ifndef KDE_NO_DEPRECATED
-    KDE_CONSTRUCTOR_DEPRECATED explicit KPluginFactory(const KAboutData *aboutData, QObject *parent = 0);
+    KDE_CONSTRUCTOR_DEPRECATED explicit KPluginFactory(const KAboutData *aboutData, QObject *parent = nullptr);
 #endif
 
     /**
@@ -302,7 +302,7 @@ public:
      * \returns A pointer to the created object is returned, or 0 if an error occurred.
      */
     template<typename T>
-    T *create(QObject *parent = 0, const QVariantList &args = QVariantList());
+    T *create(QObject *parent = nullptr, const QVariantList &args = QVariantList());
 
     /**
      * Use this method to create an object. It will try to create an object which inherits
@@ -316,7 +316,7 @@ public:
      * \returns A pointer to the created object is returned, or 0 if an error occurred.
      */
     template<typename T>
-    T *create(const QString &keyword, QObject *parent = 0, const QVariantList &args = QVariantList());
+    T *create(const QString &keyword, QObject *parent = nullptr, const QVariantList &args = QVariantList());
 
     /**
      * Use this method to create an object. It will try to create an object which inherits
@@ -350,7 +350,7 @@ public:
      * @deprecated
      */
 #ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED QObject *create(QObject *parent = 0, const char *classname = "QObject", const QStringList &args = QStringList())
+    KDE_DEPRECATED QObject *create(QObject *parent = nullptr, const char *classname = "QObject", const QStringList &args = QStringList())
     {
         return create(classname, 0, parent, stringListToVariantList(args), QString());
     }
@@ -365,7 +365,7 @@ protected:
      */
     typedef QObject *(*CreateInstanceFunction)(QWidget *, QObject *, const QVariantList &);
 
-    explicit KPluginFactory(KPluginFactoryPrivate &dd, QObject *parent = 0);
+    explicit KPluginFactory(KPluginFactoryPrivate &dd, QObject *parent = nullptr);
 
     /**
      * Registers a plugin with the factory. Call this function from the constructor of the
@@ -409,32 +409,17 @@ protected:
      * \internal
      * Converts a QStringList to a QVariantList
      */
-    QVariantList stringListToVariantList(const QStringList &list);
+    static QVariantList stringListToVariantList(const QStringList &list);
 
     /**
      * \internal
      * Converts a QVariantList of strings to a QStringList
      */
-    QStringList variantListToStringList(const QVariantList &list);
+    static QStringList variantListToStringList(const QVariantList &list);
 
     virtual void setupTranslations();
 
     KPluginFactoryPrivate *const d_ptr;
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    virtual KDE_DEPRECATED QObject *createObject(QObject *parent, const char *className, const QStringList &args);
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    virtual KDE_DEPRECATED KParts::Part *createPartObject(QWidget *parentWidget, QObject *parent, const char *classname, const QStringList &args);
-#endif
-
 
     /**
      * This method sets the component data of the plugin. You can access the component data object
