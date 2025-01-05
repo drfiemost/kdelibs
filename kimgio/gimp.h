@@ -196,12 +196,12 @@ static void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
   b = blue;
 
   if ( r > g ) {
-    max = qMax( r, b );
-    min = qMin( g, b );
+    max = std::max( r, b );
+    min = std::min( g, b );
   }
   else {
-    max = qMax( g, b );
-    min = qMin( r, b );
+    max = std::max( g, b );
+    min = std::min( r, b );
   }
 
   v = max;
@@ -309,12 +309,12 @@ static void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
   int min, max;
 
   if ( r > g ) {
-    max = qMax( r, b );
-    min = qMin( g, b );
+    max = std::max( r, b );
+    min = std::min( g, b );
   }
   else {
-    max = qMax( g, b );
-    min = qMin( r, b );
+    max = std::max( g, b );
+    min = std::min( r, b );
   }
 
   double h;
