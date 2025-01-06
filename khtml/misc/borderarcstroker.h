@@ -50,14 +50,14 @@ private:
 
 inline void BorderArcStroker::setPenWidth(qreal leftRight, qreal topBottom)
 {
-    hlw = qMax(qreal(0.1), leftRight);
-    vlw = qMax(qreal(0.1), topBottom);
+    hlw = std::max(qreal(0.1), leftRight);
+    vlw = std::max(qreal(0.1), topBottom);
 }
 
 inline void BorderArcStroker::setDashPattern(qreal dashLength, qreal spaceLength)
 {
-    pattern[0] = qMax(qreal(0.1), dashLength);
-    pattern[1] = qMax(qreal(0.1), spaceLength);
+    pattern[0] = std::max(qreal(0.1), dashLength);
+    pattern[1] = std::max(qreal(0.1), spaceLength);
 }
 
 } // namespace khtml
