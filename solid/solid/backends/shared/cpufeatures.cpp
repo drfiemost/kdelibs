@@ -125,7 +125,7 @@ Solid::Processor::InstructionSets cpuFeatures()
             : "=d"(result), "=c"(result2) : : ASM_REG("ax") );
 
         features = result & 0x06800000; //copy the mmx and sse bits to features
-        features |= result2 & 0x00180101; //copy the sse3 and sse4 bits to features
+        features |= result2 & 0x10180201; //copy the ssse3, sse3, sse4.1, sse4.2 and avx bits to features
 
         __asm__ __volatile__ (
              ASM_PUSH("bx")
@@ -185,7 +185,7 @@ Solid::Processor::InstructionSets cpuFeatures()
     __cpuid(array, ft);
 
     features = array[3] & 0x06800000; //copy the mmx and sse & sse2 bits to features
-    features |= array[2] & 0x00180101; //copy the ssse3, sse3 and sse4.1, sse4.2 bits to features
+    features |= array[2] & 0x10180201; //copy the ssse3, sse3, sse4.1, sse4.2 and avx bits to features
 
     if (array[3] & 0x80000000) {
         features |= 0x80000000;
@@ -203,12 +203,14 @@ Solid::Processor::InstructionSets cpuFeatures()
         featureflags |= Solid::Processor::IntelSse2;
     if (features & 0x00000001)
         featureflags |= Solid::Processor::IntelSse3;
-    if (features & 0x00000100)
+    if (features & 0x00000200)
         featureflags |= Solid::Processor::IntelSsse3;
     if (features & 0x00080000)
         featureflags |= Solid::Processor::IntelSse41;
     if (features & 0x00100000)
         featureflags |= Solid::Processor::IntelSse42;
+    if (features & 0x10000000)
+        featureflags |= Solid::Processor::IntelAVX;
 
     if (features & 0x2)
         featureflags |= Solid::Processor::AltiVec;
