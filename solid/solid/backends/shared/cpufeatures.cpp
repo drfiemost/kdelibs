@@ -127,6 +127,7 @@ Solid::Processor::InstructionSets cpuFeatures()
         features = result & 0x06800000; //copy the mmx and sse bits to features
         features |= result2 & 0x10180201; //copy the ssse3, sse3, sse4.1, sse4.2 and avx bits to features
 
+        // 3DNOW
         __asm__ __volatile__ (
              ASM_PUSH("bx")
              ASM_PUSH("dx")
@@ -144,6 +145,19 @@ Solid::Processor::InstructionSets cpuFeatures()
 
         if (result & 0x80000000)
             features |= 0x80000000;
+
+        // AVX2 BMI
+        __asm__ __volatile__ (
+             ASM_PUSH("cx")
+             ASM_PUSH("dx")
+             ASM_MOV_VAR("$0x7", "ax")
+             ASM_XOR_REG("cx", "cx")
+             "cpuid                   \n\t"
+             ASM_POP("dx")
+             ASM_POP("cx")
+             : "=b"(result) : : ASM_REG("ax"));
+
+        features = result & 0x00000128; //copy the avx2, bmi1 and bmi2 bits to features
 
 #ifdef HAVE_X86_SSE
         // Test bit 25 (SSE support)
@@ -211,6 +225,12 @@ Solid::Processor::InstructionSets cpuFeatures()
         featureflags |= Solid::Processor::IntelSse42;
     if (features & 0x10000000)
         featureflags |= Solid::Processor::IntelAVX;
+    if (features & 0x00000020)
+        featureflags |= Solid::Processor::IntelAVX2;
+    if (features & 0x00000008)
+        featureflags |= Solid::Processor::BMI1;
+    if (features & 0x00000100)
+        featureflags |= Solid::Processor::BMI2;
 
     if (features & 0x2)
         featureflags |= Solid::Processor::AltiVec;

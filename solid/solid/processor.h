@@ -68,10 +68,12 @@ namespace Solid
             IntelSse2 = 0x4,
             IntelSse3 = 0x8,
             IntelSsse3 = 0x80,
-            IntelSse4 = 0x10,
             IntelSse41 = 0x10,
             IntelSse42 = 0x100,
             IntelAVX = 0x200,
+            IntelAVX2 = 0x400,
+            BMI1 = 0x1000,
+            BMI2 = 0x2000,
             Amd3DNow = 0x20,
             AltiVec = 0x40
         };
