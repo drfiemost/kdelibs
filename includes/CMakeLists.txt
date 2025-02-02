@@ -86,8 +86,6 @@ install( FILES
   KConfigSkeletonItem
   KSharedConfigPtr
   KCrash
-  KCrashBookmarkImporter
-  KCrashBookmarkImporterImpl
   KCurrencyCode
   KCursor
   KDBusServiceStarter
