@@ -143,8 +143,7 @@ Solid::Processor::InstructionSets cpuFeatures()
              ASM_POP("bx")                      // Restore EBX
              : "=d"(result) : : ASM_REG("ax"), ASM_REG("cx"));
 
-        if (result & 0x80000000)
-            features |= 0x80000000;
+        features |= result & 0xc0400000; //copy the 3dnow, 3dnowext and mmxext bits to features
 
         // AVX2 BMI
         __asm__ __volatile__ (
@@ -157,7 +156,7 @@ Solid::Processor::InstructionSets cpuFeatures()
              ASM_POP("cx")
              : "=b"(result) : : ASM_REG("ax"));
 
-        features = result & 0x00000128; //copy the avx2, bmi1 and bmi2 bits to features
+        features |= result & 0x00000128; //copy the avx2, bmi1 and bmi2 bits to features
 
 #ifdef HAVE_X86_SSE
         // Test bit 25 (SSE support)
@@ -209,8 +208,12 @@ Solid::Processor::InstructionSets cpuFeatures()
 
     if (features & 0x80000000)
         featureflags |= Solid::Processor::Amd3DNow;
+    if (features & 0x40000000)
+        featureflags |= Solid::Processor::Amd3DNowExt;
     if (features & 0x00800000)
         featureflags |= Solid::Processor::IntelMmx;
+    if (features & 0x00400000)
+        featureflags |= Solid::Processor::IntelMmxExt;
     if (features & 0x02000000)
         featureflags |= Solid::Processor::IntelSse;
     if (features & 0x04000000)

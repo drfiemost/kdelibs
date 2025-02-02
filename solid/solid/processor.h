@@ -75,6 +75,8 @@ namespace Solid
             BMI1 = 0x1000,
             BMI2 = 0x2000,
             Amd3DNow = 0x20,
+            Amd3DNowExt = 0x800,
+            IntelMmxExt = 0x4000,
             AltiVec = 0x40
         };
 

@@ -56,9 +56,12 @@ Solid::Processor::InstructionSets FakeProcessor::instructionSets() const
 
     QStringList extension_list = str.split(',');
 
-    foreach (const QString &extension_str, extension_list) {
+    for (const QString &extension_str: extension_list) {
         if (extension_str == "mmx") {
             result |= Solid::Processor::IntelMmx;
+        }
+        else if (extension_str == "mmxext") {
+            result |= Solid::Processor::IntelMmxExt;
         }
         else if (extension_str == "sse") {
             result |= Solid::Processor::IntelSse;
@@ -69,11 +72,32 @@ Solid::Processor::InstructionSets FakeProcessor::instructionSets() const
         else if (extension_str == "sse3") {
             result |= Solid::Processor::IntelSse3;
         }
-        else if (extension_str == "sse4") {
-            result |= Solid::Processor::IntelSse4;
+        else if (extension_str == "ssse3") {
+            result |= Solid::Processor::IntelSsse3;
+        }
+        else if (extension_str == "sse4_1") {
+            result |= Solid::Processor::IntelSse41;
+        }
+        else if (extension_str == "sse4_2") {
+            result |= Solid::Processor::IntelSse42;
+        }
+        else if (extension_str == "avx") {
+            result |= Solid::Processor::IntelAVX;
+        }
+        else if (extension_str == "avx2") {
+            result |= Solid::Processor::IntelAVX2;
+        }
+        else if (extension_str == "bmi1") {
+            result |= Solid::Processor::BMI1;
+        }
+        else if (extension_str == "bmi2") {
+            result |= Solid::Processor::BMI2;
         }
         else if (extension_str == "3dnow") {
             result |= Solid::Processor::Amd3DNow;
+        }
+        else if (extension_str == "3dnowext") {
+            result |= Solid::Processor::Amd3DNowExt;
         }
         else if (extension_str == "altivec") {
             result |= Solid::Processor::AltiVec;
