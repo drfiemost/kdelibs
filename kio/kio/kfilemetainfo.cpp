@@ -389,7 +389,7 @@ KFileMetaInfoGroupList KFileMetaInfo::supportedGroups() const
     return KFileMetaInfoGroupList();
 }
 #endif
-#else //KIO_NO_STRIGI
+#else
 
 class KFileMetaInfoPrivate : public QSharedData
 {
