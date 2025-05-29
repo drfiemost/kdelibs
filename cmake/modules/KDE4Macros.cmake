@@ -465,7 +465,8 @@ macro (_KDE4_ADD_ICON_INSTALL_RULE _install_SCRIPT _install_PATH _group _orig_NA
          set(_icon_GROUP "actions")
       endif(NOT _icon_GROUP)
 #      message(STATUS "icon: ${_current_ICON} size: ${_size} group: ${_group} name: ${_name} l10n: ${_l10n_SUBDIR}")
-      install(FILES ${_orig_NAME} DESTINATION ${_install_PATH}/${_icon_GROUP}/${_l10n_SUBDIR}/ RENAME ${_install_NAME} )
+      cmake_path(SET DST_DIR NORMALIZE "${_install_PATH}/${_icon_GROUP}/${_l10n_SUBDIR}/")
+      install(FILES ${_orig_NAME} DESTINATION ${DST_DIR} RENAME ${_install_NAME} )
    endif (NOT ${_group} STREQUAL ${_install_NAME} )
 
 endmacro (_KDE4_ADD_ICON_INSTALL_RULE)
