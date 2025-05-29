@@ -104,7 +104,7 @@ QSize ConsoleItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QM
     QSize inputSize  = layoutText(inputLayout, input, constraints);
     QSize resultSize = layoutText(resultLayout, result, constraints);
 
-    int width = qBound(0, std::max(inputSize.width(), resultSize.width()) + 4, maxWidth);
+    int width = std::clamp(std::max(inputSize.width(), resultSize.width()) + 4, 0, maxWidth);
     int height = inputSize.height() + option.fontMetrics.leading() + resultSize.height();
 
     return QSize(width, height + 8);

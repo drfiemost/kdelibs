@@ -571,7 +571,7 @@ void ModelTest::layoutAboutToBeChanged()
         ensureConsistent();
         status.type = Status::ChangingLayout;
     }
-    for ( int i = 0; i < qBound ( 0, model->rowCount(), 100 ); ++i )
+    for ( int i = 0; i < std::clamp ( model->rowCount(), 0, 100 ); ++i )
     {
 //       qDebug() << "persisting" << model->index ( i, 0 ) << model->index ( i, 0 ).data();
         changing.append ( QPersistentModelIndex ( model->index ( i, 0 ) ) );

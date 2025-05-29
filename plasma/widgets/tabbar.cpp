@@ -292,7 +292,7 @@ int TabBar::insertTab(int index, const QIcon &icon, const QString &label,
         page->setPreferredSize(0, 0);
     }
 
-    d->pages.insert(qBound(0, index, d->pages.count()), page);
+    d->pages.insert(std::clamp(index, 0, d->pages.count()), page);
 
     if (d->pages.count() == 1) {
         d->tabWidgetLayout->removeItem(d->emptyTabBarSpacer);

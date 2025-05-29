@@ -399,7 +399,7 @@ struct SharedMemory
 
         // Bound page size between 512 bytes and 256 KiB.
         // If this is adjusted, also alter validSizeMask in cachePageSize
-        log2OfSize = qBound(9, log2OfSize, 18);
+        log2OfSize = std::clamp(log2OfSize, 9, 18);
 
         return (1 << log2OfSize);
     }

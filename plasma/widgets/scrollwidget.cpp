@@ -523,8 +523,8 @@ public:
 
         QRectF viewRect = scrollingWidget->boundingRect();
         //ensure the rect is not outside the widget bounding rect
-        QRectF mappedRect = QRectF(QPointF(qBound((qreal)0.0, rectToBeVisible.x(), widget.data()->size().width() - rectToBeVisible.width()),
-                                           qBound((qreal)0.0, rectToBeVisible.y(), widget.data()->size().height() - rectToBeVisible.height())),
+        QRectF mappedRect = QRectF(QPointF(std::clamp(rectToBeVisible.x(), (qreal)0.0, widget.data()->size().width() - rectToBeVisible.width()),
+                                           std::clamp(rectToBeVisible.y(), (qreal)0.0, widget.data()->size().height() - rectToBeVisible.height())),
                                            rectToBeVisible.size());
         mappedRect = widget.data()->mapToItem(scrollingWidget, mappedRect).boundingRect();
 

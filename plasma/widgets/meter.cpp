@@ -312,7 +312,7 @@ void Meter::setValue(int value)
         return;
     }
 
-    d->targetValue = qBound(d->minimum, value, d->maximum);
+    d->targetValue = std::clamp(value, d->minimum, d->maximum);
     int delta = abs(d->value - d->targetValue);
 
     if (d->animation->state() != QAbstractAnimation::Running) {

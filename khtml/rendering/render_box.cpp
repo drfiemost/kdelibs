@@ -1931,7 +1931,7 @@ void RenderBox::calcAbsoluteHorizontalValues(Length width, const RenderObject* c
 
     // Use computed values to calculate the horizontal position.
     int calculatedHorizontalPosition = leftValue + marginLeftValue + containerBlock->borderLeft();
-    xPos = qBound((int)SHRT_MIN, calculatedHorizontalPosition, (int)SHRT_MAX);
+    xPos = std::clamp(calculatedHorizontalPosition, (int)SHRT_MIN, (int)SHRT_MAX);
 }
 
 void RenderBox::calcAbsoluteVertical()
@@ -2330,7 +2330,7 @@ void RenderBox::calcAbsoluteHorizontalReplaced()
 
     // Use computed values to calculate the horizontal position.
     int calculatedHorizontalPosition = leftValue + m_marginLeft + containerBlock->borderLeft();
-    m_x = qBound((int)SHRT_MIN, calculatedHorizontalPosition, (int)SHRT_MAX);
+    m_x = std::clamp(calculatedHorizontalPosition, (int)SHRT_MIN, (int)SHRT_MAX);
 }
 
 void RenderBox::calcAbsoluteVerticalReplaced()

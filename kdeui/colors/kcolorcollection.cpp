@@ -88,9 +88,9 @@ KColorCollectionPrivate::KColorCollectionPrivate(const QString &_name)
         int pos = 0;
         if (sscanf(line.toLatin1(), "%d %d %d%n", &r, &g, &b, &pos) >= 3)
         {
-           r = qBound(0, r, 255);
-           g = qBound(0, g, 255);
-           b = qBound(0, b, 255);
+           r = std::clamp(r, 0, 255);
+           g = std::clamp(g, 0, 255);
+           b = std::clamp(b, 0, 255);
            QString name = line.mid(pos).trimmed();
                 colorList.append(ColorNode(QColor(r, g, b), name));
         }

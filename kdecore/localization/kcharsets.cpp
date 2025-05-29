@@ -554,8 +554,7 @@ QChar KCharsets::fromEntity(const QString &str, int &len)
 
 QString KCharsets::toEntity(const QChar &ch)
 {
-    QString ent;
-    ent.sprintf("&#0x%x;", ch.unicode());
+    QString ent = QString::asprintf("&#0x%x;", ch.unicode());
     return ent;
 }
 

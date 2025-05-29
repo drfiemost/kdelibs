@@ -355,11 +355,11 @@ void NativeTabBar::paintEvent(QPaintEvent *event)
 
                 if (textRect.left() < contentsRect().left()) {
                     gradient.setColorAt(0, Qt::transparent);
-                    gradient.setColorAt(qBound(qreal(0), (-(qreal)textRect.left())/(qreal)textRect.width(), qreal(1)), Qt::transparent);
+                    gradient.setColorAt(std::clamp((-(qreal)textRect.left())/(qreal)textRect.width(), qreal(0), qreal(1)), Qt::transparent);
                     gradient.setColorAt(1, Qt::black);
                 } else {
                     gradient.setColorAt(0, Qt::black);
-                    gradient.setColorAt(qBound(qreal(0), 1 - (qreal)(textRect.right() - endTabSpace)/(qreal)textRect.width(), qreal(1)), Qt::transparent);
+                    gradient.setColorAt(std::clamp(1 - (qreal)(textRect.right() - endTabSpace)/(qreal)textRect.width(), qreal(0), qreal(1)), Qt::transparent);
                     gradient.setColorAt(1, Qt::transparent);
                 }
 
@@ -557,12 +557,12 @@ void NativeTabBar::mouseMoveEvent(QMouseEvent *event)
         d->currentAnimRect = tabRect(currentIndex());
 
         if (isVertical()) {
-            int pos = qBound(0, d->currentAnimRect.top() + (event->pos().y() - d->mousePressOffset.y()),
-                            height() - d->currentAnimRect.height());
+            int pos = std::clamp(d->currentAnimRect.top() + (event->pos().y() - d->mousePressOffset.y()),
+                            0, height() - d->currentAnimRect.height());
             d->currentAnimRect.moveTop(pos);
         } else {
-            int pos = qBound(0, d->currentAnimRect.left() + (event->pos().x() - d->mousePressOffset.x()),
-                            width() - d->currentAnimRect.width());
+            int pos = std::clamp(d->currentAnimRect.left() + (event->pos().x() - d->mousePressOffset.x()),
+                            0, width() - d->currentAnimRect.width());
             d->currentAnimRect.moveLeft(pos);
         }
         update();

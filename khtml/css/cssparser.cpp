@@ -2624,8 +2624,7 @@ CSSPrimitiveValueImpl *CSSParser::parseColorFromValue(Value* value)
     QRgb c = khtml::transparentColor;
     if ( !strict && value->unit == CSSPrimitiveValue::CSS_NUMBER &&            // color: 000000 (quirk)
               value->fValue >= 0. && value->fValue < 1000000. ) {
-        QString str;
-        str.sprintf( "%06d", (int)(value->fValue+.5) );
+        QString str = QString::asprintf( "%06d", (int)(value->fValue+.5) );
         if ( !::parseColor( CSSPrimitiveValue::CSS_RGBCOLOR, str, c, strict ) )
             return 0;
     }

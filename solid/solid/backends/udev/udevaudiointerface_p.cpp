@@ -270,8 +270,7 @@ bool UdevAudioInterfacePrivate::isOSSDevice(const QByteArray& lastElement, const
 
     if (m_driver != Solid::AudioInterface::UnknownAudioDriver) {
         m_name = cardNumberToName();
-        QString path;
-        path.sprintf("/proc/asound/card%d/pcm0p/info", m_cardnum);
+        QString path = QString::asprintf("/proc/asound/card%d/pcm0p/info", m_cardnum);
         QByteArray cardName = grepHelper(path, "name: ");
         if (!cardName.isEmpty()) {
             m_name.append(QLatin1String(" (") + cardName + ')');
@@ -285,8 +284,7 @@ bool UdevAudioInterfacePrivate::isOSSDevice(const QByteArray& lastElement, const
 
 QString UdevAudioInterfacePrivate::cardNumberToName()
 {
-    QString toFind;
-    toFind.sprintf("%2d [", m_cardnum);
+    QString toFind= QString::asprintf("%2d [", m_cardnum);
 
     QByteArray line = grepHelper(QLatin1String("/proc/asound/cards"), toFind.toLatin1());
 
@@ -301,8 +299,7 @@ QString UdevAudioInterfacePrivate::cardNumberToName()
 
 QString UdevAudioInterfacePrivate::deviceName(char type)
 {
-    QString path;
-    path.sprintf("/proc/asound/card%d/pcm%d%c/info",m_cardnum, m_devicenum, type);
+    QString path = QString::asprintf("/proc/asound/card%d/pcm%d%c/info",m_cardnum, m_devicenum, type);
     return grepHelper(path, "name: ");
 }
 

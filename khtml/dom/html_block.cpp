@@ -340,8 +340,7 @@ void HTMLPreElement::setWidth( long _width )
 {
     if(!impl) return;
 
-    QString aStr;
-    aStr.sprintf("%ld", _width);
+    QString aStr = QString::asprintf("%ld", _width);
     DOMString value(aStr);
     ((ElementImpl *)impl)->setAttribute(ATTR_WIDTH, value);
 }
@@ -389,8 +388,7 @@ void HTMLLayerElement::setTop( long _top )
 {
     if(!impl) return;
 
-    QString aStr;
-    aStr.sprintf("%ld", _top);
+    QString aStr = QString::asprintf("%ld", _top);
     DOMString value(aStr);
     ((ElementImpl *)impl)->setAttribute(ATTR_TOP, value);
 }
@@ -406,8 +404,7 @@ void HTMLLayerElement::setLeft( long _left )
 {
     if(!impl) return;
 
-    QString aStr;
-    aStr.sprintf("%ld", _left);
+    QString aStr = QString::asprintf("%ld", _left);
     DOMString value(aStr);
     ((ElementImpl *)impl)->setAttribute(ATTR_LEFT, value);
 }
