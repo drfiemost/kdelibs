@@ -1196,38 +1196,15 @@ if (CMAKE_COMPILER_IS_GNUCXX)
    check_cxx_compiler_flag(-fvisibility=hidden __KDE_HAVE_GCC_VISIBILITY)
    set( __KDE_HAVE_GCC_VISIBILITY ${__KDE_HAVE_GCC_VISIBILITY} CACHE BOOL "GCC support for hidden visibility")
 
-   # get the gcc version
-   execute_process(COMMAND ${CMAKE_C_COMPILER} ${CMAKE_C_COMPILER_ARG1} --version OUTPUT_VARIABLE _gcc_version_info OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-   string (REGEX MATCH "[3-9]\\.[0-9]\\.[0-9]" _gcc_version "${_gcc_version_info}")
-   # gcc on mac just reports: "gcc (GCC) 3.3 20030304 ..." without the patch level, handle this here:
-   if (NOT _gcc_version)
-      string (REGEX MATCH ".*\\(GCC\\).* ([34]\\.[0-9]) .*" "\\1.0" _gcc_version "${gcc_on_macos}")
-      if (gcc_on_macos)
-        string (REGEX REPLACE ".*\\(GCC\\).* ([34]\\.[0-9]) .*" "\\1.0" _gcc_version "${_gcc_version_info}")
-      endif (gcc_on_macos)
-   endif (NOT _gcc_version)
-
-   if (_gcc_version)
-      macro_ensure_version("4.1.0" "${_gcc_version}" GCC_IS_NEWER_THAN_4_1)
-      macro_ensure_version("4.2.0" "${_gcc_version}" GCC_IS_NEWER_THAN_4_2)
-      macro_ensure_version("4.3.0" "${_gcc_version}" GCC_IS_NEWER_THAN_4_3)
-   endif (_gcc_version)
-
    # save a little by making local statics not threadsafe
    # ### do not enable it for older compilers, see
-   # ### http://gcc.gnu.org/bugzilla/show_bug.cgi?id=31806
-   if (GCC_IS_NEWER_THAN_4_3)
-       set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-threadsafe-statics")
-   endif (GCC_IS_NEWER_THAN_4_3)
+   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-threadsafe-statics")
 
    set(_GCC_COMPILED_WITH_BAD_ALLOCATOR FALSE)
-   if (GCC_IS_NEWER_THAN_4_1)
-      execute_process(COMMAND ${CMAKE_C_COMPILER} ${CMAKE_C_COMPILER_ARG1} -v OUTPUT_VARIABLE _gcc_alloc_info OUTPUT_STRIP_TRAILING_WHITESPACE)
-      string(REGEX MATCH "(--enable-libstdcxx-allocator=mt)" _GCC_COMPILED_WITH_BAD_ALLOCATOR "${_gcc_alloc_info}")
-   endif (GCC_IS_NEWER_THAN_4_1)
+   execute_process(COMMAND ${CMAKE_C_COMPILER} ${CMAKE_C_COMPILER_ARG1} -v OUTPUT_VARIABLE _gcc_alloc_info OUTPUT_STRIP_TRAILING_WHITESPACE)
+   string(REGEX MATCH "(--enable-libstdcxx-allocator=mt)" _GCC_COMPILED_WITH_BAD_ALLOCATOR "${_gcc_alloc_info}")
 
-   if (__KDE_HAVE_GCC_VISIBILITY AND GCC_IS_NEWER_THAN_4_1 AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
+   if (__KDE_HAVE_GCC_VISIBILITY AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
       set(_include_dirs "-DINCLUDE_DIRECTORIES:STRING=${QT_INCLUDES}")
 
       # first check if we can compile a Qt application
@@ -1258,12 +1235,10 @@ if (CMAKE_COMPILER_IS_GNUCXX)
          message(FATAL_ERROR "Unable to compile a basic Qt application. Qt has not been found correctly.")
        endif(_basic_compile_result)
 
-      if (GCC_IS_NEWER_THAN_4_2)
-         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=return-type -fvisibility-inlines-hidden")
-      endif (GCC_IS_NEWER_THAN_4_2)
-   else (__KDE_HAVE_GCC_VISIBILITY AND GCC_IS_NEWER_THAN_4_1 AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
+      set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=return-type -fvisibility-inlines-hidden")
+   else (__KDE_HAVE_GCC_VISIBILITY AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
       set (__KDE_HAVE_GCC_VISIBILITY 0)
-   endif (__KDE_HAVE_GCC_VISIBILITY AND GCC_IS_NEWER_THAN_4_1 AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
+   endif (__KDE_HAVE_GCC_VISIBILITY AND NOT _GCC_COMPILED_WITH_BAD_ALLOCATOR AND NOT WIN32)
 
 endif (CMAKE_COMPILER_IS_GNUCXX)
 

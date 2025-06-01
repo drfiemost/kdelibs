@@ -597,12 +597,7 @@ macro (KDE4_HANDLE_RPATH_FOR_EXECUTABLE _target_NAME)
       else (APPLE)
          set(_ld_library_path "${LIBRARY_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}/:${LIB_INSTALL_DIR}:${KDE4_LIB_DIR}:${QT_LIBRARY_DIR}")
       endif (APPLE)
-      # TODO remove when requiring cmake 3.0
-      if (NOT POLICY CMP0026)
-        get_target_property(_executable ${_target_NAME} LOCATION )
-      else()
-        set(_executable $<TARGET_FILE:${_target_NAME}>)
-      endif()
+      set(_executable $<TARGET_FILE:${_target_NAME}>)
 
       # use add_custom_target() to have the sh-wrapper generated during build time instead of cmake time
       if (CMAKE_VERSION VERSION_GREATER 2.8.4)
@@ -630,12 +625,7 @@ macro (KDE4_HANDLE_RPATH_FOR_EXECUTABLE _target_NAME)
    else (UNIX)
       # under windows, set the property WRAPPER_SCRIPT just to the name of the executable
       # maybe later this will change to a generated batch file (for setting the PATH so that the Qt libs are found)
-      # TODO remove when requiring cmake 3.0
-      if (NOT POLICY CMP0026)
-        get_target_property(_executable ${_target_NAME} LOCATION )
-      else()
-        set(_executable $<TARGET_FILE:${_target_NAME}>)
-      endif()
+      set(_executable $<TARGET_FILE:${_target_NAME}>)
       set_target_properties(${_target_NAME} PROPERTIES WRAPPER_SCRIPT ${_executable})
 
       set(_ld_library_path "${LIBRARY_OUTPUT_PATH}/${CMAKE_CFG_INTDIR}\;${LIB_INSTALL_DIR}\;${KDE4_LIB_DIR}\;${QT_LIBRARY_DIR}")
@@ -658,9 +648,9 @@ macro (KDE4_ADD_PLUGIN _target_NAME )
 
    set(_args ${ARGN})
    # default to module
-   set(_add_lib_param "MODULE")
+   set(_add_lib_param MODULE)
    set(_with_pre FALSE)
-   
+
    foreach(arg ${_args})
       if (arg STREQUAL "WITH_PREFIX")
          set(_with_pre TRUE)
@@ -844,7 +834,7 @@ macro (KDE4_ADD_KDEINIT_EXECUTABLE _target_NAME )
 
       if (KDE4_ENABLE_FINAL)
          kde4_create_final_files(${CMAKE_CURRENT_BINARY_DIR}/kdeinit_${_target_NAME}_final_cpp.cpp _separate_files ${_SRCS})
-         add_library(kdeinit_${_target_NAME} SHARED  ${CMAKE_CURRENT_BINARY_DIR}/kdeinit_${_target_NAME}_final_cpp.cpp ${_separate_files})
+         add_library(kdeinit_${_target_NAME} SHARED ${CMAKE_CURRENT_BINARY_DIR}/kdeinit_${_target_NAME}_final_cpp.cpp ${_separate_files})
 
       else (KDE4_ENABLE_FINAL)
          add_library(kdeinit_${_target_NAME} SHARED ${_SRCS})
@@ -906,32 +896,15 @@ macro (KDE4_ADD_UNIT_TEST _test_NAME)
     endforeach(_filename)
 
     if(WIN32)
-      # TODO remove when requiring cmake 3.0
-      if (NOT POLICY CMP0026)
-        get_target_property( loc ${_test_NAME} LOCATION )
-        if(MSVC_IDE)
-          STRING(REGEX REPLACE "\\$\\(.*\\)" "\${CTEST_CONFIGURATION_TYPE}" loc "${loc}")
-        endif()
-        # .bat because of rpath handling
-        set(_executable "${loc}.bat")
-      else()
-        set(_executable "$<TARGET_FILE:${_test_NAME}>.bat")
-      endif()
+      set(_executable "$<TARGET_FILE:${_test_NAME}>.bat")
     else(WIN32)
       if (Q_WS_MAC AND NOT _nogui)
         set(_executable ${EXECUTABLE_OUTPUT_PATH}/${_test_NAME}.app/Contents/MacOS/${_test_NAME})
       else (Q_WS_MAC AND NOT _nogui)
-        # TODO remove when requiring cmake 3.0
-        if (NOT POLICY CMP0026)
-          get_target_property( loc ${_test_NAME} LOCATION )
-          # .shell because of rpath handling
-          set(_executable "${loc}.shell")
-        else()
-          set(_executable "$<TARGET_FILE:${_test_NAME}>.shell")
-        endif()
+        set(_executable "$<TARGET_FILE:${_test_NAME}>.shell")
       endif (Q_WS_MAC AND NOT _nogui)
     endif(WIN32)
-    
+
     if (using_qtest AND KDE4_TEST_OUTPUT STREQUAL "xml")
         #MESSAGE(STATUS "${_targetName} : Using QTestLib, can produce XML report.")
         add_test(NAME ${_targetName} COMMAND ${_executable} -xml -o ${_targetName}.tml)
@@ -974,19 +947,8 @@ endmacro (KDE4_ADD_UNIT_TEST)
 # This macro is an internal macro only used by kde4_add_executable
 #
 macro (_KDE4_ADD_MANIFEST _target_NAME)
-    # TODO remove when requiring cmake 3.0
-    if (NOT POLICY CMP0026)
-      set(x ${_target_NAME}_OUTPUT_NAME)
-      if (${x})
-          get_target_property(_var ${_target_NAME} LOCATION )
-          string(REPLACE "${_target_NAME}" "${${x}}" _executable ${_var})
-      else(${x})
-          get_target_property(_executable ${_target_NAME} LOCATION )
-      endif(${x})
-    else()
-      set(_executable $<TARGET_FILE:${_target_NAME}>)
-    endif()
-        
+    set(_executable $<TARGET_FILE:${_target_NAME}>)
+
     if (_kdeBootStrapping)
         set(_cmake_module_path ${CMAKE_SOURCE_DIR}/cmake/modules)
     else (_kdeBootStrapping)
