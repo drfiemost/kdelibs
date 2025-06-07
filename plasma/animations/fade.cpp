@@ -39,7 +39,7 @@ FadeAnimation::~FadeAnimation()
 
 void FadeAnimation::setStartOpacity(qreal factor)
 {
-    m_startOpacity = qBound(qreal(0.0), factor, qreal(1.0));
+    m_startOpacity = std::clamp(factor, qreal(0.0), qreal(1.0));
 }
 
 qreal FadeAnimation::startOpacity() const
@@ -49,7 +49,7 @@ qreal FadeAnimation::startOpacity() const
 
 void FadeAnimation::setTargetOpacity(qreal factor)
 {
-    m_targetOpacity = qBound(qreal(0.0), factor, qreal(1.0));
+    m_targetOpacity = std::clamp(factor, qreal(0.0), qreal(1.0));
 }
 
 qreal FadeAnimation::targetOpacity() const

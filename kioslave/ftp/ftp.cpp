@@ -1043,7 +1043,7 @@ int Ftp::ftpOpenPortDataConnection()
     data.port = m_server->serverPort();
 
     unsigned char *pData = reinterpret_cast<unsigned char*>(&data);
-    command.sprintf("PORT %d,%d,%d,%d,%d,%d",pData[3],pData[2],pData[1],pData[0],pData[5],pData[4]);
+    command = QString::asprintf("PORT %d,%d,%d,%d,%d,%d",pData[3],pData[2],pData[1],pData[0],pData[5],pData[4]);
   }
   else if (localAddress.protocol() == QAbstractSocket::IPv6Protocol)
   {

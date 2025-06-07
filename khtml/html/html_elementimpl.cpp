@@ -277,7 +277,7 @@ void HTMLElementImpl::addCSSLength(int id, const DOMString &value, bool numOnly,
         // no digits!
         if (j == 0) return;
 
-        int v = qBound( -8192, QString::fromRawData(s, i).toInt(), 8191 ) ;
+        int v = std::clamp( QString::fromRawData(s, i).toInt(), -8192, 8191 ) ;
         const char* suffix = "px";
         if (!numOnly || multiLength) {
             // look if we find a % or *
@@ -393,7 +393,7 @@ void HTMLElementImpl::addHTMLColor( int id, const DOMString &c )
 // 	    qDebug("normalized color is %x %x %x",  colors[0], colors[1], colors[2] );
 	    // 	assert( colors[0] < 0x100 && colors[1] < 0x100 && colors[2] < 0x100 );
 
-	    color.sprintf("#%02x%02x%02x", colors[0], colors[1], colors[2] );
+	    color = QString::asprintf("#%02x%02x%02x", colors[0], colors[1], colors[2] );
 // 	    qDebug( "trying to add fixed color string '%s'", color.toLatin1().constData() );
 	    if ( nonCSSStyleDecls()->setProperty(id, DOMString(color), false) )
 		return;

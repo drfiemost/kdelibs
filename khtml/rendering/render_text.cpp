@@ -1734,8 +1734,7 @@ static QString quoteAndEscapeNonPrintables(const QString &s)
             if (u >= 0x20 && u < 0x7F) {
                 result += c;
             } else {
-                QString hex;
-                hex.sprintf("\\x{%X}", u);
+                QString hex = QString::asprintf("\\x{%X}", u);
                 result += hex;
             }
         }

@@ -417,7 +417,7 @@ void Wallpaper::setUsingRenderingCache(bool useCache)
 
 void Wallpaper::setResizeMethodHint(Wallpaper::ResizeMethod resizeMethod)
 {
-    const ResizeMethod method = qBound(ScaledResize, resizeMethod, LastResizeMethod);
+    const ResizeMethod method = std::clamp(resizeMethod, ScaledResize, LastResizeMethod);
     if (method != d->lastResizeMethod) {
         d->lastResizeMethod = method;
         emit renderHintsChanged();
@@ -466,7 +466,7 @@ void Wallpaper::render(const QString &sourceImagePath, const QSize &size,
 void WallpaperPrivate::renderWallpaper(const QString &sourceImagePath, const QImage &image, const QSize &size,
                                        Wallpaper::ResizeMethod resizeMethod, const QColor &color)
 {
-    resizeMethod = qBound(Wallpaper::ScaledResize, resizeMethod, Wallpaper::LastResizeMethod);
+    resizeMethod = std::clamp(resizeMethod, Wallpaper::ScaledResize, Wallpaper::LastResizeMethod);
     if (lastResizeMethod != resizeMethod) {
         lastResizeMethod = resizeMethod;
         emit q->renderHintsChanged();

@@ -50,8 +50,7 @@ public:
     if ( !name.isEmpty() ) {
       openDialogs.insert(name, q);
     } else {
-      QString genericName;
-      genericName.sprintf("SettingsDialog-%p", static_cast<void*>(q));
+      QString genericName = QString::asprintf("SettingsDialog-%p", static_cast<void*>(q));
       openDialogs.insert(genericName, q);
       q->setObjectName(genericName);
     }

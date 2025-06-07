@@ -734,10 +734,10 @@ QString KFileItemPrivate::group() const
             if ( ge != 0 ) {
                 groupName = QString::fromLocal8Bit(ge->gr_name);
                 if (groupName.isEmpty())
-                    groupName.sprintf("%d",ge->gr_gid);
+                    groupName = QString::asprintf("%d",ge->gr_gid);
             }
             else
-                groupName.sprintf("%d",buff.st_gid);
+                groupName = QString::asprintf("%d",buff.st_gid);
             m_entry.insert( KIO::UDSEntry::UDS_GROUP, groupName );
         }
 #endif

@@ -525,14 +525,14 @@ static DOMString colorToString(const QColor& color)
 {
     QString str;
     if (color.alpha() == 255)
-        str.sprintf("#%02x%02x%02x", color.red(), color.green(), color.blue());
+        str = QString::asprintf("#%02x%02x%02x", color.red(), color.green(), color.blue());
     else {
         QString alphaColor = QString::number(color.alphaF());
         // Ensure we always have a decimal period
         if ((int)color.alphaF() == color.alphaF())
             alphaColor = QString::number((int)color.alphaF()) + ".0";
 
-        str.sprintf("rgba(%d, %d, %d, ", color.red(), color.green(), color.blue());
+        str = QString::asprintf("rgba(%d, %d, %d, ", color.red(), color.green(), color.blue());
         str += alphaColor + ")";
     }
     return str;

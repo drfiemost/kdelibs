@@ -1439,7 +1439,6 @@ QString KDateTime::toString(const QString &format) const
     KLocale *locale = KGlobal::locale();
     KCalendarSystemQDate calendar(locale);
     QString result;
-    QString s;
     int num, numLength, zone;
     bool escape = false;
     ushort flag = 0;
@@ -1587,7 +1586,10 @@ QString KDateTime::toString(const QString &format) const
                     break;
                 }
                 case 's':     // milliseconds
-                    result += s.sprintf("%03d", d->dt().time().msec());
+                {
+                    QString s = QString::asprintf("%03d", d->dt().time().msec());
+                    result += s;
+                }
                     break;
                 case 'u':     // UTC offset in hours
                     zone = UTCOffsetShort;
@@ -1620,7 +1622,8 @@ QString KDateTime::toString(const QString &format) const
                     num = -num;
                     result += QLatin1Char('-');
                 }
-                result += s.sprintf((numLength == 2 ? "%02d" : "%04d"), num);
+                QString s = QString::asprintf((numLength == 2 ? "%02d" : "%04d"), num);
+                result += s;
             }
         }
         else if (zone != TZNone)
@@ -1634,6 +1637,7 @@ QString KDateTime::toString(const QString &format) const
                     tz = (d->specType == TimeZone) ? d->specZone : KTimeZone::utc();
                     [[fallthrough]];
                 case OffsetFromUTC:
+                {
                     offset = (d->specType == TimeZone) ? d->timeZoneOffset()
                            : (d->specType == OffsetFromUTC) ? d->specUtcOffset : 0;
                     offset /= 60;
@@ -1650,10 +1654,13 @@ QString KDateTime::toString(const QString &format) const
                                 result += QLatin1Char('-');
                                 offset = -offset;
                             }
-                            QString s;
-                            result += s.sprintf(((zone == UTCOffsetColon) ? "%02d:" : "%02d"), offset/60);
+                            QString s = QString::asprintf(((zone == UTCOffsetColon) ? "%02d:" : "%02d"), offset/60);
+                            result += s;
                             if (ch != 'u'  ||  offset % 60)
-                                result += s.sprintf("%02d", offset % 60);
+                            {
+                                s = QString::asprintf("%02d", offset % 60);
+                                result += s;
+                            }
                             break;
                         }
                         case TZAbbrev:     // time zone abbreviation
@@ -1665,6 +1672,7 @@ QString KDateTime::toString(const QString &format) const
                                 result += tz.name();
                             break;
                     }
+                }
                     break;
                 default:
                     break;
@@ -1680,7 +1688,6 @@ QString KDateTime::toString(TimeFormat format) const
     if (!isValid())
         return result;
 
-    QString s;
     char tzsign = '+';
     int offset = 0;
     const char *tzcolon = "";
@@ -1696,25 +1703,27 @@ QString KDateTime::toString(TimeFormat format) const
             char seconds[8] = { 0 };
             if (d->dt().time().second())
                 sprintf(seconds, ":%02d", d->dt().time().second());
-            result += s.sprintf("%02d %s ", d->date().day(), shortMonth[d->date().month() - 1]);
+            QString s = QString::asprintf("%02d %s ", d->date().day(), shortMonth[d->date().month() - 1]);
+            result += s;
             int year = d->date().year();
             if (year < 0)
             {
                 result += QLatin1Char('-');
                 year = -year;
             }
-            result += s.sprintf("%04d %02d:%02d%s ",
+            s = QString::asprintf("%04d %02d:%02d%s ",
                                 year, d->dt().time().hour(), d->dt().time().minute(), seconds);
+            result += s;
             if (d->specType == ClockTime)
                 tz = KSystemTimeZones::local();
             break;
         }
         case RFC3339Date:
         {
-            QString s;
-            result += s.sprintf("%04d-%02d-%02dT%02d:%02d:%02d",
+            QString s = QString::asprintf("%04d-%02d-%02dT%02d:%02d:%02d",
                                 d->date().year(), d->date().month(), d->date().day(),
                                 d->dt().time().hour(), d->dt().time().minute(), d->dt().time().second());
+            result += s;
             int msec = d->dt().time().msec();
             if (msec)
             {
@@ -1723,7 +1732,8 @@ QString KDateTime::toString(TimeFormat format) const
                     msec /= 10, --digits;
                 if (!(msec % 10))
                     msec /= 10, --digits;
-                result += s.sprintf(".%0*d", digits, d->dt().time().msec());
+                s = QString::asprintf(".%0*d", digits, d->dt().time().msec());
+                result += s;
             }
             if (d->specType == UTC)
                 return result + QLatin1Char('Z');
@@ -1741,20 +1751,22 @@ QString KDateTime::toString(TimeFormat format) const
                 result += QLatin1Char('-');
                 year = -year;
             }
-            QString s;
-            result += s.sprintf("%04d-%02d-%02d",
+            QString s = QString::asprintf("%04d-%02d-%02d",
                                 year, d->date().month(), d->date().day());
+            result += s;
             if (!d->dateOnly()  ||  d->specType != ClockTime)
             {
-                result += s.sprintf("T%02d:%02d:%02d",
+                s = QString::asprintf("T%02d:%02d:%02d",
                                     d->dt().time().hour(), d->dt().time().minute(), d->dt().time().second());
+                result += s;
                 if (d->dt().time().msec())
                 {
                     // Comma is preferred by ISO8601 as the decimal point symbol,
                     // so use it unless '.' is the symbol used in this locale or we don't have a locale.
                     KLocale *locale = KGlobal::locale();
                     result += (locale && locale->decimalSymbol() == QLatin1String(".")) ? QLatin1Char('.') : QLatin1Char(',');
-                    result += s.sprintf("%03d", d->dt().time().msec());
+                    s = QString::asprintf("%03d", d->dt().time().msec());
+                    result += s;
                 }
             }
             if (d->specType == UTC)
@@ -1795,7 +1807,8 @@ QString KDateTime::toString(TimeFormat format) const
         }
     }
     offset /= 60;
-    return result + s.sprintf("%c%02d%s%02d", tzsign, offset/60, tzcolon, offset%60);
+    QString s = QString::asprintf("%c%02d%s%02d", tzsign, offset/60, tzcolon, offset%60);
+    return result + s;
 }
 
 KDateTime KDateTime::fromString(const QString &string, TimeFormat format, bool *negZero)

@@ -197,8 +197,7 @@ static QByteArray encodeCString(const QByteArray& e)
 
 inline static QString ampersandEscape(unsigned val)
 {
-    QString out;
-    out.sprintf("&#%u;", val);
+    QString out = QString::asprintf("&#%u;", val);
     return out;
 }
 

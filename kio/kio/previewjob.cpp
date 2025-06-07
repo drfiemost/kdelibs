@@ -228,7 +228,7 @@ int PreviewJob::overlayIconSize() const
 void PreviewJob::setOverlayIconAlpha(int alpha)
 {
     Q_D(PreviewJob);
-    d->iconAlpha = qBound(0, alpha, 255);
+    d->iconAlpha = std::clamp(alpha, 0, 255);
 }
 
 int PreviewJob::overlayIconAlpha() const

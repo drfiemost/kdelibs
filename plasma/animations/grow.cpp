@@ -71,11 +71,11 @@ void GrowAnimation::updateState(QAbstractAnimation::State newState, QAbstractAni
         qreal newWidth;
         qreal newHeight;
         if (direction() == QAbstractAnimation::Forward) {
-            newWidth = qBound(minimum.width(), w * factor, maximum.width());
-            newHeight = qBound(minimum.height(), h * factor, maximum.height());
+            newWidth = std::clamp(w * factor, minimum.width(), maximum.width());
+            newHeight = std::clamp(h * factor, minimum.height(), maximum.height());
         } else {
-            newWidth = qBound(minimum.width(), w / factor, maximum.width());
-            newHeight = qBound(minimum.height(), h / factor, maximum.height());
+            newWidth = std::clamp(w / factor, minimum.width(), maximum.width());
+            newHeight = std::clamp(h / factor, minimum.height(), maximum.height());
         }
 
         qreal newX;

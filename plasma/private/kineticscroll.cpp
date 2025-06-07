@@ -192,13 +192,13 @@ QPointF KineticScrolling::thresholdPosition(QPointF value) const
     if(d->minimum.x() >= 0) {
         d->cposition.setX(value.x());
     } else {
-        d->cposition.setX(qBound(d->minimum.x(), d->maximum.x(), qreal(0)));
+        d->cposition.setX(std::clamp(d->maximum.x(), d->minimum.x(), qreal(0)));
     }
 
     if((-d->contentsSize.height() + d->viewportGeometry.height() - d->overshoot) >= 0) {
         d->cposition.setY(value.y());
     } else {
-        d->cposition.setY(qBound(d->minimum.y(), d->maximum.y(), qreal(d->overshoot)));
+        d->cposition.setY(std::clamp(d->maximum.y(), d->minimum.y(), qreal(d->overshoot)));
     }
 
     return d->cposition;

@@ -1278,10 +1278,9 @@ bool KCookieJar::saveCookies(const QString &_filename)
 
     ts << "# KDE Cookie File v2\n#\n";
 
-    QString s;
-    s.sprintf("%-20s %-20s %-12s %-10s %-4s %-20s %-4s %s\n",
-              "# Host", "Domain", "Path", "Exp.date", "Prot",
-              "Name", "Sec", "Value");
+    QString s = QString::asprintf("%-20s %-20s %-12s %-10s %-4s %-20s %-4s %s\n",
+                                  "# Host", "Domain", "Path", "Exp.date", "Prot",
+                                  "Name", "Sec", "Value");
     ts << s.toLatin1().constData();
 
     QStringListIterator it(m_domainList);
@@ -1315,7 +1314,7 @@ bool KCookieJar::saveCookies(const QString &_filename)
                 const QString host = hostWithPort(&cookie);
 
                 // TODO: replace with direct QTextStream output ?
-                s.sprintf("%-20s %-20s %-12s %10lld  %3d %-20s %-4i %s\n",
+                s = QString::asprintf("%-20s %-20s %-12s %10lld  %3d %-20s %-4i %s\n",
                         host.toLatin1().constData(), domain.toLatin1().constData(),
                         path.toLatin1().constData(), cookie.expireDate(),
                         cookie.protocolVersion(),

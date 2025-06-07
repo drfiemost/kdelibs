@@ -193,14 +193,12 @@ void HTMLBodyElementImpl::insertedIntoDocument()
 
     KHTMLView* w = document()->view();
     if(w && w->marginWidth() != -1) {
-        QString s;
-        s.sprintf( "%d", w->marginWidth() );
+        QString s = QString::asprintf( "%d", w->marginWidth() );
         addCSSLength(CSS_PROP_MARGIN_LEFT, s);
         addCSSLength(CSS_PROP_MARGIN_RIGHT, s);
     }
     if(w && w->marginHeight() != -1) {
-        QString s;
-        s.sprintf( "%d", w->marginHeight() );
+        QString s = QString::asprintf( "%d", w->marginHeight() );
         addCSSLength(CSS_PROP_MARGIN_TOP, s);
         addCSSLength(CSS_PROP_MARGIN_BOTTOM, s);
     }

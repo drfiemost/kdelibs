@@ -72,7 +72,7 @@ static Slave *heldSlaveForJob(SimpleJob *job);
 int SerialPicker::changedPrioritySerial(int oldSerial, int newPriority) const
 {
     Q_ASSERT(newPriority >= -10 && newPriority <= 10);
-    newPriority = qBound(-10, newPriority, 10);
+    newPriority = std::clamp(newPriority, -10, 10);
     int unbiasedSerial = oldSerial % m_jobsPerPriority;
     return unbiasedSerial + newPriority * m_jobsPerPriority;
 }

@@ -1086,8 +1086,7 @@ QString paramString(const QString &group, const QList<Param> &parameters)
   {
      if (paramString.contains("$("+(*it).name+')'))
      {
-       QString tmp;
-       tmp.sprintf("%%%d", i++);
+       QString tmp = QString::asprintf("%%%d", i++);
        paramString.replace("$("+(*it).name+')', tmp);
        arguments += ".arg( mParam"+(*it).name+" )";
      }

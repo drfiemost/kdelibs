@@ -186,8 +186,8 @@ void RippleEffect::draw(QPainter *painter)
             yOffset = y + m_currentMap[x][y+m_offset] - wave;
 
             modifiedImage.setPixel(x, y, currentImage.pixel(
-                        qBound(0, xOffset, width - 1),
-                        qBound(0, yOffset, height - 1)));
+                        std::clamp(xOffset, 0, width - 1),
+                        std::clamp(yOffset, 0, height - 1)));
         }
     }
 

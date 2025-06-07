@@ -948,7 +948,7 @@ void KDoubleNumInput::setSliderEnabled(bool enabled)
             const int singleSteps = qRound(steps);
             priv->slider->setRange(0, singleSteps);
             priv->slider->setSingleStep(1);
-            const int pageSteps = qBound(1, singleSteps / 20, 10);
+            const int pageSteps = std::clamp(singleSteps / 20, 1, 10);
             priv->slider->setPageStep(pageSteps);
         }
         spinBoxChanged(spin->value());
