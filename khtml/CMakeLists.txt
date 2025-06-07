@@ -467,7 +467,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/ecma
   ${CMAKE_CURRENT_SOURCE_DIR}/imload
   ${CMAKE_CURRENT_SOURCE_DIR}/imload/decoders
-  ${CMAKE_CURRENT_SOURCE_DIR}/java
   ${CMAKE_CURRENT_SOURCE_DIR}/svg
   ${CMAKE_CURRENT_SOURCE_DIR}/svg/graphics
   ${CMAKE_CURRENT_SOURCE_DIR}/platform/graphics
@@ -486,7 +485,6 @@ include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}/ecma
 # ${CMAKE_CURRENT_BINARY_DIR}/imload
 # ${CMAKE_CURRENT_BINARY_DIR}/imload/decoders
-  ${CMAKE_CURRENT_BINARY_DIR}/java
 # ${CMAKE_CURRENT_BINARY_DIR}/svg
 # ${CMAKE_CURRENT_BINARY_DIR}/svg/graphics
 # ${CMAKE_CURRENT_BINARY_DIR}/platform/graphics
@@ -499,7 +497,6 @@ include_directories(
 include_directories(${JPEG_INCLUDE_DIR} ${GIF_INCLUDE_DIR} ${PNG_INCLUDE_DIR} )
 
 add_subdirectory( kmultipart )
-add_subdirectory( java )
 
 add_definitions(-DENABLE_VIDEO)
 
