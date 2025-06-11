@@ -187,7 +187,7 @@ KPluginFactory *KPluginLoader::factory()
     Q_D(KPluginLoader);
 
     if (!load())
-        return 0;
+        return nullptr;
 
 #ifndef KDE_NO_DEPRECATED
     if (d->lib) {
@@ -201,11 +201,11 @@ KPluginFactory *KPluginLoader::factory()
     QObject *obj = instance();
 
     if (!obj)
-        return 0;
+        return nullptr;
 
     KPluginFactory *factory = qobject_cast<KPluginFactory *>(obj);
 
-    if (factory == 0) {
+    if (factory == nullptr) {
         kDebug(kLibraryDebugArea()) << "Expected a KPluginFactory, got a" << obj->metaObject()->className();
         delete obj;
         d->errorString = i18n("The library %1 does not offer a KDE 4 compatible factory." , d->name);
