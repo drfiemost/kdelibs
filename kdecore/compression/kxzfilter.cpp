@@ -65,24 +65,28 @@ void KXzFilter::init( int mode )
     if (d->isInitialized) {
         terminate();
     }
-  
+
     lzma_ret result;
     d->zStream.next_in = 0;
     d->zStream.avail_in = 0;
     if ( mode == QIODevice::ReadOnly )
     {
-	/* We set the memlimit for decompression to 100MiB which should be
-	 * more than enough to be sufficient for level 9 which requires 65 MiB.
-	 */
+        /* We set the memlimit for decompression to 100MiB which should be
+         * more than enough to be sufficient for level 9 which requires 65 MiB.
+         */
         result = lzma_auto_decoder(&d->zStream, 100<<20, 0);
-    	//kDebug(7131) << "lzma_auto_decoder returned " << result;
+        //kDebug(7131) << "lzma_auto_decoder returned " << result;
     } else if ( mode == QIODevice::WriteOnly ) {
         result = lzma_easy_encoder(&d->zStream, LZMA_PRESET_DEFAULT, LZMA_CHECK_CRC32);
-    	//kDebug(7131) << "lzma_easy_encoder returned " << result;
-    } else
+        //kDebug(7131) << "lzma_easy_encoder returned " << result;
+    } else {
         qWarning() << "Unsupported mode " << mode << ". Only QIODevice::ReadOnly and QIODevice::WriteOnly supported";
-    d->mode = mode;
-    d->isInitialized = true;
+        return;
+    }
+    if (result == LZMA_OK) {
+        d->mode = mode;
+        d->isInitialized = true;
+    }
 }
 
 int KXzFilter::mode() const
