@@ -289,7 +289,6 @@ else()
     set(kdeui_LIB_SRCS ${kdeui_LIB_SRCS} util/kwallet.cpp)
 endif()
 
-if(NOT WINCE)
 set(kdeui_LIB_SRCS
  ${kdeui_LIB_SRCS}
  dialogs/kdeprintdialog.cpp
@@ -298,7 +297,6 @@ set(kdeui_LIB_SRCS
  notifications/kstatusnotifieritemdbus_p.cpp
  notifications/ksystemtrayicon.cpp
 )
-endif(NOT WINCE)
 
 
 
@@ -377,10 +375,8 @@ qt4_add_dbus_interface(kdeui_LIB_SRCS ${statusnotifierwatcher_xml} statusnotifie
 set(notifications_xml ${CMAKE_CURRENT_SOURCE_DIR}/notifications/org.freedesktop.Notifications.xml)
 qt4_add_dbus_interface(kdeui_LIB_SRCS ${notifications_xml} notifications_interface)
 
-if(NOT WINCE)
 qt4_add_dbus_adaptor(kdeui_LIB_SRCS     ${CMAKE_CURRENT_SOURCE_DIR}/notifications/org.kde.StatusNotifierItem.xml
                      ${CMAKE_CURRENT_SOURCE_DIR}/notifications/kstatusnotifieritemdbus_p.h KStatusNotifierItemDBus)
-endif(NOT WINCE)
 
 set(kglobalaccel_xml ${CMAKE_CURRENT_SOURCE_DIR}/shortcuts/org.kde.KGlobalAccel.xml)
 set_source_files_properties(${kglobalaccel_xml} PROPERTIES INCLUDE "kglobalshortcutinfo_p.h")
@@ -400,9 +396,7 @@ kde4_add_library(kdeui ${LIBRARY_TYPE} ${kdeui_LIB_SRCS})
 target_link_libraries(kdeui LINK_PRIVATE ${KDE4_KDECORE_LIBS} ${X11_LIBRARIES} Qt4::QtGui
                             Qt4::QtXml ${KDEUI_EXTRA_LIBS} Qt4::QtNetwork)
 
-if(NOT WINCE)
 target_link_libraries(kdeui  LINK_PRIVATE Qt4::QtSvg ${DBUSMENUQT_LIBRARIES})
-endif(NOT WINCE)
 
 if(MINGW)
    target_link_libraries(kdeui LINK_PRIVATE gdi32 oleaut32)
@@ -433,9 +427,7 @@ endif(X11_Xrender_FOUND)
 
 target_link_libraries(kdeui LINK_PUBLIC kdecore Qt4::QtGui)
 
-if(NOT WINCE)
 target_link_libraries(kdeui LINK_PUBLIC Qt4::QtSvg)
-endif(NOT WINCE)
 
 set_target_properties(kdeui PROPERTIES VERSION ${KDE_NON_GENERIC_LIB_VERSION}
                                        SOVERSION ${KDE_NON_GENERIC_LIB_SOVERSION}

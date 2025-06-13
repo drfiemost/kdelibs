@@ -305,10 +305,6 @@ endif ( UDEV_FOUND )
 target_link_libraries(solid LINK_PRIVATE Qt4::QtCore Qt4::QtDBus Qt4::QtXml Qt4::QtGui ${solid_OPTIONAL_LIBS} )
 target_link_libraries(solid LINK_PUBLIC Qt4::QtCore)
 
-if (WINCE)
-   target_link_libraries(solid LINK_PRIVATE ${WCECOMPAT_LIBRARIES})
-endif(WINCE)
-
 set_target_properties(solid PROPERTIES
    VERSION ${GENERIC_LIB_VERSION}
    SOVERSION ${GENERIC_LIB_SOVERSION}

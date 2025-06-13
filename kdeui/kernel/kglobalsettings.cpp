@@ -598,14 +598,9 @@ KGlobalSettings::KMouseSettings& KGlobalSettingsData::mouseSettings()
     }
 #ifdef Q_WS_WIN
     //not cached
-#ifndef _WIN32_WCE
     mMouseSettings->handed = (GetSystemMetrics(SM_SWAPBUTTON) ?
         KGlobalSettings::KMouseSettings::LeftHanded :
         KGlobalSettings::KMouseSettings::RightHanded);
-#else
-// There is no mice under wince
-    mMouseSettings->handed =KGlobalSettings::KMouseSettings::RightHanded;
-#endif
 #endif
     return *mMouseSettings;
 }
@@ -1041,7 +1036,6 @@ QPalette KGlobalSettings::Private::createNewApplicationPalette(const KSharedConf
 
 void KGlobalSettings::Private::kdisplaySetPalette()
 {
-#if !defined(Q_WS_MAEMO_5) && !defined(Q_OS_WINCE) && !defined(MEEGO_EDITION_HARMATTAN)
     if (!kdeFullSession) {
         return;
     }
@@ -1051,13 +1045,11 @@ void KGlobalSettings::Private::kdisplaySetPalette()
     }
     emit q->kdisplayPaletteChanged();
     emit q->appearanceChanged();
-#endif    
 }
 
 
 void KGlobalSettings::Private::kdisplaySetFont()
 {
-#if !defined(Q_WS_MAEMO_5) && !defined(Q_OS_WINCE) && !defined(MEEGO_EDITION_HARMATTAN)
     if (!kdeFullSession) {
         return;
     }
@@ -1074,7 +1066,6 @@ void KGlobalSettings::Private::kdisplaySetFont()
     }
     emit q->kdisplayFontChanged();
     emit q->appearanceChanged();
-#endif
 }
 
 
