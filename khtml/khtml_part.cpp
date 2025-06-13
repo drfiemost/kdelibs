@@ -4366,8 +4366,8 @@ bool KHTMLPart::processObjectRequest( khtml::ChildFrame *child, const KUrl &_url
             if ( KHTMLRun* run = child->m_run.data() ) {
                 suggestedFileName = run->suggestedFileName();
                 disposition = run->serverSuggestsSave() ?
-                                 KParts::BrowserRun::AttachmentDisposition :
-                                 KParts::BrowserRun::InlineDisposition;
+                                 KParts::BrowserOpenOrSaveQuestion::AttachmentDisposition :
+                                 KParts::BrowserOpenOrSaveQuestion::InlineDisposition;
             }
 
             KParts::BrowserOpenOrSaveQuestion dlg( widget(), url, mimetype );
