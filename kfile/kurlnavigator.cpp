@@ -58,10 +58,6 @@ using namespace KDEPrivate;
 struct LocationData
 {
     KUrl url;
-#ifndef KDE_NO_DEPRECATED
-    KUrl rootUrl;      // KDE5: remove after the deprecated methods have been removed
-    QPoint pos;        // KDE5: remove after the deprecated methods have been removed
-#endif
     QByteArray state;
 };
 
@@ -406,12 +402,6 @@ void KUrlNavigator::Private::dropUrls(const KUrl& destination, QDropEvent* event
     const KUrl::List urls = KUrl::List::fromMimeData(event->mimeData());
     if (!urls.isEmpty()) {
         emit q->urlsDropped(destination, event);
-
-#ifndef KDE_NO_DEPRECATED
-        // KDE5: remove, as the signal has been replaced by
-        // urlsDropped(const KUrl& destination, QDropEvent* event)
-        emit q->urlsDropped(urls, destination);
-#endif
     }
 }
 
@@ -1090,30 +1080,6 @@ void KUrlNavigator::setFocus()
     }
 }
 
-#ifndef KDE_NO_DEPRECATED
-void KUrlNavigator::setUrl(const KUrl& url)
-{
-    // deprecated
-    setLocationUrl(url);
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KUrlNavigator::saveRootUrl(const KUrl& url)
-{
-    // deprecated
-    d->m_history[d->m_historyIndex].rootUrl = url;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KUrlNavigator::savePosition(int x, int y)
-{
-    // deprecated
-    d->m_history[d->m_historyIndex].pos = QPoint(x, y);
-}
-#endif
-
 void KUrlNavigator::keyPressEvent(QKeyEvent* event)
 {
     if (isUrlEditable() && (event->key() == Qt::Key_Escape)) {
@@ -1210,63 +1176,5 @@ QStringList KUrlNavigator::customProtocols() const
 {
     return d->m_customProtocols;
 }
-
-#ifndef KDE_NO_DEPRECATED
-const KUrl& KUrlNavigator::url() const
-{
-    // deprecated
-
-    // Workaround required because of flawed interface ('const KUrl&' is returned
-    // instead of 'KUrl'): remember the URL to prevent a dangling pointer
-    static KUrl url;
-    url = locationUrl();
-    return url;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-KUrl KUrlNavigator::url(int index) const
-{
-    // deprecated
-    return d->buttonUrl(index);
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-KUrl KUrlNavigator::historyUrl(int historyIndex) const
-{
-    // deprecated
-    return locationUrl(historyIndex);
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-const KUrl& KUrlNavigator::savedRootUrl() const
-{
-    // deprecated
-
-    // Workaround required because of flawed interface ('const KUrl&' is returned
-    // instead of 'KUrl'): remember the root URL to prevent a dangling pointer
-    static KUrl rootUrl;
-    rootUrl = d->m_history[d->m_historyIndex].rootUrl;
-    return rootUrl;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-QPoint KUrlNavigator::savedPosition() const
-{
-    // deprecated
-    return d->m_history[d->m_historyIndex].pos;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KUrlNavigator::setHomeUrl(const QString& homeUrl)
-{
-    // deprecated
-    setLocationUrl(KUrl(homeUrl));
-}
-#endif
 
 #include "kurlnavigator.moc"

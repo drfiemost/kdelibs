@@ -40,11 +40,7 @@
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
-#ifndef KDE_NO_DEPRECATED
-#include <klibloader.h>
-#else
 #include <klibrary.h>
-#endif
 #include <klocale.h>
 #include <kglobal.h>
 #include <kconfig.h>

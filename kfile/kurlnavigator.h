@@ -277,50 +277,6 @@ public:
      */
     QStringList customProtocols() const;
 
-#if !defined(KDE_NO_DEPRECATED) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
-    /**
-     * @return     The current URL of the location.
-     * @deprecated Use KUrlNavigator::locationUrl() instead.
-     */
-    KDE_DEPRECATED const KUrl& url() const;
-
-    /**
-     * @return The portion of the current URL up to the path part given
-     * by \a index. Assuming that the current URL is /home/peter/Documents/Music,
-     * then the following URLs are returned for an index:
-     * - index <= 0: /home
-     * - index is 1: /home/peter
-     * - index is 2: /home/peter/Documents
-     * - index >= 3: /home/peter/Documents/Music
-     * @deprecated It should not be necessary for a client of KUrlNavigator to query this information.
-     */
-    KDE_DEPRECATED KUrl url(int index) const;
-
-    /**
-     * @return URL for the history element with the index \a historyIndex.
-     *         The history index 0 represents the most recent URL.
-     * @since 4.3
-     * @deprecated Use KUrlNavigator::locationUrl(historyIndex) instead.
-     */
-    KDE_DEPRECATED KUrl historyUrl(int historyIndex) const;
-
-    /**
-     * @return The saved root URL for the current URL (see KUrlNavigator::saveRootUrl()).
-     * @deprecated Use KUrlNavigator::locationState() instead.
-     */
-    KDE_DEPRECATED const KUrl& savedRootUrl() const;
-
-    /**
-     * @return The saved contents position of the upper left corner
-     *         for the current URL.
-     * @deprecated Use KUrlNavigator::locationState() instead.
-     */
-    KDE_DEPRECATED QPoint savedPosition() const;
-
-    /** @deprecated Use setHomeUrl(const KUrl& url) instead. */
-    KDE_DEPRECATED void setHomeUrl(const QString& homeUrl);
-#endif
-
 public Q_SLOTS:
     /**
      * Sets the location to \a url. The old URL is added to the history.
@@ -341,26 +297,6 @@ public Q_SLOTS:
 #if !defined(DOXYGEN_SHOULD_SKIP_THIS)
     // KDE5: Remove and listen for focus-signal instead
     void setFocus();
-#endif
-
-#if !defined(KDE_NO_DEPRECATED) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
-    /**
-     * Sets the location to \a url.
-     * @deprecated Use KUrlNavigator::setLocationUrl(url).
-     */
-    KDE_DEPRECATED void setUrl(const KUrl& url);
-
-    /**
-     * Saves the used root URL of the content for the current history element.
-     * @deprecated Use KUrlNavigator::saveLocationState() instead.
-     */
-    KDE_DEPRECATED void saveRootUrl(const KUrl& url);
-
-    /**
-     * Saves the coordinates of the contents for the current history element.
-     * @deprecated Use KUrlNavigator::saveLocationState() instead.
-     */
-    KDE_DEPRECATED void savePosition(int x, int y);
 #endif
 
 Q_SIGNALS:
@@ -418,20 +354,6 @@ Q_SIGNALS:
      * @since 4.5
      */
     void tabRequested(const KUrl& url);
-
-#if !defined(KDE_NO_DEPRECATED) && !defined(DOXYGEN_SHOULD_SKIP_THIS)
-    /**
-     * Is emitted if the URLs \a urls have been dropped
-     * to the destination \a destination.
-     * @deprecated Use
-     * KUrlNavigator::urlsDropped(const KUrl& destination, QDropEvent* event)
-     * instead.
-     */
-    // KDE5: remove, as the signal has been replaced by
-    // urlsDropped(const KUrl& destination, QDropEvent* event)
-    KDE_DEPRECATED void urlsDropped(const KUrl::List& urls,
-                                    const KUrl& destination);
-#endif
 
 protected:
 #if !defined(DOXYGEN_SHOULD_SKIP_THIS)
