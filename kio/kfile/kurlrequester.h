@@ -224,18 +224,6 @@ public Q_SLOTS:
     void setStartDir( const KUrl& startDir );
 
     /**
-     * Sets the url in the lineedit to @p KUrl::fromPath(path).
-     * This is only for local paths; do not pass a url here.
-     * This method is mostly for "local paths only" url requesters,
-     * for instance those set up with setMode(KFile::File|KFile::ExistingOnly|KFile::LocalOnly)
-     *
-     * @deprecated Use setUrl(KUrl(path)) instead.
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setPath(const QString& path);
-#endif
-
-    /**
      * Sets the current text in the lineedit or combobox.
      * This is used for cases where KUrlRequester is used to
      * enter URL-or-something-else, like KOpenWithDialog where you

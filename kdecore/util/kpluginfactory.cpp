@@ -42,18 +42,6 @@ KPluginFactory::KPluginFactory(const char *componentName, const char *catalogNam
     factorycleanup->add(this);
 }
 
-#ifndef KDE_NO_DEPRECATED
-KPluginFactory::KPluginFactory(const KAboutData *aboutData, QObject *parent)
-    : QObject(parent), d_ptr(new KPluginFactoryPrivate)
-{
-    Q_D(KPluginFactory);
-    d->q_ptr = this;
-    d->componentData = KComponentData(*aboutData);
-
-    factorycleanup->add(this);
-}
-#endif
-
 KPluginFactory::KPluginFactory(const KAboutData &aboutData, QObject *parent)
     : QObject(parent), d_ptr(new KPluginFactoryPrivate)
 {
@@ -63,16 +51,6 @@ KPluginFactory::KPluginFactory(const KAboutData &aboutData, QObject *parent)
 
     factorycleanup->add(this);
 }
-
-#ifndef KDE_NO_DEPRECATED
-KPluginFactory::KPluginFactory(QObject *parent)
-    : QObject(parent), d_ptr(new KPluginFactoryPrivate())
-{
-    Q_D(KPluginFactory);
-    d->q_ptr = this;
-    factorycleanup->add(this);
-}
-#endif
 
 KPluginFactory::KPluginFactory(KPluginFactoryPrivate &d, QObject *parent)
     : QObject(parent), d_ptr(&d)

@@ -285,13 +285,6 @@ void KUrlRequester::setUrl( const KUrl& url )
     d->setText( url.pathOrUrl() );
 }
 
-#ifndef KDE_NO_DEPRECATED
-void KUrlRequester::setPath( const QString& path )
-{
-    d->setText( path );
-}
-#endif
-
 void KUrlRequester::setText(const QString& text)
 {
     d->setText(text);
