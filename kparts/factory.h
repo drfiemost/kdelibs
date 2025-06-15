@@ -20,7 +20,7 @@
 #ifndef __kparts_factory_h__
 #define __kparts_factory_h__
 
-#include <klibloader.h>
+#include <kpluginfactory.h>
 
 #include <kparts/kparts_export.h>
 

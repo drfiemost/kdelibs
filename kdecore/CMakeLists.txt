@@ -338,12 +338,6 @@ set(kdecore_LIB_SRCS ${kdecore_LIB_SRCS}
    ${kdecore_OPTIONAL_SRCS}
 )
 
-if(NOT KDE_NO_DEPRECATED)
-    set(kdecore_LIB_SRCS ${kdecore_LIB_SRCS}
-       util/klibloader.cpp
-    )
-endif(NOT KDE_NO_DEPRECATED)
-
 if(NOT WIN32)
     set(kdecore_LIB_SRCS ${kdecore_LIB_SRCS} util/kshareddatacache.cpp)
     set(kdecore_OPTIONAL_LIBS ${kdecore_OPTIONAL_LIBS} ${CMAKE_THREAD_LIBS_INIT})
@@ -571,7 +565,6 @@ install(FILES
    util/kdedmodule.h
    util/klauncher_iface.h
    util/klibrary.h
-   util/klibloader.h
    util/kmacroexpander.h
    util/kexportplugin.h
    util/kpluginfactory.h

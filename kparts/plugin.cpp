@@ -20,7 +20,7 @@
 
 #include <kparts/plugin.h>
 #include <kparts/part.h>
-#include <kparts/componentfactory.h>
+#include <kparts/factory.h>
 
 #include <assert.h>
 
@@ -35,6 +35,7 @@
 #include <klocale.h>
 #include <kdesktopfile.h>
 #include <kconfiggroup.h>
+#include <kpluginloader.h>
 
 using namespace KParts;
 
@@ -166,26 +167,6 @@ void Plugin::loadPlugins( QObject *parent, const QList<PluginInfo> &pluginInfos 
 {
    loadPlugins(parent, pluginInfos, KComponentData());
 }
-
-// static, deprecated
-#ifndef KDE_NO_DEPRECATED
-Plugin* Plugin::loadPlugin( QObject * parent, const char* libname )
-{
-    Plugin* plugin = KLibLoader::createInstance<Plugin>( libname, parent );
-    if ( !plugin )
-        return 0;
-    plugin->d->m_library = libname;
-    return plugin;
-}
-#endif
-
-// static, deprecated
-#ifndef KDE_NO_DEPRECATED
-Plugin* Plugin::loadPlugin( QObject * parent, const QByteArray &libname )
-{
-    return loadPlugin( parent, libname.data() );
-}
-#endif
 
 Plugin* Plugin::loadPlugin( QObject * parent, const QString &libname )
 {
