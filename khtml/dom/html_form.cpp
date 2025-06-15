@@ -474,22 +474,6 @@ void HTMLInputElement::setReadOnly( bool _readOnly )
 	static_cast<ElementImpl*>(impl)->setAttribute(ATTR_READONLY, _readOnly ? "" : 0);
 }
 
-/* The next two are provided for backwards compatibility. */
-#ifndef KDE_NO_DEPRECATED
-DOMString HTMLInputElement::size() const
-{
-    if(!impl) return DOMString();
-    return static_cast<ElementImpl*>(impl)->getAttribute(ATTR_SIZE);
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void HTMLInputElement::setSize( const DOMString &value )
-{
-    if(impl) static_cast<ElementImpl*>(impl)->setAttribute(ATTR_SIZE, value);
-}
-#endif
-
 long HTMLInputElement::getSize() const
 {
     if(!impl) return 0;

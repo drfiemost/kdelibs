@@ -252,21 +252,6 @@ public:
       */
     void setBorder( const DOMString& );
 
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED long border() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setBorder( long );
-#endif
-
     /**
      * Override height. See the <a
      * href="http://www.w3.org/TR/REC-html40/struct/objects.html#adef-height-IMG">

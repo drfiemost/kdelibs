@@ -240,34 +240,6 @@ public:
      * The later a suffix is added, the higher its priority. Note, that the
      * suffix should end with / but doesn't have to start with one (as prefixes
      * should end with one). So adding a suffix for app_pics would look
-     * like KGlobal::dirs()->addResourceType("app_pics", "data" ,"app/pics");
-     *
-     * @param type Specifies a short descriptive string to access
-     * files of this type.
-     * @param relativename Specifies a directory relative to the root
-     * of the KFSSTND.
-     * @param priority if true, the directory is added before any other,
-     * otherwise after
-     * @return true if successful, false otherwise.
-     *
-     * @deprecated, use addResourceType(type, 0, relativename, priority)
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED bool addResourceType( const char *type,
-                                         const QString& relativename, bool priority = true );
-#endif
-
-    /**
-     * Adds suffixes for types.
-     *
-     * You may add as many as you need, but it is advised that there
-     * is exactly one to make writing definite.
-     * All basic types are added by addKDEDefaults(),
-     * but for those you can add more relative paths as well.
-     *
-     * The later a suffix is added, the higher its priority. Note, that the
-     * suffix should end with / but doesn't have to start with one (as prefixes
-     * should end with one). So adding a suffix for app_pics would look
      * like KGlobal::dirs()->addResourceType("app_pics", "data", "app/pics");
      *
      * @param type Specifies a short descriptive string to access
@@ -612,48 +584,6 @@ public:
      * @return true if successful, false otherwise
      */
     static bool makeDir(const QString& dir, int mode = 0755);
-
-    /**
-     * This returns a default relative path for the standard KDE
-     * resource types. Below is a list of them so you get an idea
-     * of what this is all about.
-     *
-     * @li @c data - @c share/apps
-     * @li @c html - @c share/doc/HTML
-     * @li @c icon - @c share/icon
-     * @li @c config - @c share/config
-     * @li @c pixmap - @c share/pixmaps
-     * @li @c apps - @c share/applnk
-     * @li @c sound - @c share/sounds
-     * @li @c locale - @c share/locale
-     * @li @c services - @c share/kde4/services
-     * @li @c servicetypes - @c share/kde4/servicetypes
-     * @li @c mime - @c share/mimelnk
-     * @li @c cgi - @c cgi-bin
-     * @li @c wallpaper - @c share/wallpapers
-     * @li @c templates - @c share/templates
-     * @li @c exe - @c bin
-     * @li @c lib - @c lib[suffix]
-     * @li @c module - @c lib[suffix]/kde4
-     * @li @c qtplugins - @c lib[suffix]/kde4/plugins
-     * @li @c kcfg - @c share/config.kcfg
-     * @li @c emoticons - @c share/emoticons
-     * @li @c xdgdata-apps - @c applications
-     * @li @c xdgdata-icon - @c icons
-     * @li @c xdgdata-pixmap - @c pixmaps
-     * @li @c xdgdata-dirs - @c desktop-directories
-     * @li @c xdgdata-mime - @c mime
-     * @li @c xdgconf-menu - @c menus
-     *
-     * @returns Static default for the specified resource.  You
-     *          should probably be using locate() or locateLocal()
-     *          instead.
-     * @see locate()
-     * @see locateLocal()
-     */
-#ifndef KDE_NO_DEPRECATED
-    static KDE_DEPRECATED QString kde_default(const char *type);
-#endif
 
     /**
      * @internal (for use by sycoca only)

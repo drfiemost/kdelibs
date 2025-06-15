@@ -532,20 +532,6 @@ public:
     void setReadOnly( bool );
 
     /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString size() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setSize( const DOMString & );
-#endif
-
-    /**
      * Size information. The precise meaning is specific to each type
      * of field. See the <a
      * href="http://www.w3.org/TR/REC-html40/interact/forms.html#adef-size-INPUT">

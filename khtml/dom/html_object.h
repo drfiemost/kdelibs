@@ -165,20 +165,6 @@ public:
     void setHspace( long );
 
     /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString hspace() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setHspace( const DOMString &value );
-#endif
-
-    /**
      * The name of the applet. See the <a
      * href="http://www.w3.org/TR/REC-html40/struct/objects.html#adef-name-APPLET">
      * name attribute definition </a> in HTML 4.0. This attribute is
@@ -220,20 +206,6 @@ public:
       * see vspace
       */
     void setVspace( long );
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString vspace() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setVspace( const DOMString & );
-#endif
 
     /**
      * Override width. See the <a
@@ -425,20 +397,6 @@ public:
     void setHspace( long );
 
     /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString hspace() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setHspace( const DOMString & );
-#endif
-
-    /**
      * Form control or object name when submitted with a form. See the
      * <a
      * href="http://www.w3.org/TR/REC-html40/interact/forms.html#adef-name-INPUT">
@@ -520,20 +478,6 @@ public:
       * see vspace
       */
     void setVspace( long );
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString vspace() const;
-#endif
-
-    /**
-     * @deprecated
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED void setVspace( const DOMString & );
-#endif
 
     /**
      * Override width. See the <a

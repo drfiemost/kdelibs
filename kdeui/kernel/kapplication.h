@@ -249,18 +249,6 @@ public:
   void setTopWidget( QWidget *topWidget );
 
   /**
-   * Get a file name in order to make a temporary copy of your document.
-   *
-   * @param pFilename The full path to the current file of your
-   * document.
-   * @return A new filename for auto-saving.
-   * @deprecated use KTemporaryFile, KSaveFile or KAutoSaveFile instead
-   */
-#ifndef KDE_NO_DEPRECATED
-  static KDE_DEPRECATED QString tempSaveName( const QString& pFilename );
-#endif
-
-  /**
    * Check whether  an auto-save file exists for the document you want to
    * open.
    *
@@ -270,17 +258,6 @@ public:
    * @return The full path of the file to open.
    */
   static QString checkRecoverFile( const QString& pFilename, bool& bRecover );
-
-#ifdef KDE3_SUPPORT
-#ifdef Q_WS_X11
-  /**
-   * Get the X11 display
-   * @return the X11 Display
-   * @deprecated use QX11Info::display()
-   */
-  static inline KDE_DEPRECATED Display *getDisplay() { return QX11Info::display(); }
-#endif
-#endif
 
   /**
    *  Installs widget filter as global X11 event filter.
@@ -298,23 +275,6 @@ public:
    * installX11EventFilter().
    */
   void removeX11EventFilter( const QWidget* filter );
-
-#ifdef KDE3_SUPPORT
-  /**
-   * Generates a uniform random number.
-   * @return A truly unpredictable number in the range [0, RAND_MAX)
-   * @deprecated Use KRandom::random()
-   */
-  static inline KDE_DEPRECATED int random() { return KRandom::random(); }
-
-  /**
-   * Generates a random string.  It operates in the range [A-Za-z0-9]
-   * @param length Generate a string of this length.
-   * @return the random string
-   * @deprecated use KRandom::randomString() instead.
-   */
-  static inline KDE_DEPRECATED QString randomString(int length) { return KRandom::randomString(length); }
-#endif
 
   /**
    * Returns the app startup notification identifier for this running

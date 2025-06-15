@@ -134,13 +134,6 @@ public:
     DOMString parsedUrl() const;
 
     /**
-     * @deprecated, use parsedUrl()
-     */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED DOMString trimSpaces() const;
-#endif
-
-    /**
      * @internal get a handle to the imlementation of the DOMString
      * Use at own risk!!!
      */
