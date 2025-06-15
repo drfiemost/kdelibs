@@ -658,17 +658,6 @@ install( FILES
 DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/KMediaPlayer COMPONENT Devel)
 
 
-if(NOT KDE_NO_DEPRECATED)
-install( FILES
-  KNS/Author
-  KNS/Category
-  KNS/Engine
-  KNS/Entry
-  KNS/Installation
-  KNS/KTranslatable
-DESTINATION ${INCLUDE_INSTALL_DIR}/KDE/KNS COMPONENT Devel)
-endif(NOT KDE_NO_DEPRECATED)
-
 install( FILES
   KNetwork/KActiveSocketBase
   KNetwork/KBufferedSocket
