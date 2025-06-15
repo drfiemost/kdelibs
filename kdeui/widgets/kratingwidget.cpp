@@ -59,14 +59,6 @@ KRatingWidget::~KRatingWidget()
 }
 
 
-#ifndef KDE_NO_DEPRECATED
-void KRatingWidget::setPixmap( const QPixmap& pix )
-{
-    setCustomPixmap( pix );
-}
-#endif
-
-
 void KRatingWidget::setCustomPixmap( const QPixmap& pix )
 {
     d->ratingPainter.setCustomPixmap( pix );
@@ -151,14 +143,6 @@ bool KRatingWidget::halfStepsEnabled() const
 }
 
 
-#ifndef KDE_NO_DEPRECATED
-void KRatingWidget::setRating( unsigned int rating )
-{
-    setRating( (int)rating );
-}
-#endif
-
-
 void KRatingWidget::setRating( int rating )
 {
     if ( rating != d->rating ) {
@@ -169,14 +153,6 @@ void KRatingWidget::setRating( int rating )
         update();
     }
 }
-
-
-#ifndef KDE_NO_DEPRECATED
-void KRatingWidget::setMaxRating( unsigned int max )
-{
-    setMaxRating( (int)max );
-}
-#endif
 
 
 void KRatingWidget::setMaxRating( int max )
@@ -191,14 +167,6 @@ void KRatingWidget::setHalfStepsEnabled( bool enabled )
     d->ratingPainter.setHalfStepsEnabled( enabled );
     update();
 }
-
-
-#ifndef KDE_NO_DEPRECATED
-void KRatingWidget::setOnlyPaintFullSteps( bool fs )
-{
-    setHalfStepsEnabled( !fs );
-}
-#endif
 
 
 void KRatingWidget::mousePressEvent( QMouseEvent* e )

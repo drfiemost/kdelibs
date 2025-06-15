@@ -316,34 +316,6 @@ QColor KTabWidget::tabTextColor( int index ) const
   return tabBar()->tabTextColor( index );
 }
 
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::setTabReorderingEnabled( bool on)
-{
-  static_cast<KTabBar*>(tabBar())->setTabReorderingEnabled( on );
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KTabWidget::isTabReorderingEnabled() const
-{
-  return static_cast<KTabBar*>(tabBar())->isTabReorderingEnabled();
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::setTabCloseActivatePrevious( bool previous)
-{
-  static_cast<KTabBar*>(tabBar())->setTabCloseActivatePrevious( previous );
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KTabWidget::tabCloseActivatePrevious() const
-{
-  return static_cast<KTabBar*>(tabBar())->tabCloseActivatePrevious();
-}
-#endif
-
 int KTabWidget::tabBarWidthForMaxChars( int maxLength )
 {
   int hframe  = tabBar()->style()->pixelMetric( QStyle::PM_TabBarTabHSpace, 0L, tabBar() );
@@ -360,12 +332,6 @@ int KTabWidget::tabBarWidthForMaxChars( int maxLength )
     if ( !tabBar()->tabIcon( i ).isNull() ) {
       iw = tabBar()->tabIcon( i ).pixmap( style()->pixelMetric( QStyle::PM_SmallIconSize ), QIcon::Normal ).width() + 4;
     }
-#ifndef KDE_NO_DEPRECATED
-    if ( isCloseButtonEnabled() ) {
-      // FIXME: how to get the size of the close button directly from the tabBar()?
-      iw += KIconLoader::SizeSmall * 3 / 2;
-    }
-#endif
     x += ( tabBar()->style()->sizeFromContents( QStyle::CT_TabBarTab, 0L,
          QSize( std::max( lw + hframe + iw, QApplication::globalStrut().width() ), 0 ),
          this ) ).width();
@@ -590,10 +556,6 @@ void KTabWidget::moveTab( int from, int to )
   blockSignals( blocked );
 
   setUpdatesEnabled(true);
-
-#ifndef KDE_NO_DEPRECATED
-  emit ( movedTab( from, to ) );
-#endif
 }
 
 void KTabWidget::removePage( QWidget *widget )
@@ -620,52 +582,6 @@ void KTabWidget::removeTab( int index )
     d->removeTab( index );
   }
 }
-
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::setHoverCloseButton( bool button )
-{
-  // deprecated
-  setTabsClosable( button );
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KTabWidget::hoverCloseButton() const
-{
-  // deprecated
-  return false;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::setHoverCloseButtonDelayed( bool delayed )
-{
-  // deprecated
-  Q_UNUSED( delayed );
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KTabWidget::hoverCloseButtonDelayed() const
-{
-  // deprecated
-  return tabsClosable();
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::setCloseButtonEnabled( bool enable )
-{
-  static_cast<KTabBar*>( tabBar() )->setTabsClosable( enable );
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KTabWidget::isCloseButtonEnabled() const
-{
-  return static_cast<KTabBar*>( tabBar() )->tabsClosable();
-}
-#endif
 
 void KTabWidget::setAutomaticResizeTabs( bool enabled )
 {
@@ -714,12 +630,5 @@ void KTabWidget::tabRemoved( int idx )
   Q_UNUSED(idx)
 // d->m_tabNames is now updated in KTabWidget::Private::removeTab()
 }
-
-/* This function is kept only for BC reasons, it is not useful anymore */
-#ifndef KDE_NO_DEPRECATED
-void KTabWidget::currentChanged( int )
-{
-}
-#endif
 
 #include "ktabwidget.moc"

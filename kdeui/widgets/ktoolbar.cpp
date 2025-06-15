@@ -94,9 +94,6 @@ class KToolBar::Private
     Private(KToolBar *qq)
       : q(qq),
         isMainToolBar(false),
-#ifndef KDE_NO_DEPRECATED
-        enableContext(true),
-#endif
         unlockedMovable(true),
         contextOrient(0),
         contextMode(0),
@@ -150,9 +147,6 @@ class KToolBar::Private
 
     KToolBar *q;
     bool isMainToolBar : 1;
-#ifndef KDE_NO_DEPRECATED
-    bool enableContext : 1;
-#endif
     bool unlockedMovable : 1;
     static bool s_editable;
     static bool s_locked;
@@ -813,20 +807,6 @@ KToolBar::~KToolBar()
   delete d;
 }
 
-#ifndef KDE_NO_DEPRECATED
-void KToolBar::setContextMenuEnabled(bool enable)
-{
-  d->enableContext = enable;
-}
-#endif
-
-#ifndef KDE_NO_DEPRECATED
-bool KToolBar::contextMenuEnabled() const
-{
-  return d->enableContext;
-}
-#endif
-
 void KToolBar::saveSettings(KConfigGroup &cg)
 {
     Q_ASSERT(!cg.name().isEmpty());
@@ -855,14 +835,6 @@ void KToolBar::saveSettings(KConfigGroup &cg)
     }
 }
 
-#ifndef KDE_NO_DEPRECATED
-void KToolBar::setXMLGUIClient(KXMLGUIClient *client)
-{
-    d->xmlguiClients.clear();
-    d->xmlguiClients << client;
-}
-#endif
-
 void KToolBar::addXMLGUIClient( KXMLGUIClient *client )
 {
     d->xmlguiClients << client;
@@ -875,20 +847,6 @@ void KToolBar::removeXMLGUIClient( KXMLGUIClient *client )
 
 void KToolBar::contextMenuEvent(QContextMenuEvent* event)
 {
-#ifndef KDE_NO_DEPRECATED
-    if (mainWindow() && d->enableContext) {
-        QPointer<KToolBar> guard(this);
-        const QPoint globalPos = event->globalPos();
-        d->contextMenu(globalPos)->exec(globalPos);
-
-        // "Configure Toolbars" recreates toolbars, so we might not exist anymore.
-        if (guard) {
-            d->slotContextAboutToHide();
-        }
-        return;
-    }
-#endif
-
     QToolBar::contextMenuEvent(event);
 }
 

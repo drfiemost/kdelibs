@@ -104,17 +104,6 @@ public:
       */
     bool sortCategoriesByNaturalComparison() const;
 
-    /**
-      * Does a natural comparing of the strings. A negative value is returned if \a a
-      * is smaller than \a b. A positive value is returned if \a a is greater than \a b. 0
-      * is returned if both values are equal.
-      * @deprecated
-      * Use KStringHandler::naturalCompare() instead.
-      */
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED static int naturalCompare(const QString &a, const QString &b);
-#endif
-
 protected:
     /**
       * Overridden from QSortFilterProxyModel. If you are subclassing
