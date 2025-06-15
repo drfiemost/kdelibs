@@ -51,7 +51,7 @@ template<class Type>
 class PositionedVector : public Vector<Type>
 {
 public:
-    PositionedVector<Type>()
+    PositionedVector()
         : m_position(0)
     {
     }

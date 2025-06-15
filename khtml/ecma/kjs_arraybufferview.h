@@ -104,7 +104,7 @@ namespace KJS {
     template <class T, class U>
     class ArrayBufferViewProtoFunc : public KJS::InternalFunctionImp {
     public:
-        ArrayBufferViewProtoFunc<T, U>(KJS::ExecState* exec, int i, int len, const KJS::Identifier& name)
+        ArrayBufferViewProtoFunc(KJS::ExecState* exec, int i, int len, const KJS::Identifier& name)
             : InternalFunctionImp(static_cast<KJS::FunctionPrototype*>(exec->lexicalInterpreter()->builtinFunctionPrototype()), name), id(i) {
             put(exec, exec->propertyNames().length, KJS::jsNumber(len), KJS::DontDelete|KJS::ReadOnly|KJS::DontEnum);
         }
