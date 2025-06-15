@@ -101,19 +101,6 @@ namespace KIO
   KIO_EXPORT QString convertSeconds( unsigned int seconds );
 
   /**
-   * Calculates remaining time from total size, processed size and speed.
-   * Warning: As QTime is limited to 23:59:59, use calculateRemainingSeconds() instead
-   *
-   * @param  totalSize      total size in bytes
-   * @param  processedSize  processed size in bytes
-   * @param  speed          speed in bytes per second
-   * @return calculated remaining time
-   */
-#ifndef KDE_NO_DEPRECATED
-  KIO_EXPORT_DEPRECATED QTime calculateRemaining( KIO::filesize_t totalSize, KIO::filesize_t processedSize, KIO::filesize_t speed );
-#endif
-
-  /**
    * Helper for showing information about a set of files and directories
    * @param items the number of items (= @p files + @p dirs + number of symlinks :)
    * @param files the number of files

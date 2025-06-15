@@ -165,20 +165,6 @@ namespace KIO {
                                          int method = -1) const;
 
         /**
-         * Display a dialog box to inform the user of the error given by
-         * this job.
-         * Only call if error is not 0, and only in the slot connected
-         * to result.
-         * @param parent the parent widget for the dialog box, can be 0 for
-         *        top-level
-         * @deprecated you should use job->uiDelegate()->setWindow(parent)
-         *             and job->uiDelegate()->showErrorMessage() instead
-         */
-#ifndef KDE_NO_DEPRECATED
-        KDE_DEPRECATED void showErrorDialog( QWidget *parent = 0 );
-#endif
-
-        /**
          * Returns whether the user should be asked about things when the job
          * is unsure, like whether to overwrite existing files etc.
          * @return true if user interactions are enabled (true by default),
@@ -459,17 +445,6 @@ namespace KIO {
         void setSide(StatSide side);
 
         /**
-         * A stat() can have two meanings. Either we want to read from this URL,
-         * or to check if we can write to it. First case is "source", second is "dest".
-         * It is necessary to know what the StatJob is for, to tune the kioslave's behavior
-         * (e.g. with FTP).
-         * @param source true for "source" mode, false for "dest" mode
-         */
-#ifndef KDE_NO_DEPRECATED
-        KDE_DEPRECATED void setSide( bool source );
-#endif
-
-        /**
          * Selects the level of @p details we want.
          * By default this is 2 (all details wanted, including modification time, size, etc.),
          * setDetails(1) is used when deleting: we don't need all the information if it takes
@@ -587,29 +562,6 @@ namespace KIO {
          * Sending an empty block indicates end of data.
          */
         void sendAsyncData(const QByteArray &data);
-
-        /**
-         * When enabled, the job reports the amount of data that has been sent,
-         * instead of the amount of data that that has been received.
-         * @see slotProcessedSize
-         * @see slotSpeed
-         * @deprecated not needed, this is false for KIO::get and true for KIO::put,
-         *             automatically since KDE-4.2.1
-         */
-#ifndef KDE_NO_DEPRECATED
-        KDE_DEPRECATED void setReportDataSent(bool enabled);
-#endif
-
-        /**
-         *  Returns whether the job reports the amount of data that has been
-         *  sent (true), or whether the job reports the amount of data that
-         * has been received (false)
-         * @deprecated not needed, this is false for KIO::get and true for KIO::put,
-         *             automatically since KDE-4.2.1 (and not useful as public API)
-         */
-#ifndef KDE_NO_DEPRECATED
-        KDE_DEPRECATED bool reportDataSent() const;
-#endif
 
         /**
          * Call this in the slot connected to result,

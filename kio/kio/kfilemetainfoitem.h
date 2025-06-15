@@ -85,14 +85,6 @@ public:
      **/
     bool isValid() const;
     /**
-     * @brief Retrieve the properties of this field type.
-     *
-     * @deprecated
-     **/
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED const PredicateProperties& properties() const;
-#endif
-    /**
      * Localized name of the predicate.
      **/
     const QString& name() const;

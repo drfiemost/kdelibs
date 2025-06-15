@@ -137,21 +137,9 @@ public:
      * Deprecated
      **/
     QStringList supportedKeys() const;
-    KIO_EXPORT friend QDataStream& operator >>(QDataStream& s, KFileMetaInfo& )
-;
+    KIO_EXPORT friend QDataStream& operator >>(QDataStream& s, KFileMetaInfo& );
     KIO_EXPORT friend QDataStream& operator <<(QDataStream& s, const KFileMetaInfo&);
-    /**
-     * Deprecated
-     **/
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED KFileMetaInfoGroupList preferredGroups() const;
-#endif
-    /**
-     * Deprecated
-     **/
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED KFileMetaInfoGroupList supportedGroups() const;
-#endif
+
     KFileMetaInfoGroupList groups() const;
     QStringList keys() const;
     const KUrl& url() const;

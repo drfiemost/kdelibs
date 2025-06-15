@@ -24,10 +24,6 @@
 #include "kurl.h"
 #include <config-kio.h>
 
-#ifndef KDE_NO_DEPRECATED
-#include <predicateproperties.h>
-#endif
-
 #include <QtCore/QHash>
 #include <QtCore/QSharedData>
 
@@ -36,9 +32,6 @@ class KFileWritePlugin;
 class KFileMetaInfoItemPrivate : public QSharedData {
 public:
     KFileMetaInfoItemPrivate() : writer(0) {}
-#ifndef KDE_NO_DEPRECATED
-    PredicateProperties pp;
-#endif
     KUrl propertyUri;
     QVariant value;
     KFileWritePlugin* writer;

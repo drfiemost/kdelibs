@@ -30,9 +30,6 @@ KFileMetaInfoItem::KFileMetaInfoItem(const KFileMetaInfoItem& item) : d(item.d) 
 KFileMetaInfoItem::KFileMetaInfoItem(const QString& pp,
                                      const QVariant& v, KFileWritePlugin* w, bool e)
     : d(new KFileMetaInfoItemPrivate()) {
-#ifndef KDE_NO_DEPRECATED
-    d->pp = pp;
-#endif
     d->value = v;
     d->writer = w;
     d->embedded = e;
@@ -47,11 +44,7 @@ KFileMetaInfoItem::operator=(const KFileMetaInfoItem& item) {
 }
 const QString&
 KFileMetaInfoItem::name() const {
-#ifndef KDE_NO_DEPRECATED
-    return d->pp.name();
-#else
     return QString::null;
-#endif
 }
 const QVariant&
 KFileMetaInfoItem::value() const {
@@ -91,12 +84,6 @@ KFileMetaInfoItem::isSkipped() const {
     // ########## TODO implement (vandenoever)
     return false;
 }
-#ifndef KDE_NO_DEPRECATED
-const PredicateProperties&
-KFileMetaInfoItem::properties() const {
-    return d->pp;
-}
-#endif
 bool
 KFileMetaInfoItem::isEditable() const {
     return d->writer != 0;

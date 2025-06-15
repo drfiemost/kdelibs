@@ -684,9 +684,6 @@ public:
     QMap<QObject *,WId> m_windowList;
 
     void doJob(SimpleJob *job);
-#ifndef KDE_NO_DEPRECATED
-    void scheduleJob(SimpleJob *job);
-#endif
     void setJobPriority(SimpleJob *job, int priority);
     void cancelJob(SimpleJob *job);
     void jobFinished(KIO::SimpleJob *job, KIO::Slave *slave);
@@ -794,13 +791,6 @@ void Scheduler::doJob(SimpleJob *job)
 {
     schedulerPrivate->doJob(job);
 }
-
-#ifndef KDE_NO_DEPRECATED
-void Scheduler::scheduleJob(SimpleJob *job)
-{
-    schedulerPrivate->scheduleJob(job);
-}
-#endif
 
 void Scheduler::setJobPriority(SimpleJob *job, int priority)
 {
@@ -976,14 +966,6 @@ void SchedulerPrivate::doJob(SimpleJob *job)
     ProtoQueue *proto = protoQ(jobPriv->m_protocol, job->url().host());
     proto->queueJob(job);
 }
-
-#ifndef KDE_NO_DEPRECATED
-void SchedulerPrivate::scheduleJob(SimpleJob *job)
-{
-    kDebug(7006) << job;
-    setJobPriority(job, 1);
-}
-#endif
 
 void SchedulerPrivate::setJobPriority(SimpleJob *job, int priority)
 {
