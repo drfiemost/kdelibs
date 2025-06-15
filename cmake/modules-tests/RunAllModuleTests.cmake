@@ -43,7 +43,6 @@ else(DEFINED MODULE)
                      LibXslt 
                      OpenEXR 
                      PCRE 
-                     QCA2 
                      QImageBlitz
                      Sqlite 
                      USB 

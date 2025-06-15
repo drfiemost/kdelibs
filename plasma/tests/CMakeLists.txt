@@ -25,8 +25,4 @@ if(QT_QTOPENGL_FOUND)
    target_link_libraries(storagetest ${QT_QTOPENGL_LIBRARY})
 endif(QT_QTOPENGL_FOUND)
 
-if(QCA2_FOUND)
-  target_link_libraries(plasmoidpackagetest ${QCA2_LIBRARIES})
-endif(QCA2_FOUND)
-
 

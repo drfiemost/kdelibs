@@ -189,17 +189,10 @@ Applet *AccessAppletJob::applet() const
 
 void AccessAppletJob::start()
 {
-#ifdef ENABLE_REMOTE_WIDGETS
-    kDebug() << "fetching a plasmoid from location = " << d->location.prettyUrl();
-    Service *service = Service::access(d->location);
-    connect(service, SIGNAL(serviceReady(Plasma::Service*)),
-            this, SLOT(slotServiceReady(Plasma::Service*)));
-#else
     kWarning() << "libplasma was compiled without support for remote services. Accessing remote applet failed because of that.";
     setError(-1);
     setErrorText(i18n("Your system does not provide support for the 'remote widgets' feature. Access Failed."));
     emitResult();
-#endif
 }
 
 } // namespace Plasma

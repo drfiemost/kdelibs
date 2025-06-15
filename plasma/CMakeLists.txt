@@ -44,10 +44,6 @@ if (NOT PLASMA_NO_KUTILS)
     set(PLASMA_EXTRA_LIBS ${PLASMA_EXTRA_LIBS} ${KDE4_KUTILS_LIBS})
 endif(NOT PLASMA_NO_KUTILS)
 
-if(QCA2_FOUND)
-    include_directories(${QCA2_INCLUDE_DIR})
-    set(ENABLE_REMOTE_WIDGETS TRUE)
-endif(QCA2_FOUND)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config-plasma.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-plasma.h)
 
 add_subdirectory(tests)
@@ -249,10 +245,6 @@ kde4_add_library(plasma ${LIBRARY_TYPE} ${plasma_LIB_SRCS})
 target_link_libraries(plasma LINK_PRIVATE Qt4::QtUiTools Qt4::QtScript
                             Qt4::QtNetwork Qt4::QtXml Qt4::QtSql Qt4::QtDeclarative
                             ${KDE4_KDEUI_LIBS} ${KDE4_KDNSSD_LIBS} ${KDE4_THREADWEAVER_LIBS} ${PLASMA_EXTRA_LIBS})
-
-if(QCA2_FOUND)
-   target_link_libraries(plasma LINK_PRIVATE ${QCA2_LIBRARIES})
-endif(QCA2_FOUND)
 
 if(X11_FOUND)
    target_link_libraries(plasma LINK_PRIVATE ${X11_LIBRARIES})

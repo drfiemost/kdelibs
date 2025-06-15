@@ -105,15 +105,7 @@ AccessManagerPrivate::AccessManagerPrivate(AccessManager *manager)
     : q(manager),
       browser(new DNSSD::ServiceBrowser("_plasma._tcp"))
 {
-#ifdef ENABLE_REMOTE_WIDGETS
-    q->connect(browser, SIGNAL(serviceAdded(DNSSD::RemoteService::Ptr)),
-               q, SLOT(slotAddService(DNSSD::RemoteService::Ptr)));
-    q->connect(browser, SIGNAL(serviceRemoved(DNSSD::RemoteService::Ptr)),
-               q, SLOT(slotRemoveService(DNSSD::RemoteService::Ptr)));
-    browser->startBrowse();
-#else
     kWarning() << "libplasma is compiled without support for remote widgets. not monitoring remote widgets on the network";
-#endif
 }
 
 AccessManagerPrivate::~AccessManagerPrivate()

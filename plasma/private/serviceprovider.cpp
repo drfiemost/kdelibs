@@ -37,10 +37,6 @@
 
 #include <QtJolie/Server>
 
-#ifdef ENABLE_REMOTE_WIDGETS
-#include <QtCrypto>
-#endif
-
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
@@ -307,13 +303,10 @@ Jolie::Message ServiceProvider::appendToken(Jolie::Message message,
                                             const QByteArray &caller,
                                             const QByteArray &uuid)
 {
-#ifdef ENABLE_REMOTE_WIDGETS
-    m_tokens[caller + uuid] = QCA::Random::randomArray(256).toByteArray();
-#endif
     //kDebug() << "setting token: " << m_tokens[caller + uuid].toBase64()
              //<< " for caller: " << caller.toBase64()
              //<< " with uuid caller: " << uuid.toBase64();
-    
+
     Jolie::Value data = message.data();
     data.children(JolieMessage::Field::TOKEN) << Jolie::Value(m_tokens[caller + uuid]);
     message.setData(data);
