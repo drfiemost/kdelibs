@@ -148,7 +148,6 @@ install( FILES
   rgb.desktop
   xcf.desktop
   dds.desktop
-  mng.desktop
   psd.desktop
   hdr.desktop
   tiff.desktop
