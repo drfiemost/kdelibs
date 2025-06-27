@@ -202,7 +202,6 @@ install( FILES
   KLanguageButton
   KLed
   KLibFactory
-  KLibLoader
   KLibrary
   KLineEdit
   KLinkItemSelectionModel
