@@ -142,7 +142,7 @@ private:
     KShapeGesturePrivate * const d;
 };
 
-uint qHash(int, uint);
+constexpr uint qHash(int, uint);
 inline uint qHash(const KShapeGesture &key, uint seed = 0)
 {
     return qHash(key.hashable(), seed);
