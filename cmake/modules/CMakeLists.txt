@@ -25,7 +25,6 @@ set(cmakeFiles
                FindAlsa.cmake
                FindAutomoc4.cmake
                FindAvahi.cmake
-               FindBerkeleyDB.cmake
                FindBlitz.cmake
                FindBlueZ.cmake
                FindCarbon.cmake
@@ -44,14 +43,12 @@ set(cmakeFiles
                FindGSSAPI.cmake
                FindGStreamer.cmake
                FindGettext.cmake
-               FindGphoto2.cmake
                FindHUNSPELL.cmake
                FindIOKit.cmake
                FindKDE4Internal.cmake
                FindKDE4Workspace.cmake
                FindKdcraw.cmake
                FindKexiv2.cmake
-               FindKipi.cmake
                FindLCMS.cmake
                FindLibArt.cmake
                FindLibKonq.cmake
@@ -69,7 +66,6 @@ set(cmakeFiles
                FindPhonon.cmake
                FindPlasma.cmake
                FindPopplerQt4.cmake
-               FindPulseAudio.cmake
                FindPyKDE4.cmake
                FindPyQt4.cmake
                Qt4Macros.cmake
@@ -85,7 +81,6 @@ set(cmakeFiles
                FindSqlite.cmake
                FindTaglib.cmake
                FindUSB.cmake
-               FindWcecompat.cmake
                FindX11.cmake
                FindXKB.cmake
                FindXine.cmake
