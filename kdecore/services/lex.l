@@ -10,7 +10,7 @@ char* KTraderParse_putSymbol( char *_name );
 char *KTraderParse_putSymbolInBrackets( char *_name );
 char* KTraderParse_putString( char *_name );
 double KTraderParse_putSimplePositiveFloat( char *_name );
-int yywrap();
+int yywrap( yyscan_t yyscanner );
 int kiotraderlex(YYSTYPE * yylval, yyscan_t scanner);
 void KTraderParse_initFlex( const char *_code, yyscan_t _scanner );
 
