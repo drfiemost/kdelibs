@@ -29,65 +29,6 @@ class QModelIndex;
 
 namespace KTextEditor {
 class View;
-/**
- * \short Controller interface for a CodeCompletionModel
- *
- * \ingroup kte_group_ccmodel_extensions
- *
- * The CodeCompletionModelControllerInterface gives an CodeCompletionModel better
- * control over the completion.
- *
- * By implementing methods defined in this interface you can:
- * - control when automatic completion should start (shouldStartCompletion())
- * - define a custom completion range (that will be replaced when the completion 
- *   is executed) (completionRange())
- * - dynamically modify the completion range during completion (updateCompletionRange())
- * - specify the string used for filtering the completion (filterString())
- * - control when completion should stop (shouldAbortCompletion())
- *
- * When the interface is not implemented, or no methods are overridden the
- * default behaviour is used, which will be correct in many situations.
- * 
- *
- * \section markext_access Implemeting the Interface
- * To use this class implement it in your CodeCompletionModel.
- *
- * \code
- * class MyCodeCompletion : public KTextEditor::CodeCompletionTestModel,
-                    public KTextEditor::CodeCompletionModelControllerInterface
- * {
- *   Q_OBJECT
- *   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
- * public:
- *   KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position);
- * };
- * \endcode
- *
- * \see CodeCompletionModel
- * \author Niko Sams \<niko.sams@gmail.com\>
- * \since 4.2
- */
-class KTEXTEDITOR_EXPORT_DEPRECATED CodeCompletionModelControllerInterface
-{
-public:
-    CodeCompletionModelControllerInterface();
-    virtual ~CodeCompletionModelControllerInterface();
-
-    /**
-     * This function decides if the automatic completion should be started when
-     * the user entered some text.
-     *
-     * The default implementation will return true if the last character in
-     * \p insertedText is a letter, a number, '.', '_' or '\>'
-     *
-     * \param view The view to generate completions for
-     * \param insertedText The text that was inserted by the user
-     * \param userInsertion Whether the the text was inserted by the user using typing.
-     *                      If false, it may have been inserted for example by code-completion.
-     * \param position Current cursor position
-     * \return \e true, if the completion should be started, otherwise \e false
-     */
-    virtual bool shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position);
 
     /**
      * This function returns the completion range that will be used for the
@@ -165,22 +106,6 @@ public:
      */
     virtual void aborted(View* view);
 };
-
-///Extension of CodeCompletionModelControllerInterface
-class KTEXTEDITOR_EXPORT_DEPRECATED CodeCompletionModelControllerInterface2 : public CodeCompletionModelControllerInterface {
-  public:
-    enum MatchReaction {
-      None,
-      HideListIfAutomaticInvocation /** If this is returned, the completion-list is hidden if it was invoked automatically */
-    };
-    /**
-     * Called whenever an item in the completion-list perfectly matches the current filter text.
-     * \param The index that is matched
-     * \return Whether the completion-list should be hidden on this event. The default-implementation always returns HideListIfAutomaticInvocation
-     */
-    virtual MatchReaction matchingItem(const QModelIndex& matched);
-};
-
 
 
 //BEGIN V3
@@ -339,11 +264,6 @@ public:
 
 
 }
-
-#ifndef KTEXTEDITOR_NO_DEPRECATED
-Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface, "org.kde.KTextEditor.CodeCompletionModelControllerInterface")
-Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface2, "org.kde.KTextEditor.CodeCompletionModelControllerInterface2")
-#endif
 
 Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface3, "org.kde.KTextEditor.CodeCompletionModelControllerInterface3")
 
