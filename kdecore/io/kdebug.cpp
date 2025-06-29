@@ -513,14 +513,18 @@ struct KDebugPrivate
 
     QDebug printHeader(QDebug s, const QByteArray &areaName, const char * file, int line, const char *funcinfo, QtMsgType type, bool colored)
     {
+        s = s.nospace();
+        const QString sformat = QString::fromLatin1("yy/MM/dd hh:mm:ss.zzz");
+        s << qPrintable(QDateTime::currentDateTime().toString(sformat));
+        s << " - ";
+
 #ifdef KDE_EXTENDED_DEBUG_OUTPUT
         static bool printProcessInfo = (qgetenv("KDE_DEBUG_NOPROCESSINFO").isEmpty());
         static bool printAreaName = (qgetenv("KDE_DEBUG_NOAREANAME").isEmpty());
         static bool printMethodName = (qgetenv("KDE_DEBUG_NOMETHODNAME").isEmpty());
         static bool printFileLine = (!qgetenv("KDE_DEBUG_FILELINE").isEmpty());
-
+/*
         static int printTimeStamp = qgetenv("KDE_DEBUG_TIMESTAMP").toInt();
-        QByteArray programName;
         s = s.nospace();
         if (printTimeStamp > 0) {
             if (printTimeStamp >= 2) {
@@ -533,7 +537,8 @@ struct KDebugPrivate
             }
             s << ' ';
         }
-
+*/
+        QByteArray programName;
         if (printProcessInfo) {
             programName = cache.value(0).name;
             if (programName.isEmpty()) {
