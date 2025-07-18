@@ -34,7 +34,7 @@ ThumbCreatorV2::~ThumbCreatorV2()
 
 QWidget *ThumbCreatorV2::createConfigurationWidget()
 {
-    return 0;
+    return nullptr;
 }
 
 void ThumbCreatorV2::writeConfiguration(const QWidget *configurationWidget)

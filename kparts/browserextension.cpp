@@ -127,12 +127,12 @@ BrowserArguments::BrowserArguments()
 {
   softReload = false;
   trustedSource = false;
-  d = 0; // Let's build it on demand for now
+  d = nullptr; // Let's build it on demand for now
 }
 
 BrowserArguments::BrowserArguments( const BrowserArguments &args )
 {
-  d = 0;
+  d = nullptr;
   (*this) = args;
 }
 
@@ -140,7 +140,8 @@ BrowserArguments &BrowserArguments::operator=(const BrowserArguments &args)
 {
   if (this == &args) return *this;
 
-  delete d; d= 0;
+  delete d;
+  d = nullptr;
 
   softReload = args.softReload;
   postData = args.postData;
@@ -157,7 +158,7 @@ BrowserArguments &BrowserArguments::operator=(const BrowserArguments &args)
 BrowserArguments::~BrowserArguments()
 {
   delete d;
-  d = 0;
+  d = nullptr;
 }
 
 void BrowserArguments::setContentType( const QString & contentType )
@@ -792,11 +793,11 @@ BrowserHostExtension::findFrameParent(KParts::ReadOnlyPart *callingPart, const Q
 {
     Q_UNUSED(callingPart);
     Q_UNUSED(frame);
-    return 0;
+    return nullptr;
 }
 
 LiveConnectExtension::LiveConnectExtension( KParts::ReadOnlyPart *parent )
- : QObject( parent ), d( 0 ) {}
+ : QObject( parent ), d( nullptr ) {}
 
 LiveConnectExtension::~LiveConnectExtension() {}
 

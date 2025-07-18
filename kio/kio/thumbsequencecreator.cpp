@@ -21,9 +21,9 @@
 
 class ThumbSequenceCreator::Private {
 public:
-    Private() : sequenceIndex(0) {
+    Private() : sequenceIndex(0.f) {
     }
-  
+
     float sequenceIndex;
 };
 
