@@ -299,7 +299,7 @@ KMenu *KToolBar::Private::contextMenu(const QPoint &globalPos)
     contextBottom = contextOrient->addAction(i18nc("toolbar position string", "Bottom"), q, SLOT(slotContextBottom()));
 
     QActionGroup* positionGroup = new QActionGroup(contextOrient);
-    foreach (QAction* action, contextOrient->actions()) {
+    for (QAction* action: contextOrient->actions()) {
       action->setActionGroup(positionGroup);
       action->setCheckable(true);
     }
@@ -312,7 +312,7 @@ KMenu *KToolBar::Private::contextMenu(const QPoint &globalPos)
     contextTextUnder = contextMode->addAction(i18n("Text Under Icons"), q, SLOT(slotContextTextUnder()));
 
     QActionGroup* textGroup = new QActionGroup(contextMode);
-    foreach (QAction* action, contextMode->actions()) {
+    for (QAction* action: contextMode->actions()) {
       action->setActionGroup(textGroup);
       action->setCheckable(true);
     }
@@ -333,7 +333,7 @@ KMenu *KToolBar::Private::contextMenu(const QPoint &globalPos)
 
     if (avSizes.count() < 10) {
       // Fixed or threshold type icons
-      foreach (int it, avSizes) {
+      for (int it: avSizes) {
         QString text;
         if (it < 19)
           text = i18n("Small (%1x%2)", it, it);
@@ -352,7 +352,7 @@ KMenu *KToolBar::Private::contextMenu(const QPoint &globalPos)
       const int progression[] = { 16, 22, 32, 48, 64, 96, 128, 192, 256 };
 
       for (uint i = 0; i < 9; i++) {
-        foreach (int it, avSizes) {
+        for (int it: avSizes) {
           if (it >= progression[ i ]) {
             QString text;
             if (it < 19)
@@ -373,7 +373,7 @@ KMenu *KToolBar::Private::contextMenu(const QPoint &globalPos)
     }
 
     QActionGroup* sizeGroup = new QActionGroup(contextSize);
-    foreach (QAction* action, contextSize->actions()) {
+    for (QAction* action: contextSize->actions()) {
       action->setActionGroup(sizeGroup);
       action->setCheckable(true);
     }
@@ -540,7 +540,7 @@ void KToolBar::Private::applyCurrentSettings()
 
 QAction *KToolBar::Private::findAction(const QString &actionName, KXMLGUIClient **clientOut) const
 {
-    foreach (KXMLGUIClient* client, xmlguiClients) {
+    for (KXMLGUIClient* client: xmlguiClients) {
         QAction* action = client->actionCollection()->action(actionName);
         if (action) {
             if (clientOut) {
@@ -549,7 +549,7 @@ QAction *KToolBar::Private::findAction(const QString &actionName, KXMLGUIClient 
             return action;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 void KToolBar::Private::slotContextAboutToShow()
@@ -1059,8 +1059,8 @@ void KToolBar::dragEnterEvent(QDragEnterEvent *event)
 
     stream >> actionNames;
 
-    foreach (const QString& actionName, actionNames) {
-      foreach (KActionCollection* ac, KActionCollection::allCollections()) {
+    for (const QString& actionName: actionNames) {
+      for (KActionCollection* ac: KActionCollection::allCollections()) {
         QAction* newAction = ac->action(actionName.toLatin1().constData());
         if (newAction) {
           d->actionsBeingDragged.append(newAction);
@@ -1092,10 +1092,10 @@ void KToolBar::dragEnterEvent(QDragEnterEvent *event)
 void KToolBar::dragMoveEvent(QDragMoveEvent *event)
 {
   if (toolBarsEditable())
-    forever {
+    while (true) {
       if (d->dropIndicatorAction) {
         QAction* overAction = 0L;
-        foreach (QAction* action, actions()) {
+        for (QAction* action: actions()) {
           // want to make it feel that half way across an action you're dropping on the other side of it
           QWidget* widget = widgetForAction(action);
           if (event->pos().x() < widget->pos().x() + (widget->width() / 2)) {
@@ -1144,7 +1144,7 @@ void KToolBar::dragLeaveEvent(QDragLeaveEvent *event)
 void KToolBar::dropEvent(QDropEvent *event)
 {
   if (toolBarsEditable()) {
-    foreach (QAction* action, d->actionsBeingDragged) {
+    for (QAction* action: d->actionsBeingDragged) {
       if (actions().contains(action))
         removeAction(action);
       insertAction(d->dropIndicatorAction, action);
@@ -1246,7 +1246,7 @@ bool KToolBar::eventFilter(QObject * watched, QEvent * event)
             if (!this->isAncestorOf(ww)) {
                 // New parent is not a subwidget - remove event filter
                 ww->removeEventFilter(this);
-                foreach (QWidget* child, ww->findChildren<QWidget*>())
+                for (QWidget* child: ww->findChildren<QWidget*>())
                     child->removeEventFilter(this);
             }
         }
@@ -1333,7 +1333,7 @@ void KToolBar::actionEvent(QActionEvent * event)
     if (widget) {
         widget->removeEventFilter(this);
 
-        foreach (QWidget* child, widget->findChildren<QWidget*>())
+        for (QWidget* child: widget->findChildren<QWidget*>())
             child->removeEventFilter(this);
     }
   }
@@ -1345,7 +1345,7 @@ void KToolBar::actionEvent(QActionEvent * event)
     if (widget) {
         widget->installEventFilter(this);
 
-        foreach (QWidget* child, widget->findChildren<QWidget*>())
+        for (QWidget* child: widget->findChildren<QWidget*>())
             child->installEventFilter(this);
         // Center widgets that do not have any use for more space. See bug 165274
         if (!(widget->sizePolicy().horizontalPolicy() & QSizePolicy::GrowFlag)
@@ -1379,8 +1379,8 @@ void KToolBar::setToolBarsLocked(bool locked)
     if (KToolBar::Private::s_locked != locked) {
         KToolBar::Private::s_locked = locked;
 
-        foreach (KMainWindow* mw, KMainWindow::memberList()) {
-            foreach (KToolBar* toolbar, mw->findChildren<KToolBar*>()) {
+        for (KMainWindow* mw: KMainWindow::memberList()) {
+            for (KToolBar* toolbar: mw->findChildren<KToolBar*>()) {
                 toolbar->d->setLocked(locked);
             }
         }
