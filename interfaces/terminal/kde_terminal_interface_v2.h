@@ -49,7 +49,10 @@ public:
    */
   virtual QString foregroundProcessName() = 0;
 
-
+  /**
+   * Returns the current working directory
+   */
+  virtual QString currentWorkingDirectory() const = 0;
 };
 
 Q_DECLARE_INTERFACE(TerminalInterfaceV2, "org.kde.TerminalInterfaceV2")
