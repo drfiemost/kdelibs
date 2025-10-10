@@ -239,7 +239,7 @@ private:
     KRockerGesturePrivate * const d;
 };
 
-inline uint qHash(const KRockerGesture &key, uint seed = 0)
+inline uint qHash(const KRockerGesture &key, uint seed = 0) noexcept
 {
     return qHash(key.hashable(), seed);
 }
