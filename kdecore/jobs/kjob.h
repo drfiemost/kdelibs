@@ -632,6 +632,7 @@ private:
     Q_DECLARE_PRIVATE(KJob)
 };
 
+Q_DECLARE_METATYPE(KJob::Unit)
 Q_DECLARE_OPERATORS_FOR_FLAGS( KJob::Capabilities )
 
 #endif
