@@ -347,14 +347,14 @@ public:
     bool isAutoDelete() const;
 
 Q_SIGNALS:
-#if !defined(Q_MOC_RUN) && !defined(DOXYGEN_SHOULD_SKIP_THIS) && !defined(IN_IDE_PARSER)
-private: // don't tell moc, doxygen or kdevelop, but those signals are in fact private
-#endif
+    // These signals must be connected from KIO::KCoreDirLister (among others),
+    // therefore they must be public.
+
     /**
      * Emitted when the job is finished, in any case. It is used to notify
      * observers that the job is terminated and that progress can be hidden.
      *
-     * This is a private signal, it can't be emitted directly by subclasses of
+     * @note: This is a private signal, it shouldn't be emitted directly by subclasses of
      * KJob, use emitResult() instead.
      *
      * In general, to be notified of a job's completion, client code should connect to result()
@@ -372,7 +372,7 @@ private: // don't tell moc, doxygen or kdevelop, but those signals are in fact p
     /**
      * Emitted when the job is suspended.
      *
-     * This is a private signal, it can't be emitted directly by subclasses of
+     * @note: This is a private signal, it shouldn't be emitted directly by subclasses of
      * KJob.
      *
      * @param job the job that emitted this signal
@@ -382,7 +382,7 @@ private: // don't tell moc, doxygen or kdevelop, but those signals are in fact p
     /**
      * Emitted when the job is resumed.
      *
-     * This is a private signal, it can't be emitted directly by subclasses of
+     * @note: This is a private signal, it shouldn't be emitted directly by subclasses of
      * KJob.
      *
      * @param job the job that emitted this signal
@@ -394,7 +394,7 @@ private: // don't tell moc, doxygen or kdevelop, but those signals are in fact p
      *
      * Use error to know if the job was finished with error.
      *
-     * This is a private signal, it can't be emitted directly by subclasses of
+     * @note: This is a private signal, it shouldn't be emitted directly by subclasses of
      * KJob, use emitResult() instead.
      *
      * Please connect to this signal instead of finished.
