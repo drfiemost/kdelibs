@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 #
 # Takes given zone.tab file, or looks for expected locations on the system,
@@ -18,7 +18,7 @@ import re
 
 cmdname = os.path.basename(sys.argv[0])
 def error (msg):
-    print >>sys.stderr, "%s: %s" % (cmdname, msg)
+    print("%s: %s" % (cmdname, msg), file=sys.stderr)
     sys.exit(1)
 
 system_zonetab_paths = [
@@ -26,7 +26,7 @@ system_zonetab_paths = [
 ]
 
 if len(sys.argv) not in (2, 3):
-    print >>sys.stderr, "usage: %s TIMEZONES_PATH [ZONETAB_PATH]" % cmdname
+    print("usage: %s TIMEZONES_PATH [ZONETAB_PATH]" % cmdname,file=sys.stderr)
     sys.exit(1)
 
 timezone_path = sys.argv[1]
@@ -38,7 +38,7 @@ if len(sys.argv) >= 3:
     zonetab_path = sys.argv[2]
     if not os.path.isfile(zonetab_path):
         error("zone.tab file '%s' does not exist" % zonetab_path)
-    print "using given zone.tab file at '%s'" % zonetab_path
+    print("using given zone.tab file at '%s'" % zonetab_path)
 else:
     for system_zonetab_path in system_zonetab_paths:
         if os.path.isfile(system_zonetab_path):
@@ -46,7 +46,7 @@ else:
             break
     if not zonetab_path:
         error("cannot fine zone.tab file at any of known system locations")
-    print "found system zone.tab file at '%s'" % zonetab_path
+    print("found system zone.tab file at '%s'" % zonetab_path)
 
 # Parse current timezones into dictionary zone->[comments].
 ifs = codecs.open(timezone_path, "r", "UTF-8")
@@ -106,8 +106,7 @@ for tzone, tzcomments in system_timezones.items():
 
 if num_new_tzones or num_new_tzcomments:
     tzlines = []
-    tzones = current_timezones.keys()
-    tzones.sort()
+    tzones = sorted(current_timezones)
     for tzone in tzones:
         tzlines.append("i18n(\"%s\");\n" % tzone);
         for tzcomment in current_timezones[tzone]:
@@ -117,6 +116,6 @@ if num_new_tzones or num_new_tzcomments:
     ofs.writelines(tzlines)
     ofs.close()
     num_new = num_new_tzones + num_new_tzcomments
-    print "added %d new timezones/comments to '%s'" % (num_new, timezone_path)
+    print("added %d new timezones/comments to '%s'" % (num_new, timezone_path))
 else:
-    print "no new timezones/comments to add"
+    print("no new timezones/comments to add")
