@@ -58,7 +58,6 @@ set(cmakeFiles
                FindLibraryWithDebug.cmake
                FindLinuxWirelesstools.cmake
                FindMsgfmt.cmake
-               FindMusicBrainz.cmake
                FindNetworkManager.cmake
                FindOggVorbis.cmake
                FindOpenEXR.cmake
