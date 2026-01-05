@@ -57,17 +57,6 @@ public:
   virtual ~KBugReport();
 
   /**
-   * The message body of the bug report
-   * @return The message body of the bug report.
-   */
-  QString messageBody() const;
-  
-  /**
-   * Sets the message body of the bug report.
-   */
-  void setMessageBody(const QString &messageBody);
-
-  /**
     * OK has been clicked
    */
   virtual void accept();
@@ -94,21 +83,6 @@ private:
    */
   Q_PRIVATE_SLOT(d, void _k_updateUrl())
 
-protected:
-  /**
-   * A complete copy of the bug report
-   * @return QString copy of the bug report.
-   */
-  QString text() const;
-  
-  /**
-   * Attempt to e-mail the bug report.
-   * @return true on success
-   */
-  bool sendBugReport();
-
-  virtual void closeEvent(QCloseEvent *e);
-  
 private:
   friend class KBugReportPrivate;
   KBugReportPrivate *const d;
